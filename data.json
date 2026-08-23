@@ -16,8 +16,37 @@
    "orcid": ""
   }
  ],
- "publikasi": [],
- "kegiatan": [],
+ "publikasi": [
+  {
+   "judul": "Utilization of realtime GSMaP satellite data for flood early warning in Bekasi watershed using UPerRRM",
+   "tahun": 2026,
+   "jenis": "jurnal",
+   "terbitan": "International Journal of Disaster Management",
+   "tingkat": "nasional",
+   "indeksasi": "sinta_1_2",
+   "doi": null,
+   "url": "https://doi.org/10.24815/ijdm.v9.i1.377",
+   "penulis": [
+    "Arlyn Aristo",
+    "Nurul Fajar Januriyadi"
+   ]
+  }
+ ],
+ "kegiatan": [
+  {
+   "judul": "Integrasi Data Satelit, Pemodelan Hidrologi, dan Machine Learning untuk Peringatan Dini Banjir JABODETABEK",
+   "tahun": 2026,
+   "kategori": "penelitian",
+   "tingkat": "nasional",
+   "skema": "PF — Penelitian Fundamental",
+   "kelompok": "Kemendiktisaintek / DPPM",
+   "mitra": "",
+   "penulis": [
+    "Arlyn Aristo",
+    "Nurul Fajar Januriyadi"
+   ]
+  }
+ ],
  "prestasi_agregat": [
   {
    "tahun": 2025,
