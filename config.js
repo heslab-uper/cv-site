@@ -16,5 +16,5 @@
    perlu diisi di sini.
    ===================================================================== */
 
-window.SB_URL = 'https://XXXXXXXX.supabase.co';
-window.SB_KEY = 'GANTI_DENGAN_PUBLISHABLE_KEY_ANDA';
+window.SB_URL = 'https://jkfgockdmnropqnfzytx.supabase.co';
+window.SB_KEY = 'sb_publishable_jfOWUqB1DE5jVHdUeBh5tA_TD-s6BnK';
