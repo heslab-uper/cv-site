@@ -1,0 +1,29 @@
+{
+ "prodi": "Teknik Sipil",
+ "institusi": "Universitas Pertamina",
+ "diperbarui": "23 August 2026",
+ "dosen": [
+  {
+   "nama": "Nurul Fajar Januriyadi",
+   "sinta_id": "6688736",
+   "scopus_id": "",
+   "orcid": ""
+  },
+  {
+   "nama": "Arlyn Aristo",
+   "sinta_id": "",
+   "scopus_id": "",
+   "orcid": ""
+  }
+ ],
+ "publikasi": [],
+ "kegiatan": [],
+ "prestasi_agregat": [
+  {
+   "tahun": 2025,
+   "tingkat": "nasional",
+   "bidang": "akademik",
+   "jumlah": 1
+  }
+ ]
+}
