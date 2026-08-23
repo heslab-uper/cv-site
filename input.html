@@ -66,6 +66,10 @@
     padding:3px 0;cursor:pointer}
   .rekan input{width:auto;margin:0}
 
+  .cek{display:flex;gap:8px;align-items:center;font-family:var(--sans);
+       font-size:14px;text-transform:none;letter-spacing:0;color:var(--ink);
+       cursor:pointer;padding:8px 0}
+  .cek input{width:auto;margin:0}
   .aksi{display:flex;align-items:center;gap:14px;margin-top:18px;flex-wrap:wrap}
   .btn{font-family:var(--sans);font-size:14px;font-weight:500;cursor:pointer;
     border-radius:2px;padding:9px 18px;border:1px solid var(--accent);
@@ -134,8 +138,8 @@
 //  ISI DUA BARIS INI dari Supabase > Project Settings > API keys
 //  Gunakan kunci ANON, bukan service_role.
 // =====================================================================
-const SUPABASE_URL = 'https://jkfgockdmnropqnfzytx.supabase.co';
-const SUPABASE_ANON_KEY = 'sb_publishable_jfOWUqB1DE5jVHdUeBh5tA_TD-s6BnK';
+const SUPABASE_URL = 'https://XXXXXXXX.supabase.co';
+const SUPABASE_ANON_KEY = 'GANTI_DENGAN_ANON_KEY_ANDA';
 // =====================================================================
 
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
@@ -168,7 +172,8 @@ const FORM = {
   publikasi: {
     judul:'Publikasi',
     hint:'Artikel jurnal, prosiding, buku, dan HKI. Isi DOI bila ada — itu yang mencegah entri ganda.',
-    peran:[['penulis_pertama','Penulis pertama'],['korespondensi','Korespondensi'],['anggota','Anggota']],
+    peran:[['penulis_pertama','Penulis pertama'],['anggota','Anggota']],
+    korespondensi:true,
     f:[
       {n:'judul', l:'Judul karya', t:'text', w:1, full:1},
       {n:'jenis', l:'Jenis', t:'select', w:1, o:[['jurnal','Artikel jurnal'],
@@ -331,9 +336,16 @@ function tampilForm(key){
     <form id="frm" class="grid">
       ${F.f.map(fieldHTML).join('')}
 
-      <div class="fld"><label for="f_peran">Peran saya <span class="req">*</span></label>
+      <div class="fld"><label for="f_peran">Posisi saya <span class="req">*</span></label>
         <select id="f_peran" required>${F.peran.map(([v,l])=>
           `<option value="${v}">${l}</option>`).join('')}</select></div>
+
+      ${F.korespondensi ? `
+      <div class="fld"><label>Penulis korespondensi</label>
+        <label class="cek"><input type="checkbox" id="f_koresponden">
+          Saya penulis korespondensi</label>
+        <div class="sub">Boleh dicentang meski Anda juga penulis pertama.</div>
+      </div>` : ''}
 
       <div class="fld"><label for="f_bukti">Berkas bukti — maks 1 MB</label>
         <input id="f_bukti" type="file" accept=".pdf,.jpg,.jpeg,.png">
@@ -401,20 +413,20 @@ function pasangSkema(){
 async function cariDuplikat(kategori, judul, doi){
   if(doi && doi.trim()){
     const { data } = await sb.from('karya')
-      .select('id,judul,tahun,status,karya_penulis(dosen(nama))')
+      .select('id,judul,tahun,status,karya_penulis(peran, korespondensi, dosen(nama))')
       .ilike('doi', doi.trim());
     if(data && data.length) return { sebab:'DOI yang sama', karya:data[0] };
   }
   const j = norm(judul);
   if(j.length < 12) return null;
   const { data } = await sb.from('karya')
-    .select('id,judul,tahun,status,judul_norm,karya_penulis(dosen(nama))')
+    .select('id,judul,tahun,status,judul_norm,karya_penulis(peran, korespondensi, dosen(nama))')
     .eq('kategori', kategori);
   const cocok = (data||[]).find(k => k.judul_norm === j);
   return cocok ? { sebab:'judul yang identik', karya:cocok } : null;
 }
 
-function tampilDuplikat(d, peran){
+function tampilDuplikat(d, peran, koresp){
   const nama = (d.karya.karya_penulis||[]).map(p=>p.dosen?.nama).filter(Boolean);
   document.getElementById('dupBox').innerHTML = `
     <div class="dup">
@@ -437,7 +449,8 @@ function tampilDuplikat(d, peran){
     const dm = document.getElementById('dm');
     dm.className='msg'; dm.textContent='Mendaftarkan…';
     const { error } = await sb.from('karya_penulis').insert({
-      karya_id: d.karya.id, dosen_id: saya.id, peran, ditambahkan_sendiri: true });
+      karya_id: d.karya.id, dosen_id: saya.id, peran,
+      korespondensi: koresp, ditambahkan_sendiri: true });
     if(error){
       dm.className='msg err';
       dm.textContent = error.code === '23505'
@@ -466,6 +479,7 @@ async function simpan(key){
   if(key === 'publikasi') isi.kategori = 'publikasi';
 
   const peran  = document.getElementById('f_peran').value;
+  const koresp = document.getElementById('f_koresponden')?.checked || false;
   const berkas = document.getElementById('f_bukti').files[0];
 
   if(key === 'kegiatan'){
@@ -493,7 +507,7 @@ async function simpan(key){
     const dup = await cariDuplikat(isi.kategori, isi.judul, isi.doi);
     if(dup){
       sub.disabled = false; fm.textContent = '';
-      tampilDuplikat(dup, peran);
+      tampilDuplikat(dup, peran, koresp);
       document.querySelector('.dup').scrollIntoView({behavior:'smooth', block:'center'});
       return;
     }
@@ -516,8 +530,10 @@ async function simpan(key){
     if(error) throw error;
 
     const rekan = [...document.querySelectorAll('.rekan input:checked')].map(c=>c.value);
-    const baris = [{ karya_id:k.id, dosen_id:saya.id, peran, ditambahkan_sendiri:false },
-      ...rekan.map(id=>({ karya_id:k.id, dosen_id:id, peran:'anggota', ditambahkan_sendiri:false }))];
+    const baris = [
+      { karya_id:k.id, dosen_id:saya.id, peran, korespondensi:koresp, ditambahkan_sendiri:false },
+      ...rekan.map(id=>({ karya_id:k.id, dosen_id:id, peran:'anggota',
+                          korespondensi:false, ditambahkan_sendiri:false }))];
     const { error:eP } = await sb.from('karya_penulis').insert(baris);
     if(eP) throw eP;
 
@@ -539,8 +555,21 @@ async function simpan(key){
 // ---------------------------------------------------------------------
 const namaSkema = kode => refSkema.find(s=>s.kode===kode)?.nama || '';
 
+// Nama penulis beserta penanda posisi dan korespondensi.
+// Keduanya berdiri sendiri: seorang dosen bisa sekaligus penulis
+// pertama dan penulis korespondensi.
+const daftarPenulis = kp => (kp||[]).map(p=>{
+  const n = p.dosen?.nama; if(!n) return null;
+  const tanda = [
+    p.peran==='penulis_pertama' ? 'penulis pertama' : null,
+    p.peran==='ketua'           ? 'ketua'           : null,
+    p.korespondensi             ? 'korespondensi'   : null,
+  ].filter(Boolean).join(', ');
+  return tanda ? `${n} (${tanda})` : n;
+}).filter(Boolean);
+
 function barisKarya(k, aksi=''){
-  const nama = (k.karya_penulis||[]).map(p=>p.dosen?.nama).filter(Boolean);
+  const nama = daftarPenulis(k.karya_penulis);
   const meta = [k.tahun, rapi(k.kategori), rapi(k.tingkat),
                 k.nama_terbitan, namaSkema(k.skema_kode), k.mitra_institusi].filter(Boolean);
   return `<div class="rec" data-s="${k.status}">
@@ -562,7 +591,7 @@ async function muatKaryaSaya(wadahId, batas){
   const ids = (milik||[]).map(m=>m.karya_id);
   if(!ids.length){ box.className='kosong'; box.textContent='Belum ada entri.'; return; }
 
-  let q = sb.from('karya').select('*, karya_penulis(dosen(nama))')
+  let q = sb.from('karya').select('*, karya_penulis(peran, korespondensi, dosen(nama))')
     .in('id', ids).order('dibuat_pada',{ascending:false});
   if(batas) q = q.limit(batas);
   const { data, error } = await q;
@@ -600,7 +629,7 @@ async function karyaProdi(){
     <div id="dprodi" class="kosong">Memuat…</div></div>`;
 
   const { data } = await sb.from('karya')
-    .select('*, karya_penulis(dosen_id, dosen(nama))')
+    .select('*, karya_penulis(dosen_id, peran, korespondensi, dosen(nama))')
     .order('tahun',{ascending:false}).limit(300);
   const semua = data || [];
 
@@ -620,12 +649,15 @@ async function karyaProdi(){
     box.querySelectorAll('[data-k]').forEach(b=>{
       b.onclick = async()=>{
         const opsi = b.dataset.kat === 'publikasi'
-          ? 'penulis_pertama, korespondensi, atau anggota'
+          ? 'penulis_pertama atau anggota'
           : 'ketua atau anggota';
-        const p = prompt(`Peran Anda pada karya ini (${opsi}):`, 'anggota');
+        const p = prompt(`Posisi Anda pada karya ini (${opsi}):`, 'anggota');
         if(!p) return;
+        const kor = b.dataset.kat === 'publikasi'
+          && confirm('Apakah Anda juga penulis korespondensi pada karya ini?');
         const { error } = await sb.from('karya_penulis').insert({
-          karya_id:b.dataset.k, dosen_id:saya.id, peran:p.trim(), ditambahkan_sendiri:true });
+          karya_id:b.dataset.k, dosen_id:saya.id, peran:p.trim(),
+          korespondensi:kor, ditambahkan_sendiri:true });
         alert(error ? error.message : 'Terdaftar. Admin prodi akan meninjau penambahan ini.');
         if(!error) karyaProdi();
       };
@@ -649,7 +681,7 @@ async function tampilVerifikasi(){
       <div id="kl" class="kosong">Memuat…</div></div>`;
 
   const { data } = await sb.from('karya')
-    .select('*, karya_penulis(dosen(nama))')
+    .select('*, karya_penulis(peran, korespondensi, dosen(nama))')
     .eq('status','diajukan').order('dibuat_pada');
   const box = document.getElementById('vf');
   if(!data?.length){ box.className='kosong'; box.textContent='Tidak ada entri yang menunggu.'; }
@@ -681,7 +713,7 @@ async function tampilVerifikasi(){
   }
 
   const { data:klaim } = await sb.from('karya_penulis')
-    .select('karya_id, dosen_id, peran, ditambahkan_pada, dosen(nama), karya(judul,tahun)')
+    .select('karya_id, dosen_id, peran, korespondensi, ditambahkan_pada, dosen(nama), karya(judul,tahun)')
     .eq('ditambahkan_sendiri', true).order('ditambahkan_pada',{ascending:false});
   const kb = document.getElementById('kl');
   if(!klaim?.length){ kb.className='kosong'; kb.textContent='Belum ada klaim.'; return; }
@@ -689,7 +721,8 @@ async function tampilVerifikasi(){
   kb.innerHTML = klaim.map(c=>`<div class="rec" data-s="diajukan">
     <div class="spine"></div>
     <div class="rec-b">
-      <div class="rec-j">${esc(c.dosen?.nama||'')} — ${esc(rapi(c.peran))}</div>
+      <div class="rec-j">${esc(c.dosen?.nama||'')} — ${esc(rapi(c.peran))}${
+      c.korespondensi ? ', korespondensi' : ''}</div>
       <div class="rec-m"><span>${esc(c.karya?.judul||'')}</span>
         <span>${c.karya?.tahun||''}</span></div>
     </div>

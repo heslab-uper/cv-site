@@ -12,6 +12,7 @@
   :root{
     --bg:#EEF0ED; --panel:#fff; --ink:#161E26; --muted:#616C76;
     --line:#D8DDD8; --line-soft:#E8EBE7; --accent:#0E534C; --accent-soft:#E2ECEA;
+    --c1:#0E534C; --c2:#4A8C84; --c3:#A9C6C1; --c4:#8A5A00;
     --sans:'IBM Plex Sans',system-ui,sans-serif;
     --mono:'IBM Plex Mono',ui-monospace,monospace;
     --serif:'IBM Plex Serif',Georgia,serif;
@@ -22,13 +23,25 @@
   .wrap{max-width:1020px;margin:0 auto;padding:0 20px 90px}
   a{color:var(--accent)}
 
+  /* ---------- kop ---------- */
   .hero{background:var(--panel);border-bottom:1px solid var(--line)}
   .hero-in{max-width:1020px;margin:0 auto;padding:44px 20px 38px}
+  .hero-atas{display:flex;gap:24px;align-items:flex-start;flex-wrap:wrap}
+  .hero-teks{flex:1;min-width:260px}
   .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.14em;
            text-transform:uppercase;color:var(--accent)}
   h1{font-family:var(--serif);font-size:clamp(26px,4.4vw,38px);font-weight:600;
      letter-spacing:-.015em;margin:8px 0 0;line-height:1.15}
   .inst{color:var(--muted);font-size:15px;margin-top:6px}
+
+  /* tombol masuk — pintu satu-satunya bagi dosen */
+  .cta{display:inline-flex;align-items:center;gap:9px;text-decoration:none;
+       background:var(--accent);color:#fff;font-weight:500;font-size:14.5px;
+       padding:11px 20px;border-radius:2px;border:1px solid var(--accent);
+       white-space:nowrap;transition:background .15s}
+  .cta:hover{background:#0a423d}
+  .cta span{font-family:var(--mono);font-size:16px;line-height:1}
+  .cta-cat{font-size:12.5px;color:var(--muted);margin-top:8px;max-width:230px;line-height:1.4}
 
   /* angka utama dibaca sebagai satu baris data, bukan kartu terpisah */
   .angka{display:flex;flex-wrap:wrap;gap:0;margin-top:34px;border-top:1px solid var(--line)}
@@ -39,6 +52,7 @@
   .angka span{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;
               text-transform:uppercase;color:var(--muted);display:block;margin-top:7px}
 
+  /* ---------- kendali ---------- */
   .bar{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin:34px 0 4px}
   .bar h2{font-family:var(--serif);font-size:20px;font-weight:600;margin:0;flex:1}
   select,input[type=search]{font-family:var(--sans);font-size:13.5px;padding:6px 10px;
@@ -46,6 +60,21 @@
   input[type=search]{min-width:200px}
   :focus-visible{outline:2px solid var(--accent);outline-offset:1px}
 
+  /* ---------- grafik ---------- */
+  .grafik{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+          gap:16px;margin-top:14px}
+  .kartu{background:var(--panel);border:1px solid var(--line);border-radius:2px;padding:18px 20px}
+  .kartu h3{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
+            color:var(--muted);font-weight:400;margin:0 0 14px}
+  .kartu svg{display:block;width:100%;height:auto}
+  .legenda{display:flex;gap:16px;flex-wrap:wrap;margin-top:12px;
+           font-family:var(--mono);font-size:10.5px;letter-spacing:.05em;color:var(--muted)}
+  .legenda i{display:inline-block;width:9px;height:9px;border-radius:1px;margin-right:6px}
+  .gsumbu{font-family:var(--mono);font-size:10px;fill:var(--muted)}
+  .ggaris{stroke:var(--line-soft);stroke-width:1}
+  .gnilai{font-family:var(--mono);font-size:10px;fill:var(--muted)}
+
+  /* ---------- entri ---------- */
   .list{background:var(--panel);border:1px solid var(--line);border-radius:2px;
         padding:4px 22px;margin-top:14px}
   .e{display:flex;gap:16px;padding:15px 0;border-top:1px solid var(--line-soft)}
@@ -74,6 +103,7 @@
 
   footer{margin-top:52px;padding-top:20px;border-top:1px solid var(--line);
          font-size:12.5px;color:var(--muted)}
+  footer a{font-weight:500}
   @media(max-width:560px){.angka div{flex-basis:50%;border-bottom:1px solid var(--line-soft)}}
 </style>
 </head>
@@ -81,9 +111,17 @@
 
 <header class="hero">
   <div class="hero-in">
-    <div class="eyebrow">Kinerja program studi</div>
-    <h1 id="hProdi">Memuat…</h1>
-    <div class="inst" id="hInst"></div>
+    <div class="hero-atas">
+      <div class="hero-teks">
+        <div class="eyebrow">Kinerja program studi</div>
+        <h1 id="hProdi">Memuat…</h1>
+        <div class="inst" id="hInst"></div>
+      </div>
+      <div>
+        <a class="cta" href="input.html">Input data <span>&rarr;</span></a>
+        <div class="cta-cat">Khusus dosen prodi. Masuk dengan email kampus yang terdaftar.</div>
+      </div>
+    </div>
     <div class="angka" id="angka"></div>
   </div>
 </header>
@@ -98,7 +136,7 @@ const rapi = s => s ? String(s).replace(/_/g,' ') : '';
 
 let D = null;
 
-fetch('data.json')
+fetch('data.json?v=' + Date.now())
   .then(r => { if(!r.ok) throw new Error(r.status); return r.json(); })
   .then(d => { D = d; render(); })
   .catch(() => {
@@ -108,6 +146,127 @@ fetch('data.json')
        Jalankan <code>python bangun.py</code> lalu unggah hasilnya.</p>`;
   });
 
+// =====================================================================
+//  Grafik batang bertumpuk, digambar langsung sebagai SVG.
+//  Tanpa pustaka luar supaya halaman tetap satu berkas dan tidak
+//  bergantung pada CDN yang bisa berubah.
+// =====================================================================
+function skalaRapi(maks){
+  if(maks <= 4) return {atas:4, langkah:1};
+  const kasar = maks / 4;
+  const pangkat = Math.pow(10, Math.floor(Math.log10(kasar)));
+  const langkah = [1,2,2.5,5,10].map(x=>x*pangkat).find(x=>x>=kasar) || 10*pangkat;
+  return {atas: Math.ceil(maks/langkah)*langkah, langkah};
+}
+
+function chartBatang(label, seri){
+  const W=560, H=230, ml=38, mr=10, mt=12, mb=34;
+  const iw=W-ml-mr, ih=H-mt-mb;
+  const total = label.map((_,i)=> seri.reduce((a,s)=>a+(s.nilai[i]||0),0));
+  const maks = Math.max(...total, 0);
+  if(!maks) return '';
+  const {atas, langkah} = skalaRapi(maks);
+  const y = v => mt + ih - (v/atas)*ih;
+
+  let svg = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Grafik batang">`;
+
+  // garis bantu dan sumbu nilai
+  for(let v=0; v<=atas; v+=langkah){
+    svg += `<line class="ggaris" x1="${ml}" y1="${y(v)}" x2="${W-mr}" y2="${y(v)}"/>`
+        +  `<text class="gnilai" x="${ml-8}" y="${y(v)+3.5}" text-anchor="end">${v}</text>`;
+  }
+
+  const pita = iw/label.length;
+  const lebar = Math.min(52, pita*0.5);
+
+  label.forEach((l,i)=>{
+    const cx = ml + pita*i + pita/2;
+    let dasar = 0;
+    seri.forEach(s=>{
+      const v = s.nilai[i]||0;
+      if(!v) return;
+      const t = y(dasar+v), b = y(dasar);
+      svg += `<rect x="${cx-lebar/2}" y="${t}" width="${lebar}" height="${Math.max(b-t,1)}"
+              fill="${s.warna}" rx="1"><title>${esc(s.nama)} ${l}: ${v}</title></rect>`;
+      dasar += v;
+    });
+    if(total[i]) svg += `<text class="gnilai" x="${cx}" y="${y(total[i])-6}"
+                         text-anchor="middle">${total[i]}</text>`;
+    svg += `<text class="gsumbu" x="${cx}" y="${H-14}" text-anchor="middle">${esc(l)}</text>`;
+  });
+
+  svg += `<line class="ggaris" x1="${ml}" y1="${y(0)}" x2="${W-mr}" y2="${y(0)}"/></svg>`;
+
+  const legenda = seri.filter(s=>s.nilai.some(v=>v>0))
+    .map(s=>`<span><i style="background:${s.warna}"></i>${esc(s.nama)}</span>`).join('');
+  return svg + `<div class="legenda">${legenda}</div>`;
+}
+
+function kartuGrafik(judul, isi){
+  return `<div class="kartu"><h3>${esc(judul)}</h3>${
+    isi || '<p class="kosong" style="padding:8px 0">Belum ada data terverifikasi.</p>'}</div>`;
+}
+
+function bangunGrafik(){
+  const tahun = [...new Set([
+    ...D.publikasi.map(p=>p.tahun),
+    ...D.kegiatan.map(k=>k.tahun),
+    ...(D.prestasi_agregat||[]).map(p=>p.tahun),
+  ])].sort((a,b)=>a-b).slice(-6).map(String);
+
+  if(!tahun.length) return '';
+
+  const hitung = (arr, cocok) =>
+    tahun.map(t => arr.filter(x => String(x.tahun)===t && cocok(x)).length);
+
+  const gPub = chartBatang(tahun, [
+    {nama:'Internasional', warna:'var(--c1)', nilai:hitung(D.publikasi, p=>p.tingkat==='internasional')},
+    {nama:'Nasional',      warna:'var(--c2)', nilai:hitung(D.publikasi, p=>p.tingkat==='nasional')},
+    {nama:'Wilayah/lokal', warna:'var(--c3)', nilai:hitung(D.publikasi, p=>p.tingkat==='wilayah_lokal')},
+  ]);
+
+  const gKeg = chartBatang(tahun, [
+    {nama:'Penelitian', warna:'var(--c1)', nilai:hitung(D.kegiatan, k=>k.kategori==='penelitian')},
+    {nama:'Pengabdian', warna:'var(--c4)', nilai:hitung(D.kegiatan, k=>k.kategori==='pkm')},
+  ]);
+
+  const pres = D.prestasi_agregat || [];
+  const jml = (t,g) => pres.filter(p=>String(p.tahun)===t && p.tingkat===g)
+                           .reduce((a,b)=>a+b.jumlah,0);
+  const gPres = chartBatang(tahun, [
+    {nama:'Internasional', warna:'var(--c1)', nilai:tahun.map(t=>jml(t,'internasional'))},
+    {nama:'Nasional',      warna:'var(--c2)', nilai:tahun.map(t=>jml(t,'nasional'))},
+    {nama:'Wilayah/lokal', warna:'var(--c3)', nilai:tahun.map(t=>jml(t,'wilayah_lokal'))},
+  ]);
+
+  // sumber pendanaan — batang mendatar, kelompok bisa banyak
+  const kel = {};
+  D.kegiatan.forEach(k=>{ if(k.kelompok) kel[k.kelompok] = (kel[k.kelompok]||0)+1; });
+  const urut = Object.entries(kel).sort((a,b)=>b[1]-a[1]).slice(0,6);
+  let gDana = '';
+  if(urut.length){
+    const maks = Math.max(...urut.map(x=>x[1]));
+    gDana = `<div>${urut.map(([nama,n])=>`
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:9px">
+        <div style="flex:0 0 34%;font-size:12.5px;color:var(--muted);line-height:1.3">${esc(nama)}</div>
+        <div style="flex:1;background:var(--line-soft);height:16px;border-radius:1px">
+          <div style="width:${(n/maks)*100}%;height:100%;background:var(--c1);border-radius:1px"></div>
+        </div>
+        <div style="font-family:var(--mono);font-size:12px;width:20px;text-align:right">${n}</div>
+      </div>`).join('')}</div>`;
+  }
+
+  return `
+    <div class="bar"><h2>Tren</h2></div>
+    <div class="grafik">
+      ${kartuGrafik('Publikasi per tahun menurut tingkat', gPub)}
+      ${kartuGrafik('Penelitian & pengabdian per tahun', gKeg)}
+      ${kartuGrafik('Prestasi mahasiswa per tahun', gPres)}
+      ${kartuGrafik('Sumber pendanaan kegiatan', gDana)}
+    </div>`;
+}
+
+// =====================================================================
 function render(){
   document.getElementById('hProdi').textContent = D.prodi;
   document.getElementById('hInst').textContent = D.institusi || '';
@@ -128,6 +287,8 @@ function render(){
   const kelompok = [...new Set(D.kegiatan.map(k=>k.kelompok).filter(Boolean))].sort();
 
   document.getElementById('isi').innerHTML = `
+    ${bangunGrafik()}
+
     <section>
       <div class="bar">
         <h2>Publikasi</h2>
@@ -175,6 +336,7 @@ function render(){
       Diperbarui ${esc(D.diperbarui)}. Halaman ini hanya menampilkan data yang
       telah diverifikasi program studi. Beban kerja dosen, nominal pendanaan,
       dan identitas mahasiswa tidak dipublikasikan.
+      <br><br>Dosen prodi dapat menambahkan karya melalui <a href="input.html">halaman input</a>.
     </footer>`;
 
   ['fTahun','fTingkat','fCari'].forEach(id=>{
