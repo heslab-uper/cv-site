@@ -178,6 +178,11 @@
 
 <script>
 const N = n => new Intl.NumberFormat('id-ID').format(n);
+// Alamat dasar profil luar; dapat diubah lewat config.js tanpa
+// menyentuh berkas ini. Nilai cadangan dipakai bila config.js lama.
+const SINTA  = window.PROFIL_SINTA  || 'https://sinta.kemdiktisaintek.go.id/authors/profile/';
+const SCOPUS = window.PROFIL_SCOPUS || 'https://www.scopus.com/pages/authors/';
+const ORCID  = window.PROFIL_ORCID  || 'https://orcid.org/';
 const esc = s => String(s ?? '').replace(/[&<>"']/g,c=>
   ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const rapi = s => s ? String(s).replace(/_/g,' ') : '';
@@ -398,9 +403,9 @@ function render(){
       <div class="list"><div class="dsn">${
         D.dosen.map(d=>`<div><b><a href="dosen.html?d=${
           encodeURIComponent(d.slug)}" style="text-decoration:none">${esc(d.nama)}</a></b>
-          ${d.sinta_id?`<a href="https://sinta.kemdikbud.go.id/authors/profile/${esc(d.sinta_id)}" rel="noopener">SINTA</a>`:''}
-          ${d.scopus_id?`<a href="https://www.scopus.com/pages/authors/${esc(d.scopus_id)}" rel="noopener">Scopus</a>`:''}
-          ${d.orcid?`<a href="https://orcid.org/${esc(d.orcid)}" rel="noopener">ORCID</a>`:''}
+          ${d.sinta_id?`<a href="${SINTA}${esc(d.sinta_id)}" rel="noopener">SINTA</a>`:''}
+          ${d.scopus_id?`<a href="${SCOPUS}${esc(d.scopus_id)}" rel="noopener">Scopus</a>`:''}
+          ${d.orcid?`<a href="${ORCID}${esc(d.orcid)}" rel="noopener">ORCID</a>`:''}
         </div>`).join('')}</div></div>
     </section>
 

@@ -100,6 +100,11 @@
 <main class="wrap" id="isi"></main>
 
 <script>
+// Alamat dasar profil luar; dapat diubah lewat config.js tanpa
+// menyentuh berkas ini. Nilai cadangan dipakai bila config.js lama.
+const SINTA  = window.PROFIL_SINTA  || 'https://sinta.kemdiktisaintek.go.id/authors/profile/';
+const SCOPUS = window.PROFIL_SCOPUS || 'https://www.scopus.com/pages/authors/';
+const ORCID  = window.PROFIL_ORCID  || 'https://orcid.org/';
 const esc = s => String(s ?? '').replace(/[&<>"']/g,c=>
   ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const rapi = s => s ? String(s).replace(/_/g,' ') : '';
@@ -154,9 +159,9 @@ function render(D){
   const totalPres = pres.reduce((a,b)=>a+b.jumlah, 0);
 
   document.getElementById('hTautan').innerHTML = [
-    dosen.sinta_id  && `<a href="https://sinta.kemdikbud.go.id/authors/profile/${esc(dosen.sinta_id)}" rel="noopener">SINTA</a>`,
-    dosen.scopus_id && `<a href="https://www.scopus.com/pages/authors/${esc(dosen.scopus_id)}" rel="noopener">Scopus</a>`,
-    dosen.orcid     && `<a href="https://orcid.org/${esc(dosen.orcid)}" rel="noopener">ORCID</a>`,
+    dosen.sinta_id  && `<a href="${SINTA}${esc(dosen.sinta_id)}" rel="noopener">SINTA</a>`,
+    dosen.scopus_id && `<a href="${SCOPUS}${esc(dosen.scopus_id)}" rel="noopener">Scopus</a>`,
+    dosen.orcid     && `<a href="${ORCID}${esc(dosen.orcid)}" rel="noopener">ORCID</a>`,
   ].filter(Boolean).join('');
 
   const utama = pub.filter(p => {
