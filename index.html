@@ -398,8 +398,8 @@ function render(){
       <div class="list"><div class="dsn">${
         D.dosen.map(d=>`<div><b><a href="dosen.html?d=${
           encodeURIComponent(d.slug)}" style="text-decoration:none">${esc(d.nama)}</a></b>
-          ${d.sinta_id?`<a href="https://sinta.kemdikbud.go.id/authors/profile/${esc(d.sinta_id)}" rel="noopener">SINTA</a>`:''}
-          ${d.scopus_id?`<a href="https://www.scopus.com/authid/detail.uri?authorId=${esc(d.scopus_id)}" rel="noopener">Scopus</a>`:''}
+          ${d.sinta_id?`<a href="https://sinta.kemdiktisaintek.go.id/authors/profile/${esc(d.sinta_id)}" rel="noopener">SINTA</a>`:''}
+          ${d.scopus_id?`<a href="https://www.scopus.com/pages/authors/${esc(d.scopus_id)}" rel="noopener">Scopus</a>`:''}
           ${d.orcid?`<a href="https://orcid.org/${esc(d.orcid)}" rel="noopener">ORCID</a>`:''}
         </div>`).join('')}</div></div>
     </section>
