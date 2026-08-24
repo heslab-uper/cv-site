@@ -197,6 +197,8 @@ function hitung(){
       penelitian:keg.filter(k=>k.kategori==='penelitian' && mine(k.penulis)).length,
       pkm:keg.filter(k=>k.kategori==='pkm' && mine(k.penulis)).length,
       prestasi:presDsn.filter(p=>p.slug===d.slug).reduce((a,b)=>a+b.jumlah,0),
+      mhs: [...pubD, ...keg.filter(k=>mine(k.penulis))]
+             .reduce((a,k)=>a+(k.mahasiswa||0), 0),
     };
   });
   baris.forEach(b=> b.total = b.publikasi + b.penelitian + b.pkm);
@@ -264,6 +266,11 @@ function render(){
           kelompokkan(H.keg.filter(k=>k.kategori==='pkm'), k=>k.skema||'tidak tercatat'))}
       ${kartuRinci('Kegiatan menurut sumber dana',
           kelompokkan(H.keg, k=>k.kelompok||'tidak tercatat'))}
+      ${kartuRinci('Keterlibatan mahasiswa menurut kategori',
+          [...H.pub, ...H.keg].reduce((m,x)=>{
+            if(!x.mahasiswa) return m;
+            const k = x.kategori==='pkm' ? 'pengabdian' : x.kategori;
+            m[k] = (m[k]||0) + x.mahasiswa; return m; }, {}))}
       ${kartuRinci('Prestasi mahasiswa menurut tingkat',
           H.pres.reduce((m,r)=>{ const k=rapi(r.tingkat);
             m[k]=(m[k]||0)+r.jumlah; return m; }, {}))}
@@ -287,6 +294,7 @@ function render(){
 function tabelMatriks(H){
   const kol = [['publikasi','Publikasi'],['utama','Penulis utama'],
                ['penelitian','Penelitian'],['pkm','Pengabdian'],
+               ['mhs','Keterlibatan mhs'],
                ['prestasi','Prestasi bimbingan'],['total','Total karya']];
   const maks = {};
   kol.forEach(([k])=> maks[k] = Math.max(1, ...H.baris.map(b=>b[k])));

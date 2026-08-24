@@ -66,6 +66,16 @@
     padding:3px 0;cursor:pointer}
   .rekan input{width:auto;margin:0}
 
+  .mhs-baris{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  .mhs-baris input{flex:1;min-width:110px}
+  .mhs-baris input.nim{flex:0 0 130px}
+  .mhs-daftar{margin-top:9px}
+  .mhs-item{display:flex;gap:10px;align-items:center;padding:6px 0;
+            border-top:1px solid var(--line-soft);font-size:13.5px}
+  .mhs-item:first-child{border-top:0}
+  .mhs-item .n{flex:1}
+  .mhs-item .i{font-family:var(--mono);font-size:12px;color:var(--muted);
+               flex:0 0 120px}
   .cek{display:flex;gap:8px;align-items:center;font-family:var(--sans);
        font-size:14px;text-transform:none;letter-spacing:0;color:var(--ink);
        cursor:pointer;padding:8px 0}
@@ -189,6 +199,10 @@ const FORM = {
         ['wos','Web of Science'],['sinta_1_2','SINTA 1–2'],['sinta_3_4','SINTA 3–4'],
         ['sinta_5_6','SINTA 5–6'],['tidak_terindeks','Tidak terindeks']]},
       {n:'doi', l:'DOI', t:'text', ph:'10.1016/j.jhydrol.2025.132000'},
+      {n:'mitra_institusi', l:'Institusi mitra', t:'text',
+        sub:'Isi bila ada penulis atau pelaksana dari institusi lain'},
+      {n:'mitra_tingkat', l:'Tingkat kerja sama', t:'select', o:TINGKAT},
+      {n:'mitra_negara', l:'Negara mitra', t:'text', ph:'Indonesia / Malaysia'},
       {n:'url', l:'Tautan', t:'url', full:1, ph:'https://'},
     ]
   },
@@ -207,7 +221,8 @@ const FORM = {
         sub:'Contoh: DPPM Kemendiktisaintek, LPPM Universitas, PT ABC'},
       {n:'besaran_dana', l:'Besaran dana (Rp)', t:'number', ph:'25000000'},
       {n:'mitra_institusi', l:'Institusi mitra', t:'text',
-        sub:'Isi bila ada kerja sama dengan perguruan tinggi atau lembaga lain'},
+        sub:'Isi bila ada penulis atau pelaksana dari institusi lain'},
+      {n:'mitra_tingkat', l:'Tingkat kerja sama', t:'select', o:TINGKAT},
       {n:'mitra_negara', l:'Negara mitra', t:'text', ph:'Indonesia / Malaysia'},
       {n:'keterangan', l:'Keterangan tambahan', t:'text', full:1,
         sub:'Wajib diisi bila memilih skema "lainnya": tuliskan nama skema sebenarnya'},
@@ -354,6 +369,22 @@ function tampilForm(key){
         <div class="sub">Unggah hanya halaman yang menunjukkan judul, nama, dan tahun.
         Tutupi NIK, nomor rekening, dan tanda tangan.</div></div>
 
+      <div class="fld full"><label>Mahasiswa yang terlibat</label>
+        <div class="mhs-baris">
+          <input class="nim" id="mhs_nim" type="text" placeholder="NIM">
+          <input id="mhs_nama" type="text" placeholder="Nama mahasiswa">
+          <select id="mhs_peran" style="flex:0 0 130px">
+            <option value="anggota">Anggota</option>
+            <option value="penulis">Penulis</option>
+            <option value="ketua_tim">Ketua tim</option>
+          </select>
+          <button type="button" class="btn ghost sm" id="mhs_tambah">Tambah</button>
+        </div>
+        <div class="mhs-daftar" id="mhs_daftar"></div>
+        <div class="sub">Nama dan NIM tidak dipublikasikan di situs —
+          halaman publik hanya menampilkan jumlahnya.</div>
+      </div>
+
       <div class="fld full"><label>Penulis lain dari prodi ini</label>
         <div class="rekan">${dosenList.filter(d=>d.id!==saya.id).map(d=>
           `<label><input type="checkbox" value="${d.id}"> ${esc(d.nama)}</label>`).join('')
@@ -371,8 +402,49 @@ function tampilForm(key){
     <div id="daftar" class="kosong">Memuat…</div></div>`;
 
   if(key === 'kegiatan') pasangSkema();
+  pasangMahasiswa();
   document.getElementById('frm').onsubmit = e=>{ e.preventDefault(); simpan(key); };
   muatKaryaSaya('daftar', 6);
+}
+
+// Daftar mahasiswa disusun di memori dulu, baru disimpan bersama karya.
+// Ini mencegah baris mahasiswa yatim bila penyimpanan karya gagal.
+let mhsSementara = [];
+
+function pasangMahasiswa(){
+  mhsSementara = [];
+  const nim = document.getElementById('mhs_nim');
+  const nama = document.getElementById('mhs_nama');
+  const peran = document.getElementById('mhs_peran');
+  const btn = document.getElementById('mhs_tambah');
+  if(!btn) return;
+
+  const gambar = ()=>{
+    const w = document.getElementById('mhs_daftar');
+    w.innerHTML = mhsSementara.map((m,i)=>`
+      <div class="mhs-item">
+        <span class="i">${esc(m.nim)}</span>
+        <span class="n">${esc(m.nama)}</span>
+        <span class="tag">${rapi(m.peran)}</span>
+        <button type="button" class="btn danger sm" data-h="${i}">Hapus</button>
+      </div>`).join('');
+    w.querySelectorAll('[data-h]').forEach(b=>{
+      b.onclick = ()=>{ mhsSementara.splice(+b.dataset.h,1); gambar(); };
+    });
+  };
+
+  const tambah = ()=>{
+    const n = nim.value.trim(), m = nama.value.trim();
+    if(!n || !m){ alert('Isi NIM dan nama mahasiswa lebih dulu.'); return; }
+    if(mhsSementara.some(x=>x.nim===n)){ alert('NIM ini sudah ada di daftar.'); return; }
+    mhsSementara.push({nim:n, nama:m, peran:peran.value});
+    nim.value=''; nama.value=''; nim.focus(); gambar();
+  };
+
+  btn.onclick = tambah;
+  [nim,nama].forEach(el=> el.onkeydown = e=>{
+    if(e.key==='Enter'){ e.preventDefault(); tambah(); } });
+  gambar();
 }
 
 // Dropdown bertingkat: kelompok → skema, tersaring juga oleh jenis kegiatan
@@ -496,6 +568,11 @@ async function simpan(key){
       return;
     }
   }
+  if(isi.mitra_institusi && !isi.mitra_tingkat){
+    fm.className='msg err';
+    fm.textContent='Institusi mitra sudah diisi — pilih juga tingkat kerja samanya.';
+    return;
+  }
   if(berkas && berkas.size > 1024*1024){
     fm.className='msg err'; fm.textContent='Berkas melebihi 1 MB. Kompres dulu, lalu coba lagi.';
     return;
@@ -539,7 +616,14 @@ async function simpan(key){
     const { error:eP } = await sb.from('karya_penulis').insert(baris);
     if(eP) throw eP;
 
+    if(mhsSementara.length){
+      const { error:eM } = await sb.from('karya_mahasiswa').insert(
+        mhsSementara.map(m=>({ karya_id:k.id, nim:m.nim, nama:m.nama, peran:m.peran })));
+      if(eM) throw eM;
+    }
+
     frm.reset(); delete frm.dataset.lewati;
+    mhsSementara = []; pasangMahasiswa();
     if(key === 'kegiatan') pasangSkema();
     document.getElementById('dupBox').innerHTML = '';
     fm.className='msg ok'; fm.textContent='Tersimpan. Menunggu verifikasi admin prodi.';
@@ -572,8 +656,10 @@ const daftarPenulis = kp => (kp||[]).map(p=>{
 
 function barisKarya(k, aksi=''){
   const nama = daftarPenulis(k.karya_penulis);
+  const nMhs = (k.karya_mahasiswa||[]).length;
   const meta = [k.tahun, rapi(k.kategori), rapi(k.tingkat),
-                k.nama_terbitan, namaSkema(k.skema_kode), k.mitra_institusi].filter(Boolean);
+                k.nama_terbitan, namaSkema(k.skema_kode), k.mitra_institusi,
+                nMhs ? `${nMhs} mahasiswa` : null].filter(Boolean);
   return `<div class="rec" data-s="${k.status}">
     <div class="spine"></div>
     <div class="rec-b">
@@ -593,7 +679,7 @@ async function muatKaryaSaya(wadahId, batas){
   const ids = (milik||[]).map(m=>m.karya_id);
   if(!ids.length){ box.className='kosong'; box.textContent='Belum ada entri.'; return; }
 
-  let q = sb.from('karya').select('*, karya_penulis(peran, korespondensi, dosen(nama))')
+  let q = sb.from('karya').select('*, karya_penulis(peran, korespondensi, dosen(nama)), karya_mahasiswa(nim)')
     .in('id', ids).order('dibuat_pada',{ascending:false});
   if(batas) q = q.limit(batas);
   const { data, error } = await q;
@@ -683,7 +769,7 @@ async function tampilVerifikasi(){
       <div id="kl" class="kosong">Memuat…</div></div>`;
 
   const { data } = await sb.from('karya')
-    .select('*, karya_penulis(peran, korespondensi, dosen(nama))')
+    .select('*, karya_penulis(peran, korespondensi, dosen(nama)), karya_mahasiswa(nim)')
     .eq('status','diajukan').order('dibuat_pada');
   const box = document.getElementById('vf');
   if(!data?.length){ box.className='kosong'; box.textContent='Tidak ada entri yang menunggu.'; }
