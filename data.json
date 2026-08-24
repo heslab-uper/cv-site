@@ -49,8 +49,15 @@
    "nama": "Vani Arliani",
    "slug": "vani-arliani",
    "sinta_id": "6926173",
-   "scopus_id": "",
+   "scopus_id": "58902592000",
    "orcid": "0000-0002-3831-107X"
+  },
+  {
+   "nama": "Adita Utami",
+   "slug": "adita-utami",
+   "sinta_id": "6727789",
+   "scopus_id": "57211787129",
+   "orcid": "0000-0002-9110-8417"
   }
  ],
  "publikasi": [
@@ -61,7 +68,7 @@
    "terbitan": "International Journal of Disaster Management",
    "tingkat": "nasional",
    "indeksasi": "sinta_1_2",
-   "doi": "-",
+   "doi": "doi.org/10.24815/ijdm.v9.i1.377",
    "url": "https://publications.usk.ac.id/index.php/IJDM/article/view/377",
    "penulis": [
     {
@@ -77,9 +84,51 @@
      "korespondensi": true
     }
    ]
+  },
+  {
+   "judul": "Sustainable Port Planning in Future Indonesian Ports: A Case Study of Mafa Port based on un SDGs",
+   "tahun": 2020,
+   "jenis": "prosiding",
+   "terbitan": "Iop Conference Series Earth and Environmental Science",
+   "tingkat": "internasional",
+   "indeksasi": "scopus_q4",
+   "doi": "https://doi.org/10.1088/1755-1315/618/1/012041",
+   "url": "https://iopscience.iop.org/article/10.1088/1755-1315/618/1/012041",
+   "penulis": [
+    {
+     "nama": "Fera Dwi Setyani",
+     "slug": "fera-dwi-setyani",
+     "peran": "anggota",
+     "korespondensi": false
+    }
+   ]
   }
  ],
- "kegiatan": [],
+ "kegiatan": [
+  {
+   "judul": "Integrasi Data Satelit, Pemodelan Hidrologi, dan Machine Learning untuk Peringatan Dini Banjir JABODETABEK",
+   "tahun": 2026,
+   "kategori": "penelitian",
+   "tingkat": "nasional",
+   "skema": "PF — Penelitian Fundamental",
+   "kelompok": "Kemendiktisaintek / DPPM",
+   "mitra": "",
+   "penulis": [
+    {
+     "nama": "Arlyn Aristo",
+     "slug": "arlyn-aristo",
+     "peran": "anggota",
+     "korespondensi": false
+    },
+    {
+     "nama": "Nurul Fajar Januriyadi",
+     "slug": "nurul-fajar-januriyadi",
+     "peran": "ketua",
+     "korespondensi": false
+    }
+   ]
+  }
+ ],
  "prestasi_agregat": [
   {
    "tahun": 2025,
