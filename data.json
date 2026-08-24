@@ -62,6 +62,96 @@
  ],
  "publikasi": [
   {
+   "judul": "Analisis Biaya Kemacetan Kendaraan Pribadi pada Ruas Jalan Raden Saleh Kota Tangerang: Melalui Pendekatan Nilai Waktu dan Biaya Operasional Kendaraan",
+   "tahun": 2026,
+   "jenis": "jurnal",
+   "terbitan": "Jurnal Anggapa Journal-Building design and architecture management studies",
+   "tingkat": "nasional",
+   "indeksasi": "sinta_5_6",
+   "doi": "doi.org/10.61293/anggapa.v5i1.950",
+   "url": "https://ojs.widyakartika.ac.id/index.php/anggapa/article/view/950",
+   "penulis": [
+    {
+     "nama": "Adita Utami",
+     "slug": "adita-utami",
+     "peran": "penulis_pertama",
+     "korespondensi": true
+    }
+   ]
+  },
+  {
+   "judul": "Analisis Geometrik Jalan sebagai Upaya Peningkatan Kinerja di Ruas Jalan Lingkar Selatan Kota Serang",
+   "tahun": 2026,
+   "jenis": "jurnal",
+   "terbitan": "Jurnal Teknik Sipil",
+   "tingkat": "nasional",
+   "indeksasi": "sinta_5_6",
+   "doi": "https://doi.org/10.31284/j.jts.2026.v7i1.8894",
+   "url": "https://ejurnal.itats.ac.id/jts/article/view/8894",
+   "penulis": [
+    {
+     "nama": "Adita Utami",
+     "slug": "adita-utami",
+     "peran": "anggota",
+     "korespondensi": true
+    }
+   ]
+  },
+  {
+   "judul": "Development and Validation of GIS-Based Multi-Vulnerability Mapping for Floods and Landslides in Parung Panjang",
+   "tahun": 2026,
+   "jenis": "jurnal",
+   "terbitan": "Jurnal Sisfokom",
+   "tingkat": "nasional",
+   "indeksasi": "sinta_3_4",
+   "doi": "https://doi.org/10.32736/sisfokom.v15i02.2623",
+   "url": "https://jurnal.atmaluhur.ac.id/index.php/sisfokom/article/view/2623",
+   "penulis": [
+    {
+     "nama": "Adita Utami",
+     "slug": "adita-utami",
+     "peran": "anggota",
+     "korespondensi": false
+    }
+   ]
+  },
+  {
+   "judul": "Identifikasi potensi akuifer menggunakan geolistrik resistivitas sebagai dasar perencanaan penyediaan air bersih",
+   "tahun": 2026,
+   "jenis": "jurnal",
+   "terbitan": "Jipemas (Jurnal Inovasi dan Pengabdian Masyarakat)",
+   "tingkat": "nasional",
+   "indeksasi": "sinta_3_4",
+   "doi": "https://doi.org/10.33474/jipemas.v9i2.24930",
+   "url": "https://riset.unisma.ac.id/index.php/jipemas/article/view/24930",
+   "penulis": [
+    {
+     "nama": "Adita Utami",
+     "slug": "adita-utami",
+     "peran": "penulis_pertama",
+     "korespondensi": true
+    },
+    {
+     "nama": "Arlyn Aristo",
+     "slug": "arlyn-aristo",
+     "peran": "anggota",
+     "korespondensi": false
+    },
+    {
+     "nama": "Nurul Fajar Januriyadi",
+     "slug": "nurul-fajar-januriyadi",
+     "peran": "anggota",
+     "korespondensi": false
+    },
+    {
+     "nama": "Vani Arliani",
+     "slug": "vani-arliani",
+     "peran": "anggota",
+     "korespondensi": false
+    }
+   ]
+  },
+  {
    "judul": "Utilization of realtime GSMaP satellite data for flood early warning in Bekasi watershed using UPerRRM",
    "tahun": 2026,
    "jenis": "jurnal",
@@ -80,6 +170,24 @@
     {
      "nama": "Nurul Fajar Januriyadi",
      "slug": "nurul-fajar-januriyadi",
+     "peran": "penulis_pertama",
+     "korespondensi": true
+    }
+   ]
+  },
+  {
+   "judul": "Sediment Transport Study In Estuary Of Weriagar River, Kabupaten Teluk Bintuni, West Papua",
+   "tahun": 2020,
+   "jenis": "jurnal",
+   "terbitan": "Jurnal Teknologia",
+   "tingkat": "nasional",
+   "indeksasi": "tidak_terindeks",
+   "doi": null,
+   "url": "https://www.researchgate.net/publication/344635725_Sediment_Transport_Study_In_Estuary_Of_Weriagar_River_Kabupaten_Teluk_Bintuni_West_Papua",
+   "penulis": [
+    {
+     "nama": "Fera Dwi Setyani",
+     "slug": "fera-dwi-setyani",
      "peran": "penulis_pertama",
      "korespondensi": true
     }
