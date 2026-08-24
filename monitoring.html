@@ -253,6 +253,12 @@ function render(){
       pada periode ini — <b>bukan penilaian kinerja</b>, melainkan penanda bahwa datanya
       mungkin belum diinput.</p></div>
 
+    <h2>Mahasiswa</h2>
+    <p class="ket">Angka keterlibatan mahasiswa dalam karya dosen dan prestasi
+    lomba. Halaman ini hanya menampilkan jumlah — nama dan NIM tidak
+    dipublikasikan.</p>
+    ${bagianMahasiswa(H)}
+
     <h2>Rincian</h2>
     <p class="ket">Sebaran menurut kategori, mengikuti periode yang dipilih di atas.</p>
     <div class="rinci">
@@ -289,6 +295,59 @@ function render(){
       render();
     };
   });
+}
+
+function bagianMahasiswa(H){
+  const r = rentang();
+  const cocok = t => !r || r.includes(+t);
+  const agg = (D.mahasiswa_agregat||[]).filter(x=>cocok(x.tahun));
+
+  const sum = (f,kat) => agg.filter(x=>!kat || x.kategori===kat)
+                            .reduce((a,b)=>a+b[f],0);
+  // Mahasiswa unik hanya bisa dijumlahkan per tahun+kategori, jadi angka
+  // gabungan di bawah adalah batas ATAS — satu mahasiswa yang terlibat di
+  // dua kategori terhitung dua kali. Disebutkan agar tidak salah baca.
+  const unik = sum('mahasiswa_unik');
+  const total = sum('keterlibatan');
+
+  // Cakupan: berapa persen karya yang melibatkan mahasiswa
+  const cak = [
+    ['Publikasi',  H.pub],
+    ['Penelitian', H.keg.filter(k=>k.kategori==='penelitian')],
+    ['Pengabdian', H.keg.filter(k=>k.kategori==='pkm')],
+  ].map(([l,arr])=>{
+    const n = arr.filter(x=>(x.mahasiswa||0)>0).length;
+    return {l, n, t:arr.length, p:pct(n,arr.length)};
+  });
+
+  return `
+    <div class="ringkas">
+      <div><b>${total}</b><span>Keterlibatan</span>
+           <em>dalam karya dosen</em></div>
+      <div><b>${unik}</b><span>Mahasiswa terlibat</span>
+           <em>batas atas, lihat catatan</em></div>
+      <div><b>${sum('keterlibatan','penelitian')}</b><span>Di penelitian</span></div>
+      <div><b>${sum('keterlibatan','publikasi')}</b><span>Di publikasi</span></div>
+      <div><b>${H.totalPres}</b><span>Prestasi lomba</span>
+           <em>dari lembar Excel</em></div>
+    </div>
+
+    <div class="kartu" style="margin-top:16px">
+      <h3 style="font-family:var(--mono);font-size:10.5px;letter-spacing:.11em;
+                 text-transform:uppercase;color:var(--muted);font-weight:400;
+                 margin:0 0 16px">Karya yang melibatkan mahasiswa</h3>
+      <div class="cakup">${cak.map(c=>`
+        <div>
+          <div class="j">${c.l}</div>
+          <div class="a">${c.p}<span style="font-size:15px">%</span></div>
+          <div class="tr"><i style="width:${c.p}%"></i></div>
+          <div class="s">${c.n} dari ${c.t} karya</div>
+        </div>`).join('')}</div>
+      <p class="kaki" style="margin-top:16px">Angka <b>mahasiswa terlibat</b> dijumlahkan
+      per tahun dan kategori, sehingga seorang mahasiswa yang terlibat di dua
+      kategori terhitung dua kali. Untuk hitungan unik yang tepat, lihat
+      laporan internal.</p>
+    </div>`;
 }
 
 function tabelMatriks(H){
