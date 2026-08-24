@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Profil Dosen — Kinerja Program Studi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --biru:#0C2A4D; --biru-2:#17436F; --biru-3:#5C86B0;
+    --merah:#C8102E; --hijau:#00954E; --emas:#B8860B;
+    --bg:#F2F4F2; --panel:#fff; --ink:#14212E; --muted:#5D6B78;
+    --line:#D9DFDA; --line-soft:#EBEEEB;
+    --sans:'IBM Plex Sans',system-ui,sans-serif;
+    --mono:'IBM Plex Mono',ui-monospace,monospace;
+    --serif:'IBM Plex Serif',Georgia,serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);
+       font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:900px;margin:0 auto;padding:0 20px 90px}
+  a{color:var(--biru-2)}
+
+  .hero{position:relative;background:var(--biru);color:#fff;overflow:hidden;
+        border-bottom:4px solid var(--merah)}
+  .hero::before{content:'';position:absolute;inset:0;opacity:.13;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='70' viewBox='0 0 140 70'%3E%3Cg fill='none' stroke='%23ffffff' stroke-width='1'%3E%3Cpath d='M0 69.5H140M0 .5H140'/%3E%3Cpath d='M0 70L35 0L70 70L105 0L140 70'/%3E%3Cpath d='M35 0V70M105 0V70'/%3E%3C/g%3E%3C/svg%3E");
+    background-size:140px 70px}
+  .hero-in{position:relative;max-width:900px;margin:0 auto;padding:30px 20px 0}
+  .balik{display:inline-flex;gap:7px;align-items:center;text-decoration:none;
+         font-family:var(--mono);font-size:11px;letter-spacing:.1em;
+         text-transform:uppercase;color:#9FC2E0;margin-bottom:20px}
+  .balik:hover{color:#fff}
+  h1{font-family:var(--serif);font-size:clamp(24px,4.2vw,34px);font-weight:600;
+     letter-spacing:-.018em;margin:0;line-height:1.14;color:#fff}
+  .prodi{color:#B9CCDE;font-size:14.5px;margin-top:7px}
+  .tautan{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+  .tautan a{font-family:var(--mono);font-size:11px;letter-spacing:.06em;
+    text-transform:uppercase;text-decoration:none;color:#fff;
+    border:1px solid rgba(255,255,255,.35);padding:5px 11px;border-radius:2px}
+  .tautan a:hover{background:rgba(255,255,255,.12)}
+
+  .angka{display:flex;flex-wrap:wrap;margin-top:28px;
+         border-top:1px solid rgba(255,255,255,.18)}
+  .angka div{flex:1 1 130px;padding:16px 18px 18px;
+             border-right:1px solid rgba(255,255,255,.12)}
+  .angka div:last-child{border-right:0}
+  .angka b{display:block;font-family:var(--mono);font-size:28px;font-weight:400;
+           line-height:1;color:#fff}
+  .angka span{font-family:var(--mono);font-size:10px;letter-spacing:.12em;
+              text-transform:uppercase;color:#9FC2E0;display:block;margin-top:8px}
+
+  h2{font-family:var(--serif);font-size:19px;font-weight:600;margin:36px 0 0;
+     color:var(--biru)}
+  .list{background:var(--panel);border:1px solid var(--line);border-radius:2px;
+        padding:4px 22px;margin-top:12px}
+  .e{display:flex;gap:16px;padding:15px 0;border-top:1px solid var(--line-soft)}
+  .e:first-child{border-top:0}
+  .thn{font-family:var(--mono);font-size:13px;color:var(--muted);flex:none;width:42px;padding-top:1px}
+  .e-b{flex:1;min-width:0}
+  .e-j{font-weight:500;line-height:1.4}
+  .e-m{font-size:13px;color:var(--muted);margin-top:3px}
+  .e-p{font-family:var(--mono);font-size:11.5px;color:var(--muted);margin-top:5px}
+  .e-p a{color:var(--muted)}
+  .pill{font-family:var(--mono);font-size:9.5px;letter-spacing:.09em;text-transform:uppercase;
+        padding:3px 8px;border-radius:2px;background:#E7EDF3;color:var(--biru);
+        white-space:nowrap;align-self:flex-start;margin-top:2px}
+  .pill.pkm{background:#E6F3EC;color:var(--hijau)}
+  .peran{display:inline-block;font-family:var(--mono);font-size:9.5px;
+    letter-spacing:.08em;text-transform:uppercase;padding:2px 6px;border-radius:2px;
+    background:var(--merah);color:#fff;margin-left:7px;vertical-align:1px}
+  .peran.kor{background:var(--biru-2)}
+  .kosong{color:var(--muted);font-size:13.5px;padding:20px 0}
+
+  table{width:100%;border-collapse:collapse;font-size:13.5px}
+  th{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
+     color:var(--muted);text-align:left;font-weight:400;padding:12px 10px 10px 0;
+     border-bottom:1px solid var(--line)}
+  td{padding:10px 10px 10px 0;border-bottom:1px solid var(--line-soft)}
+  td.num,th.num{text-align:right;font-family:var(--mono);padding-right:0}
+
+  footer{margin-top:50px;padding-top:20px;border-top:3px solid var(--biru);
+         font-size:12.5px;color:var(--muted)}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-in">
+    <a class="balik" href="index.html">&larr; Kembali ke dashboard</a>
+    <h1 id="hNama">Memuat…</h1>
+    <div class="prodi" id="hProdi"></div>
+    <div class="tautan" id="hTautan"></div>
+    <div class="angka" id="angka"></div>
+  </div>
+</header>
+
+<main class="wrap" id="isi"></main>
+
+<script>
+const esc = s => String(s ?? '').replace(/[&<>"']/g,c=>
+  ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const rapi = s => s ? String(s).replace(/_/g,' ') : '';
+const pilih = new URLSearchParams(location.search).get('d') || '';
+
+fetch('data.json?v=' + Date.now())
+  .then(r => { if(!r.ok) throw new Error(r.status); return r.json(); })
+  .then(render)
+  .catch(()=>{
+    document.getElementById('hNama').textContent = 'Data belum tersedia';
+    document.getElementById('isi').innerHTML =
+      `<p class="kosong">Berkas <code>data.json</code> belum ada.
+       Jalankan <code>python bangun.py</code> lalu unggah hasilnya.</p>`;
+  });
+
+// Penanda peran hanya ditampilkan untuk dosen yang sedang dibuka,
+// supaya daftar tetap ringkas dan fokus pada kontribusinya.
+function tandaPeran(a){
+  let t = '';
+  if(a.peran === 'penulis_pertama') t += `<span class="peran">Penulis pertama</span>`;
+  if(a.peran === 'ketua')           t += `<span class="peran">Ketua</span>`;
+  if(a.korespondensi)               t += `<span class="peran kor">Korespondensi</span>`;
+  return t;
+}
+
+function barisPenulis(daftar, slugAktif){
+  return daftar.map(a => a.slug === slugAktif
+    ? `<strong>${esc(a.nama)}</strong>`
+    : `<a href="dosen.html?d=${encodeURIComponent(a.slug)}">${esc(a.nama)}</a>`
+  ).join(' · ');
+}
+
+function render(D){
+  const dosen = (D.dosen||[]).find(d => d.slug === pilih);
+  if(!dosen){
+    document.getElementById('hNama').textContent = 'Dosen tidak ditemukan';
+    document.getElementById('isi').innerHTML =
+      `<p class="kosong">Tidak ada dosen dengan pengenal
+       <code>${esc(pilih)}</code>. <a href="index.html">Kembali ke dashboard</a>.</p>`;
+    return;
+  }
+
+  document.title = `${dosen.nama} — Kinerja Program Studi`;
+  document.getElementById('hNama').textContent = dosen.nama;
+  document.getElementById('hProdi').textContent =
+    [D.prodi, D.institusi].filter(Boolean).join(' · ');
+
+  const punya = (a=[]) => a.some(x => x.slug === pilih);
+  const pub = (D.publikasi||[]).filter(p => punya(p.penulis));
+  const keg = (D.kegiatan ||[]).filter(k => punya(k.penulis));
+  const pres = (D.prestasi_pembimbing||[]).filter(p => p.slug === pilih);
+  const totalPres = pres.reduce((a,b)=>a+b.jumlah, 0);
+
+  document.getElementById('hTautan').innerHTML = [
+    dosen.sinta_id  && `<a href="https://sinta.kemdikbud.go.id/authors/profile/${esc(dosen.sinta_id)}" rel="noopener">SINTA</a>`,
+    dosen.scopus_id && `<a href="https://www.scopus.com/authid/detail.uri?authorId=${esc(dosen.scopus_id)}" rel="noopener">Scopus</a>`,
+    dosen.orcid     && `<a href="https://orcid.org/${esc(dosen.orcid)}" rel="noopener">ORCID</a>`,
+  ].filter(Boolean).join('');
+
+  const utama = pub.filter(p => {
+    const a = p.penulis.find(x => x.slug === pilih);
+    return a && (a.peran === 'penulis_pertama' || a.korespondensi);
+  }).length;
+
+  document.getElementById('angka').innerHTML = [
+    [pub.length,  'Publikasi'],
+    [utama,       'Penulis utama'],
+    [keg.filter(k=>k.kategori==='penelitian').length, 'Penelitian'],
+    [keg.filter(k=>k.kategori==='pkm').length,        'Pengabdian'],
+    [totalPres,   'Prestasi bimbingan'],
+  ].map(([v,l])=>`<div><b>${v}</b><span>${l}</span></div>`).join('');
+
+  const daftarPub = pub.length ? pub.map(p=>{
+    const saya = p.penulis.find(x => x.slug === pilih) || {};
+    return `<div class="e">
+      <div class="thn">${p.tahun}</div>
+      <div class="e-b">
+        <div class="e-j">${p.url
+          ? `<a href="${esc(p.url)}" rel="noopener">${esc(p.judul)}</a>` : esc(p.judul)}
+          ${tandaPeran(saya)}</div>
+        <div class="e-m">${[rapi(p.jenis), p.terbitan, p.doi && ('DOI '+p.doi)]
+          .filter(Boolean).map(esc).join(' · ')}</div>
+        <div class="e-p">${barisPenulis(p.penulis, pilih)}</div>
+      </div>
+      <span class="pill">${esc(rapi(p.indeksasi || p.tingkat))}</span>
+    </div>`;
+  }).join('') : '<p class="kosong">Belum ada publikasi terverifikasi.</p>';
+
+  const daftarKeg = keg.length ? keg.map(k=>{
+    const saya = k.penulis.find(x => x.slug === pilih) || {};
+    return `<div class="e">
+      <div class="thn">${k.tahun}</div>
+      <div class="e-b">
+        <div class="e-j">${esc(k.judul)}${tandaPeran(saya)}</div>
+        <div class="e-m">${[rapi(k.tingkat), k.skema, k.mitra && ('mitra: '+k.mitra)]
+          .filter(Boolean).map(esc).join(' · ')}</div>
+        <div class="e-p">${barisPenulis(k.penulis, pilih)}</div>
+      </div>
+      <span class="pill ${k.kategori==='pkm'?'pkm':''}">${
+        k.kategori==='pkm'?'Pengabdian':'Penelitian'}</span>
+    </div>`;
+  }).join('') : '<p class="kosong">Belum ada kegiatan terverifikasi.</p>';
+
+  const daftarPres = pres.length ? `
+    <table><thead><tr><th>Tahun</th><th>Tingkat</th><th class="num">Jumlah</th></tr></thead>
+    <tbody>${pres.map(r=>`<tr><td>${r.tahun}</td>
+      <td>${esc(rapi(r.tingkat))}</td><td class="num">${r.jumlah}</td></tr>`).join('')}
+    </tbody></table>`
+    : '<p class="kosong">Belum ada prestasi mahasiswa bimbingan yang tercatat.</p>';
+
+  document.getElementById('isi').innerHTML = `
+    <h2>Publikasi</h2><div class="list">${daftarPub}</div>
+    <h2>Penelitian &amp; pengabdian</h2><div class="list">${daftarKeg}</div>
+    <h2>Prestasi mahasiswa bimbingan</h2><div class="list">${daftarPres}</div>
+    <footer>
+      Diperbarui ${esc(D.diperbarui)}. Hanya menampilkan data yang telah
+      diverifikasi program studi. Identitas mahasiswa dan nominal pendanaan
+      tidak dipublikasikan.
+    </footer>`;
+}
+</script>
+</body>
+</html>

@@ -59,6 +59,12 @@
        white-space:nowrap;transition:filter .15s}
   .cta:hover{filter:brightness(1.12)}
   .cta span{font-family:var(--mono);font-size:16px;line-height:1}
+  .cta2{display:inline-flex;align-items:center;gap:9px;text-decoration:none;
+        background:none;color:#fff;font-weight:500;font-size:14.5px;
+        padding:12px 22px;border-radius:2px;border:1px solid rgba(255,255,255,.45);
+        white-space:nowrap;margin-top:9px;transition:background .15s}
+  .cta2:hover{background:rgba(255,255,255,.12)}
+  .cta2 span{font-family:var(--mono);font-size:16px;line-height:1}
   .cta-cat{font-size:12.5px;color:#A9C0D6;margin-top:9px;max-width:236px;line-height:1.45}
 
   /* angka utama — satu pita data, bukan kartu terpisah */
@@ -120,6 +126,8 @@
   .e-j{font-weight:500;line-height:1.4}
   .e-m{font-size:13px;color:var(--muted);margin-top:3px}
   .e-p{font-family:var(--mono);font-size:11.5px;color:var(--muted);margin-top:5px}
+  .e-p a{color:var(--muted);text-decoration:none;border-bottom:1px dotted var(--line)}
+  .e-p a:hover{color:var(--biru-2);border-bottom-color:var(--biru-3)}
   .pill{font-family:var(--mono);font-size:9.5px;letter-spacing:.09em;text-transform:uppercase;
         padding:3px 8px;border-radius:2px;background:#E7EDF3;color:var(--biru);
         white-space:nowrap;align-self:flex-start;margin-top:2px}
@@ -157,7 +165,9 @@
       </div>
       <div>
         <a class="cta" href="input.html">Input data <span>&rarr;</span></a>
-        <div class="cta-cat">Khusus dosen prodi. Masuk dengan email kampus yang terdaftar.</div>
+        <a class="cta2" href="monitoring.html">Monitoring kinerja <span>&rarr;</span></a>
+        <div class="cta-cat">Input khusus dosen prodi, masuk dengan email kampus.
+          Monitoring terbuka untuk semua.</div>
       </div>
     </div>
     <div class="angka" id="angka"></div>
@@ -171,6 +181,9 @@ const N = n => new Intl.NumberFormat('id-ID').format(n);
 const esc = s => String(s ?? '').replace(/[&<>"']/g,c=>
   ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const rapi = s => s ? String(s).replace(/_/g,' ') : '';
+// Nama penulis menjadi tautan ke halaman profilnya masing-masing.
+const tautanPenulis = a => (a||[]).map(x =>
+  `<a href="dosen.html?d=${encodeURIComponent(x.slug)}">${esc(x.nama)}</a>`).join(' · ');
 const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
 
 let D = null;
@@ -383,7 +396,8 @@ function render(){
     <section>
       <div class="bar"><h2>Dosen</h2></div>
       <div class="list"><div class="dsn">${
-        D.dosen.map(d=>`<div><b>${esc(d.nama)}</b>
+        D.dosen.map(d=>`<div><b><a href="dosen.html?d=${
+          encodeURIComponent(d.slug)}" style="text-decoration:none">${esc(d.nama)}</a></b>
           ${d.sinta_id?`<a href="https://sinta.kemdikbud.go.id/authors/profile/${esc(d.sinta_id)}" rel="noopener">SINTA</a>`:''}
           ${d.scopus_id?`<a href="https://www.scopus.com/authid/detail.uri?authorId=${esc(d.scopus_id)}" rel="noopener">Scopus</a>`:''}
           ${d.orcid?`<a href="https://orcid.org/${esc(d.orcid)}" rel="noopener">ORCID</a>`:''}
@@ -395,6 +409,8 @@ function render(){
       telah diverifikasi program studi. Beban kerja dosen, nominal pendanaan,
       dan identitas mahasiswa tidak dipublikasikan.
       <br><br>Dosen prodi dapat menambahkan karya melalui <a href="input.html">halaman input</a>.
+      Rekap per dosen dan sebaran per kategori tersedia di
+      <a href="monitoring.html">halaman monitoring</a>.
     </footer>`;
 
   ['fTahun','fTingkat','fCari'].forEach(id=>
@@ -409,7 +425,7 @@ function pub(){
   const t=fTahun.value, g=fTingkat.value, q=fCari.value.trim().toLowerCase();
   const d = D.publikasi.filter(p =>
     (!t || String(p.tahun)===t) && (!g || p.tingkat===g) &&
-    (!q || (p.judul+' '+p.penulis.join(' ')).toLowerCase().includes(q)));
+    (!q || (p.judul+' '+p.penulis.map(a=>a.nama).join(' ')).toLowerCase().includes(q)));
 
   lPub.innerHTML = d.length ? d.map(p=>`
     <div class="e">
@@ -419,7 +435,7 @@ function pub(){
           ? `<a href="${esc(p.url)}" rel="noopener">${esc(p.judul)}</a>` : esc(p.judul)}</div>
         <div class="e-m">${[rapi(p.jenis), p.terbitan, p.doi && ('DOI '+p.doi)]
           .filter(Boolean).map(esc).join(' · ')}</div>
-        ${p.penulis.length?`<div class="e-p">${p.penulis.map(esc).join(' · ')}</div>`:''}
+        ${p.penulis.length?`<div class="e-p">${tautanPenulis(p.penulis)}</div>`:''}
       </div>
       <span class="pill">${esc(rapi(p.indeksasi || p.tingkat))}</span>
     </div>`).join('')
@@ -438,7 +454,7 @@ function keg(){
         <div class="e-j">${esc(x.judul)}</div>
         <div class="e-m">${[rapi(x.tingkat), x.skema, x.mitra && ('mitra: '+x.mitra)]
           .filter(Boolean).map(esc).join(' · ')}</div>
-        ${x.penulis.length?`<div class="e-p">${x.penulis.map(esc).join(' · ')}</div>`:''}
+        ${x.penulis.length?`<div class="e-p">${tautanPenulis(x.penulis)}</div>`:''}
       </div>
       <span class="pill ${x.kategori==='pkm'?'pkm':''}">${
         x.kategori==='pkm'?'Pengabdian':'Penelitian'}</span>
