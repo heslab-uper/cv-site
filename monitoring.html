@@ -126,6 +126,12 @@
   .sasaran .j{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;
               text-transform:uppercase;color:var(--muted);margin-bottom:8px}
   .sasaran .s{font-size:12px;color:var(--muted);margin-top:7px}
+  .sasaran .sas.utama{background:#F6F9FC;border-left:3px solid var(--biru);
+                      padding:12px 14px;margin:-12px 0 -12px -14px;border-radius:2px}
+  .sasaran .tag{font-family:var(--sans);font-size:9.5px;letter-spacing:.06em;
+    background:var(--biru);color:#fff;padding:2px 6px;border-radius:2px;margin-left:6px}
+  table.sp th.utama{color:var(--biru);font-weight:500}
+  table.sp td.utama{background:#F6F9FC}
 
   footer{margin-top:52px;padding-top:20px;border-top:3px solid var(--biru);
          font-size:12.5px;color:var(--muted)}
@@ -444,14 +450,15 @@ function bagianSyaratPerlu(){
 
     const sel = S.map(sa=>{
       const amb = (b.ambang||{})[sa.id];
-      if(amb === undefined) return `<td><span class="st tak">tanpa ambang</span></td>`;
+      const kls = sa.utama ? ' class="utama"' : '';
+      if(amb === undefined) return `<td${kls}><span class="st tak">tanpa ambang</span></td>`;
       if(cap === null || cap === undefined){
         hit[sa.id].tak++;
-        return `<td><div class="an-amb">${b.arah==='max'?'≤':'≥'} ${fmt(amb, b.satuan)}</div>
+        return `<td${kls}><div class="an-amb">${b.arah==='max'?'≤':'≥'} ${fmt(amb, b.satuan)}</div>
                 <span class="st tak">tak terhitung</span></td>`; }
       const lolos = b.arah === 'max' ? cap <= amb : cap >= amb;
       lolos ? hit[sa.id].ok++ : hit[sa.id].gagal++;
-      return `<td><div class="an-amb">${b.arah==='max'?'≤':'≥'} ${fmt(amb, b.satuan)}</div>
+      return `<td${kls}><div class="an-amb">${b.arah==='max'?'≤':'≥'} ${fmt(amb, b.satuan)}</div>
               <span class="st ${lolos?'ok':'gagal'}">${lolos?'memenuhi':'belum'}</span></td>`;
     }).join('');
 
@@ -470,8 +477,8 @@ function bagianSyaratPerlu(){
     const st = h.gagal ? 'gagal' : (h.tak ? 'tak' : 'ok');
     const lbl = h.gagal ? 'ada butir belum terpenuhi'
               : h.tak   ? 'belum dapat disimpulkan' : 'seluruh butir terpenuhi';
-    return `<div class="sas">
-      <div class="j">${esc(sa.label)}</div>
+    return `<div class="sas${sa.utama?' utama':''}">
+      <div class="j">${esc(sa.label)}${sa.utama?' <span class="tag">sasaran prodi</span>':''}</div>
       <span class="st ${st}">${lbl}</span>
       <div class="s">memenuhi ${h.ok} · belum ${h.gagal} · tak terhitung ${h.tak}</div>
     </div>`;
@@ -493,7 +500,8 @@ function bagianSyaratPerlu(){
       <div class="sasaran">${ringkas}</div>
       <div class="gulir"><table class="sp"><thead><tr>
         <th style="width:46%">Butir</th><th>Capaian</th>
-        ${S.map(sa=>`<th>${esc(sa.label)}${sa.tanda?` <span class="btr">${esc(sa.tanda)}</span>`:''}</th>`).join('')}
+        ${S.map(sa=>`<th${sa.utama?' class="utama"':''}>${esc(sa.label)}${
+            sa.tanda?` <span class="btr">${esc(sa.tanda)}</span>`:''}</th>`).join('')}
       </tr></thead><tbody>${baris}</tbody></table></div>
       <p class="kaki">Seluruh butir harus terpenuhi; satu butir yang belum
       memenuhi menggugurkan sasaran peringkat tersebut. Butir yang tidak berlaku

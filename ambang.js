@@ -49,9 +49,12 @@ window.AMBANG = {
     butir_lengkap: false,   // true setelah butir 9, 10, 11 ditambahkan
   },
 
+  // `utama: true` menandai sasaran yang sedang dikejar prodi. Sasaran
+  // utama ditonjolkan di halaman monitoring; sasaran lain tetap tampil
+  // sebagai pembanding. Pindahkan tandanya bila sasaran berubah.
   sasaran: [
     { id: 'u3', label: 'Unggul · 3 tahun', tanda: '**'  },
-    { id: 'u5', label: 'Unggul · 5 tahun', tanda: '***' },
+    { id: 'u5', label: 'Unggul · 5 tahun', tanda: '***', utama: true },
   ],
 
   butir: [
