@@ -34,6 +34,7 @@ window.AMBANG = {
     nama: '',            // mis. 'Instrumen Akreditasi 2025 Perpanjangan — LAM Teknik'
     versi: '',
     jalur: '',           // 'perpanjangan' | 'unggul_internasional' | 'reguler'
+    jenjang: 'sarjana',  // instrumen LAM Teknik S1
     diperbarui: '',      // tanggal terakhir ambang dicek
   },
 
@@ -57,12 +58,12 @@ window.AMBANG = {
       terverifikasi: false,
     },
     {
-      id: 'dtps_lk_gb',
-      label: 'DTPS berjabatan Lektor Kepala / Guru Besar',
+      id: 'dtps_lektor_keatas',
+      label: 'DTPS berjabatan Lektor ke atas',
       butir: '',
       ambang: 70, satuan: '%', arah: 'min',
-      sumber: 'Nilai sementara mengikuti rumusan BAN-PT 2019 — belum dicek ke LAM Teknik',
-      catatan: 'Kolom jabatan = lektor_kepala atau guru_besar di lembar dosen.',
+      sumber: 'Ambang sementara — angka belum dicek ke instrumen LAM Teknik S1',
+      catatan: 'Kolom jabatan = lektor, lektor_kepala, atau guru_besar di lembar dosen.',
       terverifikasi: false,
     },
     {
@@ -91,8 +92,7 @@ window.AMBANG = {
       butir: '',
       ambang: 50, satuan: '%', arah: 'min',
       sumber: 'Nilai sementara — belum dicek ke LAM Teknik',
-      catatan: 'Penulis pertama/korespondensi pada publikasi bereputasi, atau paten. ' +
-               'Penyaring kata kunci bereputasi/scopus/wos di bangun.py belum diaudit.',
+      catatan: 'Penulis pertama/korespondensi pada publikasi bereputasi, atau paten.',
       terverifikasi: false,
     },
 

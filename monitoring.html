@@ -351,8 +351,8 @@ function capaianSyarat(id, H){
       return n ? {nilai:n, rinci:`${n} dosen aktif`} : null;
     case 'dtps_doktor':
       return n ? {nilai:pct(T.doktor||0,n), rinci:`${T.doktor||0} dari ${n}`} : null;
-    case 'dtps_lk_gb': {
-      const k = (jab.lektor_kepala||0)+(jab.guru_besar||0);
+    case 'dtps_lektor_keatas': {
+      const k = (jab.lektor||0)+(jab.lektor_kepala||0)+(jab.guru_besar||0);
       return n ? {nilai:pct(k,n), rinci:`${k} dari ${n}`} : null; }
     case 'waktu_tunggu': {
       if(!terlacak) return null;
