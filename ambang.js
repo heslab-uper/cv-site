@@ -101,7 +101,7 @@ window.AMBANG = {
       no: 3, id: 'basic_sciences', manual: true,
       label: 'Mata kuliah basic sciences dan matematika',
       ambang: { u3: 25, u5: 25 }, satuan: 'sks', arah: 'min',
-      capaian: null,
+      capaian: 29,
       sumber: 'Butir 3, kolom Sarjana',
       catatan: 'Jumlah SKS mata kuliah basic sciences dan matematika yang ' +
                'disediakan program studi. Ambang sama untuk kedua sasaran. ' +
