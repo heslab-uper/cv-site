@@ -357,8 +357,19 @@ function layarUtama(){
   buka('publikasi');
 }
 
-const buka = t => ({publikasi:()=>tampilForm('publikasi'), kegiatan:()=>tampilForm('kegiatan'),
-  saya:karyaSaya, semua:karyaProdi, verifikasi:tampilVerifikasi})[t]();
+// Setiap kunci di sini harus punya pasangan di daftar tab pada layarUtama().
+// Kategori yang punya definisi di FORM ditangani tampilForm secara seragam,
+// jadi menambah kategori baru cukup dengan menambah entri di FORM dan di
+// daftar tab — tidak perlu menyentuh fungsi ini lagi.
+const HALAMAN = { saya: karyaSaya, semua: karyaProdi, verifikasi: tampilVerifikasi };
+
+function buka(t){
+  if(HALAMAN[t]) return HALAMAN[t]();
+  if(FORM[t])    return tampilForm(t);
+  console.error('Tab tidak dikenal:', t);
+  document.getElementById('isi').innerHTML =
+    `<div class="panel"><p class="kosong">Tab '${esc(t)}' belum tersedia.</p></div>`;
+}
 
 // ---------------------------------------------------------------------
 //  Form input
