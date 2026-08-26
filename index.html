@@ -459,7 +459,7 @@ function keg(){
       <div class="thn">${x.tahun}</div>
       <div class="e-b">
         <div class="e-j">${esc(x.judul)}</div>
-        <div class="e-m">${[rapi(x.tingkat), x.skema, x.mitra && ('mitra: '+x.mitra)]
+        <div class="e-m">${[rapi(x.tingkat), x.skema, (x.mitra||[]).length && ('mitra: '+x.mitra.map(m=>m.nama).join(', '))]
           .filter(Boolean).map(esc).join(' · ')}</div>
         ${x.penulis.length?`<div class="e-p">${tautanPenulis(x.penulis)}</div>`:''}
       </div>

@@ -199,7 +199,7 @@ function render(D){
       <div class="thn">${k.tahun}</div>
       <div class="e-b">
         <div class="e-j">${esc(k.judul)}${tandaPeran(saya)}</div>
-        <div class="e-m">${[rapi(k.tingkat), k.skema, k.mitra && ('mitra: '+k.mitra)]
+        <div class="e-m">${[rapi(k.tingkat), k.skema, (k.mitra||[]).length && ('mitra: '+k.mitra.map(m=>m.nama).join(', '))]
           .filter(Boolean).map(esc).join(' · ')}</div>
         <div class="e-p">${barisPenulis(k.penulis, pilih)}</div>
       </div>

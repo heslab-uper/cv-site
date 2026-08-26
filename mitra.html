@@ -167,19 +167,26 @@ function kumpulkan(){
   const semua = [
     ...D.publikasi.map(p=>({...p, kategori:'publikasi'})),
     ...D.kegiatan,
-  ].filter(x => (x.mitra||'').trim());
+  ];
 
+  // Sejak satu karya boleh punya beberapa mitra, "mitra" berupa larik objek
+  // {nama, tingkat, negara}. Satu karya dengan tiga mitra menyumbang satu
+  // hitungan ke masing-masing mitra, sehingga jumlah seluruh baris di sini
+  // bisa melebihi jumlah karya. Itu memang yang dikehendaki.
   const peta = new Map();
   semua.forEach(x=>{
-    const kunci = x.mitra.trim().toLowerCase();
-    if(!peta.has(kunci)) peta.set(kunci, {
-      nama:x.mitra.trim(), negara:x.mitra_negara||'',
-      tingkat:x.mitra_tingkat||'', karya:[],
+    (x.mitra || []).forEach(mt=>{
+      const nama = (mt.nama || '').trim();
+      if(!nama) return;
+      const kunci = nama.toLowerCase();
+      if(!peta.has(kunci)) peta.set(kunci, {
+        nama, negara:mt.negara||'', tingkat:mt.tingkat||'', karya:[],
+      });
+      const m = peta.get(kunci);
+      if(!m.tingkat && mt.tingkat) m.tingkat = mt.tingkat;
+      if(!m.negara  && mt.negara)  m.negara  = mt.negara;
+      m.karya.push(x);
     });
-    const m = peta.get(kunci);
-    if(!m.tingkat && x.mitra_tingkat) m.tingkat = x.mitra_tingkat;
-    if(!m.negara && x.mitra_negara)   m.negara  = x.mitra_negara;
-    m.karya.push(x);
   });
 
   return [...peta.values()].map(m=>{

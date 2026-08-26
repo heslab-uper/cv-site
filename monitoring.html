@@ -253,6 +253,12 @@ function render(){
       pada periode ini — <b>bukan penilaian kinerja</b>, melainkan penanda bahwa datanya
       mungkin belum diinput.</p></div>
 
+    <h2>Indikator LKPS</h2>
+    <p class="ket">Indikator dosen tetap (DTPS) dan lulusan mengikuti butir
+    LKPS. Profil DTPS dan tracer lulusan tidak terpengaruh pemilih periode;
+    luaran, rekognisi, dan integrasi mengikutinya.</p>
+    ${bagianLKPS(H)}
+
     <h2>Mahasiswa</h2>
     <p class="ket">Angka keterlibatan mahasiswa dalam karya dosen dan prestasi
     lomba. Halaman ini hanya menampilkan jumlah — nama dan NIM tidak
@@ -277,9 +283,14 @@ function render(){
             if(!x.mahasiswa) return m;
             const k = x.kategori==='pkm' ? 'pengabdian' : x.kategori;
             m[k] = (m[k]||0) + x.mahasiswa; return m; }, {}))}
-      ${kartuRinci('Prestasi mahasiswa menurut tingkat',
-          H.pres.reduce((m,r)=>{ const k=rapi(r.tingkat);
-            m[k]=(m[k]||0)+r.jumlah; return m; }, {}))}
+      ${kartuRinci('Prestasi akademik mhs menurut tingkat (6.c.1)',
+          H.pres.filter(r=>(r.bidang||'').toLowerCase().startsWith('akademik'))
+            .reduce((m,r)=>{ const k=rapi(r.tingkat);
+              m[k]=(m[k]||0)+r.jumlah; return m; }, {}))}
+      ${kartuRinci('Prestasi non-akademik mhs menurut tingkat (6.c.2)',
+          H.pres.filter(r=>!(r.bidang||'').toLowerCase().startsWith('akademik'))
+            .reduce((m,r)=>{ const k=rapi(r.tingkat);
+              m[k]=(m[k]||0)+r.jumlah; return m; }, {}))}
     </div>
 
     <footer>
@@ -295,6 +306,69 @@ function render(){
       render();
     };
   });
+}
+
+function bagianLKPS(H){
+  const T = D.dtps || {jumlah:0, doktor:0, jabatan:{}, karya_utama_internasional:0};
+  const n = T.jumlah || 1;
+  const r = rentang();
+  const cocok = t => !r || r.includes(+t);
+  const punyaJab = Object.entries(T.jabatan||{})
+    .filter(([k])=>k!=='tanpa_jabatan').reduce((a,[,v])=>a+v,0);
+
+  const luar = (D.luaran_dosen||[]).filter(x=>cocok(x.tahun));
+  const rek  = (D.rekognisi||[]).filter(x=>cocok(x.tahun));
+  const intg = (D.integrasi||[]).filter(x=>cocok(x.tahun));
+  const mk   = D.mahasiswa_karya||{publikasi:[],luaran:[]};
+  const mkp  = mk.publikasi.filter(x=>cocok(x.tahun));
+  const mkl  = mk.luaran.filter(x=>cocok(x.tahun));
+
+  const tracer = (D.tracer||[]);
+  const barisTracer = tracer.length ? `
+    <div class="kartu" style="margin-top:16px"><div class="gulir">
+      <h3 style="font-family:var(--mono);font-size:10.5px;letter-spacing:.11em;
+        text-transform:uppercase;color:var(--muted);font-weight:400;
+        margin:0 0 12px">Tracer lulusan — waktu tunggu &amp; kesesuaian bidang</h3>
+      <table class="mx"><thead><tr>
+        <th style="text-align:left">Tahun lulus</th><th>Lulusan</th>
+        <th>Terlacak</th><th>Waktu tunggu (bulan)</th>
+        <th>Sesuai bidang</th></tr></thead>
+      <tbody>${tracer.map(t=>`<tr>
+        <td class="nm" style="padding:9px 10px">${t.tahun_lulus}</td>
+        <td><div class="sel"><div class="an" style="width:auto">${t.lulusan}</div></div></td>
+        <td><div class="sel"><div class="an" style="width:auto">${t.terlacak}</div></div></td>
+        <td><div class="sel"><div class="an" style="width:auto">${t.waktu_tunggu_bulan}</div></div></td>
+        <td><div class="sel"><div class="an" style="width:auto">${
+          t.terlacak?pct(t.sesuai_bidang,t.terlacak)+'%':'—'}</div></div></td>
+      </tr>`).join('')}</tbody></table></div></div>` : '';
+
+  const kel = (arr,f)=>arr.reduce((m,x)=>{const k=f(x)||'tidak tercatat';
+    m[k]=(m[k]||0)+1;return m;},{});
+
+  return `
+    <div class="ringkas">
+      <div><b>${T.jumlah}</b><span>DTPS</span></div>
+      <div><b>${pct(T.doktor,n)}<span style="font-size:15px">%</span></b>
+        <span>Doktor</span><em>${T.doktor} dari ${T.jumlah}</em></div>
+      <div><b>${pct(punyaJab,n)}<span style="font-size:15px">%</span></b>
+        <span>Punya jabatan akademik</span><em>${punyaJab} dari ${T.jumlah}</em></div>
+      <div><b>${pct(T.karya_utama_internasional,n)}<span style="font-size:15px">%</span></b>
+        <span>Karya utama internasional</span>
+        <em>penulis pertama/korespondensi bereputasi, atau paten</em></div>
+    </div>
+    ${barisTracer}
+    <div class="rinci">
+      ${kartuRinci('Jabatan akademik DTPS',
+        Object.fromEntries(Object.entries(T.jabatan||{})
+          .map(([k,v])=>[rapi(k),v])))}
+      ${kartuRinci('Luaran DTPS (LKPS 4.f)', kel(luar,x=>x.nama_bagian))}
+      ${kartuRinci('Rekognisi DTPS (LKPS 4.j)', kel(rek,x=>rapi(x.bentuk)))}
+      ${kartuRinci('Integrasi penelitian/PkM dalam pembelajaran',
+        kel(intg,x=>rapi(x.bentuk)))}
+      ${kartuRinci('Publikasi mandiri mahasiswa (6.e.1)',
+        kel(mkp,x=>String(x.tahun)))}
+      ${kartuRinci('Luaran mahasiswa (6.e.3)', kel(mkl,x=>x.nama_bagian))}
+    </div>`;
 }
 
 function bagianMahasiswa(H){

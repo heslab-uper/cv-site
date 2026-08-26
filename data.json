@@ -1,7 +1,7 @@
 {
  "prodi": "Teknik Sipil",
  "institusi": "Universitas Pertamina",
- "diperbarui": "25 August 2026",
+ "diperbarui": "26 August 2026",
  "dosen": [
   {
    "nama": "Nurul Fajar Januriyadi",
@@ -70,9 +70,7 @@
    "indeksasi": "sinta_5_6",
    "doi": "doi.org/10.61293/anggapa.v5i1.950",
    "url": "https://ojs.widyakartika.ac.id/index.php/anggapa/article/view/950",
-   "mitra": "",
-   "mitra_tingkat": "",
-   "mitra_negara": "",
+   "mitra": [],
    "mahasiswa": 0,
    "penulis": [
     {
@@ -92,9 +90,7 @@
    "indeksasi": "sinta_3_4",
    "doi": null,
    "url": "https://ejournal.unitomo.ac.id/index.php/gestram/article/view/9938",
-   "mitra": "",
-   "mitra_tingkat": "",
-   "mitra_negara": "",
+   "mitra": [],
    "mahasiswa": 0,
    "penulis": [
     {
@@ -114,9 +110,7 @@
    "indeksasi": "sinta_5_6",
    "doi": "https://doi.org/10.31284/j.jts.2026.v7i1.8894",
    "url": "https://ejurnal.itats.ac.id/jts/article/view/8894",
-   "mitra": "",
-   "mitra_tingkat": "",
-   "mitra_negara": "",
+   "mitra": [],
    "mahasiswa": 0,
    "penulis": [
     {
@@ -136,9 +130,13 @@
    "indeksasi": "scopus_q3",
    "doi": "10.2478/cee-2026-0064",
    "url": "https://reference-global.com/article/10.2478/cee-2026-0064",
-   "mitra": "Institut Teknologi Sepuluh Nopember Surabaya, Politeknik Perkapalan Negeri Surabaya",
-   "mitra_tingkat": "nasional",
-   "mitra_negara": "Indonesia",
+   "mitra": [
+    {
+     "nama": "Institut Teknologi Sepuluh Nopember Surabaya, Politeknik Perkapalan Negeri Surabaya",
+     "tingkat": "nasional",
+     "negara": "Indonesia"
+    }
+   ],
    "mahasiswa": 0,
    "penulis": [
     {
@@ -158,9 +156,7 @@
    "indeksasi": "sinta_3_4",
    "doi": "https://doi.org/10.32736/sisfokom.v15i02.2623",
    "url": "https://jurnal.atmaluhur.ac.id/index.php/sisfokom/article/view/2623",
-   "mitra": "",
-   "mitra_tingkat": "",
-   "mitra_negara": "",
+   "mitra": [],
    "mahasiswa": 0,
    "penulis": [
     {
@@ -180,9 +176,13 @@
    "indeksasi": "scopus_q4",
    "doi": "10.1109/ICIMCIS68501.2025.11327191",
    "url": "https://ieeexplore.ieee.org/abstract/document/11327191",
-   "mitra": "UPN Veteran Jakarta",
-   "mitra_tingkat": "nasional",
-   "mitra_negara": "Indonesia",
+   "mitra": [
+    {
+     "nama": "UPN Veteran Jakarta",
+     "tingkat": "nasional",
+     "negara": "Indonesia"
+    }
+   ],
    "mahasiswa": 0,
    "penulis": [
     {
@@ -202,9 +202,7 @@
    "indeksasi": "sinta_3_4",
    "doi": "https://doi.org/10.33474/jipemas.v9i2.24930",
    "url": "https://riset.unisma.ac.id/index.php/jipemas/article/view/24930",
-   "mitra": "",
-   "mitra_tingkat": "",
-   "mitra_negara": "",
+   "mitra": [],
    "mahasiswa": 0,
    "penulis": [
     {
@@ -242,9 +240,13 @@
    "indeksasi": "scopus_q3",
    "doi": "10.5109/7405129",
    "url": "https://www.tj.kyushu-u.ac.jp/evergreen/contents/EG2026-13_01_content/p76-85.php",
-   "mitra": "BRIN",
-   "mitra_tingkat": "nasional",
-   "mitra_negara": "Indonesia",
+   "mitra": [
+    {
+     "nama": "BRIN",
+     "tingkat": "nasional",
+     "negara": "Indonesia"
+    }
+   ],
    "mahasiswa": 0,
    "penulis": [
     {
@@ -264,9 +266,13 @@
    "indeksasi": "scopus_q1",
    "doi": "10.28991/CEJ-2026-012-05-08",
    "url": "https://civilejournal.org/index.php/cej/article/view/6067",
-   "mitra": "Institut Teknologi Sepuluh Nopember / Politeknik Perkapalan Negeri Surabaya",
-   "mitra_tingkat": "nasional",
-   "mitra_negara": "Indonesia",
+   "mitra": [
+    {
+     "nama": "Institut Teknologi Sepuluh Nopember / Politeknik Perkapalan Negeri Surabaya",
+     "tingkat": "nasional",
+     "negara": "Indonesia"
+    }
+   ],
    "mahasiswa": 0,
    "penulis": [
     {
@@ -286,9 +292,7 @@
    "indeksasi": "sinta_1_2",
    "doi": "doi.org/10.24815/ijdm.v9.i1.377",
    "url": "https://publications.usk.ac.id/index.php/IJDM/article/view/377",
-   "mitra": "",
-   "mitra_tingkat": "",
-   "mitra_negara": "",
+   "mitra": [],
    "mahasiswa": 0,
    "penulis": [
     {
@@ -314,9 +318,7 @@
    "indeksasi": "sinta_3_4",
    "doi": "https://doi.org/10.31849/dinamisia.v10i1.29548",
    "url": "https://journal.unilak.ac.id/index.php/dinamisia/article/view/29548",
-   "mitra": "",
-   "mitra_tingkat": "",
-   "mitra_negara": "",
+   "mitra": [],
    "mahasiswa": 0,
    "penulis": [
     {
@@ -336,9 +338,7 @@
    "indeksasi": "sinta_1_2",
    "doi": "https://doi.org/10.14710/mkts.v31i2.75681",
    "url": "https://ejournal.undip.ac.id/index.php/mkts/article/view/75681",
-   "mitra": "",
-   "mitra_tingkat": "",
-   "mitra_negara": "Indonesia",
+   "mitra": [],
    "mahasiswa": 0,
    "penulis": [
     {
@@ -358,9 +358,13 @@
    "indeksasi": "tidak_terindeks",
    "doi": "https://doi.org/10.64472/jciet.v1i1.5",
    "url": "https://novamindpress.org/index.php/JCIET/article/view/5",
-   "mitra": "UPN Veteran Jakarta",
-   "mitra_tingkat": "nasional",
-   "mitra_negara": "Indonesia",
+   "mitra": [
+    {
+     "nama": "UPN Veteran Jakarta",
+     "tingkat": "nasional",
+     "negara": "Indonesia"
+    }
+   ],
    "mahasiswa": 0,
    "penulis": [
     {
@@ -380,9 +384,7 @@
    "indeksasi": null,
    "doi": null,
    "url": "https://ijtech.eng.ui.ac.id/article/view/7322",
-   "mitra": "",
-   "mitra_tingkat": "",
-   "mitra_negara": "",
+   "mitra": [],
    "mahasiswa": 1,
    "penulis": [
     {
@@ -402,9 +404,7 @@
    "indeksasi": "sinta_5_6",
    "doi": "https://doi.org/10.31284/j.jts.2024.v5i2.6448",
    "url": "https://ejurnal.itats.ac.id/jts/article/view/6448",
-   "mitra": "",
-   "mitra_tingkat": "",
-   "mitra_negara": "",
+   "mitra": [],
    "mahasiswa": 1,
    "penulis": [
     {
@@ -424,9 +424,13 @@
    "indeksasi": "sinta_1_2",
    "doi": "https://doi.org/10.25104/jptd.v27i1.2224",
    "url": "https://ojs.balitbanghub.dephub.go.id/index.php/jurnaldarat/article/view/2224",
-   "mitra": "BRIN",
-   "mitra_tingkat": "nasional",
-   "mitra_negara": "Indonesia",
+   "mitra": [
+    {
+     "nama": "BRIN",
+     "tingkat": "nasional",
+     "negara": "Indonesia"
+    }
+   ],
    "mahasiswa": 0,
    "penulis": [
     {
@@ -446,9 +450,13 @@
    "indeksasi": "tidak_terindeks",
    "doi": "https://doi.org/10.52958/abdikom.v3i1.10355",
    "url": "https://ejournal.upnvj.ac.id/abdikom/article/view/10355",
-   "mitra": "UPN Veteran Jakarta",
-   "mitra_tingkat": "nasional",
-   "mitra_negara": "Indonesia",
+   "mitra": [
+    {
+     "nama": "UPN Veteran Jakarta",
+     "tingkat": "nasional",
+     "negara": "Indonesia"
+    }
+   ],
    "mahasiswa": 0,
    "penulis": [
     {
@@ -468,9 +476,7 @@
    "indeksasi": "sinta_3_4",
    "doi": "https://doi.org/10.55869/kppu.v5i2.235",
    "url": "https://jurnal.kppu.go.id/index.php/official/issue/view/16",
-   "mitra": "",
-   "mitra_tingkat": "",
-   "mitra_negara": "Indonesia",
+   "mitra": [],
    "mahasiswa": 0,
    "penulis": [
     {
@@ -490,9 +496,7 @@
    "indeksasi": "sinta_3_4",
    "doi": "2548-1398",
    "url": "https://jurnal.syntaxliterate.co.id/index.php/syntax-literate/article/view/14850",
-   "mitra": "",
-   "mitra_tingkat": "",
-   "mitra_negara": "",
+   "mitra": [],
    "mahasiswa": 2,
    "penulis": [
     {
@@ -512,9 +516,13 @@
    "indeksasi": "scopus_q2",
    "doi": "10.1007/s10163-024-02064-9",
    "url": "https://link.springer.com/article/10.1007/s10163-024-02064-9",
-   "mitra": "Institut Teknologi Sepuluh Nopember / Politeknik Perkapalan Negeri Surabaya",
-   "mitra_tingkat": "nasional",
-   "mitra_negara": "Indonesia",
+   "mitra": [
+    {
+     "nama": "Institut Teknologi Sepuluh Nopember / Politeknik Perkapalan Negeri Surabaya",
+     "tingkat": "nasional",
+     "negara": "Indonesia"
+    }
+   ],
    "mahasiswa": 0,
    "penulis": [
     {
@@ -534,9 +542,7 @@
    "indeksasi": "sinta_5_6",
    "doi": "https://doi.org/10.52166/dearsip.v5i01.9696",
    "url": "https://e-jurnal.unisda.ac.id/index.php/dearsip/article/view/9696/3869",
-   "mitra": "",
-   "mitra_tingkat": "",
-   "mitra_negara": "",
+   "mitra": [],
    "mahasiswa": 0,
    "penulis": [
     {
@@ -556,9 +562,7 @@
    "indeksasi": "sinta_5_6",
    "doi": null,
    "url": "https://e-jurnal.unisda.ac.id/index.php/dearsip/article/view/8028",
-   "mitra": "",
-   "mitra_tingkat": "",
-   "mitra_negara": "",
+   "mitra": [],
    "mahasiswa": 0,
    "penulis": [
     {
@@ -578,9 +582,13 @@
    "indeksasi": "scopus_q2",
    "doi": "10.15866/irece.v15i4.24083",
    "url": "https://www.praiseworthyprize.org/jsm/index.php?journal=irece&page=article&op=view&path[]=27831",
-   "mitra": "Institut Teknologi Sepuluh Nopember / Politeknik Perkapalan Negeri Surabaya",
-   "mitra_tingkat": "nasional",
-   "mitra_negara": "Indonesia",
+   "mitra": [
+    {
+     "nama": "Institut Teknologi Sepuluh Nopember / Politeknik Perkapalan Negeri Surabaya",
+     "tingkat": "nasional",
+     "negara": "Indonesia"
+    }
+   ],
    "mahasiswa": 0,
    "penulis": [
     {
@@ -600,9 +608,13 @@
    "indeksasi": "scopus_q2",
    "doi": "10.13189/cea.2024.120603",
    "url": "https://www.hrpub.org/journals/article_info.php?aid=14515",
-   "mitra": "Institut Teknologi Sepuluh Nopember / Politeknik Perkapalan Negeri Surabaya",
-   "mitra_tingkat": "nasional",
-   "mitra_negara": "Indonesia",
+   "mitra": [
+    {
+     "nama": "Institut Teknologi Sepuluh Nopember / Politeknik Perkapalan Negeri Surabaya",
+     "tingkat": "nasional",
+     "negara": "Indonesia"
+    }
+   ],
    "mahasiswa": 0,
    "penulis": [
     {
@@ -622,9 +634,7 @@
    "indeksasi": null,
    "doi": "978-623-174-584-2",
    "url": "https://sister-pt.kemdiktisaintek.go.id/dokumen/preview/eyJpdiI6ImZRWkpPR1dQcTVPM3JiSStlYzBwT2c9PSIsInZhbHVlIjoib0xwbzNLWEVsc0hPRUpUOGZYNk40OGtMVFlYdDlCSjROVWJaWHA0Vm5jM2RnbXd1WXpYK3hIYUtWR0UwZWhCTSIsIm1hYyI6ImU4ODI1MjVkNjFjZGE5NzY0OTUyZjNlYWRlMTI0ZDBjNjI5",
-   "mitra": "",
-   "mitra_tingkat": "",
-   "mitra_negara": "Indonesia",
+   "mitra": [],
    "mahasiswa": 0,
    "penulis": [
     {
@@ -644,9 +654,7 @@
    "indeksasi": null,
    "doi": null,
    "url": null,
-   "mitra": "",
-   "mitra_tingkat": "",
-   "mitra_negara": "Indonesia",
+   "mitra": [],
    "mahasiswa": 0,
    "penulis": [
     {
@@ -666,9 +674,7 @@
    "indeksasi": null,
    "doi": "978-623-174-586-6",
    "url": "https://sister-pt.kemdiktisaintek.go.id/dokumen/preview/eyJpdiI6InNLcGcxRnBVS3N5RjE4dkxIZ254VHc9PSIsInZhbHVlIjoicFpveElvXC9BREJHNWM5OXo4d0VjTFVBOEQ5dGVGZjdMVVVsRXpmbGxSOG1YaFRVaCs2SWxoekNmOG1kWGFFXC9yIiwibWFjIjoiNDk2MjIwMGZlNGU5NWMwN2QwODZiYjUyNzU3ZTIyZWYw",
-   "mitra": "",
-   "mitra_tingkat": "",
-   "mitra_negara": "",
+   "mitra": [],
    "mahasiswa": 0,
    "penulis": [
     {
@@ -688,9 +694,7 @@
    "indeksasi": null,
    "doi": null,
    "url": "https://thejournalish.com/ojs/index.php/thejournalish/article/view/810",
-   "mitra": "",
-   "mitra_tingkat": "",
-   "mitra_negara": "",
+   "mitra": [],
    "mahasiswa": 0,
    "penulis": [
     {
@@ -710,9 +714,7 @@
    "indeksasi": null,
    "doi": "https://doi.org/10.61078/jsi.v2i1.13",
    "url": "https://jsi.universitaspertamina.ac.id/index.php/jsi/article/view/13",
-   "mitra": "",
-   "mitra_tingkat": "",
-   "mitra_negara": "",
+   "mitra": [],
    "mahasiswa": 0,
    "penulis": [
     {
@@ -732,9 +734,13 @@
    "indeksasi": "scopus_q3",
    "doi": "10.1088/1755-1315/1265/1/012015",
    "url": "https://iopscience.iop.org/article/10.1088/1755-1315/1265/1/012015",
-   "mitra": "Institut Teknologi Sepuluh Nopember / Politeknik Perkapalan Negeri Surabaya",
-   "mitra_tingkat": "nasional",
-   "mitra_negara": "Indonesia",
+   "mitra": [
+    {
+     "nama": "Institut Teknologi Sepuluh Nopember / Politeknik Perkapalan Negeri Surabaya",
+     "tingkat": "nasional",
+     "negara": "Indonesia"
+    }
+   ],
    "mahasiswa": 0,
    "penulis": [
     {
@@ -754,9 +760,13 @@
    "indeksasi": "scopus_q4",
    "doi": "10.14455/isec.2023.10(1).sus-06",
    "url": "https://www.isec-society.org/ISEC_PRESS/ISEC_12/xml/SUS-06.xml",
-   "mitra": "Institut Teknologi Sepuluh Nopember / Politeknik Perkapalan Negeri Surabaya",
-   "mitra_tingkat": "nasional",
-   "mitra_negara": "Indonesia",
+   "mitra": [
+    {
+     "nama": "Institut Teknologi Sepuluh Nopember / Politeknik Perkapalan Negeri Surabaya",
+     "tingkat": "nasional",
+     "negara": "Indonesia"
+    }
+   ],
    "mahasiswa": 0,
    "penulis": [
     {
@@ -776,9 +786,13 @@
    "indeksasi": "scopus_q4",
    "doi": "10.14455/isec.2023.10(1).sus-05",
    "url": "https://www.isec-society.org/ISEC_PRESS/ISEC_12/xml/SUS-05.xml",
-   "mitra": "Institut Teknologi Sepuluh Nopember / Politeknik Perkapalan Negeri Surabaya",
-   "mitra_tingkat": "nasional",
-   "mitra_negara": "Indonesia",
+   "mitra": [
+    {
+     "nama": "Institut Teknologi Sepuluh Nopember / Politeknik Perkapalan Negeri Surabaya",
+     "tingkat": "nasional",
+     "negara": "Indonesia"
+    }
+   ],
    "mahasiswa": 0,
    "penulis": [
     {
@@ -798,9 +812,7 @@
    "indeksasi": null,
    "doi": "2593-7650",
    "url": "https://eudl.eu/doi/10.4108/eai.23-11-2022.2342989",
-   "mitra": "",
-   "mitra_tingkat": "",
-   "mitra_negara": "",
+   "mitra": [],
    "mahasiswa": 0,
    "penulis": [
     {
@@ -826,9 +838,7 @@
    "indeksasi": null,
    "doi": "9786233461917",
    "url": "https://upertamina-my.sharepoint.com/:b:/g/personal/hr_upertamina_onmicrosoft_com/EawqKr26tltFnggVEFpKqlABg81bdf7o4XxZIVCO9Reebw?e=r7bCjj",
-   "mitra": "",
-   "mitra_tingkat": "",
-   "mitra_negara": "",
+   "mitra": [],
    "mahasiswa": 0,
    "penulis": [
     {
@@ -848,9 +858,7 @@
    "indeksasi": "tidak_terindeks",
    "doi": null,
    "url": "https://www.researchgate.net/publication/344635725_Sediment_Transport_Study_In_Estuary_Of_Weriagar_River_Kabupaten_Teluk_Bintuni_West_Papua",
-   "mitra": "",
-   "mitra_tingkat": "",
-   "mitra_negara": "",
+   "mitra": [],
    "mahasiswa": 0,
    "penulis": [
     {
@@ -870,9 +878,7 @@
    "indeksasi": "scopus_q4",
    "doi": "https://doi.org/10.1088/1755-1315/618/1/012041",
    "url": "https://iopscience.iop.org/article/10.1088/1755-1315/618/1/012041",
-   "mitra": "",
-   "mitra_tingkat": "",
-   "mitra_negara": "",
+   "mitra": [],
    "mahasiswa": 0,
    "penulis": [
     {
@@ -892,9 +898,7 @@
    "tingkat": "nasional",
    "skema": "PF — Penelitian Fundamental",
    "kelompok": "Kemendiktisaintek / DPPM",
-   "mitra": "",
-   "mitra_tingkat": "",
-   "mitra_negara": "",
+   "mitra": [],
    "mahasiswa": 0,
    "penulis": [
     {
@@ -918,9 +922,7 @@
    "tingkat": "wilayah_lokal",
    "skema": "Hibah internal universitas",
    "kelompok": "Hibah internal perguruan tinggi",
-   "mitra": "",
-   "mitra_tingkat": "",
-   "mitra_negara": "",
+   "mitra": [],
    "mahasiswa": 4,
    "penulis": [
     {
@@ -956,9 +958,7 @@
    "tingkat": "nasional",
    "skema": "Lainnya — sebutkan di keterangan",
    "kelompok": "Kementerian / lembaga lain / pemda",
-   "mitra": "",
-   "mitra_tingkat": "",
-   "mitra_negara": "",
+   "mitra": [],
    "mahasiswa": 0,
    "penulis": [
     {
@@ -976,9 +976,7 @@
    "tingkat": "nasional",
    "skema": "PDD — Penelitian Disertasi Doktor",
    "kelompok": "Kemendiktisaintek / DPPM",
-   "mitra": "",
-   "mitra_tingkat": "",
-   "mitra_negara": "",
+   "mitra": [],
    "mahasiswa": 0,
    "penulis": [
     {
@@ -996,9 +994,7 @@
    "tingkat": "wilayah_lokal",
    "skema": "Hibah internal lainnya — sebutkan namanya",
    "kelompok": "Hibah internal perguruan tinggi",
-   "mitra": "",
-   "mitra_tingkat": "",
-   "mitra_negara": "",
+   "mitra": [],
    "mahasiswa": 0,
    "penulis": [
     {
@@ -1016,9 +1012,7 @@
    "tingkat": "wilayah_lokal",
    "skema": "Hibah internal lainnya — sebutkan namanya",
    "kelompok": "Hibah internal perguruan tinggi",
-   "mitra": "",
-   "mitra_tingkat": "",
-   "mitra_negara": "",
+   "mitra": [],
    "mahasiswa": 0,
    "penulis": [
     {
@@ -1036,9 +1030,7 @@
    "tingkat": "nasional",
    "skema": "Lainnya — sebutkan di keterangan",
    "kelompok": "Kementerian / lembaga lain / pemda",
-   "mitra": "",
-   "mitra_tingkat": "",
-   "mitra_negara": "",
+   "mitra": [],
    "mahasiswa": 0,
    "penulis": [
     {
@@ -1056,9 +1048,7 @@
    "tingkat": "nasional",
    "skema": "Lainnya — sebutkan di keterangan",
    "kelompok": "Kementerian / lembaga lain / pemda",
-   "mitra": "",
-   "mitra_tingkat": "",
-   "mitra_negara": "",
+   "mitra": [],
    "mahasiswa": 0,
    "penulis": [
     {
@@ -1076,9 +1066,7 @@
    "tingkat": "nasional",
    "skema": "Lainnya — sebutkan di keterangan",
    "kelompok": "Kementerian / lembaga lain / pemda",
-   "mitra": "",
-   "mitra_tingkat": "",
-   "mitra_negara": "",
+   "mitra": [],
    "mahasiswa": 0,
    "penulis": [
     {
@@ -1096,9 +1084,7 @@
    "tingkat": "nasional",
    "skema": "Lainnya — sebutkan di keterangan",
    "kelompok": "Kementerian / lembaga lain / pemda",
-   "mitra": "",
-   "mitra_tingkat": "nasional",
-   "mitra_negara": "",
+   "mitra": [],
    "mahasiswa": 0,
    "penulis": [
     {
@@ -1116,9 +1102,7 @@
    "tingkat": "nasional",
    "skema": "Lainnya — sebutkan di keterangan",
    "kelompok": "Kementerian / lembaga lain / pemda",
-   "mitra": "",
-   "mitra_tingkat": "",
-   "mitra_negara": "",
+   "mitra": [],
    "mahasiswa": 0,
    "penulis": [
     {
@@ -1136,9 +1120,7 @@
    "tingkat": "wilayah_lokal",
    "skema": "Hibah internal lainnya — sebutkan namanya",
    "kelompok": "Hibah internal perguruan tinggi",
-   "mitra": "",
-   "mitra_tingkat": "wilayah_lokal",
-   "mitra_negara": "",
+   "mitra": [],
    "mahasiswa": 0,
    "penulis": [
     {
@@ -1156,9 +1138,7 @@
    "tingkat": "nasional",
    "skema": "Hibah internal universitas",
    "kelompok": "Hibah internal perguruan tinggi",
-   "mitra": "",
-   "mitra_tingkat": "",
-   "mitra_negara": "",
+   "mitra": [],
    "mahasiswa": 0,
    "penulis": [
     {
@@ -1182,9 +1162,7 @@
    "tingkat": "nasional",
    "skema": "PDD — Penelitian Disertasi Doktor",
    "kelompok": "Kemendiktisaintek / DPPM",
-   "mitra": "",
-   "mitra_tingkat": "",
-   "mitra_negara": "",
+   "mitra": [],
    "mahasiswa": 0,
    "penulis": [
     {
@@ -1202,9 +1180,7 @@
    "tingkat": "nasional",
    "skema": "Lainnya — sebutkan di keterangan",
    "kelompok": "Kementerian / lembaga lain / pemda",
-   "mitra": "",
-   "mitra_tingkat": "",
-   "mitra_negara": "",
+   "mitra": [],
    "mahasiswa": 0,
    "penulis": [
     {
@@ -1222,9 +1198,13 @@
    "tingkat": "wilayah_lokal",
    "skema": "Hibah internal universitas",
    "kelompok": "Hibah internal perguruan tinggi",
-   "mitra": "UPRS Marunda",
-   "mitra_tingkat": "",
-   "mitra_negara": "Indonesia",
+   "mitra": [
+    {
+     "nama": "UPRS Marunda",
+     "tingkat": "",
+     "negara": "Indonesia"
+    }
+   ],
    "mahasiswa": 0,
    "penulis": [
     {
@@ -1236,14 +1216,7 @@
    ]
   }
  ],
- "prestasi_agregat": [
-  {
-   "tahun": 2025,
-   "tingkat": "nasional",
-   "bidang": "akademik",
-   "jumlah": 1
-  }
- ],
+ "prestasi_agregat": [],
  "prestasi_pembimbing": [],
  "mahasiswa_agregat": [
   {
@@ -1264,5 +1237,24 @@
    "keterlibatan": 2,
    "mahasiswa_unik": 2
   }
- ]
+ ],
+ "dtps": {
+  "jumlah": 8,
+  "doktor": 5,
+  "jabatan": {
+   "lektor": 3,
+   "asisten_ahli": 2,
+   "guru_besar": 1,
+   "tanpa_jabatan": 2
+  },
+  "karya_utama_internasional": 2
+ },
+ "tracer": [],
+ "luaran_dosen": [],
+ "rekognisi": [],
+ "integrasi": [],
+ "mahasiswa_karya": {
+  "publikasi": [],
+  "luaran": []
+ }
 }
