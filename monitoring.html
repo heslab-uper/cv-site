@@ -420,8 +420,22 @@ function bagianSyaratPerlu(){
   const A = window.AMBANG;
   if(!A || !Array.isArray(A.butir))
     return `<div class="kartu"><p class="kosong">Berkas <code>ambang.js</code> tidak
-      ditemukan atau formatnya salah. Salin dari paket lalu unggah ke folder
-      yang sama dengan halaman ini.</p></div>`;
+      ditemukan. Salin dari paket lalu unggah ke folder yang sama dengan
+      halaman ini.</p></div>`;
+
+  // Format lama: `ambang` berupa angka tunggal, bukan {u3, u5}. Kalau
+  // dibiarkan lewat, seluruh kolom terisi "tanpa ambang" dan halaman
+  // tampak rusak tanpa sebab yang jelas.
+  if((A.format || 1) < 2)
+    return `<div class="peringatan">
+      <b>Berkas <code>ambang.js</code> masih versi lama.</b> Halaman ini sudah
+      memakai ambang LAM Teknik dengan dua sasaran (Unggul 3 tahun dan 5 tahun),
+      sedangkan <code>ambang.js</code> yang terpasang masih format lama berisi
+      ambang tunggal hasil tebakan. <b>Timpa <code>ambang.js</code> dengan versi
+      dari paket terbaru</b>, lalu muat ulang halaman dengan
+      <code>Ctrl</code>+<code>Shift</code>+<code>R</code> agar peramban tidak
+      memakai salinan lamanya. Berbeda dengan <code>config.js</code>, berkas ini
+      memang perlu ditimpa saat strukturnya berubah.</div>`;
 
   const S = A.sasaran || [{id:'u3',label:'Unggul'}];
   const ins = A.instrumen || {};

@@ -41,6 +41,11 @@
 
 window.AMBANG = {
 
+  // Dinaikkan setiap kali STRUKTUR berkas ini berubah (bukan saat angkanya
+  // diubah). monitoring.html menolak format lama dengan pesan yang jelas
+  // daripada menampilkan tabel kosong tanpa ambang.
+  format: 2,
+
   instrumen: {
     nama: 'Syarat perlu peringkat — LAM Teknik',
     jenjang: 'Sarjana / PJJ Sarjana',
