@@ -2665,7 +2665,41 @@
    "guru_besar": 1,
    "tanpa_jabatan": 2
   },
-  "karya_utama_internasional": 3
+  "karya_utama_internasional": 3,
+  "karya_utama_rinci": [
+   {
+    "slug": "adita-utami",
+    "tahun": 2026
+   },
+   {
+    "slug": "gati-annisa-hayu",
+    "tahun": 2026
+   },
+   {
+    "slug": "vani-arliani",
+    "tahun": 2026
+   },
+   {
+    "slug": "adita-utami",
+    "tahun": 2025
+   },
+   {
+    "slug": "gati-annisa-hayu",
+    "tahun": 2024
+   },
+   {
+    "slug": "vani-arliani",
+    "tahun": 2024
+   },
+   {
+    "slug": "adita-utami",
+    "tahun": 2023
+   },
+   {
+    "slug": "gati-annisa-hayu",
+    "tahun": 2023
+   }
+  ]
  },
  "tracer": [],
  "luaran_dosen": [],

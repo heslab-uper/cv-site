@@ -120,8 +120,12 @@
   .st.gagal{background:#FBE5E8;color:var(--merah)}
   .st.tak{background:var(--line-soft);color:var(--muted)}
   .st.manual{background:#EEF3F8;color:var(--biru-2)}
-  .sp-ringkas{display:flex;gap:18px;flex-wrap:wrap;font-size:13px;color:var(--muted);margin:0 0 12px}
-  .sp-ringkas b{font-family:var(--mono);font-weight:400;color:var(--ink)}
+  table.sp td .an-amb{font-family:var(--mono);font-size:12px;color:var(--muted);margin-bottom:5px}
+  .sasaran{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+           gap:16px;margin:0 0 20px;padding-bottom:18px;border-bottom:1px solid var(--line-soft)}
+  .sasaran .j{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;
+              text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+  .sasaran .s{font-size:12px;color:var(--muted);margin-top:7px}
 
   footer{margin-top:52px;padding-top:20px;border-top:3px solid var(--biru);
          font-size:12.5px;color:var(--muted)}
@@ -275,10 +279,11 @@ function render(){
       mungkin belum diinput.</p></div>
 
     <h2>Syarat perlu peringkat</h2>
-    <p class="ket">Pemeriksaan capaian terhadap ambang di <code>ambang.js</code>.
-    Profil DTPS dan tracer tidak terpengaruh pemilih periode; karya utama
-    internasional mengikutinya. Ini alat bantu internal, bukan penilaian resmi.</p>
-    ${bagianSyaratPerlu(H)}
+    <p class="ket">Pemeriksaan capaian terhadap ambang LAM Teknik jenjang Sarjana
+    di <code>ambang.js</code>. Bagian ini <b>tidak mengikuti pemilih periode</b> di
+    atas: tiap butir memakai jendela tahun yang ditetapkan instrumen. Ini alat bantu
+    internal, bukan penilaian resmi.</p>
+    ${bagianSyaratPerlu()}
 
     <h2>Indikator LKPS</h2>
     <p class="ket">Indikator dosen tetap (DTPS) dan lulusan mengikuti butir
@@ -336,96 +341,165 @@ function render(){
 }
 
 // =====================================================================
-//  Syarat perlu: hitung capaian tiap butir dari data.json, bandingkan
-//  dengan ambang.js. Fungsi hitung dipetakan lewat id butir sehingga
-//  menambah butir baru cukup di ambang.js bila id-nya sudah dikenal.
+//  Syarat perlu peringkat — capaian dihitung dari data.json, ambang
+//  dibaca dari ambang.js. Butir dipetakan lewat id, sehingga menambah
+//  butir baru di ambang.js cukup bila id-nya sudah dikenal di sini.
+//
+//  Beberapa butir punya JENDELA TAHUN sendiri (mis. tiga tahun
+//  terakhir), yang berbeda dari pemilih periode di atas halaman.
+//  Jendela dari instrumen selalu menang; pemilih periode tidak
+//  memengaruhi bagian ini.
 // =====================================================================
-function capaianSyarat(id, H){
+// "Tiga tahun terakhir" berarti RENTANG BERURUTAN TS-2..TS, bukan tiga
+// tahun yang kebetulan ada datanya. Tahun acuan (TS) diambil dari tahun
+// termuda yang ada di data, bukan tahun berjalan, supaya angka tidak
+// berubah sendiri saat pergantian tahun sebelum data diperbarui.
+function jendelaTahun(daftar, n){
+  const th = daftar.map(Number).filter(x=>x > 0);
+  if(!th.length) return {set:new Set(), label:''};
+  const ts = Math.max(...th);
+  const set = new Set();
+  for(let t = ts - n + 1; t <= ts; t++) set.add(t);
+  return {set, label: `${ts - n + 1}\u2013${ts}`};
+}
+
+function capaianSyarat(b){
   const T = D.dtps || {};
   const n = T.jumlah || 0;
   const jab = T.jabatan || {};
-  const tracer = D.tracer || [];
-  const terlacak = tracer.reduce((a,t)=>a+(t.terlacak||0),0);
-  switch(id){
-    case 'dtps_jumlah':
-      return n ? {nilai:n, rinci:`${n} dosen aktif`} : null;
+  const jd = b.jendela || {};
+
+  switch(b.id){
     case 'dtps_doktor':
-      return n ? {nilai:pct(T.doktor||0,n), rinci:`${T.doktor||0} dari ${n}`} : null;
+      return n ? {nilai: pct(T.doktor||0, n), rinci: `${T.doktor||0} dari ${n} DTPS`} : null;
+
     case 'dtps_lektor_keatas': {
-      const k = (jab.lektor||0)+(jab.lektor_kepala||0)+(jab.guru_besar||0);
-      return n ? {nilai:pct(k,n), rinci:`${k} dari ${n}`} : null; }
-    case 'waktu_tunggu': {
-      if(!terlacak) return null;
-      const w = tracer.reduce((a,t)=>a+(t.waktu_tunggu_bulan||0)*(t.terlacak||0),0)/terlacak;
-      return {nilai:Math.round(w*10)/10,
-              rinci:`${tracer.length} tahun lulus, ${terlacak} terlacak`}; }
+      const k = (jab.lektor||0) + (jab.lektor_kepala||0) + (jab.guru_besar||0);
+      return n ? {nilai: pct(k, n), rinci: `${k} dari ${n} DTPS`} : null; }
+
+    case 'karya_utama_internasional': {
+      if(!n) return null;
+      const rinciKarya = T.karya_utama_rinci;
+      if(!Array.isArray(rinciKarya))
+        return {nilai: pct(T.karya_utama_internasional||0, n), rusak: true,
+                rinci: `${T.karya_utama_internasional||0} dari ${n} DTPS, SELURUH tahun`};
+      const J = jendelaTahun(rinciKarya.map(x=>x.tahun), jd.tahun_terakhir||3);
+      if(!J.set.size) return null;
+      const org = new Set(rinciKarya.filter(x=>J.set.has(x.tahun)).map(x=>x.slug));
+      return {nilai: pct(org.size, n),
+              rinci: `${org.size} dari ${n} DTPS · tahun ${J.label}`}; }
+
+    case 'waktu_tunggu':
     case 'sesuai_bidang': {
+      const tr = D.tracer || [];
+      if(!tr.length) return null;
+      const J = jendelaTahun(tr.map(t=>t.tahun_lulus), jd.tahun_terakhir||2);
+      const pilih = tr.filter(t=>J.set.has(t.tahun_lulus));
+      const terlacak = pilih.reduce((a,t)=>a+(t.terlacak||0), 0);
       if(!terlacak) return null;
-      const s = tracer.reduce((a,t)=>a+(t.sesuai_bidang||0),0);
-      return {nilai:pct(s,terlacak), rinci:`${s} dari ${terlacak} terlacak`}; }
-    case 'karya_utama_internasional':
-      return n ? {nilai:pct(T.karya_utama_internasional||0,n),
-                  rinci:`${T.karya_utama_internasional||0} dari ${n}, seluruh periode`} : null;
-    default: return undefined;   // id tak dikenal
+      const lbl = J.label;
+      if(b.id === 'waktu_tunggu'){
+        const w = pilih.reduce((a,t)=>a+(t.waktu_tunggu_bulan||0)*(t.terlacak||0), 0)/terlacak;
+        return {nilai: Math.round(w*10)/10,
+                rinci: `${terlacak} lulusan terlacak · tahun lulus ${lbl}`}; }
+      const ss = pilih.reduce((a,t)=>a+(t.sesuai_bidang||0), 0);
+      return {nilai: pct(ss, terlacak),
+              rinci: `${ss} dari ${terlacak} terlacak · tahun lulus ${lbl}`}; }
+
+    default: return undefined;   // id tidak dikenal
   }
 }
 
-function bagianSyaratPerlu(H){
+function bagianSyaratPerlu(){
   const A = window.AMBANG;
   if(!A || !Array.isArray(A.butir))
     return `<div class="kartu"><p class="kosong">Berkas <code>ambang.js</code> tidak
       ditemukan atau formatnya salah. Salin dari paket lalu unggah ke folder
       yang sama dengan halaman ini.</p></div>`;
 
-  const belumVerif = A.butir.filter(b=>!b.terverifikasi).length;
-  const fmt = (v,sat)=> sat==='%' ? `${v}%` : sat==='ya/tidak' ? (v?'ya':'tidak') : `${v} ${sat}`;
+  const S = A.sasaran || [{id:'u3',label:'Unggul'}];
+  const ins = A.instrumen || {};
+  const fmt = (v, sat) => sat === '%'    ? `${v}%`
+                        : sat === 'skor' ? Number(v).toFixed(2)
+                        : `${v} ${sat}`;
 
-  let ok=0, gagal=0, tak=0;
-  const baris = A.butir.map(b=>{
-    let cap, status, rinci='';
+  let adaRusak = false;
+  const hit = Object.fromEntries(S.map(x=>[x.id, {ok:0, gagal:0, tak:0}]));
+
+  const baris = [...A.butir].sort((a,b)=>(a.no||99)-(b.no||99)).map(b=>{
+    let cap, rinci;
     if(b.manual){
-      cap = b.capaian;
+      cap = (b.capaian === undefined) ? null : b.capaian;
       rinci = 'diisi manual di ambang.js';
     } else {
-      const r = capaianSyarat(b.id, H);
-      if(r===undefined){ cap=null; rinci='id butir tidak dikenal monitoring.html'; }
-      else if(r===null){ cap=null; rinci='data belum tersedia di data.json'; }
-      else { cap=r.nilai; rinci=r.rinci; }
+      const r = capaianSyarat(b);
+      if(r === undefined){ cap = null; rinci = 'id butir tidak dikenal monitoring.html'; }
+      else if(r === null){ cap = null; rinci = 'data belum tersedia di data.json'; }
+      else {
+        cap = r.nilai; rinci = r.rinci;
+        if(r.rusak){ adaRusak = true;
+          rinci += ' — jalankan ulang bangun.py agar terbatas jendela instrumen'; }
+      }
     }
-    if(cap===null || cap===undefined){ status='tak'; tak++; }
-    else {
-      const lolos = b.arah==='max' ? cap<=b.ambang : cap>=b.ambang;
-      status = lolos ? 'ok' : 'gagal'; lolos ? ok++ : gagal++;
-    }
-    const lbl = {ok:'memenuhi', gagal:'belum', tak:'tak terhitung'}[status];
+
+    const sel = S.map(sa=>{
+      const amb = (b.ambang||{})[sa.id];
+      if(amb === undefined) return `<td><span class="st tak">tanpa ambang</span></td>`;
+      if(cap === null || cap === undefined){
+        hit[sa.id].tak++;
+        return `<td><div class="an-amb">${b.arah==='max'?'≤':'≥'} ${fmt(amb, b.satuan)}</div>
+                <span class="st tak">tak terhitung</span></td>`; }
+      const lolos = b.arah === 'max' ? cap <= amb : cap >= amb;
+      lolos ? hit[sa.id].ok++ : hit[sa.id].gagal++;
+      return `<td><div class="an-amb">${b.arah==='max'?'≤':'≥'} ${fmt(amb, b.satuan)}</div>
+              <span class="st ${lolos?'ok':'gagal'}">${lolos?'memenuhi':'belum'}</span></td>`;
+    }).join('');
+
     return `<tr>
-      <td><div>${esc(b.label)}${b.manual?' <span class="st manual">manual</span>':''}</div>
-          <div class="btr">${esc(b.butir||'butir belum ditetapkan')}${b.terverifikasi?'':' · ambang belum diverifikasi'}</div>
-          ${b.catatan?`<div class="ctt">${esc(b.catatan)}</div>`:''}</td>
-      <td class="an">${cap==null?'—':fmt(cap,b.satuan)}<div class="ctt">${esc(rinci)}</div></td>
-      <td class="an">${b.arah==='max'?'≤':'≥'} ${fmt(b.ambang,b.satuan)}</td>
-      <td><span class="st ${status}">${lbl}</span></td>
-    </tr>`;
+      <td><div><span class="btr">${b.no ? b.no+'.' : ''}</span> ${esc(b.label)}${
+          b.manual ? ' <span class="st manual">manual</span>' : ''}</div>
+        ${b.catatan ? `<div class="ctt">${esc(b.catatan)}</div>` : ''}
+        ${b.sumber  ? `<div class="ctt">Sumber: ${esc(b.sumber)}</div>` : ''}</td>
+      <td class="an">${cap == null ? '—' : fmt(cap, b.satuan)}
+        <div class="ctt">${esc(rinci)}</div></td>
+      ${sel}</tr>`;
   }).join('');
 
-  const ins = A.instrumen||{};
-  const insTeks = ins.nama ? `${esc(ins.nama)}${ins.versi?' v'+esc(ins.versi):''}`
-                           : 'instrumen rujukan belum ditetapkan';
+  const ringkas = S.map(sa=>{
+    const h = hit[sa.id];
+    const st = h.gagal ? 'gagal' : (h.tak ? 'tak' : 'ok');
+    const lbl = h.gagal ? 'ada butir belum terpenuhi'
+              : h.tak   ? 'belum dapat disimpulkan' : 'seluruh butir terpenuhi';
+    return `<div class="sas">
+      <div class="j">${esc(sa.label)}</div>
+      <span class="st ${st}">${lbl}</span>
+      <div class="s">memenuhi ${h.ok} · belum ${h.gagal} · tak terhitung ${h.tak}</div>
+    </div>`;
+  }).join('');
+
+  const peringatan = [];
+  if(ins.butir_lengkap === false)
+    peringatan.push(`<b>Daftar butir belum lengkap.</b> Butir 9, 10, dan 11 pada
+      instrumen belum dimasukkan ke <code>ambang.js</code>. Kesimpulan
+      &ldquo;seluruh butir terpenuhi&rdquo; di bawah karena itu belum sahih.`);
+  if(adaRusak)
+    peringatan.push(`<b>Angka karya utama internasional dihitung tanpa batas tahun.</b>
+      Berkas <code>data.json</code> berasal dari <code>bangun.py</code> versi lama.
+      Jalankan ulang <code>bangun.py</code> lalu unggah hasilnya.`);
 
   return `
-    ${belumVerif ? `<div class="peringatan"><b>${belumVerif} dari ${A.butir.length} ambang belum
-      diverifikasi</b> terhadap instrumen LAM Teknik yang berlaku. Status di bawah
-      bersifat indikatif; jangan dikutip ke borang sebelum <code>ambang.js</code>
-      dicocokkan ke butir instrumen resmi.</div>` : ''}
+    ${peringatan.map(x=>`<div class="peringatan">${x}</div>`).join('')}
     <div class="kartu">
-      <div class="sp-ringkas">
-        <span>Memenuhi <b>${ok}</b></span><span>Belum <b>${gagal}</b></span>
-        <span>Tak terhitung <b>${tak}</b></span>
-        <span>Rujukan: <b>${insTeks}</b>${ins.diperbarui?` (dicek ${esc(ins.diperbarui)})`:''}</span>
-      </div>
+      <div class="sasaran">${ringkas}</div>
       <div class="gulir"><table class="sp"><thead><tr>
-        <th>Butir</th><th>Capaian</th><th>Ambang</th><th>Status</th>
+        <th style="width:46%">Butir</th><th>Capaian</th>
+        ${S.map(sa=>`<th>${esc(sa.label)}${sa.tanda?` <span class="btr">${esc(sa.tanda)}</span>`:''}</th>`).join('')}
       </tr></thead><tbody>${baris}</tbody></table></div>
+      <p class="kaki">Seluruh butir harus terpenuhi; satu butir yang belum
+      memenuhi menggugurkan sasaran peringkat tersebut. Butir yang tidak berlaku
+      untuk jenjang Sarjana tidak ditampilkan — lihat catatan di
+      <code>ambang.js</code>. Butir bertanda <b>manual</b> tidak dihitung dari
+      data dan harus diisi sendiri.</p>
     </div>`;
 }
 
