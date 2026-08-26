@@ -232,6 +232,26 @@
    ]
   },
   {
+   "judul": "Inhibiting Factors of Engineering Consultant",
+   "tahun": 2026,
+   "jenis": "prosiding",
+   "terbitan": "Springer Nature",
+   "tingkat": "internasional",
+   "indeksasi": "scopus_q4",
+   "doi": null,
+   "url": "https://link.springer.com/chapter/10.1007/978-3-032-18451-1_26",
+   "mitra": [],
+   "mahasiswa": 0,
+   "penulis": [
+    {
+     "nama": "Vani Arliani",
+     "slug": "vani-arliani",
+     "peran": "penulis_pertama",
+     "korespondensi": true
+    }
+   ]
+  },
+  {
    "judul": "Mode Shift Analysis from Private Car to Public Transport in Reducing Car Use and Improving Traffic Performance for Sustainable Transportation",
    "tahun": 2026,
    "jenis": "jurnal",
@@ -488,6 +508,118 @@
    ]
   },
   {
+   "judul": "The impact of congestion pricing on public transport utilization in jakarta, indonesia",
+   "tahun": 2025,
+   "jenis": "jurnal",
+   "terbitan": "Interdisciplinary Graduate School of Engineering Sciences, Kyushu University, Japan",
+   "tingkat": "internasional",
+   "indeksasi": "scopus_q3",
+   "doi": " 10.5109/7402637",
+   "url": "https://www.tj.kyushu-u.ac.jp/evergreen/contents/EG2025-12_04_content/p2058-2069.php",
+   "mitra": [
+    {
+     "nama": "BRIN",
+     "tingkat": "nasional",
+     "negara": "Indonesia"
+    }
+   ],
+   "mahasiswa": 0,
+   "penulis": [
+    {
+     "nama": "Adita Utami",
+     "slug": "adita-utami",
+     "peran": "penulis_pertama",
+     "korespondensi": false
+    }
+   ]
+  },
+  {
+   "judul": "ANALISIS MANAJEMEN LALU LINTAS KINERJA SIMPANG BERSINYAL BERDASARKAN PKJI 2014 (STUDI KASUS JL. CIPUTAT RAYA, PONDON PINANG)",
+   "tahun": 2024,
+   "jenis": "jurnal",
+   "terbitan": "Jurnal Gradasi Teknik Sipil",
+   "tingkat": "nasional",
+   "indeksasi": "sinta_3_4",
+   "doi": "https://doi.org/10.31961/gradasi.v8i1.2338",
+   "url": "https://ejurnal.poliban.ac.id/index.php/Teknik_Sipil/article/view/2338",
+   "mitra": [],
+   "mahasiswa": 0,
+   "penulis": [
+    {
+     "nama": "Adita Utami",
+     "slug": "adita-utami",
+     "peran": "anggota",
+     "korespondensi": true
+    }
+   ]
+  },
+  {
+   "judul": "Accessibility and Land Use Effect of Residential Area with Different TOD Typology to Value Creation",
+   "tahun": 2024,
+   "jenis": "prosiding",
+   "terbitan": "ISTSDC (International Symposium on Transport Studies in Developing Countries)",
+   "tingkat": "internasional",
+   "indeksasi": "scopus_q3",
+   "doi": "10.1088/1755-1315/1294/1/012006",
+   "url": "https://iopscience.iop.org/article/10.1088/1755-1315/1294/1/012006",
+   "mitra": [
+    {
+     "nama": "ITB",
+     "tingkat": "internasional",
+     "negara": ""
+    }
+   ],
+   "mahasiswa": 0,
+   "penulis": [
+    {
+     "nama": "Vani Arliani",
+     "slug": "vani-arliani",
+     "peran": "penulis_pertama",
+     "korespondensi": true
+    }
+   ]
+  },
+  {
+   "judul": "Analisis Kinerja Lalu Lintas Dan Solusi Simpang Tak Bersinyal Perempatan Duren Tangerang Selatan Dengan Metode PKJI 2014",
+   "tahun": 2024,
+   "jenis": "jurnal",
+   "terbitan": "Ge-STRAM: Jurnal Perencanaan Dan Rekayasa Sipil",
+   "tingkat": "nasional",
+   "indeksasi": "sinta_3_4",
+   "doi": "https://doi.org/10.25139/jprs.v7i1.6582",
+   "url": "https://ejournal.unitomo.ac.id/index.php/gestram/article/view/6582/3860",
+   "mitra": [],
+   "mahasiswa": 1,
+   "penulis": [
+    {
+     "nama": "Adita Utami",
+     "slug": "adita-utami",
+     "peran": "anggota",
+     "korespondensi": true
+    }
+   ]
+  },
+  {
+   "judul": "Analisis Kinerja Pada Simpang Bersinyal Jalan Buncit Raya-Warung Jati Barat Kota Jakarta Selatan Menggunakan PKJI 2014",
+   "tahun": 2024,
+   "jenis": "jurnal",
+   "terbitan": "Jurnal Teknik Sipil",
+   "tingkat": "nasional",
+   "indeksasi": "sinta_5_6",
+   "doi": "https://doi.org/10.31284/j.jts.2024.v5i1.5848",
+   "url": "https://ejurnal.itats.ac.id/jts/article/view/5848",
+   "mitra": [],
+   "mahasiswa": 1,
+   "penulis": [
+    {
+     "nama": "Adita Utami",
+     "slug": "adita-utami",
+     "peran": "anggota",
+     "korespondensi": true
+    }
+   ]
+  },
+  {
    "judul": "Analysis of The Application of Risk Management in PT. Pertamina TBBM Tanjung Priok to Improve Non-Financial Firm (Case Study: Tank Construction X - Tanjung Priok)",
    "tahun": 2024,
    "jenis": "jurnal",
@@ -600,6 +732,32 @@
    ]
   },
   {
+   "judul": "Effect of Latex Rubber as Asphalt Additive to the Characteristics of AC-WC Mixture",
+   "tahun": 2024,
+   "jenis": "jurnal",
+   "terbitan": "Reka Buana: Jurnal Teknik Sipil dan Teknik Kimia",
+   "tingkat": "nasional",
+   "indeksasi": "sinta_3_4",
+   "doi": " https://doi.org/10.33366/rekabuana.v8i2.5143",
+   "url": "https://jurnal.unitri.ac.id/index.php/rekabuana/article/view/5143",
+   "mitra": [
+    {
+     "nama": "Kementerian PUPR",
+     "tingkat": "nasional",
+     "negara": "Indonesia"
+    }
+   ],
+   "mahasiswa": 3,
+   "penulis": [
+    {
+     "nama": "Adita Utami",
+     "slug": "adita-utami",
+     "peran": "anggota",
+     "korespondensi": true
+    }
+   ]
+  },
+  {
    "judul": "Effect of Low Electric Field Polarization Condition on Properties of Cement-based Piezoelectric Ceramic Composite",
    "tahun": 2024,
    "jenis": "jurnal",
@@ -622,6 +780,32 @@
      "slug": "gati-annisa-hayu",
      "peran": "penulis_pertama",
      "korespondensi": false
+    }
+   ]
+  },
+  {
+   "judul": "Impact of Internal Accessibility on Value Creation in TOD Area",
+   "tahun": 2024,
+   "jenis": "jurnal",
+   "terbitan": "Transportation Research Interdisciplinary Perspective ",
+   "tingkat": "internasional",
+   "indeksasi": "scopus_q1",
+   "doi": "10.1016/j.trip.2024.101106 ",
+   "url": "https://www.sciencedirect.com/science/article/pii/S2590198224000927?via%3Dihub",
+   "mitra": [
+    {
+     "nama": "ITB",
+     "tingkat": "internasional",
+     "negara": ""
+    }
+   ],
+   "mahasiswa": 0,
+   "penulis": [
+    {
+     "nama": "Vani Arliani",
+     "slug": "vani-arliani",
+     "peran": "penulis_pertama",
+     "korespondensi": true
     }
    ]
   },
@@ -706,6 +890,98 @@
    ]
   },
   {
+   "judul": "Analisis Kebutuhan Luas Apron dan Terminal Penumpang Bandara Internasional Lombok untuk Menunjang Kegiatan Pariwisata serta Kawasan Ekonomi Khusus (KEK)",
+   "tahun": 2023,
+   "jenis": "jurnal",
+   "terbitan": "Jurnal Perencanaan dan Rekayasa Sipil (Ge-Stram)",
+   "tingkat": "nasional",
+   "indeksasi": "sinta_3_4",
+   "doi": "https://doi.org/10.25139/jprs.v6i1.4945",
+   "url": "https://ejournal.unitomo.ac.id/index.php/gestram/article/view/4945",
+   "mitra": [],
+   "mahasiswa": 1,
+   "penulis": [
+    {
+     "nama": "Adita Utami",
+     "slug": "adita-utami",
+     "peran": "penulis_pertama",
+     "korespondensi": true
+    }
+   ]
+  },
+  {
+   "judul": "Analisis Kehilangan Biaya Akibat Kemacetan Pada Kendaraan Pribadi (LCGC, SUV, dan MPV) di Ruas Jalan MH. Thamrin, Jakarta",
+   "tahun": 2023,
+   "jenis": "jurnal",
+   "terbitan": "Jurnal Perencanaan dan Rekayasa Sipil (Ge-Stram)",
+   "tingkat": "nasional",
+   "indeksasi": "sinta_3_4",
+   "doi": "https://doi.org/10.25139/jprs.v6i2.6102",
+   "url": "https://ejournal.unitomo.ac.id/index.php/gestram/article/view/6102",
+   "mitra": [
+    {
+     "nama": "BRIN",
+     "tingkat": "nasional",
+     "negara": "Indonesia"
+    }
+   ],
+   "mahasiswa": 1,
+   "penulis": [
+    {
+     "nama": "Adita Utami",
+     "slug": "adita-utami",
+     "peran": "penulis_pertama",
+     "korespondensi": true
+    }
+   ]
+  },
+  {
+   "judul": "Analisis Kinerja Jalan Bouraq Kota Tangerang Akibat Penerapan Sistem Satu Arah (Ssa)",
+   "tahun": 2023,
+   "jenis": "jurnal",
+   "terbitan": "Jurnal Gradasi Teknik Sipil",
+   "tingkat": "nasional",
+   "indeksasi": "sinta_3_4",
+   "doi": "https://doi.org/10.31961/gradasi.v7i1.1446",
+   "url": "https://ejurnal.poliban.ac.id/index.php/Teknik_Sipil/article/view/1446",
+   "mitra": [],
+   "mahasiswa": 0,
+   "penulis": [
+    {
+     "nama": "Adita Utami",
+     "slug": "adita-utami",
+     "peran": "anggota",
+     "korespondensi": true
+    }
+   ]
+  },
+  {
+   "judul": "Analisis Kinerja Simpang Bersinyal Pusat Grosir Cililitan (PGC) Jalan Dewi Sartika - Jalan Raya Bogor Dengan Metode PKJI 2014 Dan Pemodelan Menggunakan PTV VISSIM",
+   "tahun": 2023,
+   "jenis": "jurnal",
+   "terbitan": "Media Ilmiah Teknik Sipil",
+   "tingkat": "nasional",
+   "indeksasi": "sinta_3_4",
+   "doi": "https://doi.org/10.33084/mits.v11i3.4900",
+   "url": "https://journal.umpr.ac.id/index.php/mits/article/view/4900",
+   "mitra": [
+    {
+     "nama": "BRIN",
+     "tingkat": "nasional",
+     "negara": "Indonesia"
+    }
+   ],
+   "mahasiswa": 1,
+   "penulis": [
+    {
+     "nama": "Adita Utami",
+     "slug": "adita-utami",
+     "peran": "anggota",
+     "korespondensi": true
+    }
+   ]
+  },
+  {
    "judul": "Analisis Pengendalian Biaya dan Waktu Menggunakan Metode Nilai Hasil (Earned Value) pada Kasus Pembangunan Gedung Puskesmas Lumbang di Kabupaten Probolinggo",
    "tahun": 2023,
    "jenis": "jurnal",
@@ -720,6 +996,26 @@
     {
      "nama": "M Fanshurullah Asa",
      "slug": "m-fanshurullah-asa",
+     "peran": "penulis_pertama",
+     "korespondensi": true
+    }
+   ]
+  },
+  {
+   "judul": "Analysis of improvement of Transjakarta operational performance during the Covid-19 pandemic (case study: Corridor IX Pinang Ranti-Pluit)",
+   "tahun": 2023,
+   "jenis": "prosiding",
+   "terbitan": "AIP Publishing",
+   "tingkat": "internasional",
+   "indeksasi": "scopus_q4",
+   "doi": "https://doi.org/10.1063/5.0112649",
+   "url": "https://pubs.aip.org/aip/acp/article-abstract/2646/1/050037/2887074/Analysis-of-improvement-of-Transjakarta",
+   "mitra": [],
+   "mahasiswa": 1,
+   "penulis": [
+    {
+     "nama": "Adita Utami",
+     "slug": "adita-utami",
      "peran": "penulis_pertama",
      "korespondensi": true
     }
@@ -752,6 +1048,32 @@
    ]
   },
   {
+   "judul": "Congestion Charge Analysis for Private Vehicle Users in the Central Business District (Case Study: Jalan Pemuda-Pandanaran-Ahmad Yani, Semarang City)",
+   "tahun": 2023,
+   "jenis": "jurnal",
+   "terbitan": "Reka Buana : Jurnal Ilmiah Teknik Sipil dan Teknik Kimia",
+   "tingkat": "nasional",
+   "indeksasi": "sinta_3_4",
+   "doi": "https://doi.org/10.33366/rekabuana.v8i1.4188",
+   "url": "https://jurnal.unitri.ac.id/index.php/rekabuana/article/view/4188/pdf",
+   "mitra": [
+    {
+     "nama": "BRIN",
+     "tingkat": "nasional",
+     "negara": "Indonesia"
+    }
+   ],
+   "mahasiswa": 1,
+   "penulis": [
+    {
+     "nama": "Adita Utami",
+     "slug": "adita-utami",
+     "peran": "anggota",
+     "korespondensi": true
+    }
+   ]
+  },
+  {
    "judul": "Encapsulation of Ground Bottom Ash as Supplementary Cementitious Materials for Cement Mortar",
    "tahun": 2023,
    "jenis": "prosiding",
@@ -778,6 +1100,72 @@
    ]
   },
   {
+   "judul": "Measuring TOD Index in Jakarta with Accessibility and Land Use Function – Case Study on Three Transit Nodes ",
+   "tahun": 2023,
+   "jenis": "prosiding",
+   "terbitan": "ICO – SEID (International Conference on Sustainable Engineering, Infrastructure and Development)",
+   "tingkat": "internasional",
+   "indeksasi": "tidak_terindeks",
+   "doi": "10.4108/eai.23-11-2022.2341568",
+   "url": "https://www.researchgate.net/publication/376971012_Measuring_TOD_Index_in_Jakarta_with_Accessibility_and_Land_Use_Function_-_Case_Study_on_Three_Transit_Nodes",
+   "mitra": [
+    {
+     "nama": "ITB",
+     "tingkat": "internasional",
+     "negara": ""
+    }
+   ],
+   "mahasiswa": 0,
+   "penulis": [
+    {
+     "nama": "Vani Arliani",
+     "slug": "vani-arliani",
+     "peran": "penulis_pertama",
+     "korespondensi": true
+    }
+   ]
+  },
+  {
+   "judul": "PKK Exchange: Pelatihan Urban Farming pada Masyarakat Remote Area Kota Palembang dalam Mendorong Pertumbuhan Ekonomi Inklusif dan Berkelanjutan Berbasis SDG’S",
+   "tahun": 2023,
+   "jenis": "jurnal",
+   "terbitan": "Abdinus: Jurnal Pengabdian Nusantara",
+   "tingkat": "nasional",
+   "indeksasi": "sinta_3_4",
+   "doi": "https://doi.org/10.29407/ja.v7i1.18491",
+   "url": "https://ojs.unpkediri.ac.id/index.php/PPM/article/view/18491",
+   "mitra": [],
+   "mahasiswa": 2,
+   "penulis": [
+    {
+     "nama": "Adita Utami",
+     "slug": "adita-utami",
+     "peran": "penulis_pertama",
+     "korespondensi": true
+    }
+   ]
+  },
+  {
+   "judul": "Penerapan Metode Earned Value Dalam Analisis Kinerja Biaya dan Waktu Proyek Konstruksi RSU. Vina Estetica",
+   "tahun": 2023,
+   "jenis": "jurnal",
+   "terbitan": "Jurnal Teknik Sipil",
+   "tingkat": "nasional",
+   "indeksasi": "sinta_5_6",
+   "doi": "https://doi.org/10.31284/j.jts.2023.v4i2.5042",
+   "url": "https://ejurnal.itats.ac.id/jts/article/view/5042",
+   "mitra": [],
+   "mahasiswa": 1,
+   "penulis": [
+    {
+     "nama": "Adita Utami",
+     "slug": "adita-utami",
+     "peran": "anggota",
+     "korespondensi": true
+    }
+   ]
+  },
+  {
    "judul": "Potential Use of Glass Waste Powder as A Cement Replacement in Cement-Based Mortar",
    "tahun": 2023,
    "jenis": "prosiding",
@@ -799,6 +1187,64 @@
      "nama": "Gati Annisa Hayu",
      "slug": "gati-annisa-hayu",
      "peran": "penulis_pertama",
+     "korespondensi": false
+    }
+   ]
+  },
+  {
+   "judul": "SKENARIO OPTIMASI KINERJA PADA SIMPANG BERSINYAL JALAN JOGLO RAYA–JALAN RAYA POS PENGUMBEN KEMBANGAN JAKARTA BARAT",
+   "tahun": 2023,
+   "jenis": "jurnal",
+   "terbitan": "Jurnal REKAYASA",
+   "tingkat": "nasional",
+   "indeksasi": "sinta_5_6",
+   "doi": null,
+   "url": "https://jurnalrekayasa.bunghatta.ac.id/index.php/JRFTSP/article/view/203",
+   "mitra": [],
+   "mahasiswa": 1,
+   "penulis": [
+    {
+     "nama": "Adita Utami",
+     "slug": "adita-utami",
+     "peran": "anggota",
+     "korespondensi": true
+    }
+   ]
+  },
+  {
+   "judul": "Sosialisasi Keselamatan Berkendara untuk Membentuk Generasi Berani Tanggap Lalu Lintas (BRANTAS) pada Pelajar Sekolah Menengah Pertama Di Jakarta Berbasis Video dan Game Edukasi Menggunakan Microsoft PowerPoint",
+   "tahun": 2023,
+   "jenis": "jurnal",
+   "terbitan": "Jurnal Pengabdian Kepada Masyarakat Bidang Ilmu Komputer (ABDIKOM)",
+   "tingkat": "nasional",
+   "indeksasi": "tidak_terindeks",
+   "doi": null,
+   "url": "https://ejournal.upnvj.ac.id/abdikom/article/view/6079/2436",
+   "mitra": [],
+   "mahasiswa": 0,
+   "penulis": [
+    {
+     "nama": "Adita Utami",
+     "slug": "adita-utami",
+     "peran": "penulis_pertama",
+     "korespondensi": true
+    },
+    {
+     "nama": "Gati Annisa Hayu",
+     "slug": "gati-annisa-hayu",
+     "peran": "anggota",
+     "korespondensi": false
+    },
+    {
+     "nama": "Nurul Fajar Januriyadi",
+     "slug": "nurul-fajar-januriyadi",
+     "peran": "anggota",
+     "korespondensi": false
+    },
+    {
+     "nama": "Ranny Adriana",
+     "slug": "ranny-adriana",
+     "peran": "anggota",
      "korespondensi": false
     }
    ]
@@ -830,6 +1276,164 @@
    ]
   },
   {
+   "judul": "Analisis tingkat kecelakaan lalu lintas menggunakan metode Accident Rate dan Equivalent Accident Number (EAN) di kota Magelang",
+   "tahun": 2022,
+   "jenis": "jurnal",
+   "terbitan": "Jurnal Rekayasa Sipil (JRS-Unand)",
+   "tingkat": "nasional",
+   "indeksasi": "sinta_3_4",
+   "doi": "https://doi.org/10.25077/jrs.18.1.60-67.2022",
+   "url": "https://jrs.ft.unand.ac.id/index.php/jrs/article/view/503",
+   "mitra": [],
+   "mahasiswa": 1,
+   "penulis": [
+    {
+     "nama": "Adita Utami",
+     "slug": "adita-utami",
+     "peran": "anggota",
+     "korespondensi": true
+    }
+   ]
+  },
+  {
+   "judul": "Congestion Cost Analysis and Potential Loss of Private Vehicle on Jalan Jenderal Sudirman, Jakarta",
+   "tahun": 2022,
+   "jenis": "jurnal",
+   "terbitan": "Majalah Ilmiah Pengkajian Industri",
+   "tingkat": "nasional",
+   "indeksasi": "sinta_1_2",
+   "doi": " https://doi.org/10.29122/mipi.v16i3.5533",
+   "url": "https://ejournal.brin.go.id/MIPI/article/view/1354",
+   "mitra": [
+    {
+     "nama": "BRIN",
+     "tingkat": "nasional",
+     "negara": "Indonesia"
+    }
+   ],
+   "mahasiswa": 1,
+   "penulis": [
+    {
+     "nama": "Adita Utami",
+     "slug": "adita-utami",
+     "peran": "penulis_pertama",
+     "korespondensi": true
+    }
+   ]
+  },
+  {
+   "judul": "Edukasi Keselamatan Berkendara untuk Membentuk Generasi Tertib Berlalu Lintas di SMK Brawijaya Batu",
+   "tahun": 2022,
+   "jenis": "jurnal",
+   "terbitan": "Jurnal Abdimas PHB",
+   "tingkat": "nasional",
+   "indeksasi": "sinta_5_6",
+   "doi": null,
+   "url": "https://ejournal.poltekharber.ac.id/index.php/abdimas/article/view/3195",
+   "mitra": [
+    {
+     "nama": "UPN Veteran Jakarta",
+     "tingkat": "nasional",
+     "negara": "Indonesia"
+    }
+   ],
+   "mahasiswa": 0,
+   "penulis": [
+    {
+     "nama": "Adita Utami",
+     "slug": "adita-utami",
+     "peran": "penulis_pertama",
+     "korespondensi": true
+    }
+   ]
+  },
+  {
+   "judul": "Pengaruh Volume Kendaraan Terhadap Tingkat Kerusakan Jalan Pada Perkerasan Kaku Di Kota Tangerang",
+   "tahun": 2022,
+   "jenis": "jurnal",
+   "terbitan": "Jurnal Perencanaan dan Rekayasa Sipil (Ge-Stram)",
+   "tingkat": "nasional",
+   "indeksasi": "sinta_3_4",
+   "doi": "https://doi.org/10.25139/jprs.v5i1.4342",
+   "url": "https://ejournal.unitomo.ac.id/index.php/gestram/article/view/4342",
+   "mitra": [],
+   "mahasiswa": 1,
+   "penulis": [
+    {
+     "nama": "Adita Utami",
+     "slug": "adita-utami",
+     "peran": "anggota",
+     "korespondensi": true
+    }
+   ]
+  },
+  {
+   "judul": "Analisis Pengaruh On-Street Parking terhadap Kinerja Jalan di Pasar Jaya Ciracas, Jakarta Timur",
+   "tahun": 2021,
+   "jenis": "jurnal",
+   "terbitan": "Borneo Engineering: Jurnal Teknik Sipil",
+   "tingkat": "nasional",
+   "indeksasi": "sinta_3_4",
+   "doi": null,
+   "url": "https://d1wqtxts1xzle7.cloudfront.net/97164954/1564-libre.pdf?1673484316=&response-content-disposition=inline%3B+filename%3DAnalisis_Pengaruh_On_Street_Parking_terh.pdf&Expires=1787714526&Signature=OJIlsZrQkuMoG68rgbifC8-Ut0ta6n-neltbLISdpy~GAd8x1DNK3Icnm8pxz70TxnXr~GAuZwNW0FTTIVgaRsD3AljN8Xzz07IGIpeY8-HcWpM8LXsdUVBHs8KfWIznpinC6HLN0GyDYzW6lMNyGMP-4q7BINWR9doEG5Hn0cN5POAeaL-cpYz~lGLeHNz8qJfA6V6PpHz4OCZ87pg7wfK7XbQCedh9Zh4Jj9~VxJ6U0KQreehC6t6kzQurCJexjmq5bVujYgZCbMPy9GcdaKuT8ikNbTCMIl~~~9IiBpirP0qmdmDhQksmYCkxaB~8fgpMyh3wvJHSGzfupWzILw__&Key-Pair-Id=APKAJLOHF5GGSLRBV4ZA",
+   "mitra": [],
+   "mahasiswa": 1,
+   "penulis": [
+    {
+     "nama": "Adita Utami",
+     "slug": "adita-utami",
+     "peran": "penulis_pertama",
+     "korespondensi": false
+    }
+   ]
+  },
+  {
+   "judul": "Analisis Perbandingan Waktu Perjalanan dan Biaya antara Kendaraan Pribadi dan Transjakarta menggunakan Metode PCI (Studi Kasus: TJ Koridor IX Pinang Ranti-Pluit)",
+   "tahun": 2021,
+   "jenis": "jurnal",
+   "terbitan": "Reka Buana: Jurnal Ilmiah Teknik Sipil dan Teknik Kimia",
+   "tingkat": "nasional",
+   "indeksasi": "sinta_3_4",
+   "doi": "DOI: https://doi.org/10.33366/rekabuana.v6i2.2649",
+   "url": "https://jurnal.unitri.ac.id/index.php/rekabuana/article/view/2649",
+   "mitra": [],
+   "mahasiswa": 1,
+   "penulis": [
+    {
+     "nama": "Adita Utami",
+     "slug": "adita-utami",
+     "peran": "penulis_pertama",
+     "korespondensi": true
+    }
+   ]
+  },
+  {
+   "judul": "Analisis dan Peningkatan Kapasitas Apron di Bandara Halim Perdanakusuma",
+   "tahun": 2021,
+   "jenis": "jurnal",
+   "terbitan": "Jurnal Teknik Sipil",
+   "tingkat": "nasional",
+   "indeksasi": "sinta_5_6",
+   "doi": "https://doi.org/10.31284/j.jts.2021.v2i2.2304",
+   "url": "https://ejurnal.itats.ac.id/jts/article/view/2304/2035",
+   "mitra": [
+    {
+     "nama": "Department of Pavement Engineering, Centre of Excellent for Asset Consultancy, AECOM",
+     "tingkat": "internasional",
+     "negara": "Inggris"
+    }
+   ],
+   "mahasiswa": 1,
+   "penulis": [
+    {
+     "nama": "Adita Utami",
+     "slug": "adita-utami",
+     "peran": "anggota",
+     "korespondensi": true
+    }
+   ]
+  },
+  {
    "judul": "Energi Untuk Kemandirian : Pemikiran dan Refleksi Pengalaman Satu Dekade untuk Sektor Hilir Migas Indonesia",
    "tahun": 2021,
    "jenis": "buku",
@@ -844,6 +1448,104 @@
     {
      "nama": "M Fanshurullah Asa",
      "slug": "m-fanshurullah-asa",
+     "peran": "penulis_pertama",
+     "korespondensi": true
+    }
+   ]
+  },
+  {
+   "judul": "Model of Transportation Mode Choice from Transjakarta to MRT Phase II (Case Study : Transjakarta Corridor I Blok M-Kota)",
+   "tahun": 2021,
+   "jenis": "jurnal",
+   "terbitan": "MIPI: Majalah Ilmiah Pengkajian Industri",
+   "tingkat": "nasional",
+   "indeksasi": "sinta_1_2",
+   "doi": "https://doi.org/10.29122/mipi.v15i3.5019",
+   "url": "https://ejournal.brin.go.id/MIPI/article/view/1408",
+   "mitra": [
+    {
+     "nama": "BRIN",
+     "tingkat": "nasional",
+     "negara": "Indonesia"
+    }
+   ],
+   "mahasiswa": 1,
+   "penulis": [
+    {
+     "nama": "Adita Utami",
+     "slug": "adita-utami",
+     "peran": "penulis_pertama",
+     "korespondensi": true
+    }
+   ]
+  },
+  {
+   "judul": "Probabilitas Perpindahan Penumpang Transportasi Massal Berbasis Rel (Studi Kasus Kereta Api Argo Parahyangan Terhadap Kereta Cepat Jakarta–Bandung)",
+   "tahun": 2021,
+   "jenis": "jurnal",
+   "terbitan": "Jurnal Perencanaan dan Rekayasa Sipil (Ge-Stram)",
+   "tingkat": "nasional",
+   "indeksasi": "sinta_3_4",
+   "doi": "https://doi.org/10.25139/jprs.v4i2.4056",
+   "url": "https://ejournal.unitomo.ac.id/index.php/gestram/article/view/4056",
+   "mitra": [
+    {
+     "nama": "BRIN",
+     "tingkat": "nasional",
+     "negara": "Indonesia"
+    }
+   ],
+   "mahasiswa": 1,
+   "penulis": [
+    {
+     "nama": "Adita Utami",
+     "slug": "adita-utami",
+     "peran": "anggota",
+     "korespondensi": true
+    }
+   ]
+  },
+  {
+   "judul": "Studi Kelayakan Investasi Proyek Kopi ZOA di Jakarta Selatan",
+   "tahun": 2021,
+   "jenis": "jurnal",
+   "terbitan": "Jurnal Perencanaan dan Rekayasa Sipil (Ge-Stram)",
+   "tingkat": "nasional",
+   "indeksasi": "sinta_3_4",
+   "doi": "https://doi.org/10.25139/jprs.v4i2.4041",
+   "url": "https://ejournal.unitomo.ac.id/index.php/gestram/article/view/4041",
+   "mitra": [],
+   "mahasiswa": 2,
+   "penulis": [
+    {
+     "nama": "Adita Utami",
+     "slug": "adita-utami",
+     "peran": "penulis_pertama",
+     "korespondensi": true
+    }
+   ]
+  },
+  {
+   "judul": "STUDY OF SOCIETY BEHAVIOR TO EARLY WARNING IN THE RAILWAY LEVEL CROSSING WITHOUT BARRIER IN GAYUNG KEBONSARI, SURABAYA",
+   "tahun": 2020,
+   "jenis": "jurnal",
+   "terbitan": "MIPI: Majalah Ilmiah dan Pengkajian Teknologi",
+   "tingkat": "nasional",
+   "indeksasi": "sinta_1_2",
+   "doi": "https://doi.org/10.29122/mipi.v14i1.4040",
+   "url": "https://ejournal.brin.go.id/MIPI/article/view/1405",
+   "mitra": [
+    {
+     "nama": "Institut Teknologi Sepuluh Nopember",
+     "tingkat": "nasional",
+     "negara": "Indonesia"
+    }
+   ],
+   "mahasiswa": 0,
+   "penulis": [
+    {
+     "nama": "Adita Utami",
+     "slug": "adita-utami",
      "peran": "penulis_pertama",
      "korespondensi": true
     }
@@ -870,6 +1572,26 @@
    ]
   },
   {
+   "judul": "Studi Kelayakan Coffee Class Pada Mase Coffee Lab di Bantul, Yogyakarta",
+   "tahun": 2020,
+   "jenis": "jurnal",
+   "terbitan": "Borneo Engineering: Jurnal Teknik Sipil",
+   "tingkat": "nasional",
+   "indeksasi": "sinta_3_4",
+   "doi": null,
+   "url": "http://180.250.193.171/index.php/borneoengineering/article/view/1598",
+   "mitra": [],
+   "mahasiswa": 2,
+   "penulis": [
+    {
+     "nama": "Adita Utami",
+     "slug": "adita-utami",
+     "peran": "penulis_pertama",
+     "korespondensi": true
+    }
+   ]
+  },
+  {
    "judul": "Sustainable Port Planning in Future Indonesian Ports: A Case Study of Mafa Port based on un SDGs",
    "tahun": 2020,
    "jenis": "prosiding",
@@ -888,9 +1610,111 @@
      "korespondensi": false
     }
    ]
+  },
+  {
+   "judul": "Model Panjang Antrian Kendaraan pada Perlintasan Sebidang Tanpa Palang Pintu (Studi Kasus: Perlintasan Sebidang Jl. Gayung Kebonsari Surabaya)",
+   "tahun": 2019,
+   "jenis": "jurnal",
+   "terbitan": "Jurnal Aplikasi Teknik Sipil",
+   "tingkat": "nasional",
+   "indeksasi": "sinta_3_4",
+   "doi": "p://dx.doi.org/10.12962%2Fj2579-891X.v17i1.4693",
+   "url": "https://iptek.its.ac.id/index.php/jats/article/view/4693",
+   "mitra": [
+    {
+     "nama": "Institut Teknologi Sepuluh Nopember",
+     "tingkat": "nasional",
+     "negara": "Indonesia"
+    }
+   ],
+   "mahasiswa": 0,
+   "penulis": [
+    {
+     "nama": "Adita Utami",
+     "slug": "adita-utami",
+     "peran": "penulis_pertama",
+     "korespondensi": false
+    }
+   ]
+  },
+  {
+   "judul": "Model of Queuing in the Railway Level Crossings (Case Study: Railway Level Crossings in Jemursari Surabaya)",
+   "tahun": 2019,
+   "jenis": "prosiding",
+   "terbitan": "Atlantis Press",
+   "tingkat": "internasional",
+   "indeksasi": "tidak_terindeks",
+   "doi": "10.2991/apte-18.2019.41",
+   "url": "https://www.atlantis-press.com/proceedings/apte-18/125918757",
+   "mitra": [
+    {
+     "nama": "Institut Teknologi Sepuluh Nopember",
+     "tingkat": "nasional",
+     "negara": "Indonesia"
+    }
+   ],
+   "mahasiswa": 0,
+   "penulis": [
+    {
+     "nama": "Adita Utami",
+     "slug": "adita-utami",
+     "peran": "anggota",
+     "korespondensi": false
+    }
+   ]
+  },
+  {
+   "judul": "Model of queuing in the railway level crossing (case study: Imam Bonjol railway level crossing in Blitar)",
+   "tahun": 2019,
+   "jenis": "prosiding",
+   "terbitan": "IOP Conference Series: Materials Science and Engineering",
+   "tingkat": "internasional",
+   "indeksasi": "scopus_q4",
+   "doi": "10.1088/1757-899X/650/1/012053",
+   "url": "https://iopscience.iop.org/article/10.1088/1757-899X/650/1/012053/meta",
+   "mitra": [
+    {
+     "nama": "Institut Teknologi Sepuluh Nopember",
+     "tingkat": "nasional",
+     "negara": "Indonesia"
+    }
+   ],
+   "mahasiswa": 0,
+   "penulis": [
+    {
+     "nama": "Adita Utami",
+     "slug": "adita-utami",
+     "peran": "anggota",
+     "korespondensi": false
+    }
+   ]
   }
  ],
  "kegiatan": [
+  {
+   "judul": "\"SMART-WASTE PENERAPAN TEKNOLOGI BANK SAMPAH DIGITAL DAN INTERNET OF THINGS UNTUK PENINGKATAN KINERJA BANK SAMPAH LAPAK LONTAR KABUPATEN BOGOR",
+   "tahun": 2026,
+   "kategori": "pkm",
+   "tingkat": "nasional",
+   "skema": "Kerja sama industri / BUMN / swasta",
+   "kelompok": "Kerja sama industri / swasta",
+   "mitra": [
+    {
+     "nama": "UPN Veteran Jakarta",
+     "tingkat": "nasional",
+     "negara": "Indonesia"
+    }
+   ],
+   "mahasiswa": 0,
+   "penulis": [
+    {
+     "nama": "Adita Utami",
+     "slug": "adita-utami",
+     "peran": "anggota",
+     "korespondensi": false
+    }
+   ]
+  },
   {
    "judul": "Integrasi Data Satelit, Pemodelan Hidrologi, dan Machine Learning untuk Peringatan Dini Banjir JABODETABEK",
    "tahun": 2026,
@@ -952,6 +1776,42 @@
    ]
   },
   {
+   "judul": "Pengaruh Kualitas Layanan dan Aksesibilitas Terhadap Kepuasan Serta Perilaku  Pengguna Transportasi Publik di Jakarta: Dengan Pendekatan Structural  Equation Modeling (SEM) ",
+   "tahun": 2026,
+   "kategori": "penelitian",
+   "tingkat": "wilayah_lokal",
+   "skema": "PDP — Penelitian Dosen Pemula",
+   "kelompok": "Kemendiktisaintek / DPPM",
+   "mitra": [],
+   "mahasiswa": 4,
+   "penulis": [
+    {
+     "nama": "Adita Utami",
+     "slug": "adita-utami",
+     "peran": "anggota",
+     "korespondensi": false
+    },
+    {
+     "nama": "Fera Dwi Setyani",
+     "slug": "fera-dwi-setyani",
+     "peran": "anggota",
+     "korespondensi": false
+    },
+    {
+     "nama": "Gati Annisa Hayu",
+     "slug": "gati-annisa-hayu",
+     "peran": "anggota",
+     "korespondensi": false
+    },
+    {
+     "nama": "Vani Arliani",
+     "slug": "vani-arliani",
+     "peran": "ketua",
+     "korespondensi": false
+    }
+   ]
+  },
+  {
    "judul": "Nota Kesepahaman dengan Universitas Islam Sultan Agung",
    "tahun": 2025,
    "kategori": "pkm",
@@ -965,6 +1825,30 @@
      "nama": "M Fanshurullah Asa",
      "slug": "m-fanshurullah-asa",
      "peran": "ketua",
+     "korespondensi": false
+    }
+   ]
+  },
+  {
+   "judul": "Pemberdayaan Karang Taruna dalam Mewujudkan Smart Village melalui Implementasi Panel Surya dan IoT untuk Penerangan dan Pengelolaan Air Bersih di Desa Barengkok, Kabupaten Bogor",
+   "tahun": 2025,
+   "kategori": "pkm",
+   "tingkat": "nasional",
+   "skema": "PKM — Pemberdayaan Kemitraan Masyarakat",
+   "kelompok": "Kemendiktisaintek / DPPM",
+   "mitra": [
+    {
+     "nama": "UPN Veteran Jakarta",
+     "tingkat": "nasional",
+     "negara": "Indonesia"
+    }
+   ],
+   "mahasiswa": 0,
+   "penulis": [
+    {
+     "nama": "Adita Utami",
+     "slug": "adita-utami",
+     "peran": "anggota",
      "korespondensi": false
     }
    ]
@@ -988,6 +1872,72 @@
    ]
   },
   {
+   "judul": "Pengembangan Sistem Informasi Geografis (SIG) Untuk Pemetaan Wilayah Rawan Bencana dan Pengelolaan Tata Ruang yang Berkelanjutan di Kecamatan Parung Panjang, Kabupaten Bogor",
+   "tahun": 2025,
+   "kategori": "penelitian",
+   "tingkat": "nasional",
+   "skema": "Mandiri / biaya sendiri",
+   "kelompok": "Mandiri / biaya sendiri",
+   "mitra": [
+    {
+     "nama": "UPN Veteran Jakarta",
+     "tingkat": "nasional",
+     "negara": "Indonesia"
+    }
+   ],
+   "mahasiswa": 0,
+   "penulis": [
+    {
+     "nama": "Adita Utami",
+     "slug": "adita-utami",
+     "peran": "ketua",
+     "korespondensi": false
+    },
+    {
+     "nama": "Nurul Fajar Januriyadi",
+     "slug": "nurul-fajar-januriyadi",
+     "peran": "anggota",
+     "korespondensi": false
+    }
+   ]
+  },
+  {
+   "judul": "Prediksi Panjang Antrian dan Tingkat Kecelakaan pada Perlintasan Sebidang berbasis Geographic Information System (GIS)",
+   "tahun": 2025,
+   "kategori": "penelitian",
+   "tingkat": "nasional",
+   "skema": "Hibah internal universitas",
+   "kelompok": "Hibah internal perguruan tinggi",
+   "mitra": [
+    {
+     "nama": "BRIN",
+     "tingkat": "nasional",
+     "negara": "Indonesia"
+    }
+   ],
+   "mahasiswa": 0,
+   "penulis": [
+    {
+     "nama": "Adita Utami",
+     "slug": "adita-utami",
+     "peran": "ketua",
+     "korespondensi": false
+    },
+    {
+     "nama": "M Fanshurullah Asa",
+     "slug": "m-fanshurullah-asa",
+     "peran": "anggota",
+     "korespondensi": false
+    },
+    {
+     "nama": "Vani Arliani",
+     "slug": "vani-arliani",
+     "peran": "anggota",
+     "korespondensi": false
+    }
+   ]
+  },
+  {
    "judul": "Studi Eksperimental Pengaruh Low Electric Field Polarization terhadap Sifat Cement-based Piezoelectric Ceramic Composite (CPC) dengan Penambahan Limbah Glass Powder",
    "tahun": 2025,
    "kategori": "penelitian",
@@ -1000,6 +1950,72 @@
     {
      "nama": "Gati Annisa Hayu",
      "slug": "gati-annisa-hayu",
+     "peran": "anggota",
+     "korespondensi": false
+    }
+   ]
+  },
+  {
+   "judul": "WATER FOR ALL! : Program Komunitas Lingkungan Cerdas Berbasis Water Treatment Process Sebagai Media untuk Menyediakan Air Bersih di SDN Barengkok II, Jasinga, Bogor",
+   "tahun": 2025,
+   "kategori": "pkm",
+   "tingkat": "nasional",
+   "skema": "Hibah internal universitas",
+   "kelompok": "Hibah internal perguruan tinggi",
+   "mitra": [
+    {
+     "nama": "UPN Veteran Jakarta",
+     "tingkat": "nasional",
+     "negara": "Indonesia"
+    }
+   ],
+   "mahasiswa": 0,
+   "penulis": [
+    {
+     "nama": "Adita Utami",
+     "slug": "adita-utami",
+     "peran": "ketua",
+     "korespondensi": false
+    },
+    {
+     "nama": "Arlyn Aristo",
+     "slug": "arlyn-aristo",
+     "peran": "anggota",
+     "korespondensi": false
+    },
+    {
+     "nama": "Nurul Fajar Januriyadi",
+     "slug": "nurul-fajar-januriyadi",
+     "peran": "anggota",
+     "korespondensi": false
+    },
+    {
+     "nama": "Vani Arliani",
+     "slug": "vani-arliani",
+     "peran": "anggota",
+     "korespondensi": false
+    }
+   ]
+  },
+  {
+   "judul": "Barengkok Education: Program Peningkatan Kemampuan Literasi dan Keterampilan untuk Siswa SMP Satu Atap Negeri 1 Barengkok di Desa Barengkok, Jasinga, Bogor, Jawa Barat",
+   "tahun": 2024,
+   "kategori": "pkm",
+   "tingkat": "nasional",
+   "skema": "Hibah internal universitas",
+   "kelompok": "Hibah internal perguruan tinggi",
+   "mitra": [],
+   "mahasiswa": 0,
+   "penulis": [
+    {
+     "nama": "Adita Utami",
+     "slug": "adita-utami",
+     "peran": "ketua",
+     "korespondensi": false
+    },
+    {
+     "nama": "Ranny Adriana",
+     "slug": "ranny-adriana",
      "peran": "anggota",
      "korespondensi": false
     }
@@ -1096,6 +2112,30 @@
    ]
   },
   {
+   "judul": "Pemanfaatan Microsoft Excel dalam Pembuatan Laporan Keuangan untuk Meningkatkan Keterampilan Akuntansi di Kampung Wisata Kuliner Haur Pancuh II",
+   "tahun": 2024,
+   "kategori": "pkm",
+   "tingkat": "nasional",
+   "skema": "Lainnya — sebutkan di keterangan",
+   "kelompok": "Kementerian / lembaga lain / pemda",
+   "mitra": [
+    {
+     "nama": "UPN Veteran Jakarta",
+     "tingkat": "nasional",
+     "negara": "Indonesia"
+    }
+   ],
+   "mahasiswa": 0,
+   "penulis": [
+    {
+     "nama": "Adita Utami",
+     "slug": "adita-utami",
+     "peran": "anggota",
+     "korespondensi": false
+    }
+   ]
+  },
+  {
    "judul": "Program Kepatuhan Persaingan Usaha PT Hutama Karya (Persero)",
    "tahun": 2024,
    "kategori": "pkm",
@@ -1109,6 +2149,102 @@
      "nama": "M Fanshurullah Asa",
      "slug": "m-fanshurullah-asa",
      "peran": "ketua",
+     "korespondensi": false
+    }
+   ]
+  },
+  {
+   "judul": "Surya Smart Village: Panel Surya Sebagai Solusi untuk Menyediakan Energi Penerangan Jalan Desa dengan Teknologi Alber (Alarm anti luber) pada penampungan air bersih di Desa Barengkok",
+   "tahun": 2024,
+   "kategori": "pkm",
+   "tingkat": "nasional",
+   "skema": "Kerja sama industri / BUMN / swasta",
+   "kelompok": "Kerja sama industri / swasta",
+   "mitra": [],
+   "mahasiswa": 1,
+   "penulis": [
+    {
+     "nama": "Adita Utami",
+     "slug": "adita-utami",
+     "peran": "ketua",
+     "korespondensi": false
+    }
+   ]
+  },
+  {
+   "judul": "Analysis of Soft Clay Settlement due to Traffic Loading and Road Embankment Using PLAXIS 3D",
+   "tahun": 2023,
+   "kategori": "penelitian",
+   "tingkat": "internasional",
+   "skema": "Kerja sama riset internasional — dana dari mitra luar negeri",
+   "kelompok": "Pendanaan luar negeri",
+   "mitra": [
+    {
+     "nama": "Universiti Tenaga Nasional (UNITEN)",
+     "tingkat": "internasional",
+     "negara": "Malaysia"
+    }
+   ],
+   "mahasiswa": 2,
+   "penulis": [
+    {
+     "nama": "Adita Utami",
+     "slug": "adita-utami",
+     "peran": "ketua",
+     "korespondensi": false
+    },
+    {
+     "nama": "Arlyn Aristo",
+     "slug": "arlyn-aristo",
+     "peran": "anggota",
+     "korespondensi": false
+    }
+   ]
+  },
+  {
+   "judul": "COMMUNITY SERVICE COLLABORATION BETWEEN UPER, UTP, AND NUSANTARA REGAS FOR SUSTAINABILITY DI PULAU UNTUNG JAWA, KABUPATEN ADMINISTRATIF KEPULAUAN SERIBU",
+   "tahun": 2023,
+   "kategori": "pkm",
+   "tingkat": "internasional",
+   "skema": "Lainnya — sebutkan di keterangan",
+   "kelompok": "Kementerian / lembaga lain / pemda",
+   "mitra": [
+    {
+     "nama": "Universiti Teknologi Petronas Malaysia",
+     "tingkat": "internasional",
+     "negara": "Malaysia"
+    }
+   ],
+   "mahasiswa": 0,
+   "penulis": [
+    {
+     "nama": "Adita Utami",
+     "slug": "adita-utami",
+     "peran": "ketua",
+     "korespondensi": false
+    }
+   ]
+  },
+  {
+   "judul": "PELATIHAN PENGGUNAAN PROGRAM KEAIRAN",
+   "tahun": 2023,
+   "kategori": "pkm",
+   "tingkat": "nasional",
+   "skema": "Mandiri / biaya sendiri",
+   "kelompok": "Mandiri / biaya sendiri",
+   "mitra": [],
+   "mahasiswa": 6,
+   "penulis": [
+    {
+     "nama": "Adita Utami",
+     "slug": "adita-utami",
+     "peran": "anggota",
+     "korespondensi": false
+    },
+    {
+     "nama": "Nurul Fajar Januriyadi",
+     "slug": "nurul-fajar-januriyadi",
+     "peran": "anggota",
      "korespondensi": false
     }
    ]
@@ -1174,6 +2310,156 @@
    ]
   },
   {
+   "judul": "Pengaruh Penggantian Filler menggunakan Fly Ash dan Subtitusi Karet Alam Sebagai Aditif untuk Campuran Aspal Terhadap Karakteristik Campuran Laston Lapis Aus (AC - WC)",
+   "tahun": 2023,
+   "kategori": "penelitian",
+   "tingkat": "nasional",
+   "skema": "Hibah internal universitas",
+   "kelompok": "Hibah internal perguruan tinggi",
+   "mitra": [
+    {
+     "nama": "Kementerian PUPR",
+     "tingkat": "nasional",
+     "negara": "Indonesia"
+    }
+   ],
+   "mahasiswa": 3,
+   "penulis": [
+    {
+     "nama": "Adita Utami",
+     "slug": "adita-utami",
+     "peran": "ketua",
+     "korespondensi": false
+    }
+   ]
+  },
+  {
+   "judul": "\tAnalisis Biaya Kemacetan pada Kendaraan Pribadi di Daerah Pusat Kegiatan (Studi Kasus: Jl. Jendral Sudirman-Jl. MH. Thamrin dan Jl. Medan Merdeka Barat, DKI Jakarta)",
+   "tahun": 2022,
+   "kategori": "penelitian",
+   "tingkat": "nasional",
+   "skema": "Hibah internal universitas",
+   "kelompok": "Hibah internal perguruan tinggi",
+   "mitra": [
+    {
+     "nama": "BRIN",
+     "tingkat": "nasional",
+     "negara": "Indonesia"
+    }
+   ],
+   "mahasiswa": 0,
+   "penulis": [
+    {
+     "nama": "Adita Utami",
+     "slug": "adita-utami",
+     "peran": "ketua",
+     "korespondensi": false
+    },
+    {
+     "nama": "Nurul Fajar Januriyadi",
+     "slug": "nurul-fajar-januriyadi",
+     "peran": "anggota",
+     "korespondensi": false
+    }
+   ]
+  },
+  {
+   "judul": "Analisis Probabilistik Tsunami Terhadap Tingkat Kerentanan Bangunan Di Kota Painan, Sumatra Barat",
+   "tahun": 2022,
+   "kategori": "penelitian",
+   "tingkat": "nasional",
+   "skema": "Hibah internal universitas",
+   "kelompok": "Hibah internal perguruan tinggi",
+   "mitra": [],
+   "mahasiswa": 0,
+   "penulis": [
+    {
+     "nama": "Adita Utami",
+     "slug": "adita-utami",
+     "peran": "anggota",
+     "korespondensi": false
+    },
+    {
+     "nama": "Nurul Fajar Januriyadi",
+     "slug": "nurul-fajar-januriyadi",
+     "peran": "anggota",
+     "korespondensi": false
+    }
+   ]
+  },
+  {
+   "judul": "PKK EXCHANGE: URBAN FARMING MASYARAKAT REMOTE AREA KOTA PALEMBANG DALAM MENDORONG PERTUMBUHAN EKONOMI INKLUSIF DAN BERKELANJUTAN BERBASIS SDGS",
+   "tahun": 2022,
+   "kategori": "pkm",
+   "tingkat": "nasional",
+   "skema": "Mandiri / biaya sendiri",
+   "kelompok": "Mandiri / biaya sendiri",
+   "mitra": [],
+   "mahasiswa": 2,
+   "penulis": [
+    {
+     "nama": "Adita Utami",
+     "slug": "adita-utami",
+     "peran": "ketua",
+     "korespondensi": false
+    }
+   ]
+  },
+  {
+   "judul": "SOSIALISASI TERTIB BERLALU LINTAS PADA SISWA PRODI TEKNIK KOMPUTER JARINGAN (TKJ) SMK BRAWIJAYA BATU",
+   "tahun": 2022,
+   "kategori": "pkm",
+   "tingkat": "nasional",
+   "skema": "Hibah internal universitas",
+   "kelompok": "Hibah internal perguruan tinggi",
+   "mitra": [],
+   "mahasiswa": 0,
+   "penulis": [
+    {
+     "nama": "Adita Utami",
+     "slug": "adita-utami",
+     "peran": "ketua",
+     "korespondensi": false
+    }
+   ]
+  },
+  {
+   "judul": "ANALISIS BIAYA KECELAKAAN LALU LINTAS DENGAN METODE GROSS OUTPUT PADA RUAS JALAN DI KOTA MAGELANG",
+   "tahun": 2021,
+   "kategori": "penelitian",
+   "tingkat": "nasional",
+   "skema": "Hibah internal universitas",
+   "kelompok": "Hibah internal perguruan tinggi",
+   "mitra": [],
+   "mahasiswa": 0,
+   "penulis": [
+    {
+     "nama": "Adita Utami",
+     "slug": "adita-utami",
+     "peran": "ketua",
+     "korespondensi": false
+    }
+   ]
+  },
+  {
+   "judul": "\tEVALUASI KINERJA RUAS DAN SIMPANG PADA PERLINTASAN SEBIDANG TANPA PALANG PINTU JL. RAWA SIMPRUG III JAKARTA SELATAN",
+   "tahun": 2020,
+   "kategori": "penelitian",
+   "tingkat": "nasional",
+   "skema": "Hibah internal universitas",
+   "kelompok": "Hibah internal perguruan tinggi",
+   "mitra": [],
+   "mahasiswa": 0,
+   "penulis": [
+    {
+     "nama": "Adita Utami",
+     "slug": "adita-utami",
+     "peran": "ketua",
+     "korespondensi": false
+    }
+   ]
+  },
+  {
    "judul": "Mengawal BBM 1 Harga",
    "tahun": 2020,
    "kategori": "pkm",
@@ -1187,6 +2473,48 @@
      "nama": "M Fanshurullah Asa",
      "slug": "m-fanshurullah-asa",
      "peran": "ketua",
+     "korespondensi": false
+    }
+   ]
+  },
+  {
+   "judul": "Program Sosialisasi Keselamatan Berkendara pada Pelajar Sekolah Menengah Pertama di Jakarta",
+   "tahun": 2020,
+   "kategori": "pkm",
+   "tingkat": "nasional",
+   "skema": "Hibah internal universitas",
+   "kelompok": "Hibah internal perguruan tinggi",
+   "mitra": [],
+   "mahasiswa": 6,
+   "penulis": [
+    {
+     "nama": "Adita Utami",
+     "slug": "adita-utami",
+     "peran": "ketua",
+     "korespondensi": false
+    },
+    {
+     "nama": "Fera Dwi Setyani",
+     "slug": "fera-dwi-setyani",
+     "peran": "anggota",
+     "korespondensi": false
+    },
+    {
+     "nama": "Gati Annisa Hayu",
+     "slug": "gati-annisa-hayu",
+     "peran": "anggota",
+     "korespondensi": false
+    },
+    {
+     "nama": "Nurul Fajar Januriyadi",
+     "slug": "nurul-fajar-januriyadi",
+     "peran": "anggota",
+     "korespondensi": false
+    },
+    {
+     "nama": "Ranny Adriana",
+     "slug": "ranny-adriana",
+     "peran": "anggota",
      "korespondensi": false
     }
    ]
@@ -1214,11 +2542,47 @@
      "korespondensi": false
     }
    ]
+  },
+  {
+   "judul": "Sosialisasi dan Edukasi Penggunaan Transportasi Masal MRT Secara Bertanggung Jawab Terhadap Masyarakat Jabodetabek Pengguna MRT",
+   "tahun": 2019,
+   "kategori": "pkm",
+   "tingkat": "nasional",
+   "skema": "Hibah internal universitas",
+   "kelompok": "Hibah internal perguruan tinggi",
+   "mitra": [
+    {
+     "nama": "Kementerian Keuangan",
+     "tingkat": "nasional",
+     "negara": "Indonesia"
+    }
+   ],
+   "mahasiswa": 0,
+   "penulis": [
+    {
+     "nama": "Adita Utami",
+     "slug": "adita-utami",
+     "peran": "anggota",
+     "korespondensi": false
+    },
+    {
+     "nama": "Vani Arliani",
+     "slug": "vani-arliani",
+     "peran": "anggota",
+     "korespondensi": false
+    }
+   ]
   }
  ],
  "prestasi_agregat": [],
  "prestasi_pembimbing": [],
  "mahasiswa_agregat": [
+  {
+   "tahun": 2026,
+   "kategori": "penelitian",
+   "keterlibatan": 4,
+   "mahasiswa_unik": 4
+  },
   {
    "tahun": 2026,
    "kategori": "pkm",
@@ -1233,6 +2597,60 @@
   },
   {
    "tahun": 2024,
+   "kategori": "pkm",
+   "keterlibatan": 1,
+   "mahasiswa_unik": 1
+  },
+  {
+   "tahun": 2024,
+   "kategori": "publikasi",
+   "keterlibatan": 7,
+   "mahasiswa_unik": 7
+  },
+  {
+   "tahun": 2023,
+   "kategori": "penelitian",
+   "keterlibatan": 5,
+   "mahasiswa_unik": 5
+  },
+  {
+   "tahun": 2023,
+   "kategori": "pkm",
+   "keterlibatan": 6,
+   "mahasiswa_unik": 6
+  },
+  {
+   "tahun": 2023,
+   "kategori": "publikasi",
+   "keterlibatan": 9,
+   "mahasiswa_unik": 9
+  },
+  {
+   "tahun": 2022,
+   "kategori": "pkm",
+   "keterlibatan": 2,
+   "mahasiswa_unik": 2
+  },
+  {
+   "tahun": 2022,
+   "kategori": "publikasi",
+   "keterlibatan": 3,
+   "mahasiswa_unik": 3
+  },
+  {
+   "tahun": 2021,
+   "kategori": "publikasi",
+   "keterlibatan": 7,
+   "mahasiswa_unik": 7
+  },
+  {
+   "tahun": 2020,
+   "kategori": "pkm",
+   "keterlibatan": 6,
+   "mahasiswa_unik": 6
+  },
+  {
+   "tahun": 2020,
    "kategori": "publikasi",
    "keterlibatan": 2,
    "mahasiswa_unik": 2
@@ -1247,7 +2665,7 @@
    "guru_besar": 1,
    "tanpa_jabatan": 2
   },
-  "karya_utama_internasional": 2
+  "karya_utama_internasional": 3
  },
  "tracer": [],
  "luaran_dosen": [],
