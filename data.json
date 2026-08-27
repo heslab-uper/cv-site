@@ -1,7 +1,7 @@
 {
  "prodi": "Teknik Sipil",
  "institusi": "Universitas Pertamina",
- "diperbarui": "26 August 2026",
+ "diperbarui": "27 August 2026",
  "dosen": [
   {
    "nama": "Nurul Fajar Januriyadi",
@@ -1716,30 +1716,6 @@
    ]
   },
   {
-   "judul": "Integrasi Data Satelit, Pemodelan Hidrologi, dan Machine Learning untuk Peringatan Dini Banjir JABODETABEK",
-   "tahun": 2026,
-   "kategori": "penelitian",
-   "tingkat": "nasional",
-   "skema": "PF — Penelitian Fundamental",
-   "kelompok": "Kemendiktisaintek / DPPM",
-   "mitra": [],
-   "mahasiswa": 0,
-   "penulis": [
-    {
-     "nama": "Arlyn Aristo",
-     "slug": "arlyn-aristo",
-     "peran": "anggota",
-     "korespondensi": false
-    },
-    {
-     "nama": "Nurul Fajar Januriyadi",
-     "slug": "nurul-fajar-januriyadi",
-     "peran": "ketua",
-     "korespondensi": false
-    }
-   ]
-  },
-  {
    "judul": "Integrated Community Based Water Harvesting System: Teknologi Tepat Guna untuk Transformasi Kemandirian Air Bersih Barengkok Maju",
    "tahun": 2026,
    "kategori": "pkm",
@@ -2609,6 +2585,12 @@
   },
   {
    "tahun": 2023,
+   "kategori": "luaran",
+   "keterlibatan": 4,
+   "mahasiswa_unik": 4
+  },
+  {
+   "tahun": 2023,
    "kategori": "penelitian",
    "keterlibatan": 5,
    "mahasiswa_unik": 5
@@ -2702,7 +2684,28 @@
   ]
  },
  "tracer": [],
- "luaran_dosen": [],
+ "luaran_dosen": [
+  {
+   "tahun": 2026,
+   "jenis": "buku_isbn",
+   "bagian": 4,
+   "nama_bagian": "Buku ber-ISBN & Book Chapter",
+   "judul": "Smart Lighting Energi Surya",
+   "dosen": [
+    "Adita Utami"
+   ]
+  },
+  {
+   "tahun": 2023,
+   "jenis": "hak_cipta",
+   "bagian": 2,
+   "nama_bagian": "HKI: Hak Cipta, Desain, dll.",
+   "judul": "Intel: Gagasan Futuristik Elektrifikasi Daerah Tak Berlistrik Terintegrasi Antar-Wilayah Dengan EcoLife-Battery Hasil Optimasi Sampah Yang Berkelanjutan",
+   "dosen": [
+    "Adita Utami"
+   ]
+  }
+ ],
  "rekognisi": [],
  "integrasi": [],
  "mahasiswa_karya": {
