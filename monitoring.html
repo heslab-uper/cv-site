@@ -133,6 +133,26 @@
   table.sp th.utama{color:var(--biru);font-weight:500}
   table.sp td.utama{background:#F6F9FC}
 
+
+  /* ---------- akordeon bagian ---------- */
+  details.seksi{margin-top:26px}
+  details.seksi > summary{list-style:none;cursor:pointer;user-select:none;
+    display:flex;align-items:baseline;gap:12px;
+    border-bottom:2px solid var(--biru);padding:10px 2px}
+  details.seksi > summary::-webkit-details-marker{display:none}
+  details.seksi > summary h2{margin:0;border:0;padding:0}
+  details.seksi > summary .panah{font-family:var(--mono);font-size:12px;
+    color:var(--biru-3);transition:transform .15s;transform:rotate(-90deg)}
+  details.seksi[open] > summary .panah{transform:rotate(0)}
+  details.seksi > summary .ket-s{font-size:12px;color:var(--muted);
+    margin-left:auto;font-family:var(--mono);letter-spacing:.05em}
+  details.seksi > summary:hover h2{color:var(--biru-2)}
+  details.seksi > .isi-s{padding-top:2px}
+  .kontrol-seksi{display:flex;gap:14px;justify-content:flex-end;margin-top:20px}
+  .kontrol-seksi a{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+    text-transform:uppercase;color:var(--muted);text-decoration:none;cursor:pointer}
+  .kontrol-seksi a:hover{color:var(--biru)}
+
   footer{margin-top:52px;padding-top:20px;border-top:3px solid var(--biru);
          font-size:12.5px;color:var(--muted)}
   @media(max-width:560px){.ringkas div{border-right:0;border-bottom:1px solid var(--line-soft)}}
@@ -158,6 +178,36 @@ const esc = s => String(s ?? '').replace(/[&<>"']/g,c=>
 const rapi = s => s ? String(s).replace(/_/g,' ') : '';
 const pct = (a,b) => b ? Math.round(a/b*100) : 0;
 
+
+// ---------------------------------------------------------------------
+//  Akordeon bagian: keadaan buka/tutup diingat selama halaman hidup,
+//  sehingga berpindah periode/TS tidak menutup bagian yang sedang dibaca.
+// ---------------------------------------------------------------------
+const SEKSI_BUKA = new Set(JSON.parse(sessionStorage.getItem('seksiBuka') || '["_awal"]'));
+function seksiLipat(id, judul, ket, isi, bawaan){
+  const buka = SEKSI_BUKA.has('_awal') ? !!bawaan : SEKSI_BUKA.has(id);
+  return `<details class="seksi" data-seksi="${id}" ${buka ? 'open' : ''}>
+    <summary><span class="panah">&#9660;</span><h2>${judul}</h2>
+      ${ket ? `<span class="ket-s">${ket}</span>` : ''}</summary>
+    <div class="isi-s">${isi}</div>
+  </details>`;
+}
+function pasangSeksi(){
+  SEKSI_BUKA.delete('_awal');
+  document.querySelectorAll('details.seksi').forEach(d => {
+    if (d.open) SEKSI_BUKA.add(d.dataset.seksi);
+    d.addEventListener('toggle', () => {
+      d.open ? SEKSI_BUKA.add(d.dataset.seksi) : SEKSI_BUKA.delete(d.dataset.seksi);
+      sessionStorage.setItem('seksiBuka', JSON.stringify([...SEKSI_BUKA]));
+    });
+  });
+  const k = document.getElementById('seksi-semua');
+  if (k) k.innerHTML = `<a id="bukaSemua">Buka semua</a><a id="tutupSemua">Tutup semua</a>`;
+  const semua = v => document.querySelectorAll('details.seksi').forEach(d => d.open = v);
+  document.getElementById('bukaSemua')?.addEventListener('click', () => semua(true));
+  document.getElementById('tutupSemua')?.addEventListener('click', () => semua(false));
+}
+
 let D=null, periode='ts3', urutKol='publikasi', urutTurun=true;
 
 // ambang.js sengaja TIDAK dimuat lewat tag <script src> biasa: tanpa
@@ -177,7 +227,7 @@ function muatAmbang(){
 muatAmbang()
   .then(()=>fetch('data.json?v=' + Date.now()))
   .then(r=>{ if(!r.ok) throw new Error(r.status); return r.json(); })
-  .then(d=>{ D=d; awal(); })
+  .then(d=>{ D=d; awal(); pasangSeksi(); })
   .catch(()=>{
     document.getElementById('isi').innerHTML =
       `<p class="kosong">Berkas <code>data.json</code> belum tersedia.
@@ -212,10 +262,10 @@ function awal(){
       periode = b.dataset.p;
       document.querySelectorAll('#periode button')
         .forEach(x=>x.setAttribute('aria-pressed', x.dataset.p===periode));
-      render();
+      render(); pasangSeksi();
     };
   });
-  render();
+  render(); pasangSeksi();
 }
 
 // =====================================================================
@@ -276,7 +326,9 @@ function render(){
            <em>dasar perhitungan rata-rata</em></div>
     </div>
 
-    <h2>Cakupan</h2>
+
+    <div class="kontrol-seksi" id="seksi-semua"></div>
+${seksiLipat('cakupan', 'Cakupan', '', `
     <p class="ket">Berapa banyak dosen yang punya minimal satu kegiatan pada periode ini.
     Pertanyaan ini bisa dijawab dengan andal meski jumlah datanya masih sedikit —
     berbeda dengan tren, yang butuh akumulasi beberapa tahun.</p>
@@ -291,34 +343,30 @@ function render(){
           <div class="s">${n} dari ${nD} dosen</div>
         </div>`;
       }).join('')}</div></div>
-
-    <h2>Matriks kinerja dosen</h2>
+`, true)}${seksiLipat('matriks', 'Matriks kinerja dosen', '', `
     <p class="ket">Klik judul kolom untuk mengurutkan. Klik nama dosen untuk melihat rinciannya.</p>
     <div class="kartu"><div class="gulir">${tabelMatriks(H)}</div>
       <p class="kaki">Baris berlatar merah muda menandai dosen tanpa satu pun kegiatan
       pada periode ini — <b>bukan penilaian kinerja</b>, melainkan penanda bahwa datanya
       mungkin belum diinput.</p></div>
-
-    <h2>Syarat perlu peringkat</h2>
+`, true)}${seksiLipat('syarat', 'Syarat perlu peringkat', '', `
     <p class="ket">Pemeriksaan capaian terhadap ambang LAM Teknik jenjang Sarjana
     di <code>ambang.js</code>. Bagian ini <b>tidak mengikuti pemilih periode</b> di
     atas: tiap butir memakai jendela tahun yang ditetapkan instrumen. Ini alat bantu
     internal, bukan penilaian resmi.</p>
     ${bagianSyaratPerlu()}
-
-    <h2>Indikator LKPS</h2>
+`, false)}${seksiLipat('lkps', 'Indikator LKPS', '', `
     <p class="ket">Indikator dosen tetap (DTPS) dan lulusan mengikuti butir
     LKPS. Profil DTPS dan tracer lulusan tidak terpengaruh pemilih periode;
     luaran, rekognisi, dan integrasi mengikutinya.</p>
     ${bagianLKPS(H)}
-
-    <h2>Mahasiswa</h2>
+`, false)}${seksiLipat('mahasiswa', 'Mahasiswa', '', `
     <p class="ket">Angka keterlibatan mahasiswa dalam karya dosen dan prestasi
     lomba. Halaman ini hanya menampilkan jumlah — nama dan NIM tidak
     dipublikasikan.</p>
     ${bagianMahasiswa(H)}
 
-    <h2>Rincian</h2>
+    `, false)}${seksiLipat('rincian', 'Rincian', '', `
     <p class="ket">Sebaran menurut kategori, mengikuti periode yang dipilih di atas.</p>
     <div class="rinci">
       ${kartuRinci('Publikasi menurut indeksasi',
@@ -344,7 +392,7 @@ function render(){
           H.pres.filter(r=>!(r.bidang||'').toLowerCase().startsWith('akademik'))
             .reduce((m,r)=>{ const k=rapi(r.tingkat);
               m[k]=(m[k]||0)+r.jumlah; return m; }, {}))}
-    </div>
+    </div>`, false)}
 
     <footer>
       Diperbarui ${esc(D.diperbarui)}. Seluruh angka hanya menghitung entri yang telah
@@ -356,7 +404,7 @@ function render(){
     th.onclick = ()=>{
       const k = th.dataset.k;
       if(urutKol===k) urutTurun = !urutTurun; else { urutKol=k; urutTurun=true; }
-      render();
+      render(); pasangSeksi();
     };
   });
 }

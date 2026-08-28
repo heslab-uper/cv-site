@@ -2687,6 +2687,7 @@
  "luaran_dosen": [
   {
    "tahun": 2026,
+   "tahun_ts": 2026,
    "jenis": "buku_isbn",
    "bagian": 4,
    "nama_bagian": "Buku ber-ISBN & Book Chapter",
@@ -2697,6 +2698,7 @@
   },
   {
    "tahun": 2023,
+   "tahun_ts": 2023,
    "jenis": "hak_cipta",
    "bagian": 2,
    "nama_bagian": "HKI: Hak Cipta, Desain, dll.",
@@ -2707,6 +2709,7 @@
   },
   {
    "tahun": 2023,
+   "tahun_ts": 2023,
    "jenis": "hak_cipta",
    "bagian": 2,
    "nama_bagian": "HKI: Hak Cipta, Desain, dll.",
@@ -2725,23 +2728,291 @@
     "tahun_ts": 2026,
     "mahasiswa_aktif": 0,
     "lulusan": 0,
-    "rerata_ipk": 0.0
+    "rerata_ipk": 0.0,
+    "mahasiswa_asing": 0,
+    "rerata_masa_studi": 0.0,
+    "persen_tepat_waktu": 0.0
    },
    {
     "ta": "2024/2025",
     "tahun_ts": 2025,
     "mahasiswa_aktif": 0,
     "lulusan": 0,
-    "rerata_ipk": 0.0
+    "rerata_ipk": 0.0,
+    "mahasiswa_asing": 0,
+    "rerata_masa_studi": 0.0,
+    "persen_tepat_waktu": 0.0
    },
    {
     "ta": "2023/2024",
     "tahun_ts": 2024,
     "mahasiswa_aktif": 0,
     "lulusan": 0,
-    "rerata_ipk": 0.0
+    "rerata_ipk": 0.0,
+    "mahasiswa_asing": 0,
+    "rerata_masa_studi": 0.0,
+    "persen_tepat_waktu": 0.0
    }
   ],
+  "kerjasama": [
+   {
+    "tahun": 2026,
+    "internasional": 0,
+    "nasional": 6,
+    "wilayah": 0,
+    "tanpa_tingkat": 0
+   },
+   {
+    "tahun": 2025,
+    "internasional": 0,
+    "nasional": 8,
+    "wilayah": 0,
+    "tanpa_tingkat": 0
+   },
+   {
+    "tahun": 2024,
+    "internasional": 2,
+    "nasional": 5,
+    "wilayah": 0,
+    "tanpa_tingkat": 0
+   },
+   {
+    "tahun": 2023,
+    "internasional": 3,
+    "nasional": 7,
+    "wilayah": 0,
+    "tanpa_tingkat": 0
+   },
+   {
+    "tahun": 2022,
+    "internasional": 0,
+    "nasional": 3,
+    "wilayah": 0,
+    "tanpa_tingkat": 0
+   },
+   {
+    "tahun": 2021,
+    "internasional": 1,
+    "nasional": 2,
+    "wilayah": 0,
+    "tanpa_tingkat": 0
+   },
+   {
+    "tahun": 2020,
+    "internasional": 0,
+    "nasional": 1,
+    "wilayah": 0,
+    "tanpa_tingkat": 0
+   },
+   {
+    "tahun": 2019,
+    "internasional": 0,
+    "nasional": 4,
+    "wilayah": 0,
+    "tanpa_tingkat": 1
+   }
+  ],
+  "kegiatan_mhs": [
+   {
+    "tahun": 2026,
+    "kategori": "penelitian",
+    "total": 1,
+    "dengan_mahasiswa": 1
+   },
+   {
+    "tahun": 2026,
+    "kategori": "pkm",
+    "total": 2,
+    "dengan_mahasiswa": 1
+   },
+   {
+    "tahun": 2025,
+    "kategori": "penelitian",
+    "total": 4,
+    "dengan_mahasiswa": 0
+   },
+   {
+    "tahun": 2025,
+    "kategori": "pkm",
+    "total": 3,
+    "dengan_mahasiswa": 0
+   },
+   {
+    "tahun": 2024,
+    "kategori": "penelitian",
+    "total": 1,
+    "dengan_mahasiswa": 0
+   },
+   {
+    "tahun": 2024,
+    "kategori": "pkm",
+    "total": 8,
+    "dengan_mahasiswa": 1
+   },
+   {
+    "tahun": 2023,
+    "kategori": "penelitian",
+    "total": 4,
+    "dengan_mahasiswa": 2
+   },
+   {
+    "tahun": 2023,
+    "kategori": "pkm",
+    "total": 3,
+    "dengan_mahasiswa": 1
+   },
+   {
+    "tahun": 2022,
+    "kategori": "penelitian",
+    "total": 2,
+    "dengan_mahasiswa": 0
+   },
+   {
+    "tahun": 2022,
+    "kategori": "pkm",
+    "total": 2,
+    "dengan_mahasiswa": 1
+   },
+   {
+    "tahun": 2021,
+    "kategori": "penelitian",
+    "total": 1,
+    "dengan_mahasiswa": 0
+   },
+   {
+    "tahun": 2020,
+    "kategori": "penelitian",
+    "total": 1,
+    "dengan_mahasiswa": 0
+   },
+   {
+    "tahun": 2020,
+    "kategori": "pkm",
+    "total": 2,
+    "dengan_mahasiswa": 1
+   },
+   {
+    "tahun": 2019,
+    "kategori": "pkm",
+    "total": 2,
+    "dengan_mahasiswa": 0
+   }
+  ],
+  "sumber_dana": [
+   {
+    "tahun": 2026,
+    "kategori": "penelitian",
+    "luar_negeri": 0,
+    "dalam_negeri": 1,
+    "pt_mandiri": 0,
+    "tanpa_sumber": 0
+   },
+   {
+    "tahun": 2026,
+    "kategori": "pkm",
+    "luar_negeri": 0,
+    "dalam_negeri": 1,
+    "pt_mandiri": 1,
+    "tanpa_sumber": 0
+   },
+   {
+    "tahun": 2025,
+    "kategori": "penelitian",
+    "luar_negeri": 0,
+    "dalam_negeri": 1,
+    "pt_mandiri": 3,
+    "tanpa_sumber": 0
+   },
+   {
+    "tahun": 2025,
+    "kategori": "pkm",
+    "luar_negeri": 0,
+    "dalam_negeri": 2,
+    "pt_mandiri": 1,
+    "tanpa_sumber": 0
+   },
+   {
+    "tahun": 2024,
+    "kategori": "penelitian",
+    "luar_negeri": 0,
+    "dalam_negeri": 0,
+    "pt_mandiri": 1,
+    "tanpa_sumber": 0
+   },
+   {
+    "tahun": 2024,
+    "kategori": "pkm",
+    "luar_negeri": 0,
+    "dalam_negeri": 7,
+    "pt_mandiri": 1,
+    "tanpa_sumber": 0
+   },
+   {
+    "tahun": 2023,
+    "kategori": "penelitian",
+    "luar_negeri": 1,
+    "dalam_negeri": 1,
+    "pt_mandiri": 2,
+    "tanpa_sumber": 0
+   },
+   {
+    "tahun": 2023,
+    "kategori": "pkm",
+    "luar_negeri": 0,
+    "dalam_negeri": 1,
+    "pt_mandiri": 2,
+    "tanpa_sumber": 0
+   },
+   {
+    "tahun": 2022,
+    "kategori": "penelitian",
+    "luar_negeri": 0,
+    "dalam_negeri": 0,
+    "pt_mandiri": 2,
+    "tanpa_sumber": 0
+   },
+   {
+    "tahun": 2022,
+    "kategori": "pkm",
+    "luar_negeri": 0,
+    "dalam_negeri": 0,
+    "pt_mandiri": 2,
+    "tanpa_sumber": 0
+   },
+   {
+    "tahun": 2021,
+    "kategori": "penelitian",
+    "luar_negeri": 0,
+    "dalam_negeri": 0,
+    "pt_mandiri": 1,
+    "tanpa_sumber": 0
+   },
+   {
+    "tahun": 2020,
+    "kategori": "penelitian",
+    "luar_negeri": 0,
+    "dalam_negeri": 0,
+    "pt_mandiri": 1,
+    "tanpa_sumber": 0
+   },
+   {
+    "tahun": 2020,
+    "kategori": "pkm",
+    "luar_negeri": 0,
+    "dalam_negeri": 1,
+    "pt_mandiri": 1,
+    "tanpa_sumber": 0
+   },
+   {
+    "tahun": 2019,
+    "kategori": "pkm",
+    "luar_negeri": 0,
+    "dalam_negeri": 0,
+    "pt_mandiri": 2,
+    "tanpa_sumber": 0
+   }
+  ],
+  "rekognisi_dtps": [],
   "publikasi_dtps": [
    {
     "tahun": 2026,

@@ -100,6 +100,26 @@
          background:var(--bg);border:1px solid var(--line-soft);
          padding:9px 12px;border-radius:2px;margin-top:10px;overflow-x:auto;white-space:nowrap}
 
+
+  /* ---------- akordeon bagian ---------- */
+  details.seksi{margin-top:26px}
+  details.seksi > summary{list-style:none;cursor:pointer;user-select:none;
+    display:flex;align-items:baseline;gap:12px;
+    border-bottom:2px solid var(--biru);padding:10px 2px}
+  details.seksi > summary::-webkit-details-marker{display:none}
+  details.seksi > summary h2{margin:0;border:0;padding:0}
+  details.seksi > summary .panah{font-family:var(--mono);font-size:12px;
+    color:var(--biru-3);transition:transform .15s;transform:rotate(-90deg)}
+  details.seksi[open] > summary .panah{transform:rotate(0)}
+  details.seksi > summary .ket-s{font-size:12px;color:var(--muted);
+    margin-left:auto;font-family:var(--mono);letter-spacing:.05em}
+  details.seksi > summary:hover h2{color:var(--biru-2)}
+  details.seksi > .isi-s{padding-top:2px}
+  .kontrol-seksi{display:flex;gap:14px;justify-content:flex-end;margin-top:20px}
+  .kontrol-seksi a{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+    text-transform:uppercase;color:var(--muted);text-decoration:none;cursor:pointer}
+  .kontrol-seksi a:hover{color:var(--biru)}
+
   footer{margin-top:52px;border-top:1px solid var(--line);padding-top:18px;
          font-size:12.5px;color:var(--muted)}
 </style>
@@ -115,7 +135,10 @@
 
 <main class="wrap" id="isi"><p class="kosong" style="margin-top:30px">Memuat data&hellip;</p></main>
 
-<script>
+<script src="config.js"></script>
+<script type="module">
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+const sb = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 'use strict';
 // =====================================================================
 //  Kalkulator skor butir APS-AV 2025 1.0 (Program Sarjana) yang dapat
@@ -129,8 +152,40 @@
 //  memakai karya bertahun 2024-2026. Pendekatan ini dicatat pada tiap
 //  kartu yang memakainya.
 // =====================================================================
+
+// ---------------------------------------------------------------------
+//  Akordeon bagian: keadaan buka/tutup diingat selama halaman hidup,
+//  sehingga berpindah periode/TS tidak menutup bagian yang sedang dibaca.
+// ---------------------------------------------------------------------
+const SEKSI_BUKA = new Set(JSON.parse(sessionStorage.getItem('seksiBuka') || '["_awal"]'));
+function seksiLipat(id, judul, ket, isi, bawaan){
+  const buka = SEKSI_BUKA.has('_awal') ? !!bawaan : SEKSI_BUKA.has(id);
+  return `<details class="seksi" data-seksi="${id}" ${buka ? 'open' : ''}>
+    <summary><span class="panah">&#9660;</span><h2>${judul}</h2>
+      ${ket ? `<span class="ket-s">${ket}</span>` : ''}</summary>
+    <div class="isi-s">${isi}</div>
+  </details>`;
+}
+function pasangSeksi(){
+  SEKSI_BUKA.delete('_awal');
+  document.querySelectorAll('details.seksi').forEach(d => {
+    if (d.open) SEKSI_BUKA.add(d.dataset.seksi);
+    d.addEventListener('toggle', () => {
+      d.open ? SEKSI_BUKA.add(d.dataset.seksi) : SEKSI_BUKA.delete(d.dataset.seksi);
+      sessionStorage.setItem('seksiBuka', JSON.stringify([...SEKSI_BUKA]));
+    });
+  });
+  const k = document.getElementById('seksi-semua');
+  if (k) k.innerHTML = `<a id="bukaSemua">Buka semua</a><a id="tutupSemua">Tutup semua</a>`;
+  const semua = v => document.querySelectorAll('details.seksi').forEach(d => d.open = v);
+  document.getElementById('bukaSemua')?.addEventListener('click', () => semua(true));
+  document.getElementById('tutupSemua')?.addEventListener('click', () => semua(false));
+}
+
 let D = null;
-let TS = null;          // tahun ujung TS terpilih, mis. 2026
+let TS = null;
+let PENG = {};        // pengaturan skor dari Supabase (di belakang RLS)
+let DANA = [];        // {tahun, bulan, kategori, besaran_dana} karya terverifikasi          // tahun ujung TS terpilih, mis. 2026
 
 const esc = s => String(s ?? '').replace(/[&<>"']/g,
   c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -381,6 +436,339 @@ function butir35(){
 }
 
 // ---------------------------------------------------------------------
+//  Butir tambahan: kerja sama, keuangan, kegiatan, SDM, mahasiswa
+// ---------------------------------------------------------------------
+function IS(k){ return (PENG[k] == null ? null : +PENG[k]); }
+function taRange(n){ return `TS ${taDari(TS - n + 1)} s.d. ${taDari(TS)}`; }
+function ndtps(){ return (D.dtps || {}).jumlah || 0; }
+
+function kartuManualKosong(no, judul, kunci){
+  return kartuButir(no, judul, `<p class="kosong">Belum diisi — admin mengisi
+    <code>${kunci}</code> pada tabel <code>pengaturan</code> di Supabase
+    (lihat petunjuk di patch 09).</p>`, null, '');
+}
+
+// Butir 6 — kerja sama. Skor = (I + 2×II) / 3.
+function butir06(){
+  const N = ndtps();
+  const j = jumlahJendela(((D.akreditasi || {}).kerjasama) || [],
+      ['internasional', 'nasional', 'wilayah', 'tanpa_tingkat'], 3);
+  const keg = jumlahJendela(((D.akreditasi || {}).kegiatan_mhs) || []
+      .filter(r => r.kategori === 'penelitian'), ['total'], 3);
+  // N2/N3 = jumlah kerja sama (baris mitra) penelitian & PkM — di agregat
+  // kerjasama tidak dipisah kategori, jadi dipakai totalnya; N1 manual.
+  const n1 = IS('kerjasama_pendidikan_3th');
+  const totalMitra = j.internasional + j.nasional + j.wilayah + j.tanpa_tingkat;
+  let skor1 = null, ket1 = '';
+  if (n1 == null) ket1 = 'RK menunggu <code>kerjasama_pendidikan_3th</code> di tabel pengaturan.';
+  else if (N) { const RK = (n1 + totalMitra) / N; skor1 = Math.min(4, RK);
+    ket1 = `RK = (${n1} + ${totalMitra}) / ${N} = ${f2(RK)}.`; }
+  const skor2 = skorRasio(j.internasional, j.nasional, j.wilayah, 2, 6, 8);
+  const skor = skor1 == null ? null : (skor1 + 2 * skor2) / 3;
+  const isi = `
+    <div class="gulir"><table class="rin"><thead><tr><th>Tingkat</th><th>Jumlah</th></tr></thead><tbody>
+      <tr><td>Internasional (NI)</td><td>${j.internasional}</td></tr>
+      <tr><td>Nasional (NN)</td><td>${j.nasional}</td></tr>
+      <tr><td>Wilayah/lokal (NW)</td><td>${j.wilayah}</td></tr>
+      ${j.tanpa_tingkat ? `<tr><td>Tanpa tingkat — lengkapi di data mitra</td><td>${j.tanpa_tingkat}</td></tr>` : ''}
+    </tbody></table></div>
+    <div class="rumus">Skor = (I + 2×II) / 3 · I: RK = (N1+N2+N3)/NDTPS · II: a=2, b=6, c=8 · sub-skor II = ${f2(skor2)}</div>`;
+  return kartuButir('6', 'Kerja sama (Tabel 2.a LKPS)', isi, skor,
+    ket1 + ' Satu baris mitra pada karya terverifikasi dihitung satu kerja sama; ' +
+    'kerja sama pendidikan tidak tercatat di dashboard. Jendela ' + taRange(3) +
+    (j.tanpa_tingkat ? `. ${j.tanpa_tingkat} mitra belum punya tingkat dan tidak menyumbang skor.` : '.'));
+}
+
+// Butir 10-11 — dana penelitian/PkM: dihitung dari besaran_dana pada
+// karya terverifikasi (di belakang RLS), TIDAK dari berkas publik.
+function butirDanaKarya(no, judul, kategori, amb, pengali){
+  const N = ndtps(); if (!N) return kartuButir(no, judul, '<p class="kosong">Data dosen kosong.</p>', null, '');
+  const rows = DANA.filter(r => r.kategori === kategori);
+  const tsOf = r => (+r.bulan >= 9 ? +r.tahun + 1 : +r.tahun);
+  const pilih = rows.filter(r => { const t = tsOf(r); return t >= TS - 2 && t <= TS; });
+  const total = pilih.reduce((a, r) => a + (+r.besaran_dana || 0), 0);
+  const tanpa = pilih.filter(r => !(+r.besaran_dana > 0)).length;
+  if (!pilih.length)
+    return kartuButir(no, judul, `<p class="kosong">Belum ada ${kategori}
+      terverifikasi pada jendela ${esc(taRange(3))}.</p>`, null, '');
+  const rata = total / 3 / N;
+  const skor = rata >= amb ? 4 : Math.min(4, (pengali * rata) / 5000000);
+  const isi = `
+    <div class="gulir"><table class="rin"><tbody>
+      <tr><td>Total dana ${kategori} 3 TS</td><td>Rp ${total.toLocaleString('id-ID')}</td></tr>
+      <tr><td>Judul kegiatan</td><td>${pilih.length}${tanpa ? ` (${tanpa} tanpa nominal)` : ''}</td></tr>
+      <tr><td><b>Rata-rata / DTPS / tahun</b></td><td><b>Rp ${Math.round(rata).toLocaleString('id-ID')}</b></td></tr>
+    </tbody></table></div>
+    <div class="rumus">≥ Rp ${amb.toLocaleString('id-ID')} → 4 · di bawah itu → ${pengali === 1 ? '' : pengali + ' × '}rata-rata / 5.000.000 · NDTPS=${N}</div>`;
+  return kartuButir(no, judul, isi, skor,
+    'Dihitung dari besaran dana pada karya terverifikasi — angka ini hanya ' +
+    'tampil untuk dosen terdaftar dan tidak pernah masuk data.json.' +
+    (tanpa ? ` ${tanpa} kegiatan belum mengisi besaran dana dan terhitung nol.` : ''));
+}
+
+// Butir 9 — BOP (dari tabel pengaturan).
+function butirDana(no, judul, kunci, amb, pengali){
+  const v = IS(kunci);
+  if (v == null) return kartuManualKosong(no, judul, kunci);
+  const skor = v >= amb ? 4 : Math.min(4, (pengali * v) / 5000000);
+  const isi = `
+    <div class="gulir"><table class="rin"><tbody>
+      <tr><td>Nilai rata-rata / tahun (3 tahun)</td>
+      <td>Rp ${v.toLocaleString('id-ID')}</td></tr></tbody></table></div>
+    <div class="rumus">≥ Rp ${amb.toLocaleString('id-ID')} → 4 · di bawah itu → ${pengali === 1 ? '' : pengali + ' × '}nilai / 5.000.000</div>`;
+  return kartuButir(no, judul, isi, skor,
+    'Dari tabel pengaturan Supabase; hanya terbaca oleh dosen terdaftar.');
+}
+
+// Butir 19 — basic sciences (pita skor diskrit).
+function butir19(){
+  const v = IS('sks_basic_sciences');
+  if (v == null) return kartuManualKosong(19, 'Mata kuliah basic sciences dan matematika (Tabel 3.a.4 LKPS)', 'sks_basic_sciences');
+  const skor = v >= 25 ? 4 : v >= 20 ? 3 : v >= 15 ? 2 : v >= 10 ? 1 : 0;
+  return kartuButir(19, 'Mata kuliah basic sciences dan matematika (Tabel 3.a.4 LKPS)',
+    `<div class="rumus">≥25 SKS → 4 · 20–24 → 3 · 15–19 → 2 · 10–14 → 1 · &lt;10 → 0 · terisi: ${v} SKS</div>`,
+    skor, 'Samakan angkanya dengan butir 3 syarat perlu di ambang.js.');
+}
+
+// Butir 23 & 25 — kegiatan melibatkan mahasiswa.
+function butirKegMhs(no, judul, kategori){
+  const rows = (((D.akreditasi || {}).kegiatan_mhs) || []).filter(r => r.kategori === kategori);
+  const j = jumlahJendela(rows, ['total', 'dengan_mahasiswa'], 3);
+  if (!j.total)
+    return kartuButir(no, judul, `<p class="kosong">Belum ada ${kategori}
+      terverifikasi pada jendela ${esc(taRange(3))}.</p>`, null, '');
+  const P = j.dengan_mahasiswa / j.total;
+  const skor = P >= 0.5 ? 4 : Math.max(1, 1 + 6 * P);
+  const isi = `
+    <div class="gulir"><table class="rin"><tbody>
+      <tr><td>Judul melibatkan mahasiswa</td><td>${j.dengan_mahasiswa}</td></tr>
+      <tr><td>Seluruh judul</td><td>${j.total}</td></tr>
+      <tr><td><b>Persentase</b></td><td><b>${f2(P * 100)}%</b></td></tr>
+    </tbody></table></div>
+    <div class="rumus">≥ 50% → 4 · di bawah itu → 1 + (6 × persentase) · skor terendah 1</div>`;
+  return kartuButir(no, judul, isi, skor,
+    'Melibatkan = minimal satu mahasiswa tercatat pada karya. Jendela ' + taRange(3) + '.');
+}
+
+// Butir 26 — kecukupan DTPS.
+function butir26(){
+  const N = ndtps();
+  const ndtt = IS('ndtt');
+  if (ndtt == null) return kartuManualKosong(26, 'Kecukupan jumlah DTPS (Tabel 4.a LKPS)', 'ndtt');
+  const PDTT = (ndtt / ((N + ndtt) || 1)) * 100;
+  let skor;
+  if (N < 5) skor = 0;
+  else if (N >= 12 && PDTT <= 10) skor = 4;
+  else if (N >= 12 && PDTT <= 40) skor = 2 + 2 * ((40 - PDTT) / 30);
+  else if (PDTT <= 40) skor = 2 + 2 * (((N - 5) / 7) * ((40 - PDTT) / 40));
+  else skor = 2;
+  const isi = `
+    <div class="gulir"><table class="rin"><tbody>
+      <tr><td>NDTPS</td><td>${N}</td></tr>
+      <tr><td>NDTT (dosen tidak tetap)</td><td>${ndtt}</td></tr>
+      <tr><td><b>PDTT</b></td><td><b>${f2(PDTT)}%</b></td></tr>
+    </tbody></table></div>
+    <div class="rumus">NDTPS ≥ 12 dan PDTT ≤ 10% → 4 · rumus antara lihat instrumen · NDTPS &lt; 5 → 0</div>`;
+  return kartuButir(26, 'Kecukupan jumlah DTPS (Tabel 4.a LKPS)', isi, skor,
+    'NDTPS memakai jumlah dosen aktif; NDT dianggap sama dengan NDTPS.');
+}
+
+// Butir 27 & 28 — kualifikasi dan jabatan (versi skor dari data dtps).
+function butir27(){
+  const N = ndtps(); if (!N) return kartuButir(27, 'Kualifikasi akademik DTPS (Tabel 4.a LKPS)', '<p class="kosong">Data dosen kosong.</p>', null, '');
+  const P = ((D.dtps || {}).doktor || 0) / N;
+  const skor = P >= 0.5 ? 4 : 2 + 4 * P;
+  return kartuButir(27, 'Kualifikasi akademik DTPS (Tabel 4.a LKPS)',
+    `<div class="rumus">PDS3 = ${(D.dtps||{}).doktor || 0}/${N} = ${f2(P * 100)}% · ≥ 50% → 4 · di bawah itu → 2 + (4 × PDS3) · skor terendah 2</div>`,
+    skor, '');
+}
+function butir28(){
+  const N = ndtps(); if (!N) return kartuButir(28, 'Jabatan akademik DTPS (Tabel 4.a LKPS)', '<p class="kosong">Data dosen kosong.</p>', null, '');
+  const jab = (D.dtps || {}).jabatan || {};
+  const k = (jab.lektor || 0) + (jab.lektor_kepala || 0) + (jab.guru_besar || 0);
+  const P = k / N;
+  const skor = P >= 0.7 ? 4 : 2 + (20 * P) / 7;
+  return kartuButir(28, 'Jabatan akademik DTPS (Tabel 4.a LKPS)',
+    `<div class="rumus">PGBLKL = ${k}/${N} = ${f2(P * 100)}% (GB + LK + L) · ≥ 70% → 4 · di bawah itu → 2 + (20 × PGBLKL)/7 · skor terendah 2</div>`,
+    skor, '');
+}
+
+// Butir 31 & 32 — kegiatan per sumber dana.
+function butirDanaSumber(no, judul, kategori){
+  const rows = (((D.akreditasi || {}).sumber_dana) || []).filter(r => r.kategori === kategori);
+  const N = ndtps();
+  const j = jumlahJendela(rows, ['luar_negeri', 'dalam_negeri', 'pt_mandiri', 'tanpa_sumber'], 3);
+  const total = j.luar_negeri + j.dalam_negeri + j.pt_mandiri;
+  if (!N || (!total && !j.tanpa_sumber))
+    return kartuButir(no, judul, `<p class="kosong">Belum ada ${kategori}
+      terverifikasi pada jendela ${esc(taRange(3))}.</p>`, null, '');
+  const skor = skorRasio(j.luar_negeri / 3 / N, j.dalam_negeri / 3 / N,
+                         j.pt_mandiri / 3 / N, 0.05, 0.3, 1);
+  const isi = `
+    <div class="gulir"><table class="rin"><thead><tr><th>Sumber dana</th><th>Jumlah 3 th</th></tr></thead><tbody>
+      <tr><td>Luar negeri (NI)</td><td>${j.luar_negeri}</td></tr>
+      <tr><td>Dalam negeri (NN)</td><td>${j.dalam_negeri}</td></tr>
+      <tr><td>PT / mandiri (NW)</td><td>${j.pt_mandiri}</td></tr>
+      ${j.tanpa_sumber ? `<tr><td>Tanpa sumber dana tercatat</td><td>${j.tanpa_sumber}</td></tr>` : ''}
+    </tbody></table></div>
+    <div class="rumus">RI = NI/3/NDTPS · RN = NN/3/NDTPS · RW = NW/3/NDTPS · a=0,05 b=0,3 c=1 · NDTPS=${N}</div>`;
+  return kartuButir(no, judul, isi, skor,
+    'Pemetaan: kelompok skema luar negeri → NI; dalam negeri → NN; internal ' +
+    'PT dan mandiri → NW. Jendela ' + taRange(3) +
+    (j.tanpa_sumber ? `. ${j.tanpa_sumber} kegiatan tanpa sumber dana tidak menyumbang skor.` : '.'));
+}
+
+// Butir 36 — karya bereputasi disitasi (manual).
+function butir36(){
+  const v = IS('kib_3th'); const N = ndtps();
+  if (v == null || !N) return kartuManualKosong(36, 'Karya ilmiah bereputasi yang disitasi (Tabel 4.i LKPS)', 'kib_3th');
+  const P = v / N;
+  const skor = P >= 0.25 ? 4 : 2 + 8 * P;
+  return kartuButir(36, 'Karya ilmiah bereputasi yang disitasi (Tabel 4.i LKPS)',
+    `<div class="rumus">PKIB = ${v}/${N} = ${f2(P * 100)}% · ≥ 25% → 4 · di bawah itu → 2 + (8 × PKIB) · skor terendah 2</div>`,
+    skor, 'KIB dihitung manual dari Scopus/Google Scholar (sitasi tidak dilacak dashboard).');
+}
+
+// Butir 37 — rekognisi DTPS.
+function butir37(){
+  const N = ndtps();
+  const rinci = ((D.akreditasi || {}).rekognisi_dtps) || [];
+  const org = new Set(rinci.filter(x => x.tahun >= TS - 2 && x.tahun <= TS).map(x => x.slug));
+  if (!N) return kartuButir(37, 'Rekognisi DTPS (Tabel 4.j LKPS)', '<p class="kosong">Data dosen kosong.</p>', null, '');
+  const P = org.size / N;
+  const skor = P >= 0.5 ? 4 : 2 + 4 * P;
+  return kartuButir(37, 'Rekognisi DTPS (Tabel 4.j LKPS)',
+    `<div class="rumus">PRDTPS = ${org.size}/${N} = ${f2(P * 100)}% · ≥ 50% → 4 · di bawah itu → 2 + (4 × PRDTPS) · skor terendah 2</div>`,
+    skor, 'Dosen dengan minimal satu rekognisi terverifikasi, jendela ' + taRange(3) + '.');
+}
+
+// Butir 40 & 41 — rasio mahasiswa dan mahasiswa asing.
+function barisTA(){ return (((D.akreditasi || {}).ta) || []).find(r => r.tahun_ts === TS); }
+function butir40(){
+  const N = ndtps(); const b = barisTA();
+  const NM = b ? b.mahasiswa_aktif : 0;
+  if (!N || !NM)
+    return kartuButir(40, 'Rasio mahasiswa terhadap DTPS (Tabel 6.a LKPS)',
+      `<p class="kosong">Isi <code>jumlah_mahasiswa_aktif</code> di lembar
+      mahasiswa_ta untuk TS ${esc(taDari(TS))}.</p>`, null, '');
+  const RMD = NM / N;
+  let skor;
+  const A = (N - 5) / 7;
+  const B = RMD < 15 ? RMD / 15 : RMD <= 25 ? 1 : RMD <= 35 ? (35 - RMD) / 10 : 0;
+  if (RMD > 35) skor = 0;
+  else if (N >= 12 && RMD >= 15 && RMD <= 25) skor = 4;
+  else if (N >= 12) skor = 1 + 3 * B;
+  else skor = 1 + 3 * (A * B);
+  return kartuButir(40, 'Rasio mahasiswa terhadap DTPS (Tabel 6.a LKPS)',
+    `<div class="rumus">RMD = ${NM}/${N} = ${f2(RMD)} · ideal 15–25 dengan NDTPS ≥ 12 → 4 · RMD &gt; 35 → 0</div>`,
+    skor, '');
+}
+function butir41(){
+  const b = barisTA();
+  if (!b || !b.mahasiswa_aktif || b.mahasiswa_asing == null)
+    return kartuButir(41, 'Mahasiswa asing (Tabel 6.a LKPS)',
+      `<p class="kosong">Isi <code>jumlah_mahasiswa_asing</code> di lembar
+      mahasiswa_ta untuk TS ${esc(taDari(TS))}.</p>`, null, '');
+  const P = b.mahasiswa_asing / b.mahasiswa_aktif;
+  const skor = P >= 0.01 ? 4 : Math.max(2, 2 + 200 * P);
+  return kartuButir(41, 'Mahasiswa asing (Tabel 6.a LKPS)',
+    `<div class="rumus">PMA = ${b.mahasiswa_asing}/${b.mahasiswa_aktif} = ${f2(P * 100)}% · ≥ 1% → 4 · di bawah itu → 2 + (200 × PMA)</div>`,
+    skor, '');
+}
+
+// Butir 44 & 45 — masa studi & tepat waktu (rerata tertimbang 3 TS).
+function reratTA(kunci){
+  const rows = (((D.akreditasi || {}).ta) || [])
+    .filter(r => r.tahun_ts >= TS - 2 && r.tahun_ts <= TS && r.lulusan > 0 && r[kunci] > 0);
+  if (!rows.length) return null;
+  const n = rows.reduce((a, r) => a + r.lulusan, 0);
+  return rows.reduce((a, r) => a + r[kunci] * r.lulusan, 0) / n;
+}
+function butir44(){
+  const MS = reratTA('rerata_masa_studi');
+  if (MS == null)
+    return kartuButir(44, 'Masa studi (Tabel 6.d LKPS)', `<p class="kosong">Isi
+      <code>rerata_masa_studi_tahun</code> di lembar mahasiswa_ta.</p>`, null, '');
+  let skor = null, ket = '';
+  if (MS > 3.5 && MS <= 4.5) skor = 4;
+  else if (MS > 4.5 && MS <= 8) skor = (55 - 6 * MS) / 7;
+  else if (MS <= 3) skor = 0;
+  else ket = 'MS berada pada rentang 3–3,5 tahun yang tidak dicakup rumus instrumen; skor perlu penetapan asesor.';
+  return kartuButir(44, 'Masa studi (Tabel 6.d LKPS)',
+    `<div class="rumus">MS = ${f2(MS)} tahun · 3,5 &lt; MS ≤ 4,5 → 4 · 4,5 &lt; MS ≤ 8 → (55 − 6×MS)/7 · MS ≤ 3 → 0</div>`,
+    skor, ket + ' Rerata tertimbang jumlah lulusan, 3 TS terakhir.');
+}
+function butir45(){
+  const P = reratTA('persen_tepat_waktu');
+  if (P == null)
+    return kartuButir(45, 'Kelulusan tepat waktu (Tabel 6.d LKPS)', `<p class="kosong">Isi
+      <code>persen_lulus_tepat_waktu</code> di lembar mahasiswa_ta.</p>`, null, '');
+  const fr = P / 100;
+  const skor = fr >= 0.5 ? 4 : fr > 0 ? 1 + 6 * fr : 0;
+  return kartuButir(45, 'Kelulusan tepat waktu (Tabel 6.d LKPS)',
+    `<div class="rumus">PTW = ${f2(P)}% · ≥ 50% → 4 · 0 &lt; PTW &lt; 50% → 1 + (6 × PTW) · 0 → 0</div>`,
+    skor, 'Rerata tertimbang jumlah lulusan, 3 TS terakhir.');
+}
+
+// Butir 49, 50, 51 — tracer, jendela TS-2 s.d. TS-1.
+function tracerJendela(){
+  const tr = (D.tracer || []).filter(t => t.tahun_lulus >= TS - 2 && t.tahun_lulus <= TS - 1);
+  const lulusan = tr.reduce((a, t) => a + (t.lulusan || 0), 0);
+  const terlacak = tr.reduce((a, t) => a + (t.terlacak || 0), 0);
+  return { tr, lulusan, terlacak,
+           responden: lulusan ? (terlacak / lulusan) * 100 : 0 };
+}
+function catatanResponden(J){
+  let c = `Jendela tahun lulus ${TS - 2}–${TS - 1} (TS-2 s.d. TS-1 — berbeda dari syarat perlu yang memakai dua tahun terakhir). `;
+  if (J.lulusan) c += `Responden ${f2(J.responden)}%` +
+    (J.responden < 30 ? ' — DI BAWAH batas minimal 30%, skor tidak sahih menurut instrumen.' : ' (memenuhi minimal 30%).');
+  return c;
+}
+function butir49(){
+  const J = tracerJendela();
+  if (!J.terlacak)
+    return kartuButir(49, 'Waktu tunggu (Tabel 6.f.1 LKPS)', `<p class="kosong">Lembar
+      tracer_lulusan belum berisi tahun lulus ${TS - 2}–${TS - 1}.</p>`, null, '');
+  const WT = J.tr.reduce((a, t) => a + (t.waktu_tunggu_bulan || 0) * (t.terlacak || 0), 0) / J.terlacak;
+  const skor = WT <= 3 ? 4 : WT <= 18 ? Math.max(1, (23 - WT) / 5) : 1;
+  return kartuButir(49, 'Waktu tunggu (Tabel 6.f.1 LKPS)',
+    `<div class="rumus">WT = ${f2(WT)} bulan · ≤ 3 → 4 · 3 &lt; WT ≤ 18 → (23 − WT)/5 · skor terendah 1</div>`,
+    skor, catatanResponden(J));
+}
+function butir50(){
+  const J = tracerJendela();
+  if (!J.terlacak)
+    return kartuButir(50, 'Kesesuaian bidang kerja (Tabel 6.f.2 LKPS)', `<p class="kosong">Lembar
+      tracer_lulusan belum berisi tahun lulus ${TS - 2}–${TS - 1}.</p>`, null, '');
+  const ss = J.tr.reduce((a, t) => a + (t.sesuai_bidang || 0), 0);
+  const KBK = ss / J.terlacak;
+  const skor = KBK >= 0.6 ? 4 : (20 * KBK) / 3;
+  return kartuButir(50, 'Kesesuaian bidang kerja (Tabel 6.f.2 LKPS)',
+    `<div class="rumus">KBK = ${ss}/${J.terlacak} = ${f2(KBK * 100)}% · ≥ 60% → 4 · di bawah itu → (20 × KBK)/3</div>`,
+    skor, catatanResponden(J));
+}
+function butir51(){
+  const J = tracerJendela();
+  const NI = J.tr.reduce((a, t) => a + (t.kerja_internasional || 0), 0);
+  const NN = J.tr.reduce((a, t) => a + (t.kerja_nasional || 0), 0);
+  const NW = J.tr.reduce((a, t) => a + (t.kerja_wilayah || 0), 0);
+  if (!J.lulusan || (NI + NN + NW) === 0)
+    return kartuButir(51, 'Tingkat tempat kerja lulusan (Tabel 6.g.1 LKPS)', `<p class="kosong">Isi
+      kolom kerja_internasional / kerja_nasional / kerja_wilayah di lembar
+      tracer_lulusan (tahun lulus ${TS - 2}–${TS - 1}).</p>`, null, '');
+  const skor = skorRasio(NI / J.lulusan, NN / J.lulusan, NW / J.lulusan, 0.05, 0.2, 0.9);
+  const isi = `
+    <div class="gulir"><table class="rin"><tbody>
+      <tr><td>Multinasional/internasional (NI)</td><td>${NI}</td></tr>
+      <tr><td>Nasional / wirausaha berizin (NN)</td><td>${NN}</td></tr>
+      <tr><td>Wilayah / wirausaha tak berizin (NW)</td><td>${NW}</td></tr>
+      <tr><td>Jumlah lulusan (NL)</td><td>${J.lulusan}</td></tr>
+    </tbody></table></div>
+    <div class="rumus">a=5% b=20% c=90% terhadap NL</div>`;
+  return kartuButir(51, 'Tingkat tempat kerja lulusan (Tabel 6.g.1 LKPS)', isi, skor, catatanResponden(J));
+}
+
+// ---------------------------------------------------------------------
 //  Rekap integrasi MK dan keterlibatan mahasiswa (informasi, bukan skor)
 // ---------------------------------------------------------------------
 function bagianIntegrasi(){
@@ -435,50 +823,64 @@ function daftarTS(){
 }
 
 function render(){
-  const hasil = [
-    {no: 42, k: butir42()}, {no: 43, k: butir43()},
-    {no: 46, k: butir46()}, {no: 47, k: butir47()},
-    {no: 33, k: butir33()}, {no: 34, k: butir34()}, {no: 35, k: butir35()},
+  const daftar = [
+    {no:'6',  f: butir06},
+    {no:'9',  f: () => butirDana(9,  'Biaya operasional pendidikan (Tabel 2.b LKPS)', 'bop', 20000000, 1)},
+    {no:'10', f: () => butirDanaKarya(10, 'Dana penelitian DTPS (Tabel 2.b LKPS)', 'penelitian', 10000000, 2)},
+    {no:'11', f: () => butirDanaKarya(11, 'Dana PkM DTPS (Tabel 2.b LKPS)', 'pkm', 5000000, 4)},
+    {no:'19', f: butir19},
+    {no:'23', f: () => butirKegMhs(23, 'Penelitian DTPS melibatkan mahasiswa (Tabel 6.h.1 LKPS)', 'penelitian')},
+    {no:'25', f: () => butirKegMhs(25, 'PkM DTPS melibatkan mahasiswa (Tabel 6.i LKPS)', 'pkm')},
+    {no:'26', f: butir26}, {no:'27', f: butir27}, {no:'28', f: butir28},
+    {no:'31', f: () => butirDanaSumber(31, 'Penelitian DTPS per sumber dana (Tabel 3.b LKPS)', 'penelitian')},
+    {no:'32', f: () => butirDanaSumber(32, 'PkM DTPS per sumber dana (Tabel 3.c LKPS)', 'pkm')},
+    {no:'33', f: butir33}, {no:'34', f: butir34}, {no:'35', f: butir35},
+    {no:'36', f: butir36}, {no:'37', f: butir37},
+    {no:'40', f: butir40}, {no:'41', f: butir41},
+    {no:'42', f: butir42}, {no:'43', f: butir43},
+    {no:'44', f: butir44}, {no:'45', f: butir45},
+    {no:'46', f: butir46}, {no:'47', f: butir47},
+    {no:'49', f: butir49}, {no:'50', f: butir50}, {no:'51', f: butir51},
   ];
-  const skorDari = h => {
-    const m = h.match(/class="angka ?(n4)?">([\d.]+)</);
-    return m ? +m[2] : null;
-  };
-  const ring = hasil.map(x => {
-    const s = skorDari(x.k);
-    return `<div><b>${s == null ? '—' : f2(s)}</b><span>Butir ${x.no}</span></div>`;
+  const kartu = {};
+  daftar.forEach(x => kartu[x.no] = x.f());
+  const skorDari = h => { const m = h.match(/class="angka ?(n4)?">([\d.]+)</); return m ? +m[2] : null; };
+  const ring = daftar.map(x => {
+    const sN = skorDari(kartu[x.no]);
+    return `<div><b>${sN == null ? '—' : f2(sN)}</b><span>Butir ${x.no}</span></div>`;
   }).join('');
+  const seksi = (id, judul, ket, nomor) =>
+    seksiLipat(id, judul, ket, nomor.map(n => kartu[n]).join(''));
 
   document.getElementById('isi').innerHTML = `
-    <div class="peringatan"><b>Alat bantu internal.</b> Skor di halaman ini
-    dihitung dari data dashboard menurut rumus matriks APS-AV 2025 1.0 Program
-    Sarjana, dengan pendekatan yang dicatat pada tiap kartu. Skor resmi
-    ditetapkan asesor dari dokumen LKPS/LED, bukan dari halaman ini.</div>
+    <div class="peringatan"><b>Skoring kuantitatif tingkat prodi — khusus
+    dosen terdaftar.</b> Berisi seluruh butir matriks APS-AV 2025 1.0 Program
+    Sarjana yang berumus angka dan relevan untuk prodi; butir kualitatif LED
+    tidak ditampilkan. Angka dana dibaca langsung dari basis data di belakang
+    RLS dan tidak pernah masuk berkas publik. Alat bantu internal, bukan
+    penilaian resmi. Karya tanpa kolom bulan dipetakan ke TS memakai tahun
+    kalendernya.</div>
 
     <h2>Ringkasan — TS ${esc(taDari(TS))}</h2>
     <div class="ringkas">${ring}</div>
+    <div class="kontrol-seksi" id="seksi-semua"></div>
 
-    <h2>Mahasiswa</h2>
-    <p class="ket">Butir 42, 43, 46, 47 — masukan dari lembar
-    <code>mahasiswa_ta</code>, <code>prestasi_mahasiswa</code>,
-    <code>publikasi_mahasiswa</code>, <code>luaran_mahasiswa</code>, dan
-    keterlibatan mahasiswa pada karya dosen. Yang tampil hanya agregat.</p>
-    ${butir42()}${butir43()}${butir46()}${butir47()}
-
-    <h2>Dosen (DTPS)</h2>
-    <p class="ket">Butir 33, 34, 35 — dari karya terverifikasi di dashboard.</p>
-    ${butir33()}${butir34()}${butir35()}
-
-    <h2>Integrasi penelitian/PkM dalam pembelajaran</h2>
-    <p class="ket">Mata kuliah yang memuat hasil penelitian atau PkM DTPS.</p>
-    ${bagianIntegrasi()}
-
-    <h2>Keterlibatan mahasiswa pada karya dosen</h2>
-    ${bagianKeterlibatan()}
+    ${seksi('kerjasama', 'Kerja sama dan keuangan', 'Butir 6, 9–11', ['6','9','10','11'])}
+    ${seksi('pendidikan', 'Pendidikan, penelitian, dan PkM', 'Butir 19, 23, 25, 31, 32',
+            ['19','23','25','31','32'])}
+    ${seksi('dosen', 'Sumber daya manusia (DTPS)', 'Butir 26–28, 33–37',
+            ['26','27','28','33','34','35','36','37'])}
+    ${seksi('mahasiswa', 'Mahasiswa dan luaran', 'Butir 40–47, 49–51',
+            ['40','41','42','43','44','45','46','47','49','50','51'])}
+    ${seksiLipat('integrasi', 'Integrasi penelitian/PkM dalam pembelajaran',
+            'Tabel 3.a.3 LKPS', bagianIntegrasi())}
+    ${seksiLipat('keterlibatan', 'Keterlibatan mahasiswa pada karya dosen', '',
+            bagianKeterlibatan())}
 
     <footer>Diperbarui ${esc(D.diperbarui || '')} · Rumus mengikuti Matriks
-    Penilaian APS-AV 2025 1.0 Program Sarjana · Butir yang tidak dapat dihitung
-    dari data dashboard tidak ditampilkan.</footer>`;
+    Penilaian APS-AV 2025 1.0 Program Sarjana · Tidak ditampilkan: butir
+    kualitatif LED (1–5, 7, 8, 12–18, 20–22, 24, 29, 38, 39, 48, 52–60) dan
+    butir 30 (RBK dari data BKD, yang tidak pernah dipublikasikan).</footer>`;
 }
 
 function pasangTS(){
@@ -488,23 +890,83 @@ function pasangTS(){
   wadah.innerHTML = `<span class="lbl">TS</span>` + daftar.map(t =>
     `<button aria-pressed="${t === TS}" data-ts="${t}">${taDari(t)}</button>`).join('');
   wadah.querySelectorAll('button').forEach(b =>
-    b.addEventListener('click', () => { TS = +b.dataset.ts; pasangTS(); render(); }));
+    b.addEventListener('click', () => { TS = +b.dataset.ts; pasangTS(); render(); pasangSeksi(); }));
 }
 
-fetch('data.json?v=' + Date.now())
-  .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
-  .then(d => {
-    D = d;
-    document.getElementById('nama-prodi').textContent =
-      [d.prodi, d.institusi].filter(Boolean).join(' — ');
-    pasangTS(); render();
-  })
-  .catch(() => {
-    document.getElementById('isi').innerHTML =
-      `<div class="kartu" style="margin-top:30px"><p class="kosong">Gagal memuat
-       <code>data.json</code>. Jalankan bangun.py lalu unggah hasilnya ke folder
-       yang sama dengan halaman ini.</p></div>`;
-  });
+async function mulai(){
+  const { data: { session } } = await sb.auth.getSession();
+  if (!session) return layarMasuk();
+
+  const { data: saya } = await sb.from('dosen').select('id,nama,email')
+    .ilike('email', session.user.email).maybeSingle();
+  if (!saya) return layarTidakTerdaftar(session.user.email);
+
+  document.getElementById('nama-prodi').textContent = 'Memuat data\u2026';
+  const [jsonR, danaR, pengR] = await Promise.all([
+    fetch('data.json?v=' + Date.now()),
+    sb.from('karya').select('tahun,bulan,kategori,besaran_dana')
+      .eq('status', 'terverifikasi').in('kategori', ['penelitian', 'pkm']),
+    sb.from('pengaturan').select('kunci,nilai'),
+  ]);
+  if (!jsonR.ok) throw new Error('data.json ' + jsonR.status);
+  D = await jsonR.json();
+  DANA = danaR.data || [];
+  (pengR.data || []).forEach(r => PENG[r.kunci] = r.nilai);
+  if (pengR.error)
+    console.warn('pengaturan tidak terbaca — jalankan patch 09:', pengR.error.message);
+
+  document.getElementById('nama-prodi').innerHTML =
+    esc([D.prodi, D.institusi].filter(Boolean).join(' — ')) +
+    ` · ${esc(saya.nama)} <a href="#" id="keluar" style="color:#9FC2E0">keluar</a>`;
+  document.getElementById('keluar').onclick = async e => {
+    e.preventDefault(); await sb.auth.signOut(); location.reload(); };
+  pasangTS(); render(); pasangSeksi();
+}
+
+function layarMasuk(){
+  document.getElementById('nama-prodi').textContent = 'Halaman khusus dosen prodi';
+  document.getElementById('isi').innerHTML = `
+    <div class="kartu" style="margin-top:30px;max-width:480px">
+      <h3 style="font-family:var(--serif);color:var(--biru);margin:0 0 6px">Masuk</h3>
+      <p class="ket">Halaman skor hanya untuk dosen yang emailnya terdaftar.
+      Masukkan email kampus Anda — tautan masuk dikirim tanpa kata sandi.</p>
+      <input id="em" type="email" placeholder="nama@kampus.ac.id"
+        style="width:100%;padding:9px 11px;border:1px solid var(--line);border-radius:2px;
+               font:inherit;margin-bottom:10px">
+      <button id="kirim" style="font-family:var(--mono);font-size:12px;letter-spacing:.06em;
+        text-transform:uppercase;background:var(--biru);color:#fff;border:0;
+        padding:10px 18px;border-radius:2px;cursor:pointer">Kirim tautan masuk</button>
+      <span id="m" class="ket" style="margin-left:10px"></span>
+    </div>`;
+  const em = document.getElementById('em'), m = document.getElementById('m'),
+        kirim = document.getElementById('kirim');
+  em.onkeydown = e => { if (e.key === 'Enter') kirim.click(); };
+  kirim.onclick = async () => {
+    if (!em.value.includes('@')){ m.textContent = 'Masukkan email yang valid.'; return; }
+    kirim.disabled = true; m.textContent = 'Mengirim\u2026';
+    const { error } = await sb.auth.signInWithOtp({ email: em.value.trim(),
+      options: { emailRedirectTo: location.href.split('#')[0] } });
+    kirim.disabled = false;
+    m.textContent = error ? error.message : 'Tautan terkirim. Periksa kotak masuk Anda.';
+  };
+}
+
+function layarTidakTerdaftar(email){
+  document.getElementById('isi').innerHTML = `
+    <div class="kartu" style="margin-top:30px;max-width:480px">
+      <h3 style="font-family:var(--serif);color:var(--biru);margin:0 0 6px">Email belum terdaftar</h3>
+      <p class="ket"><b>${esc(email)}</b> tidak ada di daftar dosen prodi, jadi
+      halaman ini tidak dapat dibuka. Hubungi admin prodi bila Anda seharusnya
+      terdaftar. <a href="#" id="keluar2">Keluar</a></p></div>`;
+  document.getElementById('keluar2').onclick = async e => {
+    e.preventDefault(); await sb.auth.signOut(); location.reload(); };
+}
+
+mulai().catch(() => {
+  document.getElementById('isi').innerHTML =
+    `<div class="kartu" style="margin-top:30px"><p class="kosong">Gagal memuat.
+     Periksa config.js dan sambungan, lalu muat ulang.</p></div>`;
+});
 </script>
 </body>
 </html>

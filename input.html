@@ -169,6 +169,13 @@ if (!SUPABASE_URL || !SUPABASE_ANON_KEY
 const sb = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 const TH = new Date().getFullYear();
 const TAHUN = Array.from({length:12},(_,i)=>String(TH+1-i));
+// Bulan opsional: memetakan karya ke tahun akademik (TS, Sep-Agu).
+const BULAN = [['','(tidak tahu / lama)'],['1','Januari'],['2','Februari'],
+  ['3','Maret'],['4','April'],['5','Mei'],['6','Juni'],['7','Juli'],
+  ['8','Agustus'],['9','September'],['10','Oktober'],['11','November'],
+  ['12','Desember']];
+const F_BULAN = {n:'bulan', l:'Bulan', t:'select', o:BULAN,
+  sub:'Opsional — membantu pemetaan ke tahun akademik (TS)'};
 const TINGKAT = [['internasional','Internasional'],['nasional','Nasional'],
                  ['wilayah_lokal','Wilayah / lokal']];
 
@@ -194,6 +201,7 @@ const FORM = {
         ['prosiding','Prosiding'],['buku','Buku'],['bab_buku','Bab dalam buku'],
         ['haki_paten','HKI / paten'],['lainnya','Lainnya']]},
       {n:'tahun', l:'Tahun terbit', t:'select', w:1, o:TAHUN.map(y=>[y,y])},
+      F_BULAN,
       {n:'nama_terbitan', l:'Nama jurnal / penerbit', t:'text'},
       {n:'tingkat', l:'Tingkat', t:'select', w:1, o:TINGKAT},
       {n:'indeksasi', l:'Indeksasi', t:'select', o:[['scopus_q1','Scopus Q1'],
@@ -214,6 +222,7 @@ const FORM = {
       {n:'kategori', l:'Jenis', t:'select', w:1,
         o:[['penelitian','Penelitian'],['pkm','Pengabdian kepada masyarakat']]},
       {n:'tahun', l:'Tahun pelaksanaan', t:'select', w:1, o:TAHUN.map(y=>[y,y])},
+      F_BULAN,
       {n:'skema', t:'skema', full:1},
       {n:'tingkat', l:'Tingkat kegiatan', t:'select', w:1, o:TINGKAT},
       {n:'nama_pemberi_dana', l:'Nama pemberi dana', t:'text',
@@ -236,6 +245,7 @@ const FORM = {
         ['merek','Merek'],['ttg','Teknologi tepat guna'],['produk','Produk'],
         ['buku_isbn','Buku ber-ISBN'],['book_chapter','Book chapter']]},
       {n:'tahun', l:'Tahun', t:'select', w:1, o:TAHUN.map(y=>[y,y])},
+      F_BULAN,
       {n:'nama_terbitan', l:'Nomor pendaftaran / penerbit', t:'text',
         sub:'Nomor paten/hak cipta, atau nama penerbit untuk buku'},
       {n:'url', l:'Tautan', t:'url', full:1, ph:'https://'},
@@ -255,6 +265,7 @@ const FORM = {
         ['penghargaan','Penghargaan'],['visiting','Visiting scholar/lecturer'],
         ['juri','Juri / asesor'],['lainnya','Lainnya']]},
       {n:'tahun', l:'Tahun', t:'select', w:1, o:TAHUN.map(y=>[y,y])},
+      F_BULAN,
       {n:'tingkat', l:'Tingkat', t:'select', w:1, o:TINGKAT},
       {n:'keterangan', l:'Keterangan', t:'text', full:1},
     ]
@@ -357,19 +368,8 @@ function layarUtama(){
   buka('publikasi');
 }
 
-// Setiap kunci di sini harus punya pasangan di daftar tab pada layarUtama().
-// Kategori yang punya definisi di FORM ditangani tampilForm secara seragam,
-// jadi menambah kategori baru cukup dengan menambah entri di FORM dan di
-// daftar tab — tidak perlu menyentuh fungsi ini lagi.
-const HALAMAN = { saya: karyaSaya, semua: karyaProdi, verifikasi: tampilVerifikasi };
-
-function buka(t){
-  if(HALAMAN[t]) return HALAMAN[t]();
-  if(FORM[t])    return tampilForm(t);
-  console.error('Tab tidak dikenal:', t);
-  document.getElementById('isi').innerHTML =
-    `<div class="panel"><p class="kosong">Tab '${esc(t)}' belum tersedia.</p></div>`;
-}
+const buka = t => ({publikasi:()=>tampilForm('publikasi'), kegiatan:()=>tampilForm('kegiatan'),
+  saya:karyaSaya, semua:karyaProdi, verifikasi:tampilVerifikasi})[t]();
 
 // ---------------------------------------------------------------------
 //  Form input
