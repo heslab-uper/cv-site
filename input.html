@@ -618,6 +618,11 @@ function pasangSkema(){
     if(!pilihan.length){
       elSk.innerHTML = '<option value="">Tidak ada skema untuk kombinasi ini</option>';
       elSk.disabled = true;
+      // Kombinasi kosong hampir selalu berarti tabel acuan skema perlu
+      // dibenahi admin, bukan kesalahan pengisi — beri tahu jalannya.
+      elCat.textContent = 'Kombinasi jenis + kelompok ini belum punya skema di '
+        + 'tabel acuan. Laporkan ke admin prodi agar daftar skema dilengkapi '
+        + '(lihat supabase/12-lengkapi-skema-internal.sql).';
     }
   };
 
