@@ -930,15 +930,27 @@ async function tampilVerifikasi(){
       diinput orang lain. Hapus bila keliru.</p>
       <div id="kl" class="kosong">Memuat…</div></div>`;
 
-  const { data } = await sb.from('karya')
-    .select('*, karya_penulis(peran, korespondensi, dosen(nama)), karya_mahasiswa(nim), karya_mitra(institusi)')
-    .eq('status','diajukan').order('dibuat_pada');
+  const [{ data }, { data: kataVisi }] = await Promise.all([
+    sb.from('karya')
+      .select('*, karya_penulis(peran, korespondensi, dosen(nama)), karya_mahasiswa(nim), karya_mitra(institusi)')
+      .eq('status','diajukan').order('dibuat_pada'),
+    sb.from('ref_kata_visi').select('kata'),
+  ]);
+  // Kata kunci hanya MENYOROT kandidat tidak relevan; keputusannya tetap
+  // pada centang admin. Daftar kosong = tidak ada sorotan.
+  const kunciVisi = (kataVisi || []).map(x => x.kata.toLowerCase());
+  const mungkinLuar = k => kunciVisi.length
+    && !kunciVisi.some(w => (k.judul || '').toLowerCase().includes(w));
   const box = document.getElementById('vf');
   if(!data?.length){ box.className='kosong'; box.textContent='Tidak ada entri yang menunggu.'; }
   else {
     box.className='';
     box.innerHTML = data.map(k=>barisKarya(k,
-      `${k.bukti_url
+      `<label class="cek" style="margin-right:6px" title="Karya mendukung visi keilmuan prodi. Hilangkan centang bila di luar bidang — karya tetap tampil di profil dosen, hanya tidak dihitung pada butir akreditasi prodi.">
+         <input type="checkbox" data-r="${k.id}" ${k.relevan_visi === false ? '' : 'checked'}>
+         sesuai visi</label>
+       ${mungkinLuar(k) ? '<span class="tag" style="background:#FFF3D6;color:#7A5A00" title="Judul tidak memuat satu pun kata kunci visi keilmuan — periksa relevansinya.">periksa relevansi</span>' : ''}
+       ${k.bukti_url
           ? `<a class="btn ghost sm" href="${esc(k.bukti_url)}" target="_blank" rel="noopener">Bukti</a>`
           : (k.bukti_path
               ? `<button class="btn ghost sm" data-f="${k.bukti_path}">Bukti lama</button>`
@@ -955,6 +967,8 @@ async function tampilVerifikasi(){
     });
     const ubah = async(id, status)=>{
       const patch = { status };
+      const cek = box.querySelector(`[data-r="${id}"]`);
+      if(cek) patch.relevan_visi = cek.checked;
       if(status==='ditolak'){
         const c = prompt('Alasan penolakan (akan dilihat dosen):');
         if(c===null) return;
