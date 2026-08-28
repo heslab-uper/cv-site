@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kalkulator Skor Akreditasi — Program Studi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --biru:#0C2A4D; --biru-2:#17436F; --biru-3:#5C86B0; --biru-4:#A9C3DA;
+    --merah:#C8102E; --hijau:#00954E; --emas:#B8860B;
+    --bg:#F2F4F2; --panel:#fff; --ink:#14212E; --muted:#5D6B78;
+    --line:#D9DFDA; --line-soft:#EBEEEB;
+    --sans:'IBM Plex Sans',system-ui,sans-serif;
+    --mono:'IBM Plex Mono',ui-monospace,monospace;
+    --serif:'IBM Plex Serif',Georgia,serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);
+       font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 20px 90px}
+  a{color:var(--biru-2)}
+
+  .hero{position:relative;background:var(--biru);color:#fff;overflow:hidden;
+        border-bottom:4px solid var(--merah)}
+  .hero::before{content:'';position:absolute;inset:0;opacity:.13;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='70' viewBox='0 0 140 70'%3E%3Cg fill='none' stroke='%23ffffff' stroke-width='1'%3E%3Cpath d='M0 69.5H140M0 .5H140'/%3E%3Cpath d='M0 70L35 0L70 70L105 0L140 70'/%3E%3Cpath d='M35 0V70M105 0V70'/%3E%3C/g%3E%3C/svg%3E");
+    background-size:140px 70px}
+  .hero-in{position:relative;max-width:1120px;margin:0 auto;padding:28px 20px 26px}
+  .balik{display:inline-flex;gap:7px;align-items:center;text-decoration:none;
+         font-family:var(--mono);font-size:11px;letter-spacing:.1em;
+         text-transform:uppercase;color:#9FC2E0;margin-bottom:18px}
+  .balik:hover{color:#fff}
+  h1{font-family:var(--serif);font-size:clamp(24px,4vw,32px);font-weight:600;
+     letter-spacing:-.018em;margin:0;color:#fff}
+  .prodi{color:#B9CCDE;font-size:14.5px;margin-top:6px}
+
+  .periode{display:flex;gap:9px;flex-wrap:wrap;margin-top:22px;align-items:center}
+  .periode .lbl{font-family:var(--mono);font-size:10px;letter-spacing:.1em;
+    text-transform:uppercase;color:#9FC2E0;margin-right:4px}
+  .periode button{font-family:var(--mono);font-size:11px;letter-spacing:.07em;
+    text-transform:uppercase;cursor:pointer;background:none;color:#B9CCDE;
+    border:1px solid rgba(255,255,255,.3);padding:7px 14px;border-radius:2px}
+  .periode button:hover{color:#fff;border-color:rgba(255,255,255,.6)}
+  .periode button[aria-pressed="true"]{background:#fff;color:var(--biru);
+    border-color:#fff;font-weight:500}
+
+  h2{font-family:var(--serif);font-size:20px;font-weight:600;margin:38px 0 2px;color:var(--biru)}
+  .ket{color:var(--muted);font-size:13px;margin:0 0 14px}
+  .kartu{background:var(--panel);border:1px solid var(--line);border-radius:2px;
+         padding:20px 22px;border-top:3px solid var(--biru);margin-bottom:16px}
+  .peringatan{background:#FFF6DE;border:1px solid #E8CF8A;border-left:4px solid var(--emas);
+    padding:12px 16px;font-size:13.5px;margin:14px 0;border-radius:2px}
+  .peringatan b{color:#7A5A00}
+  .kosong{color:var(--muted);font-size:13.5px}
+  code{font-family:var(--mono);font-size:.92em;background:var(--line-soft);
+       padding:1px 5px;border-radius:2px}
+
+  /* ringkasan skor */
+  .ringkas{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+           gap:0;background:var(--panel);border:1px solid var(--line);
+           border-top:3px solid var(--biru);margin-top:14px}
+  .ringkas > div{padding:16px 18px;border-right:1px solid var(--line-soft)}
+  .ringkas > div:last-child{border-right:0}
+  .ringkas b{display:block;font-family:var(--mono);font-size:26px;font-weight:400;line-height:1}
+  .ringkas span{font-family:var(--mono);font-size:10px;letter-spacing:.1em;
+                text-transform:uppercase;color:var(--muted);display:block;margin-top:8px}
+
+  /* kartu butir */
+  .butir{display:grid;grid-template-columns:minmax(0,1fr) 168px;gap:22px}
+  @media (max-width:760px){.butir{grid-template-columns:1fr}}
+  .butir h3{font-family:var(--serif);font-size:16.5px;font-weight:600;margin:0 0 4px;color:var(--biru)}
+  .butir .no{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;
+             text-transform:uppercase;color:var(--muted)}
+  .butir .ctt{font-size:12.5px;color:var(--muted);margin-top:10px}
+  .skorbox{border-left:1px solid var(--line-soft);padding-left:22px;
+           display:flex;flex-direction:column;justify-content:center}
+  @media (max-width:760px){.skorbox{border-left:0;padding-left:0;border-top:1px solid var(--line-soft);padding-top:14px}}
+  .skorbox .angka{font-family:var(--mono);font-size:34px;line-height:1}
+  .skorbox .angka.n4{color:var(--hijau)}
+  .skorbox .angka.tak{color:var(--muted);font-size:22px}
+  .skorbox .dari{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+                 text-transform:uppercase;color:var(--muted);margin-top:7px}
+  .batang{height:6px;background:var(--line-soft);border-radius:1px;margin-top:12px}
+  .batang i{display:block;height:100%;background:var(--biru-3);border-radius:1px}
+  .batang i.n4{background:var(--hijau)}
+
+  table.rin{border-collapse:collapse;font-size:13px;margin-top:10px;width:100%}
+  table.rin th{font-family:var(--mono);font-size:10px;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--muted);font-weight:400;text-align:right;
+    padding:7px 9px;border-bottom:1px solid var(--line)}
+  table.rin th:first-child{text-align:left}
+  table.rin td{padding:7px 9px;border-bottom:1px solid var(--line-soft);
+               text-align:right;font-family:var(--mono);font-size:12.5px}
+  table.rin td:first-child{text-align:left;font-family:var(--sans);font-size:13px}
+  .gulir{overflow-x:auto}
+  .rumus{font-family:var(--mono);font-size:12px;color:var(--muted);
+         background:var(--bg);border:1px solid var(--line-soft);
+         padding:9px 12px;border-radius:2px;margin-top:10px;overflow-x:auto;white-space:nowrap}
+
+  footer{margin-top:52px;border-top:1px solid var(--line);padding-top:18px;
+         font-size:12.5px;color:var(--muted)}
+</style>
+</head>
+<body>
+
+<div class="hero"><div class="hero-in">
+  <a class="balik" href="monitoring.html">&#8592; Monitoring</a>
+  <h1>Kalkulator Skor Akreditasi</h1>
+  <div class="prodi" id="nama-prodi">Memuat&hellip;</div>
+  <div class="periode" id="pilih-ts"></div>
+</div></div>
+
+<main class="wrap" id="isi"><p class="kosong" style="margin-top:30px">Memuat data&hellip;</p></main>
+
+<script>
+'use strict';
+// =====================================================================
+//  Kalkulator skor butir APS-AV 2025 1.0 (Program Sarjana) yang dapat
+//  dihitung dari data.json: 33, 34, 35, 42, 43, 46, 47, ditambah
+//  rekap integrasi mata kuliah dan keterlibatan mahasiswa.
+//
+//  TS = tahun akademik 1 September s.d. 31 Agustus. Lembar mahasiswa_ta
+//  memakai TS sungguhan. Data karya di Supabase hanya menyimpan TAHUN
+//  KALENDER, jadi jendela "n tahun terakhir" untuk data itu didekati
+//  dengan tahun kalender ujung TS: TS 2025/2026 dengan jendela 3 tahun
+//  memakai karya bertahun 2024-2026. Pendekatan ini dicatat pada tiap
+//  kartu yang memakainya.
+// =====================================================================
+let D = null;
+let TS = null;          // tahun ujung TS terpilih, mis. 2026
+
+const esc = s => String(s ?? '').replace(/[&<>"']/g,
+  c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const f2 = v => v == null ? '—' : (Math.round(v * 100) / 100).toFixed(2);
+const taDari = ts => `${ts - 1}/${ts}`;
+
+function jumlahJendela(baris, kunci, n){
+  // total tiap kolom `kunci` untuk baris bertahun [TS-n+1 .. TS]
+  const t0 = TS - n + 1;
+  const pilih = baris.filter(r => r.tahun >= t0 && r.tahun <= TS);
+  const out = {}; kunci.forEach(k => out[k] = 0);
+  pilih.forEach(r => kunci.forEach(k => out[k] += (r[k] || 0)));
+  return out;
+}
+
+// ---------------------------------------------------------------------
+//  Rumus inti matriks: skor dari tiga rasio RI/RN/RW dengan faktor a,b,c
+//  (butir 33, 43, 46). Termasuk aturan substitusi batas dari instrumen.
+// ---------------------------------------------------------------------
+function skorRasio(RI, RN, RW, a, b, c){
+  if (RI > a && RN > b) return 4;
+  if (RI <= 0 && RN <= 0 && RW <= 0) return 0;
+  if (RI >= a && RN < b) RI = a;
+  if (RI < a && RN >= b) RN = b;
+  if (RW >= c) RW = c;
+  const A = RI / a, B = RN / b, C = RW / c;
+  const skor = 3.75 * ((A + B + C / 2) - (A * B) - (A * C) / 2
+                       - (B * C) / 2 + (A * B * C) / 2);
+  return Math.max(0, Math.min(4, skor));
+}
+
+function kelasSkor(s){ return s == null ? 'tak' : (s >= 4 ? 'n4' : ''); }
+
+function kartuButir(no, judul, isi, skor, catatan){
+  const pct = skor == null ? 0 : (skor / 4) * 100;
+  return `<div class="kartu"><div class="butir">
+    <div>
+      <div class="no">Butir ${no} · APS-AV 2025</div>
+      <h3>${esc(judul)}</h3>
+      ${isi}
+      ${catatan ? `<div class="ctt">${catatan}</div>` : ''}
+    </div>
+    <div class="skorbox">
+      <div class="angka ${kelasSkor(skor)}">${skor == null ? 'tak terhitung' : f2(skor)}</div>
+      ${skor == null ? '' : `<div class="dari">dari 4,00</div>
+      <div class="batang"><i class="${skor >= 4 ? 'n4' : ''}" style="width:${pct}%"></i></div>`}
+    </div>
+  </div></div>`;
+}
+
+function tabelNA(j){
+  const L = {na1:'NA1 jurnal nasional', na2:'NA2 jurnal nas. terakreditasi',
+             na3:'NA3 jurnal internasional', na4:'NA4 jurnal int. bereputasi',
+             nb1:'NB1 prosiding nasional/wilayah', nb2:'NB2 prosiding internasional',
+             nb3:'NB3 prosiding terindeks'};
+  return `<div class="gulir"><table class="rin"><thead><tr><th>Kategori</th><th>Jumlah</th></tr></thead>
+    <tbody>${Object.keys(L).map(k =>
+      `<tr><td>${L[k]}</td><td>${j[k] || 0}</td></tr>`).join('')}</tbody></table></div>`;
+}
+
+// ---------------------------------------------------------------------
+//  Butir 42 — IPK lulusan (3 TS terakhir, lembar mahasiswa_ta)
+// ---------------------------------------------------------------------
+function butir42(){
+  const A = (D.akreditasi || {}).ta || [];
+  const pilih = A.filter(r => r.tahun_ts >= TS - 2 && r.tahun_ts <= TS && r.lulusan > 0);
+  if (!pilih.length)
+    return kartuButir(42, 'IPK lulusan', `<p class="kosong">Lembar
+      <code>mahasiswa_ta</code> belum berisi jumlah lulusan dan rerata IPK
+      untuk TS ${esc(taDari(TS))} atau dua TS sebelumnya.</p>`, null, '');
+  const nLul = pilih.reduce((a, r) => a + r.lulusan, 0);
+  const ripk = pilih.reduce((a, r) => a + r.rerata_ipk * r.lulusan, 0) / nLul;
+  let skor;
+  if (ripk >= 3.25) skor = 4;
+  else skor = Math.max(2, ((8 * ripk) - 6) / 5);
+  const isi = `
+    <div class="gulir"><table class="rin"><thead><tr>
+      <th>TS</th><th>Lulusan</th><th>Rerata IPK</th></tr></thead><tbody>
+      ${pilih.map(r => `<tr><td>${esc(r.ta)}</td><td>${r.lulusan}</td>
+        <td>${f2(r.rerata_ipk)}</td></tr>`).join('')}
+      <tr><td><b>RIPK tertimbang</b></td><td>${nLul}</td><td><b>${f2(ripk)}</b></td></tr>
+    </tbody></table></div>
+    <div class="rumus">RIPK &ge; 3,25 &rarr; 4 &nbsp;·&nbsp; 2,00 &le; RIPK &lt; 3,25 &rarr; ((8 &times; RIPK) &minus; 6) / 5 &nbsp;·&nbsp; skor terendah 2</div>`;
+  return kartuButir(42, 'IPK lulusan', isi, skor,
+    'RIPK dihitung sebagai rata-rata tertimbang jumlah lulusan per TS. ' +
+    'Instrumen menulis "rata-rata IPK lulusan dalam 3 tahun terakhir" tanpa ' +
+    'merinci pembobotan; bila asesor meminta rata-rata sederhana antar-TS, ' +
+    'selisihnya kecil kecuali jumlah lulusan antar-TS timpang.');
+}
+
+// ---------------------------------------------------------------------
+//  Butir 43 — Prestasi mahasiswa (5 tahun terakhir)
+// ---------------------------------------------------------------------
+function siapkanPrestasi(bidang){
+  const P = D.prestasi_agregat || [];
+  const t0 = TS - 4;
+  let NI = 0, NN = 0, NW = 0;
+  P.filter(r => r.tahun >= t0 && r.tahun <= TS &&
+                (r.bidang || '').startsWith(bidang === 'akademik' ? 'akademik' : 'non'))
+   .forEach(r => {
+     const tg = (r.tingkat || '').toLowerCase();
+     if (tg.includes('internasional')) NI += r.jumlah;
+     else if (tg.includes('nasional')) NN += r.jumlah;
+     else NW += r.jumlah;
+   });
+  return {NI, NN, NW};
+}
+
+function butir43(){
+  const A = (D.akreditasi || {}).ta || [];
+  const barisTS = A.find(r => r.tahun_ts === TS);
+  const NM = barisTS ? barisTS.mahasiswa_aktif : 0;
+  const sub = (label, d) => {
+    const skor = NM > 0
+      ? skorRasio(d.NI / NM, d.NN / NM, d.NW / NM, 0.002, 0.02, 0.04) : null;
+    return {skor, html: `
+      <div class="gulir"><table class="rin"><thead><tr><th>${esc(label)}</th>
+        <th>NI int.</th><th>NN nas.</th><th>NW wil.</th><th>NM</th><th>Skor</th></tr></thead>
+        <tbody><tr><td>jumlah 5 TS</td><td>${d.NI}</td><td>${d.NN}</td><td>${d.NW}</td>
+        <td>${NM || '—'}</td><td><b>${skor == null ? '—' : f2(skor)}</b></td></tr></tbody></table></div>`};
+  };
+  const ak = sub('I. Akademik', siapkanPrestasi('akademik'));
+  const na = sub('II. Non-akademik', siapkanPrestasi('non'));
+  const skor = (ak.skor == null || na.skor == null) ? null
+             : (ak.skor * 3 + na.skor) / 4;
+  const isi = ak.html + na.html +
+    `<div class="rumus">Skor = ((I &times; 3) + II) / 4 &nbsp;·&nbsp; faktor a=0,2% &nbsp;b=2% &nbsp;c=4% terhadap NM</div>`;
+  return kartuButir(43, 'Prestasi akademik dan non-akademik mahasiswa', isi, skor,
+    (NM ? '' : `NM (jumlah mahasiswa saat TS) belum ada — isi kolom
+      <code>jumlah_mahasiswa_aktif</code> di lembar <code>mahasiswa_ta</code>
+      untuk TS ${esc(taDari(TS))}. `) +
+    'Jendela 5 tahun memakai tahun kalender ' + (TS - 4) + '–' + TS +
+    ' sebagai pendekatan TS, karena lembar prestasi mencatat tahun kalender. ' +
+    'Baris dengan tingkat selain internasional/nasional dihitung wilayah/lokal.');
+}
+
+// ---------------------------------------------------------------------
+//  Butir 46 — Publikasi ilmiah mahasiswa (3 tahun, mandiri + bersama DTPS)
+// ---------------------------------------------------------------------
+function butir46(){
+  const A = (D.akreditasi || {}).ta || [];
+  const barisTS = A.find(r => r.tahun_ts === TS);
+  const NM = barisTS ? barisTS.mahasiswa_aktif : 0;
+  const j = jumlahJendela(((D.akreditasi || {}).publikasi_mhs) || [],
+                          ['na1','na2','na3','na4','nb1','nb2','nb3'], 3);
+  const RIn = (j.na4 + j.nb3), RNn = (j.na2 + j.na3 + j.nb2), RWn = (j.na1 + j.nb1);
+  const skor = NM > 0 ? skorRasio(RIn / NM, RNn / NM, RWn / NM, 0.01, 0.1, 0.5) : null;
+  const isi = tabelNA(j) + `
+    <div class="rumus">RI=(NA4+NB3)/NM &nbsp; RN=(NA2+NA3+NB2)/NM &nbsp; RW=(NA1+NB1)/NM &nbsp;·&nbsp; a=0,01 &nbsp;b=0,1 &nbsp;c=0,5</div>`;
+  return kartuButir(46, 'Publikasi ilmiah mahasiswa', isi, skor,
+    (NM ? '' : `NM belum ada — isi lembar <code>mahasiswa_ta</code> untuk TS
+      ${esc(taDari(TS))}. `) +
+    'Gabungan publikasi mandiri mahasiswa (lembar Excel) dan publikasi dosen ' +
+    'yang mencantumkan mahasiswa (form web), tahun ' + (TS - 2) + '–' + TS + '. ' +
+    'Kolom <code>indeksasi</code> pada lembar publikasi_mahasiswa menentukan ' +
+    'kategori NA/NB; bila kosong, terhitung tidak terindeks.');
+}
+
+// ---------------------------------------------------------------------
+//  Butir 47 — Luaran penelitian/PkM mahasiswa (3 tahun)
+// ---------------------------------------------------------------------
+function butir47(){
+  const j = jumlahJendela(((D.akreditasi || {}).luaran_mhs) || [],
+                          ['paten','ttg','bc','hki','lainnya'], 3);
+  const NLP = 3 * j.paten + 2 * (j.ttg + j.bc) + j.hki;
+  const skor = NLP >= 10 ? 4 : Math.max(2, 2 + 0.2 * NLP);
+  const isi = `
+    <div class="gulir"><table class="rin"><thead><tr><th>Komponen</th><th>Jumlah</th><th>Bobot</th></tr></thead><tbody>
+      <tr><td>NPaten — paten &amp; paten sederhana</td><td>${j.paten}</td><td>&times;3</td></tr>
+      <tr><td>NTTG — TTG &amp; produk</td><td>${j.ttg}</td><td>&times;2</td></tr>
+      <tr><td>NBC — buku ber-ISBN &amp; book chapter</td><td>${j.bc}</td><td>&times;2</td></tr>
+      <tr><td>NHKI — pencatatan ciptaan</td><td>${j.hki}</td><td>&times;1</td></tr>
+      <tr><td><b>NLP</b></td><td colspan="2"><b>${NLP}</b></td></tr>
+    </tbody></table></div>
+    <div class="rumus">NLP &ge; 10 &rarr; 4 &nbsp;·&nbsp; NLP &lt; 10 &rarr; 2 + (0,2 &times; NLP)</div>`;
+  return kartuButir(47, 'Luaran penelitian dan PkM mahasiswa', isi, skor,
+    'Tahun ' + (TS - 2) + '–' + TS + '. Desain industri, merek, dan rahasia ' +
+    'dagang (' + j.lainnya + ' baris) tidak masuk rumus instrumen dan tidak ' +
+    'menyumbang skor.');
+}
+
+// ---------------------------------------------------------------------
+//  Butir 33 — Publikasi DTPS (3 tahun)
+// ---------------------------------------------------------------------
+function butir33(){
+  const N = (D.dtps || {}).jumlah || 0;
+  const j = jumlahJendela(((D.akreditasi || {}).publikasi_dtps) || [],
+                          ['na1','na2','na3','na4','nb1','nb2','nb3'], 3);
+  const skor = N > 0 ? skorRasio((j.na4 + j.nb3) / N,
+                                 (j.na2 + j.na3 + j.nb2) / N,
+                                 (j.na1 + j.nb1) / N, 0.5, 1, 2) : null;
+  const isi = tabelNA(j) + `
+    <div class="rumus">RI=(NA4+NB3)/NDTPS &nbsp; RN=(NA2+NA3+NB2)/NDTPS &nbsp; RW=(NA1+NB1)/NDTPS &nbsp;·&nbsp; a=0,5 &nbsp;b=1 &nbsp;c=2 &nbsp;·&nbsp; NDTPS=${N}</div>`;
+  return kartuButir(33, 'Publikasi ilmiah DTPS', isi, skor,
+    'Publikasi terverifikasi tahun ' + (TS - 2) + '–' + TS + '. NDTPS memakai ' +
+    'jumlah dosen aktif; definisi instrumen ("pengampu mata kuliah sesuai ' +
+    'kompetensi inti") lebih sempit, jadi skor ini sedikit konservatif bila ' +
+    'ada dosen aktif di luar definisi itu.');
+}
+
+// ---------------------------------------------------------------------
+//  Butir 34 — Luaran penelitian/PkM DTPS (3 tahun)
+// ---------------------------------------------------------------------
+function butir34(){
+  const N = (D.dtps || {}).jumlah || 0;
+  const j = jumlahJendela(((D.akreditasi || {}).luaran_dtps) || [],
+                          ['paten','ttg','bc','hki','lainnya'], 3);
+  const RLP = N > 0 ? (3 * j.paten + 2 * (j.ttg + j.bc) + j.hki) / N : null;
+  const skor = RLP == null ? null : (RLP >= 3 ? 4 : Math.max(2, 2 + (2 * RLP) / 3));
+  const isi = `
+    <div class="gulir"><table class="rin"><thead><tr><th>Komponen</th><th>Jumlah</th><th>Bobot</th></tr></thead><tbody>
+      <tr><td>NPaten</td><td>${j.paten}</td><td>&times;3</td></tr>
+      <tr><td>NTTG</td><td>${j.ttg}</td><td>&times;2</td></tr>
+      <tr><td>NBC</td><td>${j.bc}</td><td>&times;2</td></tr>
+      <tr><td>NHKI — pencatatan ciptaan</td><td>${j.hki}</td><td>&times;1</td></tr>
+      <tr><td><b>RLP</b></td><td colspan="2"><b>${RLP == null ? '—' : f2(RLP)}</b></td></tr>
+    </tbody></table></div>
+    <div class="rumus">RLP = (3&times;NPaten + 2&times;(NTTG+NBC) + NHKI) / NDTPS &nbsp;·&nbsp; RLP &ge; 3 &rarr; 4 &nbsp;·&nbsp; NDTPS=${N}</div>`;
+  return kartuButir(34, 'Luaran penelitian dan PkM DTPS', isi, skor,
+    'Luaran terverifikasi tahun ' + (TS - 2) + '–' + TS + '. Baris "lainnya" (' +
+    j.lainnya + ') tidak menyumbang skor.');
+}
+
+// ---------------------------------------------------------------------
+//  Butir 35 — Karya utama internasional DTPS (3 tahun)
+// ---------------------------------------------------------------------
+function butir35(){
+  const N = (D.dtps || {}).jumlah || 0;
+  const rinci = (D.dtps || {}).karya_utama_rinci;
+  if (!N || !Array.isArray(rinci))
+    return kartuButir(35, 'DTPS dengan karya utama internasional',
+      `<p class="kosong">Perlu <code>data.json</code> dari bangun.py terbaru.</p>`, null, '');
+  const org = new Set(rinci.filter(x => x.tahun >= TS - 2 && x.tahun <= TS)
+                           .map(x => x.slug));
+  const P = org.size / N;
+  const skor = P >= 0.5 ? 4 : Math.max(1, 1 + 6 * P);
+  const isi = `
+    <div class="gulir"><table class="rin"><thead><tr><th>Komponen</th><th>Nilai</th></tr></thead><tbody>
+      <tr><td>NKDTPS — dosen dengan karya utama</td><td>${org.size}</td></tr>
+      <tr><td>NDTPS</td><td>${N}</td></tr>
+      <tr><td><b>PKDTPS</b></td><td><b>${f2(P * 100)}%</b></td></tr>
+    </tbody></table></div>
+    <div class="rumus">PKDTPS &ge; 50% &rarr; 4 &nbsp;·&nbsp; PKDTPS &lt; 50% &rarr; 1 + (6 &times; PKDTPS) &nbsp;·&nbsp; skor terendah 1</div>`;
+  return kartuButir(35, 'DTPS dengan karya utama internasional', isi, skor,
+    'Penulis pertama/korespondensi jurnal internasional bereputasi, prosiding ' +
+    'terindeks, atau paten, tahun ' + (TS - 2) + '–' + TS + '. Sama dengan ' +
+    'butir 7 syarat perlu di halaman monitoring; di sini dinilai sebagai skor.');
+}
+
+// ---------------------------------------------------------------------
+//  Rekap integrasi MK dan keterlibatan mahasiswa (informasi, bukan skor)
+// ---------------------------------------------------------------------
+function bagianIntegrasi(){
+  const I = (D.integrasi || []).filter(r => r.tahun >= TS - 2 && r.tahun <= TS);
+  if (!I.length)
+    return `<div class="kartu"><p class="kosong">Belum ada integrasi
+      penelitian/PkM dalam pembelajaran yang terverifikasi untuk tahun
+      ${TS - 2}–${TS}. Dosen mengisinya lewat tab Integrasi di input.html.</p></div>`;
+  const mk = new Set(I.map(r => (r.mata_kuliah || '').trim().toLowerCase())
+                      .filter(Boolean));
+  return `<div class="kartu">
+    <p class="ket" style="margin-top:0">${I.length} kegiatan terverifikasi ·
+      ${mk.size} mata kuliah berbeda · tahun ${TS - 2}–${TS}</p>
+    <div class="gulir"><table class="rin"><thead><tr>
+      <th>Mata kuliah</th><th>Sumber</th><th>Kegiatan</th><th>Dosen</th><th>Tahun</th>
+    </tr></thead><tbody>
+      ${I.map(r => `<tr><td>${esc(r.mata_kuliah || '—')}</td>
+        <td>${esc(r.bentuk || '—')}</td><td>${esc(r.judul_kegiatan)}</td>
+        <td>${esc(r.dosen)}</td><td>${r.tahun}</td></tr>`).join('')}
+    </tbody></table></div></div>`;
+}
+
+function bagianKeterlibatan(){
+  const M = (D.mahasiswa_agregat || []).filter(r => r.tahun >= TS - 2 && r.tahun <= TS);
+  if (!M.length)
+    return `<div class="kartu"><p class="kosong">Belum ada keterlibatan
+      mahasiswa tercatat untuk tahun ${TS - 2}–${TS}.</p></div>`;
+  const kat = ['publikasi', 'penelitian', 'pkm'];
+  const per = {}; kat.forEach(k => per[k] = 0);
+  M.forEach(r => { if (per[r.kategori] !== undefined) per[r.kategori] += r.keterlibatan; });
+  return `<div class="kartu">
+    <div class="gulir"><table class="rin"><thead><tr>
+      <th>Kategori</th><th>Keterlibatan</th></tr></thead><tbody>
+      ${kat.map(k => `<tr><td>${k}</td><td>${per[k]}</td></tr>`).join('')}
+    </tbody></table></div>
+    <div class="ctt" style="font-size:12.5px;color:var(--muted);margin-top:10px">
+      Jumlah keterlibatan (satu mahasiswa pada satu karya), tahun ${TS - 2}–${TS}.
+      Angka mahasiswa unik per tahun ada di halaman monitoring. Butir penilaian
+      yang memakai data ini adalah 46 dan 47 di atas; tabel ini rekap pendukung
+      LKPS 6.d–6.e.</div></div>`;
+}
+
+// ---------------------------------------------------------------------
+//  Rangka halaman
+// ---------------------------------------------------------------------
+function daftarTS(){
+  const th = new Set();
+  (((D.akreditasi || {}).ta) || []).forEach(r => th.add(r.tahun_ts));
+  (D.publikasi || []).forEach(p => th.add(+p.tahun));
+  if (!th.size) th.add(new Date().getFullYear());
+  return [...th].sort((a, b) => b - a).slice(0, 6);
+}
+
+function render(){
+  const hasil = [
+    {no: 42, k: butir42()}, {no: 43, k: butir43()},
+    {no: 46, k: butir46()}, {no: 47, k: butir47()},
+    {no: 33, k: butir33()}, {no: 34, k: butir34()}, {no: 35, k: butir35()},
+  ];
+  const skorDari = h => {
+    const m = h.match(/class="angka ?(n4)?">([\d.]+)</);
+    return m ? +m[2] : null;
+  };
+  const ring = hasil.map(x => {
+    const s = skorDari(x.k);
+    return `<div><b>${s == null ? '—' : f2(s)}</b><span>Butir ${x.no}</span></div>`;
+  }).join('');
+
+  document.getElementById('isi').innerHTML = `
+    <div class="peringatan"><b>Alat bantu internal.</b> Skor di halaman ini
+    dihitung dari data dashboard menurut rumus matriks APS-AV 2025 1.0 Program
+    Sarjana, dengan pendekatan yang dicatat pada tiap kartu. Skor resmi
+    ditetapkan asesor dari dokumen LKPS/LED, bukan dari halaman ini.</div>
+
+    <h2>Ringkasan — TS ${esc(taDari(TS))}</h2>
+    <div class="ringkas">${ring}</div>
+
+    <h2>Mahasiswa</h2>
+    <p class="ket">Butir 42, 43, 46, 47 — masukan dari lembar
+    <code>mahasiswa_ta</code>, <code>prestasi_mahasiswa</code>,
+    <code>publikasi_mahasiswa</code>, <code>luaran_mahasiswa</code>, dan
+    keterlibatan mahasiswa pada karya dosen. Yang tampil hanya agregat.</p>
+    ${butir42()}${butir43()}${butir46()}${butir47()}
+
+    <h2>Dosen (DTPS)</h2>
+    <p class="ket">Butir 33, 34, 35 — dari karya terverifikasi di dashboard.</p>
+    ${butir33()}${butir34()}${butir35()}
+
+    <h2>Integrasi penelitian/PkM dalam pembelajaran</h2>
+    <p class="ket">Mata kuliah yang memuat hasil penelitian atau PkM DTPS.</p>
+    ${bagianIntegrasi()}
+
+    <h2>Keterlibatan mahasiswa pada karya dosen</h2>
+    ${bagianKeterlibatan()}
+
+    <footer>Diperbarui ${esc(D.diperbarui || '')} · Rumus mengikuti Matriks
+    Penilaian APS-AV 2025 1.0 Program Sarjana · Butir yang tidak dapat dihitung
+    dari data dashboard tidak ditampilkan.</footer>`;
+}
+
+function pasangTS(){
+  const wadah = document.getElementById('pilih-ts');
+  const daftar = daftarTS();
+  if (TS == null) TS = daftar[0];
+  wadah.innerHTML = `<span class="lbl">TS</span>` + daftar.map(t =>
+    `<button aria-pressed="${t === TS}" data-ts="${t}">${taDari(t)}</button>`).join('');
+  wadah.querySelectorAll('button').forEach(b =>
+    b.addEventListener('click', () => { TS = +b.dataset.ts; pasangTS(); render(); }));
+}
+
+fetch('data.json?v=' + Date.now())
+  .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+  .then(d => {
+    D = d;
+    document.getElementById('nama-prodi').textContent =
+      [d.prodi, d.institusi].filter(Boolean).join(' — ');
+    pasangTS(); render();
+  })
+  .catch(() => {
+    document.getElementById('isi').innerHTML =
+      `<div class="kartu" style="margin-top:30px"><p class="kosong">Gagal memuat
+       <code>data.json</code>. Jalankan bangun.py lalu unggah hasilnya ke folder
+       yang sama dengan halaman ini.</p></div>`;
+  });
+</script>
+</body>
+</html>

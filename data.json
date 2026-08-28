@@ -1,7 +1,7 @@
 {
  "prodi": "Teknik Sipil",
  "institusi": "Universitas Pertamina",
- "diperbarui": "27 August 2026",
+ "diperbarui": "28 August 2026",
  "dosen": [
   {
    "nama": "Nurul Fajar Januriyadi",
@@ -2586,8 +2586,8 @@
   {
    "tahun": 2023,
    "kategori": "luaran",
-   "keterlibatan": 4,
-   "mahasiswa_unik": 4
+   "keterlibatan": 8,
+   "mahasiswa_unik": 8
   },
   {
    "tahun": 2023,
@@ -2704,10 +2704,208 @@
    "dosen": [
     "Adita Utami"
    ]
+  },
+  {
+   "tahun": 2023,
+   "jenis": "hak_cipta",
+   "bagian": 2,
+   "nama_bagian": "HKI: Hak Cipta, Desain, dll.",
+   "judul": "Kajian Eksperimental Performa Beton Tambal Dengan Substitusi Limbah Fiberglass-Buangan Industri Patung Dan Abu Sekam Padi Di Provinsi Bali",
+   "dosen": [
+    "Adita Utami"
+   ]
   }
  ],
  "rekognisi": [],
  "integrasi": [],
+ "akreditasi": {
+  "ta": [
+   {
+    "ta": "2025/2026",
+    "tahun_ts": 2026,
+    "mahasiswa_aktif": 0,
+    "lulusan": 0,
+    "rerata_ipk": 0.0
+   },
+   {
+    "ta": "2024/2025",
+    "tahun_ts": 2025,
+    "mahasiswa_aktif": 0,
+    "lulusan": 0,
+    "rerata_ipk": 0.0
+   },
+   {
+    "ta": "2023/2024",
+    "tahun_ts": 2024,
+    "mahasiswa_aktif": 0,
+    "lulusan": 0,
+    "rerata_ipk": 0.0
+   }
+  ],
+  "publikasi_dtps": [
+   {
+    "tahun": 2026,
+    "na1": 0,
+    "na2": 7,
+    "na3": 0,
+    "na4": 3,
+    "nb1": 0,
+    "nb2": 0,
+    "nb3": 2
+   },
+   {
+    "tahun": 2025,
+    "na1": 2,
+    "na2": 4,
+    "na3": 1,
+    "na4": 1,
+    "nb1": 0,
+    "nb2": 0,
+    "nb3": 0
+   },
+   {
+    "tahun": 2024,
+    "na1": 1,
+    "na2": 7,
+    "na3": 0,
+    "na4": 4,
+    "nb1": 0,
+    "nb2": 0,
+    "nb3": 1
+   },
+   {
+    "tahun": 2023,
+    "na1": 2,
+    "na2": 8,
+    "na3": 0,
+    "na4": 0,
+    "nb1": 0,
+    "nb2": 2,
+    "nb3": 4
+   },
+   {
+    "tahun": 2022,
+    "na1": 0,
+    "na2": 4,
+    "na3": 0,
+    "na4": 0,
+    "nb1": 0,
+    "nb2": 0,
+    "nb3": 0
+   },
+   {
+    "tahun": 2021,
+    "na1": 0,
+    "na2": 6,
+    "na3": 0,
+    "na4": 0,
+    "nb1": 0,
+    "nb2": 0,
+    "nb3": 0
+   },
+   {
+    "tahun": 2020,
+    "na1": 1,
+    "na2": 2,
+    "na3": 0,
+    "na4": 0,
+    "nb1": 0,
+    "nb2": 0,
+    "nb3": 1
+   },
+   {
+    "tahun": 2019,
+    "na1": 0,
+    "na2": 1,
+    "na3": 0,
+    "na4": 0,
+    "nb1": 0,
+    "nb2": 1,
+    "nb3": 1
+   }
+  ],
+  "publikasi_mhs": [
+   {
+    "tahun": 2025,
+    "na1": 0,
+    "na2": 1,
+    "na3": 1,
+    "na4": 0,
+    "nb1": 0,
+    "nb2": 0,
+    "nb3": 0
+   },
+   {
+    "tahun": 2024,
+    "na1": 0,
+    "na2": 4,
+    "na3": 0,
+    "na4": 0,
+    "nb1": 0,
+    "nb2": 0,
+    "nb3": 0
+   },
+   {
+    "tahun": 2023,
+    "na1": 0,
+    "na2": 7,
+    "na3": 0,
+    "na4": 0,
+    "nb1": 0,
+    "nb2": 0,
+    "nb3": 1
+   },
+   {
+    "tahun": 2022,
+    "na1": 0,
+    "na2": 3,
+    "na3": 0,
+    "na4": 0,
+    "nb1": 0,
+    "nb2": 0,
+    "nb3": 0
+   },
+   {
+    "tahun": 2021,
+    "na1": 0,
+    "na2": 6,
+    "na3": 0,
+    "na4": 0,
+    "nb1": 0,
+    "nb2": 0,
+    "nb3": 0
+   },
+   {
+    "tahun": 2020,
+    "na1": 0,
+    "na2": 1,
+    "na3": 0,
+    "na4": 0,
+    "nb1": 0,
+    "nb2": 0,
+    "nb3": 0
+   }
+  ],
+  "luaran_dtps": [
+   {
+    "tahun": 2026,
+    "paten": 0,
+    "ttg": 0,
+    "bc": 1,
+    "hki": 0,
+    "lainnya": 0
+   },
+   {
+    "tahun": 2023,
+    "paten": 0,
+    "ttg": 0,
+    "bc": 0,
+    "hki": 2,
+    "lainnya": 0
+   }
+  ],
+  "luaran_mhs": []
+ },
  "mahasiswa_karya": {
   "publikasi": [],
   "luaran": []

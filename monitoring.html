@@ -142,7 +142,8 @@
 
 <header class="hero">
   <div class="hero-in">
-    <a class="balik" href="index.html">&larr; Kembali ke dashboard</a>
+    <a class="balik" href="skor.html" style="float:right">Kalkulator skor &#8594;</a>
+  <a class="balik" href="index.html">&larr; Kembali ke dashboard</a>
     <h1>Monitoring kinerja</h1>
     <div class="prodi" id="hProdi"></div>
     <div class="periode" id="periode"></div>
@@ -151,7 +152,6 @@
 
 <main class="wrap" id="isi"></main>
 
-<script src="ambang.js"></script>
 <script>
 const esc = s => String(s ?? '').replace(/[&<>"']/g,c=>
   ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -160,7 +160,22 @@ const pct = (a,b) => b ? Math.round(a/b*100) : 0;
 
 let D=null, periode='ts3', urutKol='publikasi', urutTurun=true;
 
-fetch('data.json?v=' + Date.now())
+// ambang.js sengaja TIDAK dimuat lewat tag <script src> biasa: tanpa
+// penanda versi, peramban menyajikan salinan lamanya dan suntingan yang
+// sudah di-push tidak kelihatan. Dimuat di sini dengan penanda waktu,
+// sama seperti data.json.
+function muatAmbang(){
+  return new Promise(res=>{
+    const el = document.createElement('script');
+    el.src = 'ambang.js?v=' + Date.now();
+    el.onload = res;
+    el.onerror = res;   // biarkan lanjut; penjaga di bagian syarat perlu
+    document.head.appendChild(el);   // yang akan menjelaskan berkasnya hilang
+  });
+}
+
+muatAmbang()
+  .then(()=>fetch('data.json?v=' + Date.now()))
   .then(r=>{ if(!r.ok) throw new Error(r.status); return r.json(); })
   .then(d=>{ D=d; awal(); })
   .catch(()=>{
