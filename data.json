@@ -98,6 +98,43 @@
      "korespondensi": true
     }
    ]
+  },
+  {
+   "judul": "Toward Sustainable Flood Resilience: Assessing Efficacy of Paddy Field Dams to Reduce Floods in Jakarta",
+   "tahun": 2025,
+   "tahun_ts": 2025,
+   "jenis": "jurnal",
+   "terbitan": "Journal of Flood Risk Management",
+   "tingkat": "internasional",
+   "indeksasi": "scopus_q1",
+   "doi": "10.1111/jfr3.70020",
+   "url": "https://onlinelibrary.wiley.com/doi/abs/10.1111/jfr3.70020",
+   "mitra": [
+    {
+     "nama": "Institut Teknologi Bandung",
+     "tingkat": "nasional",
+     "negara": ""
+    },
+    {
+     "nama": "Toyama Prefectural University",
+     "tingkat": "internasional",
+     "negara": "Jepang"
+    },
+    {
+     "nama": "Universitas Sultan Ageng  Tirtayasa",
+     "tingkat": "nasional",
+     "negara": ""
+    }
+   ],
+   "mahasiswa": 0,
+   "penulis": [
+    {
+     "nama": "Nurul Fajar Januriyadi",
+     "slug": "nurul-fajar-januriyadi",
+     "peran": "anggota",
+     "korespondensi": false
+    }
+   ]
   }
  ],
  "kegiatan": [
@@ -205,6 +242,13 @@
     "nasional": 4,
     "wilayah": 0,
     "tanpa_tingkat": 0
+   },
+   {
+    "tahun": 2025,
+    "internasional": 1,
+    "nasional": 2,
+    "wilayah": 0,
+    "tanpa_tingkat": 0
    }
   ],
   "kegiatan_mhs": [
@@ -233,6 +277,16 @@
     "na2": 1,
     "na3": 0,
     "na4": 0,
+    "nb1": 0,
+    "nb2": 0,
+    "nb3": 0
+   },
+   {
+    "tahun": 2025,
+    "na1": 0,
+    "na2": 0,
+    "na3": 0,
+    "na4": 1,
     "nb1": 0,
     "nb2": 0,
     "nb3": 0
