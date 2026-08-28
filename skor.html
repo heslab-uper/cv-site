@@ -164,7 +164,7 @@ window.addEventListener('error', function(e){
 });
 setTimeout(function(){
   if (window.__skorHidup) return;
-  var sebab = (typeof SUPABASE_URL === 'undefined')
+  var sebab = (!window.SB_URL)
     ? '<code>config.js</code> tidak termuat — pastikan berkasnya ada satu folder dengan halaman ini.'
     : 'pustaka Supabase dari CDN (jsdelivr) tidak termuat — periksa koneksi internet '+
       'atau pemblokir (adblock/firewall kampus), lalu muat ulang.';
@@ -177,8 +177,25 @@ setTimeout(function(){
 <script src="config.js"></script>
 <script type="module">
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
-const sb = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+// config.js mendefinisikan window.SB_URL dan window.SB_KEY — pemetaan di
+// bawah ini WAJIB ada. skor.html versi sebelumnya melewatkannya dan mati
+// dengan "SUPABASE_URL is not defined" padahal config.js-nya benar.
+const SUPABASE_URL = window.SB_URL;
+const SUPABASE_ANON_KEY = window.SB_KEY;
 window.__skorHidup = true;
+
+if (!SUPABASE_URL || !SUPABASE_ANON_KEY
+    || SUPABASE_URL.includes('XXXXXXXX') || SUPABASE_ANON_KEY.includes('GANTI')) {
+  document.getElementById('isi').innerHTML = `<div class="kartu"
+    style="margin-top:30px"><p class="kosong"><b>config.js belum diisi.</b>
+    Buka <code>config.js</code> di repositori situs dan ganti
+    <code>SB_URL</code> serta <code>SB_KEY</code> dengan nilai dari proyek
+    Supabase Anda — jangan menimpa config.js yang sudah terisi dengan
+    versi dari paket.</p></div>`;
+  throw new Error('config.js belum diisi');
+}
+const sb = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 'use strict';
 // =====================================================================
 //  Kalkulator skor butir APS-AV 2025 1.0 (Program Sarjana) yang dapat
