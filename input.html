@@ -170,12 +170,12 @@ const sb = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 const TH = new Date().getFullYear();
 const TAHUN = Array.from({length:12},(_,i)=>String(TH+1-i));
 // Bulan opsional: memetakan karya ke tahun akademik (TS, Sep-Agu).
-const BULAN = [['','(tidak tahu / lama)'],['1','Januari'],['2','Februari'],
+const BULAN = [['1','Januari'],['2','Februari'],
   ['3','Maret'],['4','April'],['5','Mei'],['6','Juni'],['7','Juli'],
   ['8','Agustus'],['9','September'],['10','Oktober'],['11','November'],
   ['12','Desember']];
-const F_BULAN = {n:'bulan', l:'Bulan', t:'select', o:BULAN,
-  sub:'Opsional — membantu pemetaan ke tahun akademik (TS)'};
+const F_BULAN = {n:'bulan', l:'Bulan', t:'select', w:1, o:BULAN,
+  sub:'Menentukan tahun akademik (TS): September ke atas masuk TS berikutnya'};
 const TINGKAT = [['internasional','Internasional'],['nasional','Nasional'],
                  ['wilayah_lokal','Wilayah / lokal']];
 

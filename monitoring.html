@@ -249,6 +249,14 @@ function angkaNaik(sel){
 }
 
 let D=null, periode='ts3', urutKol='publikasi', urutTurun=true;
+// MODE periode: 'kal' = tahun kalender (perilaku lama), 'ts' = tahun
+// akademik (1 Sep - 31 Agu). Entri karya membawa tahun_ts dari bangun.py;
+// data lembar Excel tanpa bulan (prestasi, karya mandiri mahasiswa)
+// memakai tahun kalendernya sebagai pendekatan di mode TS.
+let MODE = (function(){ try { return sessionStorage.getItem('modeThn') || 'kal'; }
+                        catch { return 'kal'; } })();
+const thn = x => MODE === 'ts' ? +(x.tahun_ts ?? x.tahun) : +x.tahun;
+const labelThn = t => MODE === 'ts' ? `${t - 1}/${t}` : String(t);
 
 // ambang.js sengaja TIDAK dimuat lewat tag <script src> biasa: tanpa
 // penanda versi, peramban menyajikan salinan lamanya dan suntingan yang
@@ -276,9 +284,9 @@ muatAmbang()
 
 function tahunTersedia(){
   return [...new Set([
-    ...D.publikasi.map(p=>+p.tahun),
-    ...D.kegiatan.map(k=>+k.tahun),
-    ...(D.prestasi_agregat||[]).map(p=>+p.tahun),
+    ...D.publikasi.map(thn),
+    ...D.kegiatan.map(thn),
+    ...(D.prestasi_agregat||[]).map(thn),
   ])].sort((a,b)=>b-a);
 }
 
@@ -294,13 +302,29 @@ function awal(){
     [D.prodi, D.institusi].filter(Boolean).join(' · ');
 
   const th = tahunTersedia();
-  const opsi = [['ts3','3 tahun terakhir'], ...th.map(t=>[String(t), String(t)]), ['semua','Semua tahun']];
-  document.getElementById('periode').innerHTML = opsi.map(([k,l])=>
+  const opsi = [['ts3', MODE === 'ts' ? '3 TS terakhir' : '3 tahun terakhir'],
+                ...th.map(t=>[String(t), labelThn(t)]),
+                ['semua', MODE === 'ts' ? 'Semua TS' : 'Semua tahun']];
+  document.getElementById('periode').innerHTML =
+    `<button data-m="kal" aria-pressed="${MODE==='kal'}"
+       title="Tahun kalender Januari-Desember">Tahun</button>
+     <button data-m="ts" aria-pressed="${MODE==='ts'}"
+       title="Tahun akademik 1 September - 31 Agustus">TS</button>
+     <span style="width:10px"></span>` +
+    opsi.map(([k,l])=>
     `<button data-p="${k}" aria-pressed="${k===periode}">${esc(l)}</button>`).join('');
-  document.querySelectorAll('#periode button').forEach(b=>{
+  document.querySelectorAll('#periode button[data-m]').forEach(b=>{
+    b.onclick = ()=>{
+      MODE = b.dataset.m;
+      try { sessionStorage.setItem('modeThn', MODE); } catch {}
+      if(!isNaN(+periode)) periode = 'ts3';   // tahun terpilih bisa tak ada di mode lain
+      awal();
+    };
+  });
+  document.querySelectorAll('#periode button[data-p]').forEach(b=>{
     b.onclick = ()=>{
       periode = b.dataset.p;
-      document.querySelectorAll('#periode button')
+      document.querySelectorAll('#periode button[data-p]')
         .forEach(x=>x.setAttribute('aria-pressed', x.dataset.p===periode));
       render(); pasangSeksi();
     };
@@ -315,10 +339,10 @@ function hitung(){
   const r = rentang();
   const cocok = t => !r || r.includes(+t);
 
-  const pub = D.publikasi.filter(p=>cocok(p.tahun));
-  const keg = D.kegiatan.filter(k=>cocok(k.tahun));
-  const pres = (D.prestasi_agregat||[]).filter(p=>cocok(p.tahun));
-  const presDsn = (D.prestasi_pembimbing||[]).filter(p=>cocok(p.tahun));
+  const pub = D.publikasi.filter(p=>cocok(thn(p)));
+  const keg = D.kegiatan.filter(k=>cocok(thn(k)));
+  const pres = (D.prestasi_agregat||[]).filter(p=>cocok(thn(p)));
+  const presDsn = (D.prestasi_pembimbing||[]).filter(p=>cocok(thn(p)));
 
   const baris = D.dosen.map(d=>{
     const mine = a => (a||[]).some(x=>x.slug===d.slug);
@@ -341,7 +365,9 @@ function hitung(){
 
   return {pub, keg, pres, baris,
           totalPres: pres.reduce((a,b)=>a+b.jumlah,0),
-          label: r ? (r.length>1 ? `${Math.min(...r)}–${Math.max(...r)}` : String(r[0]))
+          label: r ? (r.length>1
+                       ? `${labelThn(Math.min(...r))}–${labelThn(Math.max(...r))}`
+                       : labelThn(r[0]))
                    : 'seluruh periode'};
 }
 
@@ -636,12 +662,12 @@ function bagianLKPS(H){
   const punyaJab = Object.entries(T.jabatan||{})
     .filter(([k])=>k!=='tanpa_jabatan').reduce((a,[,v])=>a+v,0);
 
-  const luar = (D.luaran_dosen||[]).filter(x=>cocok(x.tahun));
-  const rek  = (D.rekognisi||[]).filter(x=>cocok(x.tahun));
-  const intg = (D.integrasi||[]).filter(x=>cocok(x.tahun));
+  const luar = (D.luaran_dosen||[]).filter(x=>cocok(thn(x)));
+  const rek  = (D.rekognisi||[]).filter(x=>cocok(thn(x)));
+  const intg = (D.integrasi||[]).filter(x=>cocok(thn(x)));
   const mk   = D.mahasiswa_karya||{publikasi:[],luaran:[]};
-  const mkp  = mk.publikasi.filter(x=>cocok(x.tahun));
-  const mkl  = mk.luaran.filter(x=>cocok(x.tahun));
+  const mkp  = mk.publikasi.filter(x=>cocok(thn(x)));
+  const mkl  = mk.luaran.filter(x=>cocok(thn(x)));
 
   const tracer = (D.tracer||[]);
   const barisTracer = tracer.length ? `
@@ -694,7 +720,7 @@ function bagianLKPS(H){
 function bagianMahasiswa(H){
   const r = rentang();
   const cocok = t => !r || r.includes(+t);
-  const agg = (D.mahasiswa_agregat||[]).filter(x=>cocok(x.tahun));
+  const agg = (D.mahasiswa_agregat||[]).filter(x=>cocok(thn(x)));
 
   const sum = (f,kat) => agg.filter(x=>!kat || x.kategori===kat)
                             .reduce((a,b)=>a+b[f],0);

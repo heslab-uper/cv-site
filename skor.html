@@ -261,6 +261,17 @@ function pasangSeksi(){
 
 let D = null;
 let TS = null;
+// Jendela data. TS berjalan (Sep-Agu) belum tutup buku sampai 31 Agustus,
+// sehingga BAWAAN-nya seluruh jendela perhitungan berakhir di TS-1:
+// memilih TS 2025/2026 menghitung dari data s.d. 2024/2025. Sakelar di
+// kop halaman mengubahnya bila ingin TS berjalan ikut dihitung.
+// Jendela = 3 TS terakhir TERMASUK TS terpilih (TS-2..TS): memilih
+// 2025/2026 menghitung 2023/2024 + 2024/2025 + 2025/2026. Sakelar
+// "Data s.d. TS-1" tersedia bila TS berjalan sengaja tak diikutkan.
+let JENDELA_OFS = (function(){
+  try { return sessionStorage.getItem('jendelaOfs') === '1' ? 1 : 0; }
+  catch { return 0; }
+})();
 let PENG = {};        // pengaturan skor dari Supabase (di belakang RLS)
 let PENG_GAGAL = false; // true bila tabel pengaturan tak terbaca (patch 09 belum jalan)
 let DANA = [];        // {tahun, bulan, kategori, besaran_dana} karya terverifikasi          // tahun ujung TS terpilih, mis. 2026
@@ -1012,6 +1023,13 @@ function render(){
   ];
   const skorDari = h => { const m = h.match(/class="angka ?(n4)?">([\d.]+)</); return m ? +m[2] : null; };
 
+  // Seluruh fungsi butir membaca TS global sebagai UJUNG jendela data.
+  // TS digeser di sini sesuai sakelar, lalu dipulihkan setelah semua
+  // kartu jadi — label di dalam kartu otomatis menunjukkan tahun data
+  // yang sebenarnya dipakai.
+  const TS_PILIH = TS;
+  TS = TS_PILIH - JENDELA_OFS;
+
   // Tren 3 TS: tiap butir dihitung ulang pada TS-2, TS-1, dan TS dengan
   // menggeser TS global sementara. Seluruh fungsi butir membaca TS global,
   // jadi satu mekanisme ini berlaku untuk semua rumus sekaligus.
@@ -1026,6 +1044,11 @@ function render(){
 
   const kartu = {};
   daftar.forEach(x => kartu[x.no] = x.f());
+  const htmlKelengkapan = kelengkapanData();
+  const htmlIntegrasi = bagianIntegrasi();
+  const htmlKeterlibatan = bagianKeterlibatan();
+  const TS_DATA = TS;
+  TS = TS_PILIH;
   const semuaSkor = [];
   const ring = daftar.map(x => {
     const sN = skorDari(kartu[x.no]);
@@ -1047,10 +1070,12 @@ function render(){
     penilaian resmi. Karya tanpa kolom bulan dipetakan ke TS memakai tahun
     kalendernya.</div>
 
-    ${kelengkapanData()}
+    ${htmlKelengkapan}
 
-    <h2>Ringkasan — TS ${esc(taDari(TS))}</h2>
-    <p class="ket">${semuaSkor.length} dari ${daftar.length} butir terhitung${
+    <h2>Ringkasan — TS ${esc(taDari(TS_PILIH))}</h2>
+    <p class="ket">Jendela data berakhir di <b>TS ${esc(taDari(TS_DATA))}</b>${
+      JENDELA_OFS ? ' (TS berjalan belum tutup buku, tidak ikut dihitung)' : ''} ·
+      ${semuaSkor.length} dari ${daftar.length} butir terhitung${
       rerata == null ? '' : ` · rata-rata butir terhitung <b>${f2(rerata)}</b>`}.
       Hijau ≥ 3,50 · kuning 2,00–3,49 · merah &lt; 2,00 · abu belum terhitung.</p>
     <div class="ringkas">${ring}</div>
@@ -1064,9 +1089,9 @@ function render(){
     ${seksi('mahasiswa', 'Mahasiswa dan luaran', 'Butir 40–47, 49–51',
             ['40','41','42','43','44','45','46','47','49','50','51'])}
     ${seksiLipat('integrasi', 'Integrasi penelitian/PkM dalam pembelajaran',
-            'Tabel 3.a.3 LKPS', bagianIntegrasi())}
+            'Tabel 3.a.3 LKPS', htmlIntegrasi)}
     ${seksiLipat('keterlibatan', 'Keterlibatan mahasiswa pada karya dosen', '',
-            bagianKeterlibatan())}
+            htmlKeterlibatan)}
     ${seksiLipat('tren', 'Tren skor 3 TS terakhir',
             tsTren.map(taDari).join(' · '), bagianTren(daftar, tren, tsTren), true)}
 
@@ -1081,9 +1106,20 @@ function pasangTS(){
   const daftar = daftarTS();
   if (TS == null) TS = daftar[0];
   wadah.innerHTML = `<span class="lbl">TS</span>` + daftar.map(t =>
-    `<button aria-pressed="${t === TS}" data-ts="${t}">${taDari(t)}</button>`).join('');
-  wadah.querySelectorAll('button').forEach(b =>
+    `<button aria-pressed="${t === TS}" data-ts="${t}">${taDari(t)}</button>`).join('')
+    + `<span class="lbl" style="margin-left:14px">Data s.d.</span>
+       <button aria-pressed="${JENDELA_OFS === 0}" data-ofs="0"
+         title="Jendela memasukkan TS terpilih: TS-2, TS-1, dan TS">TS</button>
+       <button aria-pressed="${JENDELA_OFS === 1}" data-ofs="1"
+         title="TS berjalan tidak diikutkan; jendela berakhir setahun sebelumnya">TS&minus;1</button>`;
+  wadah.querySelectorAll('button[data-ts]').forEach(b =>
     b.addEventListener('click', () => { TS = +b.dataset.ts; pasangTS(); render(); pasangSeksi(); angkaNaik('.ringkas b'); }));
+  wadah.querySelectorAll('button[data-ofs]').forEach(b =>
+    b.addEventListener('click', () => {
+      JENDELA_OFS = +b.dataset.ofs;
+      try { sessionStorage.setItem('jendelaOfs', String(JENDELA_OFS)); } catch {}
+      pasangTS(); render(); pasangSeksi(); angkaNaik('.ringkas b');
+    }));
 }
 
 async function mulai(){
