@@ -193,7 +193,16 @@ const pct = (a,b) => b ? Math.round(a/b*100) : 0;
 //  Akordeon bagian: keadaan buka/tutup diingat selama halaman hidup,
 //  sehingga berpindah periode/TS tidak menutup bagian yang sedang dibaca.
 // ---------------------------------------------------------------------
-const SEKSI_BUKA = new Set(JSON.parse(sessionStorage.getItem('seksiBuka') || '["_awal"]'));
+// Penyimpanan sesi yang aman: pada mode privat atau pengaturan cookie
+// ketat, menyentuh sessionStorage saja sudah melempar SecurityError —
+// dan karena blok ini berada di puncak skrip, satu lemparan mematikan
+// seluruh halaman. Dibungkus agar gagal berarti "tanpa ingatan", bukan
+// layar kosong.
+const simpanAman = {
+  get(k){ try { return sessionStorage.getItem(k); } catch { return null; } },
+  set(k, v){ try { sessionStorage.setItem(k, v); } catch {} },
+};
+const SEKSI_BUKA = new Set(JSON.parse(simpanAman.get('seksiBuka') || '["_awal"]'));
 function seksiLipat(id, judul, ket, isi, bawaan){
   const buka = SEKSI_BUKA.has('_awal') ? !!bawaan : SEKSI_BUKA.has(id);
   return `<details class="seksi" data-seksi="${id}" ${buka ? 'open' : ''}>
@@ -208,7 +217,7 @@ function pasangSeksi(){
     if (d.open) SEKSI_BUKA.add(d.dataset.seksi);
     d.addEventListener('toggle', () => {
       d.open ? SEKSI_BUKA.add(d.dataset.seksi) : SEKSI_BUKA.delete(d.dataset.seksi);
-      sessionStorage.setItem('seksiBuka', JSON.stringify([...SEKSI_BUKA]));
+      simpanAman.set('seksiBuka', JSON.stringify([...SEKSI_BUKA]));
     });
   });
   const k = document.getElementById('seksi-semua');

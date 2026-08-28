@@ -150,10 +150,35 @@
 
 <main class="wrap" id="isi"><p class="kosong" style="margin-top:30px">Memuat data&hellip;</p></main>
 
+<script>
+// Pengawas: skrip modul di bawah bisa mati total sebelum sempat menulis
+// apa pun (impor CDN gagal, config.js hilang, galat keamanan penyimpanan).
+// Blok klasik ini berdiri sendiri sehingga tetap hidup dan mengubah
+// "Memuat" abadi menjadi diagnosis yang bisa ditindaklanjuti.
+window.addEventListener('error', function(e){
+  var isi = document.getElementById('isi');
+  if (!window.__skorHidup && isi) isi.innerHTML =
+    '<div class="kartu" style="margin-top:30px"><p class="kosong"><b>Halaman gagal '+
+    'dijalankan.</b> Pesan galat: <code>'+String(e.message).replace(/</g,'&lt;')+
+    '</code>. Buka konsol peramban (F12) untuk rinciannya, lalu kirimkan ke pengelola.</p></div>';
+});
+setTimeout(function(){
+  if (window.__skorHidup) return;
+  var sebab = (typeof SUPABASE_URL === 'undefined')
+    ? '<code>config.js</code> tidak termuat — pastikan berkasnya ada satu folder dengan halaman ini.'
+    : 'pustaka Supabase dari CDN (jsdelivr) tidak termuat — periksa koneksi internet '+
+      'atau pemblokir (adblock/firewall kampus), lalu muat ulang.';
+  var isi = document.getElementById('isi');
+  if (isi) isi.innerHTML =
+    '<div class="kartu" style="margin-top:30px"><p class="kosong"><b>Halaman tidak '+
+    'kunjung siap.</b> Kemungkinan penyebab: '+sebab+'</p></div>';
+}, 8000);
+</script>
 <script src="config.js"></script>
 <script type="module">
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
 const sb = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+window.__skorHidup = true;
 'use strict';
 // =====================================================================
 //  Kalkulator skor butir APS-AV 2025 1.0 (Program Sarjana) yang dapat
@@ -172,7 +197,16 @@ const sb = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 //  Akordeon bagian: keadaan buka/tutup diingat selama halaman hidup,
 //  sehingga berpindah periode/TS tidak menutup bagian yang sedang dibaca.
 // ---------------------------------------------------------------------
-const SEKSI_BUKA = new Set(JSON.parse(sessionStorage.getItem('seksiBuka') || '["_awal"]'));
+// Penyimpanan sesi yang aman: pada mode privat atau pengaturan cookie
+// ketat, menyentuh sessionStorage saja sudah melempar SecurityError —
+// dan karena blok ini berada di puncak skrip, satu lemparan mematikan
+// seluruh halaman. Dibungkus agar gagal berarti "tanpa ingatan", bukan
+// layar kosong.
+const simpanAman = {
+  get(k){ try { return sessionStorage.getItem(k); } catch { return null; } },
+  set(k, v){ try { sessionStorage.setItem(k, v); } catch {} },
+};
+const SEKSI_BUKA = new Set(JSON.parse(simpanAman.get('seksiBuka') || '["_awal"]'));
 function seksiLipat(id, judul, ket, isi, bawaan){
   const buka = SEKSI_BUKA.has('_awal') ? !!bawaan : SEKSI_BUKA.has(id);
   return `<details class="seksi" data-seksi="${id}" ${buka ? 'open' : ''}>
@@ -187,7 +221,7 @@ function pasangSeksi(){
     if (d.open) SEKSI_BUKA.add(d.dataset.seksi);
     d.addEventListener('toggle', () => {
       d.open ? SEKSI_BUKA.add(d.dataset.seksi) : SEKSI_BUKA.delete(d.dataset.seksi);
-      sessionStorage.setItem('seksiBuka', JSON.stringify([...SEKSI_BUKA]));
+      simpanAman.set('seksiBuka', JSON.stringify([...SEKSI_BUKA]));
     });
   });
   const k = document.getElementById('seksi-semua');
