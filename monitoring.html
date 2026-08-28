@@ -156,6 +156,16 @@
   footer{margin-top:52px;padding-top:20px;border-top:3px solid var(--biru);
          font-size:12.5px;color:var(--muted)}
   @media(max-width:560px){.ringkas div{border-right:0;border-bottom:1px solid var(--line-soft)}}
+
+  /* ---------- polesan ---------- */
+  .kartu{transition:box-shadow .18s, transform .18s}
+  .kartu:hover{box-shadow:0 3px 14px rgba(12,42,77,.08);transform:translateY(-1px)}
+  table.rin tbody tr:nth-child(even) td,
+  table.sp  tbody tr:nth-child(even) td,
+  table.mx  tbody tr:nth-child(even) td{background:rgba(12,42,77,.022)}
+  table.rin tbody tr:hover td, table.sp tbody tr:hover td{background:rgba(12,42,77,.055)}
+  :focus-visible{outline:2px solid var(--biru-2);outline-offset:1px}
+  @media(prefers-reduced-motion:reduce){.kartu{transition:none}.kartu:hover{transform:none}}
 </style>
 </head>
 <body>
@@ -208,6 +218,27 @@ function pasangSeksi(){
   document.getElementById('tutupSemua')?.addEventListener('click', () => semua(false));
 }
 
+
+// Angka pita/ringkasan naik perlahan saat pertama tampil (hormati
+// preferensi reduced-motion; teks non-angka dibiarkan apa adanya).
+function angkaNaik(sel){
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  document.querySelectorAll(sel).forEach(el => {
+    if (el.dataset.naik) return; el.dataset.naik = '1';
+    const asli = el.textContent.trim();
+    const t = parseFloat(asli.replace(',', '.'));
+    if (!isFinite(t) || /[^0-9.,]/.test(asli)) return;
+    const des = (asli.split(/[.,]/)[1] || '').length;
+    const m0 = performance.now();
+    const tik = n => {
+      const q = Math.min(1, (n - m0) / 600), e = 1 - Math.pow(1 - q, 3);
+      el.textContent = (t * e).toFixed(des).replace('.', asli.includes(',') ? ',' : '.');
+      if (q < 1) requestAnimationFrame(tik); else el.textContent = asli;
+    };
+    requestAnimationFrame(tik);
+  });
+}
+
 let D=null, periode='ts3', urutKol='publikasi', urutTurun=true;
 
 // ambang.js sengaja TIDAK dimuat lewat tag <script src> biasa: tanpa
@@ -227,7 +258,7 @@ function muatAmbang(){
 muatAmbang()
   .then(()=>fetch('data.json?v=' + Date.now()))
   .then(r=>{ if(!r.ok) throw new Error(r.status); return r.json(); })
-  .then(d=>{ D=d; awal(); pasangSeksi(); })
+  .then(d=>{ D=d; awal(); pasangSeksi(); angkaNaik('.ringkas b'); })
   .catch(()=>{
     document.getElementById('isi').innerHTML =
       `<p class="kosong">Berkas <code>data.json</code> belum tersedia.

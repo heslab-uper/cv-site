@@ -65,6 +65,11 @@
   .ringkas > div{padding:16px 18px;border-right:1px solid var(--line-soft)}
   .ringkas > div:last-child{border-right:0}
   .ringkas b{display:block;font-family:var(--mono);font-size:26px;font-weight:400;line-height:1}
+  .ringkas > div{border-top:3px solid transparent;margin-top:-3px}
+  .ringkas > div.hij{border-top-color:var(--hijau)}
+  .ringkas > div.kun{border-top-color:var(--emas)}
+  .ringkas > div.mer{border-top-color:var(--merah)}
+  .ringkas > div.kos b{color:var(--muted)}
   .ringkas span{font-family:var(--mono);font-size:10px;letter-spacing:.1em;
                 text-transform:uppercase;color:var(--muted);display:block;margin-top:8px}
 
@@ -122,6 +127,16 @@
 
   footer{margin-top:52px;border-top:1px solid var(--line);padding-top:18px;
          font-size:12.5px;color:var(--muted)}
+
+  /* ---------- polesan ---------- */
+  .kartu{transition:box-shadow .18s, transform .18s}
+  .kartu:hover{box-shadow:0 3px 14px rgba(12,42,77,.08);transform:translateY(-1px)}
+  table.rin tbody tr:nth-child(even) td,
+  table.sp  tbody tr:nth-child(even) td,
+  table.mx  tbody tr:nth-child(even) td{background:rgba(12,42,77,.022)}
+  table.rin tbody tr:hover td, table.sp tbody tr:hover td{background:rgba(12,42,77,.055)}
+  :focus-visible{outline:2px solid var(--biru-2);outline-offset:1px}
+  @media(prefers-reduced-motion:reduce){.kartu{transition:none}.kartu:hover{transform:none}}
 </style>
 </head>
 <body>
@@ -185,6 +200,7 @@ function pasangSeksi(){
 let D = null;
 let TS = null;
 let PENG = {};        // pengaturan skor dari Supabase (di belakang RLS)
+let PENG_GAGAL = false; // true bila tabel pengaturan tak terbaca (patch 09 belum jalan)
 let DANA = [];        // {tahun, bulan, kategori, besaran_dana} karya terverifikasi          // tahun ujung TS terpilih, mis. 2026
 
 const esc = s => String(s ?? '').replace(/[&<>"']/g,
@@ -822,6 +838,60 @@ function daftarTS(){
   return [...th].sort((a, b) => b - a).slice(0, 6);
 }
 
+// ---------------------------------------------------------------------
+//  Kelengkapan data: menjelaskan KENAPA sebagian butir belum terhitung —
+//  bukan karena rumusnya tidak ada, melainkan sumber datanya belum terisi.
+// ---------------------------------------------------------------------
+function kelengkapanData(){
+  const b = barisTA();
+  const J = tracerJendela();
+  const kerja = J.tr.reduce((a, t) => a + (t.kerja_internasional || 0)
+    + (t.kerja_nasional || 0) + (t.kerja_wilayah || 0), 0);
+  const pengKosong = ['kerjasama_pendidikan_3th','bop','sks_basic_sciences','ndtt','kib_3th']
+    .filter(k => PENG[k] == null);
+  const daftar = [
+    { s: `Lembar mahasiswa_ta — baris TS ${taDari(TS)}`,
+      ada: !!(b && b.mahasiswa_aktif > 0), butir: '40, 41, 43, 46',
+      cara: 'isi jumlah_mahasiswa_aktif (dan mahasiswa_asing) lalu jalankan bangun.py' },
+    { s: 'mahasiswa_ta — lulusan dan rerata IPK, 3 TS',
+      ada: (((D.akreditasi || {}).ta) || []).some(r => r.tahun_ts >= TS - 2
+        && r.tahun_ts <= TS && r.lulusan > 0 && r.rerata_ipk > 0),
+      butir: '42', cara: 'isi jumlah_lulusan dan rerata_ipk_lulusan' },
+    { s: 'mahasiswa_ta — masa studi dan lulus tepat waktu',
+      ada: reratTA('rerata_masa_studi') != null && reratTA('persen_tepat_waktu') != null,
+      butir: '44, 45', cara: 'isi rerata_masa_studi_tahun dan persen_lulus_tepat_waktu' },
+    { s: `Lembar tracer_lulusan — tahun lulus ${TS - 2}–${TS - 1}`,
+      ada: J.terlacak > 0, butir: '49, 50',
+      cara: 'isi baris tracer untuk kedua tahun lulus itu' },
+    { s: 'tracer_lulusan — kolom tingkat tempat kerja',
+      ada: kerja > 0, butir: '51',
+      cara: 'isi kerja_internasional / kerja_nasional / kerja_wilayah' },
+    { s: 'Lembar prestasi_mahasiswa',
+      ada: (D.prestasi_agregat || []).length > 0, butir: '43',
+      cara: 'isi prestasi lomba 5 tahun terakhir' },
+    { s: 'Tabel pengaturan di Supabase',
+      ada: !PENG_GAGAL && !pengKosong.length,
+      butir: '6-I, 9, 19, 26, 36',
+      cara: PENG_GAGAL
+        ? 'jalankan patch 09 lebih dulu'
+        : `isi kunci: ${pengKosong.join(', ')}` },
+    { s: 'Besaran dana pada kegiatan terverifikasi',
+      ada: DANA.some(d => +d.besaran_dana > 0), butir: '10, 11',
+      cara: 'lengkapi kolom besaran dana lewat input.html' },
+  ];
+  const kosong = daftar.filter(x => !x.ada);
+  if (!kosong.length) return '';
+  return `<div class="peringatan"><b>${kosong.length} sumber data belum terisi</b> —
+    itu sebabnya sebagian butir berstatus &ldquo;tak terhitung&rdquo;. Rumus semua
+    butir sudah siap; skor muncul begitu datanya masuk.
+    <table class="rin" style="margin-top:8px"><thead><tr>
+      <th>Sumber</th><th>Menunggu di butir</th><th>Cara mengisi</th>
+    </tr></thead><tbody>${kosong.map(x => `<tr>
+      <td>${x.s}</td><td class="an" style="white-space:nowrap">${x.butir}</td>
+      <td style="text-align:left;font-family:var(--sans);font-size:12.5px">${x.cara}</td>
+    </tr>`).join('')}</tbody></table></div>`;
+}
+
 function render(){
   const daftar = [
     {no:'6',  f: butir06},
@@ -845,10 +915,15 @@ function render(){
   const kartu = {};
   daftar.forEach(x => kartu[x.no] = x.f());
   const skorDari = h => { const m = h.match(/class="angka ?(n4)?">([\d.]+)</); return m ? +m[2] : null; };
+  const semuaSkor = [];
   const ring = daftar.map(x => {
     const sN = skorDari(kartu[x.no]);
-    return `<div><b>${sN == null ? '—' : f2(sN)}</b><span>Butir ${x.no}</span></div>`;
+    if (sN != null) semuaSkor.push(sN);
+    const kls = sN == null ? 'kos' : sN >= 3.5 ? 'hij' : sN >= 2 ? 'kun' : 'mer';
+    return `<div class="${kls}"><b>${sN == null ? '—' : f2(sN)}</b><span>Butir ${x.no}</span></div>`;
   }).join('');
+  const rerata = semuaSkor.length
+    ? semuaSkor.reduce((a, b) => a + b, 0) / semuaSkor.length : null;
   const seksi = (id, judul, ket, nomor) =>
     seksiLipat(id, judul, ket, nomor.map(n => kartu[n]).join(''));
 
@@ -861,7 +936,12 @@ function render(){
     penilaian resmi. Karya tanpa kolom bulan dipetakan ke TS memakai tahun
     kalendernya.</div>
 
+    ${kelengkapanData()}
+
     <h2>Ringkasan — TS ${esc(taDari(TS))}</h2>
+    <p class="ket">${semuaSkor.length} dari ${daftar.length} butir terhitung${
+      rerata == null ? '' : ` · rata-rata butir terhitung <b>${f2(rerata)}</b>`}.
+      Hijau ≥ 3,50 · kuning 2,00–3,49 · merah &lt; 2,00 · abu belum terhitung.</p>
     <div class="ringkas">${ring}</div>
     <div class="kontrol-seksi" id="seksi-semua"></div>
 
@@ -890,7 +970,7 @@ function pasangTS(){
   wadah.innerHTML = `<span class="lbl">TS</span>` + daftar.map(t =>
     `<button aria-pressed="${t === TS}" data-ts="${t}">${taDari(t)}</button>`).join('');
   wadah.querySelectorAll('button').forEach(b =>
-    b.addEventListener('click', () => { TS = +b.dataset.ts; pasangTS(); render(); pasangSeksi(); }));
+    b.addEventListener('click', () => { TS = +b.dataset.ts; pasangTS(); render(); pasangSeksi(); angkaNaik('.ringkas b'); }));
 }
 
 async function mulai(){
@@ -912,15 +992,14 @@ async function mulai(){
   D = await jsonR.json();
   DANA = danaR.data || [];
   (pengR.data || []).forEach(r => PENG[r.kunci] = r.nilai);
-  if (pengR.error)
-    console.warn('pengaturan tidak terbaca — jalankan patch 09:', pengR.error.message);
+  PENG_GAGAL = !!pengR.error;
 
   document.getElementById('nama-prodi').innerHTML =
     esc([D.prodi, D.institusi].filter(Boolean).join(' — ')) +
     ` · ${esc(saya.nama)} <a href="#" id="keluar" style="color:#9FC2E0">keluar</a>`;
   document.getElementById('keluar').onclick = async e => {
     e.preventDefault(); await sb.auth.signOut(); location.reload(); };
-  pasangTS(); render(); pasangSeksi();
+  pasangTS(); render(); pasangSeksi(); angkaNaik('.ringkas b');
 }
 
 function layarMasuk(){
@@ -960,6 +1039,27 @@ function layarTidakTerdaftar(email){
       terdaftar. <a href="#" id="keluar2">Keluar</a></p></div>`;
   document.getElementById('keluar2').onclick = async e => {
     e.preventDefault(); await sb.auth.signOut(); location.reload(); };
+}
+
+
+// Angka pita/ringkasan naik perlahan saat pertama tampil (hormati
+// preferensi reduced-motion; teks non-angka dibiarkan apa adanya).
+function angkaNaik(sel){
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  document.querySelectorAll(sel).forEach(el => {
+    if (el.dataset.naik) return; el.dataset.naik = '1';
+    const asli = el.textContent.trim();
+    const t = parseFloat(asli.replace(',', '.'));
+    if (!isFinite(t) || /[^0-9.,]/.test(asli)) return;
+    const des = (asli.split(/[.,]/)[1] || '').length;
+    const m0 = performance.now();
+    const tik = n => {
+      const q = Math.min(1, (n - m0) / 600), e = 1 - Math.pow(1 - q, 3);
+      el.textContent = (t * e).toFixed(des).replace('.', asli.includes(',') ? ',' : '.');
+      if (q < 1) requestAnimationFrame(tik); else el.textContent = asli;
+    };
+    requestAnimationFrame(tik);
+  });
 }
 
 mulai().catch(() => {
