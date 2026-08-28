@@ -368,8 +368,12 @@ function layarUtama(){
   buka('publikasi');
 }
 
-const buka = t => ({publikasi:()=>tampilForm('publikasi'), kegiatan:()=>tampilForm('kegiatan'),
-  saya:karyaSaya, semua:karyaProdi, verifikasi:tampilVerifikasi})[t]();
+// Semua kunci FORM diarahkan ke tampilForm secara dinamis, sehingga
+// menambah jenis form baru tidak perlu menyunting router ini lagi —
+// tab yang lupa didaftarkan dulu gagal senyap (undefined bukan fungsi).
+const buka = t => FORM[t]
+  ? tampilForm(t)
+  : ({saya:karyaSaya, semua:karyaProdi, verifikasi:tampilVerifikasi})[t]();
 
 // ---------------------------------------------------------------------
 //  Form input
