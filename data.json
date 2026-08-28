@@ -1,14 +1,21 @@
 {
  "prodi": "Teknik Sipil",
  "institusi": "Universitas Pertamina",
- "diperbarui": "28 August 2026",
+ "diperbarui": "29 August 2026",
  "dosen": [
   {
-   "nama": "Nurul Fajar Januriyadi",
-   "slug": "nurul-fajar-januriyadi",
-   "sinta_id": "6688736",
-   "scopus_id": "57194656600",
-   "orcid": "0000-0003-1396-9876"
+   "nama": "Adita Utami",
+   "slug": "adita-utami",
+   "sinta_id": "6727789",
+   "scopus_id": "57211787129",
+   "orcid": "0000-0002-9110-8417"
+  },
+  {
+   "nama": "Arianta",
+   "slug": "arianta",
+   "sinta_id": "6733873",
+   "scopus_id": "58317389400",
+   "orcid": "0000-0002-2892-3494"
   },
   {
    "nama": "Arlyn Aristo",
@@ -16,6 +23,13 @@
    "sinta_id": "6749907",
    "scopus_id": "",
    "orcid": ""
+  },
+  {
+   "nama": "Fera Dwi Setyani",
+   "slug": "fera-dwi-setyani",
+   "sinta_id": "6733296",
+   "scopus_id": "57221132574",
+   "orcid": "0009-0004-4490-0235"
   },
   {
    "nama": "Gati Annisa Hayu",
@@ -32,6 +46,13 @@
    "orcid": "0009-0009-2518-951X"
   },
   {
+   "nama": "Nurul Fajar Januriyadi",
+   "slug": "nurul-fajar-januriyadi",
+   "sinta_id": "6688736",
+   "scopus_id": "57194656600",
+   "orcid": "0000-0003-1396-9876"
+  },
+  {
    "nama": "Ranny Adriana",
    "slug": "ranny-adriana",
    "sinta_id": "6907851",
@@ -39,11 +60,11 @@
    "orcid": ""
   },
   {
-   "nama": "Fera Dwi Setyani",
-   "slug": "fera-dwi-setyani",
-   "sinta_id": "6733296",
-   "scopus_id": "57221132574",
-   "orcid": "0009-0004-4490-0235"
+   "nama": "Teuku Mahlil",
+   "slug": "teuku-mahlil",
+   "sinta_id": "",
+   "scopus_id": "",
+   "orcid": ""
   },
   {
    "nama": "Vani Arliani",
@@ -51,13 +72,6 @@
    "sinta_id": "6926173",
    "scopus_id": "58902592000",
    "orcid": "0000-0002-3831-107X"
-  },
-  {
-   "nama": "Adita Utami",
-   "slug": "adita-utami",
-   "sinta_id": "6727789",
-   "scopus_id": "57211787129",
-   "orcid": "0000-0002-9110-8417"
   }
  ],
  "publikasi": [
@@ -187,10 +201,10 @@
   }
  ],
  "dtps": {
-  "jumlah": 8,
-  "doktor": 5,
+  "jumlah": 10,
+  "doktor": 7,
   "jabatan": {
-   "lektor": 3,
+   "lektor": 5,
    "asisten_ahli": 2,
    "guru_besar": 1,
    "tanpa_jabatan": 2
