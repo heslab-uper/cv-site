@@ -60,11 +60,95 @@
    "orcid": "0000-0002-9110-8417"
   }
  ],
- "publikasi": [],
- "kegiatan": [],
+ "publikasi": [
+  {
+   "judul": "Utilization of realtime GSMaP satellite data for flood early warning in Bekasi watershed using UPerRRM",
+   "tahun": 2026,
+   "tahun_ts": 2026,
+   "jenis": "jurnal",
+   "terbitan": "International Journal of Disaster Management",
+   "tingkat": "nasional",
+   "indeksasi": "sinta_1_2",
+   "doi": "10.24815/ijdm.v9.i1.377",
+   "url": "https://publications.usk.ac.id/index.php/IJDM/article/view/377",
+   "mitra": [
+    {
+     "nama": "Kementerian Pekerjaan Umum",
+     "tingkat": "nasional",
+     "negara": ""
+    },
+    {
+     "nama": "Universitas Trisakti",
+     "tingkat": "nasional",
+     "negara": ""
+    }
+   ],
+   "mahasiswa": 0,
+   "penulis": [
+    {
+     "nama": "Arlyn Aristo",
+     "slug": "arlyn-aristo",
+     "peran": "anggota",
+     "korespondensi": false
+    },
+    {
+     "nama": "Nurul Fajar Januriyadi",
+     "slug": "nurul-fajar-januriyadi",
+     "peran": "penulis_pertama",
+     "korespondensi": true
+    }
+   ]
+  }
+ ],
+ "kegiatan": [
+  {
+   "judul": "Integrasi Data Satelit, Pemodelan Hidrologi, dan Machine Learning untuk Peringatan Dini Banjir JABODETABEK",
+   "tahun": 2026,
+   "tahun_ts": 2026,
+   "kategori": "penelitian",
+   "tingkat": "nasional",
+   "skema": "Penelitian Fundamental",
+   "kelompok": "Kemendiktisaintek / DPPM",
+   "mitra": [
+    {
+     "nama": "Kementerian Pekerjaan Umum",
+     "tingkat": "nasional",
+     "negara": ""
+    },
+    {
+     "nama": "Universitas Trisakti",
+     "tingkat": "nasional",
+     "negara": ""
+    }
+   ],
+   "mahasiswa": 2,
+   "penulis": [
+    {
+     "nama": "Arlyn Aristo",
+     "slug": "arlyn-aristo",
+     "peran": "anggota",
+     "korespondensi": false
+    },
+    {
+     "nama": "Nurul Fajar Januriyadi",
+     "slug": "nurul-fajar-januriyadi",
+     "peran": "ketua",
+     "korespondensi": false
+    }
+   ]
+  }
+ ],
  "prestasi_agregat": [],
  "prestasi_pembimbing": [],
- "mahasiswa_agregat": [],
+ "mahasiswa_agregat": [
+  {
+   "tahun": 2026,
+   "tahun_ts": 2026,
+   "kategori": "penelitian",
+   "keterlibatan": 2,
+   "mahasiswa_unik": 2
+  }
+ ],
  "dtps": {
   "jumlah": 8,
   "doktor": 5,
@@ -114,11 +198,46 @@
     "persen_tepat_waktu": 0.0
    }
   ],
-  "kerjasama": [],
-  "kegiatan_mhs": [],
-  "sumber_dana": [],
+  "kerjasama": [
+   {
+    "tahun": 2026,
+    "internasional": 0,
+    "nasional": 4,
+    "wilayah": 0,
+    "tanpa_tingkat": 0
+   }
+  ],
+  "kegiatan_mhs": [
+   {
+    "tahun": 2026,
+    "kategori": "penelitian",
+    "total": 1,
+    "dengan_mahasiswa": 1
+   }
+  ],
+  "sumber_dana": [
+   {
+    "tahun": 2026,
+    "kategori": "penelitian",
+    "luar_negeri": 0,
+    "dalam_negeri": 1,
+    "pt_mandiri": 0,
+    "tanpa_sumber": 0
+   }
+  ],
   "rekognisi_dtps": [],
-  "publikasi_dtps": [],
+  "publikasi_dtps": [
+   {
+    "tahun": 2026,
+    "na1": 0,
+    "na2": 1,
+    "na3": 0,
+    "na4": 0,
+    "nb1": 0,
+    "nb2": 0,
+    "nb3": 0
+   }
+  ],
   "publikasi_mhs": [],
   "luaran_dtps": [],
   "luaran_mhs": []
