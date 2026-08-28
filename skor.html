@@ -70,6 +70,17 @@
   .ringkas > div.kun{border-top-color:var(--emas)}
   .ringkas > div.mer{border-top-color:var(--merah)}
   .ringkas > div.kos b{color:var(--muted)}
+  .tchip{display:inline-block;font-family:var(--mono);font-size:12.5px;
+         padding:3px 9px;border-radius:2px;min-width:46px;text-align:center}
+  .tchip.hij{background:#E3F4EA;color:var(--hijau)}
+  .tchip.kun{background:#FFF3D6;color:#7A5A00}
+  .tchip.mer{background:#FBE5E8;color:var(--merah)}
+  .tchip.kos{background:var(--line-soft);color:var(--muted)}
+  .tarah{font-family:var(--mono);font-size:11.5px;white-space:nowrap}
+  .tarah.naik{color:var(--hijau)} .tarah.turun{color:var(--merah)}
+  .tarah.datar{color:var(--muted)}
+  table.tren td, table.tren th{text-align:center}
+  table.tren td:first-child{text-align:left;font-family:var(--sans)}
   .ringkas span{font-family:var(--mono);font-size:10px;letter-spacing:.1em;
                 text-transform:uppercase;color:var(--muted);display:block;margin-top:8px}
 
@@ -943,6 +954,42 @@ function kelengkapanData(){
     </tr>`).join('')}</tbody></table></div>`;
 }
 
+// ---------------------------------------------------------------------
+//  Tren skor: satu baris per butir, tiga kolom TS, panah perubahan
+//  TS-1 -> TS. Nilai dana/pengaturan yang berlaku "3 tahun terakhir"
+//  tunggal akan tampak sama di ketiga kolom — itu wajar, bukan galat.
+// ---------------------------------------------------------------------
+function bagianTren(daftar, tren, tsTren){
+  const chip = v => v == null ? '<span class="tchip kos">—</span>'
+    : `<span class="tchip ${v >= 3.5 ? 'hij' : v >= 2 ? 'kun' : 'mer'}">${f2(v)}</span>`;
+  const baris = daftar.map(x => {
+    const t = tren[x.no] || {};
+    const kini = t[tsTren[2]], lalu = t[tsTren[1]];
+    let arah = '';
+    if (kini != null && lalu != null){
+      const d = kini - lalu;
+      arah = Math.abs(d) < 0.005 ? '<span class="tarah datar">&#8213;</span>'
+        : d > 0 ? `<span class="tarah naik">&#9650; ${f2(d)}</span>`
+                : `<span class="tarah turun">&#9660; ${f2(-d)}</span>`;
+    }
+    return `<tr><td>Butir ${x.no}</td>
+      ${tsTren.map(ts => `<td>${chip(t[ts])}</td>`).join('')}
+      <td>${arah}</td></tr>`;
+  }).join('');
+  return `<div class="kartu">
+    <div class="gulir"><table class="rin tren"><thead><tr>
+      <th style="text-align:left">Butir</th>
+      ${tsTren.map(ts => `<th>TS ${taDari(ts)}</th>`).join('')}
+      <th>&Delta; setahun</th>
+    </tr></thead><tbody>${baris}</tbody></table></div>
+    <p class="ctt" style="font-size:12.5px;color:var(--muted);margin-top:10px">
+    Jendela tiap butir ikut bergeser: kolom TS ${esc(taDari(tsTren[0]))} menilai
+    seolah-olah pengajuan dilakukan pada TS itu, memakai data tiga/lima tahun
+    sebelumnya. Kolom lama wajar lebih kosong bila datanya belum sejauh itu.
+    Butir dari tabel pengaturan dan BOP bernilai tunggal sehingga sama di
+    ketiga kolom.</p></div>`;
+}
+
 function render(){
   const daftar = [
     {no:'6',  f: butir06},
@@ -963,9 +1010,22 @@ function render(){
     {no:'46', f: butir46}, {no:'47', f: butir47},
     {no:'49', f: butir49}, {no:'50', f: butir50}, {no:'51', f: butir51},
   ];
+  const skorDari = h => { const m = h.match(/class="angka ?(n4)?">([\d.]+)</); return m ? +m[2] : null; };
+
+  // Tren 3 TS: tiap butir dihitung ulang pada TS-2, TS-1, dan TS dengan
+  // menggeser TS global sementara. Seluruh fungsi butir membaca TS global,
+  // jadi satu mekanisme ini berlaku untuk semua rumus sekaligus.
+  const tsTren = [TS - 2, TS - 1, TS];
+  const tsAsli = TS;
+  const tren = {};
+  tsTren.forEach(t => {
+    TS = t;
+    daftar.forEach(x => { (tren[x.no] = tren[x.no] || {})[t] = skorDari(x.f()); });
+  });
+  TS = tsAsli;
+
   const kartu = {};
   daftar.forEach(x => kartu[x.no] = x.f());
-  const skorDari = h => { const m = h.match(/class="angka ?(n4)?">([\d.]+)</); return m ? +m[2] : null; };
   const semuaSkor = [];
   const ring = daftar.map(x => {
     const sN = skorDari(kartu[x.no]);
@@ -1007,6 +1067,8 @@ function render(){
             'Tabel 3.a.3 LKPS', bagianIntegrasi())}
     ${seksiLipat('keterlibatan', 'Keterlibatan mahasiswa pada karya dosen', '',
             bagianKeterlibatan())}
+    ${seksiLipat('tren', 'Tren skor 3 TS terakhir',
+            tsTren.map(taDari).join(' · '), bagianTren(daftar, tren, tsTren), true)}
 
     <footer>Diperbarui ${esc(D.diperbarui || '')} · Rumus mengikuti Matriks
     Penilaian APS-AV 2025 1.0 Program Sarjana · Tidak ditampilkan: butir
