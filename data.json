@@ -339,21 +339,24 @@
     "internasional": 0,
     "nasional": 4,
     "wilayah": 0,
-    "tanpa_tingkat": 0
+    "tanpa_tingkat": 0,
+    "pendidikan": 0
    },
    {
     "tahun": 2025,
     "internasional": 1,
     "nasional": 2,
     "wilayah": 0,
-    "tanpa_tingkat": 0
+    "tanpa_tingkat": 0,
+    "pendidikan": 0
    },
    {
     "tahun": 2023,
     "internasional": 1,
     "nasional": 0,
     "wilayah": 0,
-    "tanpa_tingkat": 0
+    "tanpa_tingkat": 0,
+    "pendidikan": 0
    }
   ],
   "kegiatan_mhs": [

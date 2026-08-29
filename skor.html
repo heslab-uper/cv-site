@@ -541,17 +541,15 @@ function kartuManualKosong(no, judul, kunci){
 function butir06(){
   const N = ndtps();
   const j = jumlahJendela(((D.akreditasi || {}).kerjasama) || [],
-      ['internasional', 'nasional', 'wilayah', 'tanpa_tingkat'], 3);
-  const keg = jumlahJendela(((D.akreditasi || {}).kegiatan_mhs) || []
-      .filter(r => r.kategori === 'penelitian'), ['total'], 3);
-  // N2/N3 = jumlah kerja sama (baris mitra) penelitian & PkM — di agregat
-  // kerjasama tidak dipisah kategori, jadi dipakai totalnya; N1 manual.
-  const n1 = IS('kerjasama_pendidikan_3th');
-  const totalMitra = j.internasional + j.nasional + j.wilayah + j.tanpa_tingkat;
+      ['internasional', 'nasional', 'wilayah', 'tanpa_tingkat', 'pendidikan'], 3);
+  // Seluruh komponen RK kini berasal dari data: baris mitra pada karya
+  // (penelitian & PkM) ditambah lembar kerjasama (pendidikan dan MoU
+  // payung). Tidak ada lagi angka manual di tabel pengaturan.
+  const total = j.internasional + j.nasional + j.wilayah + j.tanpa_tingkat;
   let skor1 = null, ket1 = '';
-  if (n1 == null) ket1 = 'RK menunggu <code>kerjasama_pendidikan_3th</code> di tabel pengaturan.';
-  else if (N) { const RK = (n1 + totalMitra) / N; skor1 = Math.min(4, RK);
-    ket1 = `RK = (${n1} + ${totalMitra}) / ${N} = ${f2(RK)}.`; }
+  if (N) { const RK = total / N; skor1 = Math.min(4, RK);
+    ket1 = `RK = ${total} / ${N} = ${f2(RK)}` +
+      (j.pendidikan ? `, termasuk ${j.pendidikan} kerja sama pendidikan.` : '.'); }
   const skor2 = skorRasio(j.internasional, j.nasional, j.wilayah, 2, 6, 8);
   const skor = skor1 == null ? null : (skor1 + 2 * skor2) / 3;
   const isi = `
@@ -559,12 +557,15 @@ function butir06(){
       <tr><td>Internasional (NI)</td><td>${j.internasional}</td></tr>
       <tr><td>Nasional (NN)</td><td>${j.nasional}</td></tr>
       <tr><td>Wilayah/lokal (NW)</td><td>${j.wilayah}</td></tr>
-      ${j.tanpa_tingkat ? `<tr><td>Tanpa tingkat — lengkapi di data mitra</td><td>${j.tanpa_tingkat}</td></tr>` : ''}
+      ${j.tanpa_tingkat ? `<tr><td>Tanpa tingkat — lengkapi di data mitra / lembar kerjasama</td><td>${j.tanpa_tingkat}</td></tr>` : ''}
+      <tr><td><b>Jumlah (N1+N2+N3)</b> — di antaranya pendidikan</td>
+          <td><b>${total}</b> — ${j.pendidikan}</td></tr>
     </tbody></table></div>
     <div class="rumus">Skor = (I + 2×II) / 3 · I: RK = (N1+N2+N3)/NDTPS · II: a=2, b=6, c=8 · sub-skor II = ${f2(skor2)}</div>`;
   return kartuButir('6', 'Kerja sama (Tabel 2.a LKPS)', isi, skor,
-    ket1 + ' Satu baris mitra pada karya terverifikasi dihitung satu kerja sama; ' +
-    'kerja sama pendidikan tidak tercatat di dashboard. Jendela ' + taRange(3) +
+    ket1 + ' Sumber: baris mitra pada karya terverifikasi (penelitian & PkM) ' +
+    'ditambah lembar <code>kerjasama</code> di Excel (pendidikan dan MoU ' +
+    'payung). Jendela ' + taRange(3) +
     (j.tanpa_tingkat ? `. ${j.tanpa_tingkat} mitra belum punya tingkat dan tidak menyumbang skor.` : '.'));
 }
 
@@ -920,7 +921,7 @@ function kelengkapanData(){
   const J = tracerJendela();
   const kerja = J.tr.reduce((a, t) => a + (t.kerja_internasional || 0)
     + (t.kerja_nasional || 0) + (t.kerja_wilayah || 0), 0);
-  const pengKosong = ['kerjasama_pendidikan_3th','bop','sks_basic_sciences','ndtt','kib_3th']
+  const pengKosong = ['bop','sks_basic_sciences','ndtt','kib_3th']
     .filter(k => PENG[k] == null);
   const daftar = [
     { s: `Lembar mahasiswa_ta — baris TS ${taDari(TS)}`,
@@ -944,10 +945,13 @@ function kelengkapanData(){
       cara: 'isi prestasi lomba 5 tahun terakhir' },
     { s: 'Tabel pengaturan di Supabase',
       ada: !PENG_GAGAL && !pengKosong.length,
-      butir: '6-I, 9, 19, 26, 36',
+      butir: '9, 19, 26, 36',
       cara: PENG_GAGAL
         ? 'jalankan patch 09 lebih dulu'
         : `isi kunci: ${pengKosong.join(', ')}` },
+    { s: 'Lembar kerjasama (pendidikan / MoU payung)',
+      ada: (((D.akreditasi || {}).kerjasama) || []).some(r => r.pendidikan > 0),
+      butir: '6', cara: 'isi lembar kerjasama di data-prodi.xlsx' },
     { s: 'Besaran dana pada kegiatan terverifikasi',
       ada: DANA.some(d => +d.besaran_dana > 0), butir: '10, 11',
       cara: 'lengkapi kolom besaran dana lewat input.html' },
