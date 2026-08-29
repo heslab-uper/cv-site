@@ -774,7 +774,39 @@ function reratTA(kunci){
   const n = rows.reduce((a, r) => a + r.lulusan, 0);
   return rows.reduce((a, r) => a + r[kunci] * r.lulusan, 0) / n;
 }
+// Kohort (Tabel 6.d) adalah sumber utama butir 44/45. Kohort dianggap
+// SELESAI bila tahun masuk + 8 <= TS ujung jendela — angkatan yang masih
+// berjalan akan menurunkan angka secara palsu karena lulusannya belum
+// lengkap. Jendela: tiga kohort selesai terbaru.
+function kohortSelesai(){
+  return (((D.akreditasi || {}).kohort) || [])
+    .filter(k => k.masuk > 0 && k.lulus > 0 && k.tahun_masuk + 8 <= TS)
+    .sort((a, b) => b.tahun_masuk - a.tahun_masuk).slice(0, 3);
+}
+
 function butir44(){
+  const K = kohortSelesai();
+  if (K.length){
+    const n = K.reduce((a, k) => a + k.lulus, 0);
+    const MS = K.reduce((a, k) => a + k.ms_tertimbang * k.lulus, 0) / n;
+    let skor = null, ket = '';
+    if (MS > 3.5 && MS <= 4.5) skor = 4;
+    else if (MS > 4.5 && MS <= 8) skor = (55 - 6 * MS) / 7;
+    else if (MS <= 3) skor = 0;
+    else ket = 'MS pada rentang 3–3,5 tahun tidak dicakup rumus instrumen. ';
+    const isi = `
+      <div class="gulir"><table class="rin"><thead><tr><th>Angkatan</th>
+        <th>Masuk</th><th>Lulus</th><th>MS taksiran</th></tr></thead><tbody>
+        ${K.map(k => `<tr><td>${k.tahun_masuk}</td><td>${k.masuk}</td>
+          <td>${k.lulus}</td><td>${f2(k.ms_tertimbang)}</td></tr>`).join('')}
+        <tr><td><b>Gabungan</b></td><td></td><td>${n}</td><td><b>${f2(MS)}</b></td></tr>
+      </tbody></table></div>
+      <div class="rumus">3,5 &lt; MS ≤ 4,5 → 4 · 4,5 &lt; MS ≤ 8 → (55 − 6×MS)/7 · MS ≤ 3 → 0</div>`;
+    return kartuButir(44, 'Masa studi (Tabel 6.d LKPS)', isi, skor, ket +
+      'Dari lembar kohort_lulusan, tiga angkatan selesai terbaru. MS ditaksir ' +
+      'dari titik tengah tiap pita masa studi (4,0 · 5,0 · 6,0 · 7,25) karena ' +
+      'tabel LKPS hanya memberi rentang, bukan nilai tunggal.');
+  }
   const MS = reratTA('rerata_masa_studi');
   if (MS == null)
     return kartuButir(44, 'Masa studi (Tabel 6.d LKPS)', `<p class="kosong">Isi
@@ -789,6 +821,24 @@ function butir44(){
     skor, ket + ' Rerata tertimbang jumlah lulusan, 3 TS terakhir.');
 }
 function butir45(){
+  const K = kohortSelesai();
+  if (K.length){
+    const masuk = K.reduce((a, k) => a + k.masuk, 0);
+    const tepat = K.reduce((a, k) => a + k.lulus_3_5_sd_4_5, 0);
+    const fr = masuk ? tepat / masuk : 0;
+    const skor = fr >= 0.5 ? 4 : fr > 0 ? 1 + 6 * fr : 0;
+    const isi = `
+      <div class="gulir"><table class="rin"><thead><tr><th>Angkatan</th>
+        <th>Masuk (a)</th><th>Lulus tepat waktu (b)</th></tr></thead><tbody>
+        ${K.map(k => `<tr><td>${k.tahun_masuk}</td><td>${k.masuk}</td>
+          <td>${k.lulus_3_5_sd_4_5}</td></tr>`).join('')}
+        <tr><td><b>Gabungan</b></td><td><b>${masuk}</b></td><td><b>${tepat}</b></td></tr>
+      </tbody></table></div>
+      <div class="rumus">PTW = (b/a) × 100% = ${f2(fr * 100)}% · ≥ 50% → 4 · 0 &lt; PTW &lt; 50% → 1 + (6 × PTW)</div>`;
+    return kartuButir(45, 'Kelulusan tepat waktu (Tabel 6.d LKPS)', isi, skor,
+      'Tepat waktu = pita masa studi 3,5 < MS ≤ 4,5 pada lembar ' +
+      'kohort_lulusan; penyebutnya jumlah mahasiswa masuk angkatan itu.');
+  }
   const P = reratTA('persen_tepat_waktu');
   if (P == null)
     return kartuButir(45, 'Kelulusan tepat waktu (Tabel 6.d LKPS)', `<p class="kosong">Isi
@@ -931,9 +981,9 @@ function kelengkapanData(){
       ada: (((D.akreditasi || {}).ta) || []).some(r => r.tahun_ts >= TS - 2
         && r.tahun_ts <= TS && r.lulusan > 0 && r.rerata_ipk > 0),
       butir: '42', cara: 'isi jumlah_lulusan dan rerata_ipk_lulusan' },
-    { s: 'mahasiswa_ta — masa studi dan lulus tepat waktu',
-      ada: reratTA('rerata_masa_studi') != null && reratTA('persen_tepat_waktu') != null,
-      butir: '44, 45', cara: 'isi rerata_masa_studi_tahun dan persen_lulus_tepat_waktu' },
+    { s: 'Lembar kohort_lulusan (Tabel 6.d)',
+      ada: kohortSelesai().length > 0, butir: '44, 45',
+      cara: 'isi per angkatan: jumlah masuk dan lulusan per pita masa studi' },
     { s: `Lembar tracer_lulusan — tahun lulus ${TS - 2}–${TS - 1}`,
       ada: J.terlacak > 0, butir: '49, 50',
       cara: 'isi baris tracer untuk kedua tahun lulus itu' },

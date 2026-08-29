@@ -333,6 +333,58 @@
     "persen_tepat_waktu": 0.0
    }
   ],
+  "kohort": [
+   {
+    "tahun_masuk": 2023,
+    "masuk": 0,
+    "lulus": 0,
+    "lulus_3_5_sd_4_5": 0,
+    "lulus_4_5_sd_5_5": 0,
+    "lulus_5_5_sd_6_5": 0,
+    "lulus_6_5_sd_8": 0,
+    "ms_tertimbang": 0.0
+   },
+   {
+    "tahun_masuk": 2022,
+    "masuk": 0,
+    "lulus": 0,
+    "lulus_3_5_sd_4_5": 0,
+    "lulus_4_5_sd_5_5": 0,
+    "lulus_5_5_sd_6_5": 0,
+    "lulus_6_5_sd_8": 0,
+    "ms_tertimbang": 0.0
+   },
+   {
+    "tahun_masuk": 2021,
+    "masuk": 0,
+    "lulus": 0,
+    "lulus_3_5_sd_4_5": 0,
+    "lulus_4_5_sd_5_5": 0,
+    "lulus_5_5_sd_6_5": 0,
+    "lulus_6_5_sd_8": 0,
+    "ms_tertimbang": 0.0
+   },
+   {
+    "tahun_masuk": 2020,
+    "masuk": 0,
+    "lulus": 0,
+    "lulus_3_5_sd_4_5": 0,
+    "lulus_4_5_sd_5_5": 0,
+    "lulus_5_5_sd_6_5": 0,
+    "lulus_6_5_sd_8": 0,
+    "ms_tertimbang": 0.0
+   },
+   {
+    "tahun_masuk": 2019,
+    "masuk": 0,
+    "lulus": 0,
+    "lulus_3_5_sd_4_5": 0,
+    "lulus_4_5_sd_5_5": 0,
+    "lulus_5_5_sd_6_5": 0,
+    "lulus_6_5_sd_8": 0,
+    "ms_tertimbang": 0.0
+   }
+  ],
   "kerjasama": [
    {
     "tahun": 2026,
