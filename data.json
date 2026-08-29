@@ -149,6 +149,33 @@
      "korespondensi": false
     }
    ]
+  },
+  {
+   "judul": "Risk-Based Inspection in Offshore Structures: A Systematic Approach",
+   "tahun": 2023,
+   "tahun_ts": 2023,
+   "jenis": "prosiding",
+   "terbitan": "Atlantis Press",
+   "tingkat": "internasional",
+   "indeksasi": null,
+   "doi": "https://doi.org/10.2991/978-94-6463-134-0_53",
+   "url": "https://www.atlantis-press.com/proceedings/mest-22/125985996",
+   "mitra": [
+    {
+     "nama": "Universiti Technology Petronas",
+     "tingkat": "internasional",
+     "negara": "Malaysia"
+    }
+   ],
+   "mahasiswa": 0,
+   "penulis": [
+    {
+     "nama": "Arianta",
+     "slug": "arianta",
+     "peran": "anggota",
+     "korespondensi": false
+    }
+   ]
   }
  ],
  "kegiatan": [
@@ -187,6 +214,56 @@
      "korespondensi": false
     }
    ]
+  },
+  {
+   "judul": "EDUKASI KERENTANAN PESISIR DAN MITIGASINYA MENURUT PANDANGAN TEKNIK SIPIL",
+   "tahun": 2024,
+   "tahun_ts": 2024,
+   "kategori": "pkm",
+   "tingkat": "wilayah_lokal",
+   "skema": "Mandiri / biaya sendiri",
+   "kelompok": "Mandiri / biaya sendiri",
+   "mitra": [],
+   "mahasiswa": 0,
+   "penulis": [
+    {
+     "nama": "Arianta",
+     "slug": "arianta",
+     "peran": "anggota",
+     "korespondensi": false
+    },
+    {
+     "nama": "Teuku Mahlil",
+     "slug": "teuku-mahlil",
+     "peran": "anggota",
+     "korespondensi": false
+    }
+   ]
+  },
+  {
+   "judul": "STUDI KETAHANAN BETON TERHADAP ASAM",
+   "tahun": 2023,
+   "tahun_ts": 2023,
+   "kategori": "penelitian",
+   "tingkat": "wilayah_lokal",
+   "skema": "Hibah internal universitas",
+   "kelompok": "Hibah internal perguruan tinggi",
+   "mitra": [],
+   "mahasiswa": 3,
+   "penulis": [
+    {
+     "nama": "Arianta",
+     "slug": "arianta",
+     "peran": "anggota",
+     "korespondensi": false
+    },
+    {
+     "nama": "Ranny Adriana",
+     "slug": "ranny-adriana",
+     "peran": "anggota",
+     "korespondensi": false
+    }
+   ]
   }
  ],
  "prestasi_agregat": [],
@@ -198,6 +275,13 @@
    "kategori": "penelitian",
    "keterlibatan": 2,
    "mahasiswa_unik": 2
+  },
+  {
+   "tahun": 2023,
+   "tahun_ts": 2023,
+   "kategori": "penelitian",
+   "keterlibatan": 3,
+   "mahasiswa_unik": 3
   }
  ],
  "dtps": {
@@ -263,11 +347,30 @@
     "nasional": 2,
     "wilayah": 0,
     "tanpa_tingkat": 0
+   },
+   {
+    "tahun": 2023,
+    "internasional": 1,
+    "nasional": 0,
+    "wilayah": 0,
+    "tanpa_tingkat": 0
    }
   ],
   "kegiatan_mhs": [
    {
     "tahun": 2026,
+    "kategori": "penelitian",
+    "total": 1,
+    "dengan_mahasiswa": 1
+   },
+   {
+    "tahun": 2024,
+    "kategori": "pkm",
+    "total": 1,
+    "dengan_mahasiswa": 0
+   },
+   {
+    "tahun": 2023,
     "kategori": "penelitian",
     "total": 1,
     "dengan_mahasiswa": 1
@@ -280,6 +383,22 @@
     "luar_negeri": 0,
     "dalam_negeri": 1,
     "pt_mandiri": 0,
+    "tanpa_sumber": 0
+   },
+   {
+    "tahun": 2024,
+    "kategori": "pkm",
+    "luar_negeri": 0,
+    "dalam_negeri": 0,
+    "pt_mandiri": 1,
+    "tanpa_sumber": 0
+   },
+   {
+    "tahun": 2023,
+    "kategori": "penelitian",
+    "luar_negeri": 0,
+    "dalam_negeri": 0,
+    "pt_mandiri": 1,
     "tanpa_sumber": 0
    }
   ],
@@ -303,6 +422,16 @@
     "na4": 1,
     "nb1": 0,
     "nb2": 0,
+    "nb3": 0
+   },
+   {
+    "tahun": 2023,
+    "na1": 0,
+    "na2": 0,
+    "na3": 0,
+    "na4": 0,
+    "nb1": 0,
+    "nb2": 1,
     "nb3": 0
    }
   ],
