@@ -66,6 +66,11 @@
     padding:3px 0;cursor:pointer}
   .rekan input{width:auto;margin:0}
 
+  .rekan-item{display:flex;gap:10px;align-items:center;flex-wrap:wrap;
+    padding:6px 0;border-bottom:1px solid var(--line-soft)}
+  .rekan-item:last-child{border-bottom:0}
+  .rekan-item .r-peran{padding:5px 8px;font:inherit;font-size:13px}
+  .rekan-item select:disabled, .rekan-item input:disabled{opacity:.45}
   .mhs-baris{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
   .mhs-baris input{flex:1;min-width:110px}
   .mhs-baris input.nim{flex:0 0 130px}
@@ -430,6 +435,10 @@ function tampilForm(key){
 
       <div class="fld full"><label for="f_bukti_url">Tautan berkas bukti</label>
         <input id="f_bukti_url" type="url" placeholder="https://…" autocomplete="off">
+        <div class="sub">Untuk kontrak, laporan, atau berkas bermuatan dana:
+        setel berbagi OneDrive ke <b>"People in Universitas Pertamina"</b>,
+        bukan "anyone with the link". Artikel terbit / sertifikat publik
+        boleh tautan terbuka.</div>
         <div class="sub">Simpan berkasnya di folder <b>bukti-lkps</b> pada OneDrive
         atau Google Drive prodi, lalu tempelkan tautan berbaginya di sini.
         Pastikan tautan dapat dibuka tanpa perlu meminta izin.
@@ -477,9 +486,19 @@ function tampilForm(key){
       </div>` : ''}
 
       <div class="fld full"><label>Penulis lain dari prodi ini</label>
-        <div class="rekan">${dosenList.filter(d=>d.id!==saya.id).map(d=>
-          `<label><input type="checkbox" value="${d.id}"> ${esc(d.nama)}</label>`).join('')
-          || '<span class="kosong">Belum ada dosen lain terdaftar.</span>'}</div></div>
+        <div class="rekan">${dosenList.filter(d=>d.id!==saya.id).map(d=>`
+          <div class="rekan-item">
+            <label class="cek"><input type="checkbox" class="r-ikut" value="${d.id}"> ${esc(d.nama)}</label>
+            <select class="r-peran" disabled>${F.peran.map(([v,l])=>
+              `<option value="${v}" ${v==='anggota'?'selected':''}>${l}</option>`).join('')}</select>
+            ${F.korespondensi ? `<label class="cek"><input type="checkbox"
+              class="r-koresp" disabled> Korespondensi</label>` : ''}
+          </div>`).join('')
+          || '<span class="kosong">Belum ada dosen lain terdaftar.</span>'}</div>
+        <div class="sub">Tetapkan peran tiap rekan — penulis pertama dan
+          korespondensi ikut terhitung pada butir kinerja dosen yang
+          bersangkutan. Rekan yang dipilih tidak perlu menginput ulang
+          karya ini.</div></div>
 
       <div id="dupBox"></div>
 
@@ -495,8 +514,32 @@ function tampilForm(key){
   if(key === 'kegiatan') pasangSkema();
   pasangMahasiswa();
   pasangMitra();
+  pasangRekan();
   document.getElementById('frm').onsubmit = e=>{ e.preventDefault(); simpan(key); };
   muatKaryaSaya('daftar', 6);
+}
+
+// Kendali peran rekan hidup hanya saat rekannya dicentang, supaya jelas
+// mana yang ikut dan nilai peran tak terkirim tanpa sengaja.
+function pasangRekan(){
+  document.querySelectorAll('.rekan .r-ikut').forEach(c=>{
+    c.addEventListener('change', ()=>{
+      const it = c.closest('.rekan-item');
+      it.querySelector('.r-peran').disabled = !c.checked;
+      const kr = it.querySelector('.r-koresp');
+      if(kr){ kr.disabled = !c.checked; if(!c.checked) kr.checked = false; }
+    });
+  });
+}
+
+function bacaRekan(){
+  return [...document.querySelectorAll('.rekan .rekan-item')]
+    .filter(it=>it.querySelector('.r-ikut').checked)
+    .map(it=>({
+      dosen_id: it.querySelector('.r-ikut').value,
+      peran: it.querySelector('.r-peran').value,
+      korespondensi: !!it.querySelector('.r-koresp')?.checked,
+    }));
 }
 
 // Daftar mahasiswa disusun di memori dulu, baru disimpan bersama karya.
@@ -755,6 +798,19 @@ async function simpan(key){
     }
   }
 
+  // Peran rekan dibaca dan diperiksa SEBELUM karya dibuat, supaya batal
+  // di sini tidak meninggalkan karya yatim tanpa penulis lengkap.
+  const rekan = bacaRekan();
+  const jumlahPertama = (peran === 'penulis_pertama' || peran === 'ketua' ? 1 : 0)
+    + rekan.filter(r=>r.peran === 'penulis_pertama' || r.peran === 'ketua').length;
+  if(jumlahPertama > 1 && !confirm(
+      'Ada lebih dari satu orang berperan penulis pertama/ketua pada entri '
+      + 'ini. Itu sah untuk co-first author, tetapi sering juga salah pilih. '
+      + 'Lanjutkan?')){
+    fm.textContent = 'Dibatalkan — periksa peran para penulis.';
+    return;
+  }
+
   // 2. simpan
   fm.textContent = 'Menyimpan…';
   try{
@@ -764,11 +820,9 @@ async function simpan(key){
       .select('id').single();
     if(error) throw error;
 
-    const rekan = [...document.querySelectorAll('.rekan input:checked')].map(c=>c.value);
     const baris = [
       { karya_id:k.id, dosen_id:saya.id, peran, korespondensi:koresp, ditambahkan_sendiri:false },
-      ...rekan.map(id=>({ karya_id:k.id, dosen_id:id, peran:'anggota',
-                          korespondensi:false, ditambahkan_sendiri:false }))];
+      ...rekan.map(r=>({ karya_id:k.id, ...r, ditambahkan_sendiri:false }))];
     const { error:eP } = await sb.from('karya_penulis').insert(baris);
     if(eP) throw eP;
 
