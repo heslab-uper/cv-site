@@ -251,8 +251,9 @@ function angkaNaik(sel){
 let D=null, periode='ts3', urutKol='publikasi', urutTurun=true;
 // MODE periode: 'kal' = tahun kalender (perilaku lama), 'ts' = tahun
 // akademik (1 Sep - 31 Agu). Entri karya membawa tahun_ts dari bangun.py;
-// data lembar Excel tanpa bulan (prestasi, karya mandiri mahasiswa)
-// memakai tahun kalendernya sebagai pendekatan di mode TS.
+// Seluruh sumber kini membawa tahun_ts (karya dari form web, prestasi
+// dan karya mandiri mahasiswa dari kolom bulan di Excel). Baris yang
+// kolom bulannya dikosongkan jatuh ke tahun kalendernya.
 let MODE = (function(){ try { return sessionStorage.getItem('modeThn') || 'kal'; }
                         catch { return 'kal'; } })();
 const thn = x => MODE === 'ts' ? +(x.tahun_ts ?? x.tahun) : +x.tahun;
@@ -740,6 +741,23 @@ function bagianMahasiswa(H){
     return {l, n, t:arr.length, p:pct(n,arr.length)};
   });
 
+  // Prestasi dipisah akademik / non-akademik karena butir 43 menilai
+  // keduanya terpisah lalu menimbangnya ((I x 3) + II) / 4 — melihatnya
+  // tergabung menyembunyikan sisi mana yang lemah.
+  const pres = (D.prestasi_agregat||[]).filter(x=>cocok(thn(x)));
+  const isAka = p => String(p.bidang||'').startsWith('akademik');
+  const jml = arr => arr.reduce((a,b)=>a+b.jumlah,0);
+  const pAka = jml(pres.filter(isAka));
+  const pNon = jml(pres.filter(p=>!isAka(p)));
+  const tk = p => { const t=String(p.tingkat||'').toLowerCase();
+    return t.includes('internasional') ? 'internasional'
+         : t.includes('nasional') ? 'nasional' : 'wilayah'; };
+  const pAkaInt = jml(pres.filter(p=>isAka(p) && tk(p)==='internasional'));
+  const pNonInt = jml(pres.filter(p=>!isAka(p) && tk(p)==='internasional'));
+  const silang = ['internasional','nasional','wilayah'].map(t=>({
+    t, aka: jml(pres.filter(p=>isAka(p) && tk(p)===t)),
+       non: jml(pres.filter(p=>!isAka(p) && tk(p)===t)) }));
+
   return `
     <div class="ringkas">
       <div><b>${total}</b><span>Keterlibatan</span>
@@ -748,8 +766,10 @@ function bagianMahasiswa(H){
            <em>batas atas, lihat catatan</em></div>
       <div><b>${sum('keterlibatan','penelitian')}</b><span>Di penelitian</span></div>
       <div><b>${sum('keterlibatan','publikasi')}</b><span>Di publikasi</span></div>
-      <div><b>${H.totalPres}</b><span>Prestasi lomba</span>
-           <em>dari lembar Excel</em></div>
+      <div><b>${pAka}</b><span>Prestasi akademik</span>
+           <em>${pAkaInt} internasional</em></div>
+      <div><b>${pNon}</b><span>Prestasi non-akademik</span>
+           <em>${pNonInt} internasional</em></div>
     </div>
 
     <div class="kartu" style="margin-top:16px">
@@ -767,6 +787,28 @@ function bagianMahasiswa(H){
       per tahun dan kategori, sehingga seorang mahasiswa yang terlibat di dua
       kategori terhitung dua kali. Untuk hitungan unik yang tepat, lihat
       laporan internal.</p>
+    </div>
+
+    <div class="kartu" style="margin-top:16px">
+      <h3 style="font-family:var(--mono);font-size:10.5px;letter-spacing:.11em;
+                 text-transform:uppercase;color:var(--muted);font-weight:400;
+                 margin:0 0 12px">Prestasi menurut bidang dan tingkat</h3>
+      ${pAka + pNon === 0
+        ? `<p class="kosong">Belum ada prestasi tercatat pada periode ini.
+           Diisi lewat lembar <code>prestasi_mahasiswa</code> di Excel.</p>`
+        : `<div class="gulir"><table class="rin"><thead><tr>
+        <th style="text-align:left">Tingkat</th><th>Akademik</th>
+        <th>Non-akademik</th><th>Jumlah</th></tr></thead><tbody>
+        ${silang.map(r=>`<tr><td>${rapi(r.t)}</td><td>${r.aka}</td>
+          <td>${r.non}</td><td>${r.aka + r.non}</td></tr>`).join('')}
+        <tr><td><b>Jumlah</b></td><td><b>${pAka}</b></td>
+            <td><b>${pNon}</b></td><td><b>${pAka + pNon}</b></td></tr>
+      </tbody></table></div>
+      <p class="kaki" style="margin-top:14px">Butir 43 menimbang prestasi
+      akademik tiga kali lebih berat daripada non-akademik
+      (Skor = ((I&times;3) + II) / 4), sehingga kekurangan di kolom akademik
+      berdampak lebih besar. Skor per bidang ada di halaman
+      <a href="skor.html">kalkulator skor</a>.</p>`}
     </div>`;
 }
 
