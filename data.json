@@ -199,6 +199,33 @@
    ]
   },
   {
+   "judul": " Quantitative risk-based inspection analysis for assessing offshore structure",
+   "tahun": 2025,
+   "tahun_ts": 2025,
+   "jenis": "prosiding",
+   "terbitan": "IOP Conference Series: Earth and Environmental Science",
+   "tingkat": "internasional",
+   "indeksasi": "scopus_q4",
+   "doi": "10.1088/1755-1315/1464/1/012036",
+   "url": "https://iopscience.iop.org/article/10.1088/1755-1315/1464/1/012036/pdf",
+   "mitra": [
+    {
+     "nama": "PT. Kerbau Laut Enjiniring",
+     "tingkat": "nasional",
+     "negara": "Indonesia"
+    }
+   ],
+   "mahasiswa": 1,
+   "penulis": [
+    {
+     "nama": "Arianta",
+     "slug": "arianta",
+     "peran": "penulis_pertama",
+     "korespondensi": true
+    }
+   ]
+  },
+  {
    "judul": "Accessibility and Land Use Effect of Residential Area with Different TOD Typology to Value Creation",
    "tahun": 2024,
    "tahun_ts": 2024,
@@ -440,6 +467,33 @@
    ]
   },
   {
+   "judul": "NUMERICAL ASSESSMENT OF SUBSEA PIPELINE PRESSURE CAPACITY DUE TO EXTERNAL CIRCUMFERENTIAL SEMI-ELLIPTICAL CRACK",
+   "tahun": 2023,
+   "tahun_ts": 2023,
+   "jenis": "jurnal",
+   "terbitan": "International Journal of GEOMATE",
+   "tingkat": "internasional",
+   "indeksasi": "scopus_q3",
+   "doi": "https://doi.org/10.21660/2023.108.3734 ",
+   "url": "https://geomatejournal.com/geomate/article/view/3734",
+   "mitra": [
+    {
+     "nama": "Institut Teknologi Bandung",
+     "tingkat": "nasional",
+     "negara": "Indonesia"
+    }
+   ],
+   "mahasiswa": 0,
+   "penulis": [
+    {
+     "nama": "Arianta",
+     "slug": "arianta",
+     "peran": "anggota",
+     "korespondensi": false
+    }
+   ]
+  },
+  {
    "judul": "POTENTIAL USE OF GLASS WASTE POWDER AS A CEMENT REPLACEMENT IN CEMENT-BASED MORTAR",
    "tahun": 2023,
    "tahun_ts": 2023,
@@ -468,6 +522,33 @@
      "slug": "gati-annisa-hayu",
      "peran": "penulis_pertama",
      "korespondensi": true
+    }
+   ]
+  },
+  {
+   "judul": "Risk-Based Inspection in Offshore Structures: A Systematic Approach",
+   "tahun": 2023,
+   "tahun_ts": 2023,
+   "jenis": "prosiding",
+   "terbitan": "Atlantis Pres",
+   "tingkat": "internasional",
+   "indeksasi": null,
+   "doi": "https://doi.org/10.2991/978-94-6463-134-0_53",
+   "url": "https://www.atlantis-press.com/proceedings/mest-22/125985996",
+   "mitra": [
+    {
+     "nama": "Universiti Teknologi PETRONAS",
+     "tingkat": "internasional",
+     "negara": "Malaysia"
+    }
+   ],
+   "mahasiswa": 0,
+   "penulis": [
+    {
+     "nama": "Arianta",
+     "slug": "arianta",
+     "peran": "anggota",
+     "korespondensi": false
     }
    ]
   }
@@ -722,6 +803,13 @@
    "mahasiswa_unik": 4
   },
   {
+   "tahun": 2025,
+   "tahun_ts": 2025,
+   "kategori": "publikasi",
+   "keterlibatan": 1,
+   "mahasiswa_unik": 1
+  },
+  {
    "tahun": 2023,
    "tahun_ts": 2023,
    "kategori": "penelitian",
@@ -738,7 +826,7 @@
    "guru_besar": 1,
    "tanpa_jabatan": 2
   },
-  "karya_utama_internasional": 2,
+  "karya_utama_internasional": 3,
   "karya_utama_rinci": [
    {
     "slug": "gati-annisa-hayu",
@@ -747,6 +835,10 @@
    {
     "slug": "vani-arliani",
     "tahun": 2026
+   },
+   {
+    "slug": "arianta",
+    "tahun": 2025
    },
    {
     "slug": "gati-annisa-hayu",
@@ -871,7 +963,7 @@
    {
     "tahun": 2025,
     "internasional": 0,
-    "nasional": 4,
+    "nasional": 5,
     "wilayah": 0,
     "tanpa_tingkat": 0,
     "pendidikan": 0
@@ -886,8 +978,8 @@
    },
    {
     "tahun": 2023,
-    "internasional": 0,
-    "nasional": 5,
+    "internasional": 1,
+    "nasional": 6,
     "wilayah": 0,
     "tanpa_tingkat": 0,
     "pendidikan": 0
@@ -987,7 +1079,7 @@
     "na4": 2,
     "nb1": 0,
     "nb2": 0,
-    "nb3": 0
+    "nb3": 1
    },
    {
     "tahun": 2024,
@@ -1004,13 +1096,24 @@
     "na1": 0,
     "na2": 0,
     "na3": 0,
-    "na4": 0,
+    "na4": 1,
     "nb1": 0,
-    "nb2": 0,
+    "nb2": 1,
     "nb3": 3
    }
   ],
-  "publikasi_mhs": [],
+  "publikasi_mhs": [
+   {
+    "tahun": 2025,
+    "na1": 0,
+    "na2": 0,
+    "na3": 0,
+    "na4": 0,
+    "nb1": 0,
+    "nb2": 0,
+    "nb3": 1
+   }
+  ],
   "luaran_dtps": [],
   "luaran_mhs": []
  },
