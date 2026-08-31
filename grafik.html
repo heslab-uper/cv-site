@@ -106,9 +106,12 @@ const WARNA = ['#0C2A4D', '#5C86B0', '#00954E', '#B8860B', '#C8102E', '#6B4E9B']
 // tengah bila ada lompatan, supaya sumbu waktu tidak menipu.
 function tahunDeret(n){
   const th = new Set();
-  (D.publikasi || []).forEach(p => th.add(thn(p)));
-  (D.kegiatan || []).forEach(k => th.add(thn(k)));
-  (D.prestasi_agregat || []).forEach(p => th.add(thn(p)));
+  // Semua sumber bertahun ikut menentukan sumbu — kalau hanya luaran atau
+  // rekognisi yang terisi, grafiknya tetap punya rentang waktu.
+  [D.publikasi, D.kegiatan, D.prestasi_agregat, D.luaran_dosen,
+   D.rekognisi, D.integrasi, D.mahasiswa_agregat]
+    .forEach(arr => (arr || []).forEach(x => th.add(thn(x))));
+  ((D.akreditasi || {}).ta || []).forEach(r => th.add(r.tahun_ts));
   const ada = [...th].filter(Boolean).sort((a, b) => a - b);
   if (!ada.length) return [];
   const ahir = ada[ada.length - 1];
@@ -411,6 +414,179 @@ function grafikMitra(th){
     kaki: 'Kerja sama aktif per periode (butir 6). Sumber: mitra pada karya + lembar kerjasama.'};
 }
 
+
+// ---------------------------------------------------------------------
+//  Grafik tambahan — muncul sendiri begitu sumber datanya terisi.
+// ---------------------------------------------------------------------
+
+// Butir 34 & 47 — luaran per jenis (bobot NLP: paten 3, TTG/buku 2, HKI 1)
+function grafikLuaran(th){
+  const kat = th.map(labelThn);
+  const PETA = {paten:'paten', paten_sederhana:'paten', ttg:'ttg',
+    teknologi_tepat_guna:'ttg', produk:'ttg', buku_isbn:'bc', buku:'bc',
+    book_chapter:'bc', bab_buku:'bc', hak_cipta:'hki'};
+  const kel = (l) => PETA[(l.jenis||'').toLowerCase()] || null;
+  const jml = (t, k) => (D.luaran_dosen||[]).filter(l => thn(l)===t && kel(l)===k).length;
+  const seri = [
+    {nama:'Paten', warna:WARNA[0], nilai: th.map(t=>jml(t,'paten'))},
+    {nama:'TTG / produk', warna:WARNA[1], nilai: th.map(t=>jml(t,'ttg'))},
+    {nama:'Buku / bab', warna:WARNA[2], nilai: th.map(t=>jml(t,'bc'))},
+    {nama:'Hak cipta', warna:WARNA[3], nilai: th.map(t=>jml(t,'hki'))},
+  ];
+  if(!seri.some(x=>x.nilai.some(v=>v>0))) return null;
+  return {svg: batang(kat, seri, 'luaran'),
+    kaki:'Butir 34 (RLP) menimbang paten 3&times;, TTG/produk dan buku 2&times;, '
+       + 'hak cipta 1&times;. Jenis lain tidak menyumbang skor.'};
+}
+
+// Butir 35 — DTPS dengan karya utama internasional (jendela 3 TS bergulir)
+function grafikKaryaUtama(th){
+  const rinci = (D.dtps||{}).karya_utama_rinci;
+  const n = (D.dtps||{}).jumlah || 0;
+  if(!Array.isArray(rinci) || !n || !rinci.length) return null;
+  const nilai = th.map(t => {
+    const org = new Set(rinci.filter(x => x.tahun >= t-2 && x.tahun <= t).map(x=>x.slug));
+    return Math.round((org.size / n) * 100);
+  });
+  return {svg: garis(th.map(labelThn),
+      [{nama:'PKDTPS (%)', warna:WARNA[0], nilai},
+       {nama:'Ambang skor 4 (50%)', warna:'#C8102E',
+        nilai: th.map(()=>50)}], '%', 100),
+    kaki:`Persentase dari ${n} DTPS yang punya karya sebagai penulis pertama/`
+       + 'korespondensi di jurnal internasional bereputasi, prosiding terindeks, '
+       + 'atau paten — jendela tiga tahun bergulir tiap titik.'};
+}
+
+// Butir 37 — rekognisi DTPS per tingkat
+function grafikRekognisi(th){
+  const R = D.rekognisi || [];
+  if(!R.length) return null;
+  const tk = r => { const t=(r.tingkat||'').toLowerCase();
+    return t.includes('internasional') ? 'i' : t.includes('nasional') ? 'n' : 'w'; };
+  const jml = (t,k) => R.filter(r => thn(r)===t && tk(r)===k).length;
+  const seri = [
+    {nama:'Internasional', warna:WARNA[0], nilai: th.map(t=>jml(t,'i'))},
+    {nama:'Nasional', warna:WARNA[1], nilai: th.map(t=>jml(t,'n'))},
+    {nama:'Wilayah', warna:WARNA[3], nilai: th.map(t=>jml(t,'w'))},
+  ];
+  if(!seri.some(x=>x.nilai.some(v=>v>0))) return null;
+  return {svg: batang(th.map(labelThn), seri, 'rekognisi'),
+    kaki:'Visiting lecturer, keynote/invited speaker, editor/mitra bestari, '
+       + 'tenaga ahli, dan penghargaan (butir 37).'};
+}
+
+// Butir 40 & 42 — rasio mahasiswa:DTPS dan IPK lulusan
+function grafikMahasiswaTA(){
+  const ta = ((D.akreditasi||{}).ta || []).slice()
+    .filter(r => r.mahasiswa_aktif > 0 || r.rerata_ipk > 0)
+    .sort((a,b)=>a.tahun_ts-b.tahun_ts);
+  if(!ta.length) return null;
+  const n = (D.dtps||{}).jumlah || 0;
+  const seri = [
+    {nama:'Rasio mahasiswa : DTPS', warna:WARNA[0],
+     nilai: ta.map(r => n && r.mahasiswa_aktif ? +(r.mahasiswa_aktif/n).toFixed(1) : null)},
+    {nama:'Rerata IPK lulusan', warna:WARNA[2],
+     nilai: ta.map(r => r.rerata_ipk > 0 ? +r.rerata_ipk.toFixed(2) : null)},
+  ];
+  if(!seri.some(x=>x.nilai.some(v=>v!=null))) return null;
+  return {svg: garis(ta.map(r=>r.ta.replace(/^\d{2}/,'').replace(/\/\d{2}/,'/'+r.ta.slice(-2))), seri, ''),
+    kaki:'Butir 40 menilai rasio ideal 15–25 dengan NDTPS ≥ 12; butir 42 '
+       + 'menuntut RIPK ≥ 3,25 untuk skor 4. Perhatikan satuan tiap seri.'};
+}
+
+// Butir 44 & 45 — masa studi dan kelulusan tepat waktu per kohort
+function grafikKohort(){
+  const K = ((D.akreditasi||{}).kohort || []).slice()
+    .filter(k => k.masuk > 0 && k.lulus > 0)
+    .sort((a,b)=>a.tahun_masuk-b.tahun_masuk);
+  if(!K.length) return null;
+  return {svg: garis(K.map(k=>'A'+String(k.tahun_masuk).slice(2)),
+    [{nama:'Masa studi (tahun)', warna:WARNA[0],
+      nilai: K.map(k=>+k.ms_tertimbang.toFixed(2))},
+     {nama:'Lulus tepat waktu (%)', warna:WARNA[2],
+      nilai: K.map(k=>Math.round((k.lulus_3_5_sd_4_5/k.masuk)*100))}], ''),
+    kaki:'Per angkatan masuk (Tabel 6.d). Butir 44 optimal pada 3,5–4,5 tahun; '
+       + 'butir 45 menuntut ≥ 50% lulus tepat waktu. Angkatan termuda '
+       + 'belum lengkap kelulusannya.'};
+}
+
+// Butir 17 — integrasi penelitian/PkM ke mata kuliah
+function grafikIntegrasi(th){
+  const I = D.integrasi || [];
+  if(!I.length) return null;
+  const seri = [
+    {nama:'Dari penelitian', warna:WARNA[0],
+     nilai: th.map(t=>I.filter(x=>thn(x)===t && (x.bentuk||'').includes('peneliti')).length)},
+    {nama:'Dari PkM', warna:WARNA[2],
+     nilai: th.map(t=>I.filter(x=>thn(x)===t && (x.bentuk||'').includes('pkm')).length)},
+  ];
+  if(!seri.some(x=>x.nilai.some(v=>v>0))) return null;
+  return {svg: batang(th.map(labelThn), seri, 'mata kuliah'),
+    kaki:'Hasil penelitian/PkM yang menjadi bahan ajar (butir 17). '
+       + 'Instrumen menuntut ≥ 10% dari mata kuliah inti prodi.'};
+}
+
+// Butir 51 — tingkat tempat kerja lulusan
+function grafikTempatKerja(){
+  const tr = (D.tracer||[]).filter(t =>
+    (t.kerja_internasional||0)+(t.kerja_nasional||0)+(t.kerja_wilayah||0) > 0)
+    .sort((a,b)=>b.tahun_lulus-a.tahun_lulus);
+  if(!tr.length) return null;
+  return {svg: tumpuk(tr.map(t=>({label:'Lulus '+t.tahun_lulus,
+      a:t.kerja_internasional||0, b:t.kerja_nasional||0, c:t.kerja_wilayah||0})),
+    [{k:'a',n:'Multinasional'},{k:'b',n:'Nasional'},{k:'c',n:'Wilayah'}],
+    [WARNA[0], WARNA[1], WARNA[3]]),
+    kaki:'Butir 51, faktor a=5% b=20% c=90% terhadap jumlah lulusan.'};
+}
+
+// Ringkas semua butir kuantitatif — capaian vs ambang skor 4
+function grafikCakupan(){
+  const A = (D.akreditasi||{});
+  const n = (D.dtps||{}).jumlah || 0;
+  const jab = (D.dtps||{}).jabatan || {};
+  const item = [
+    {n:'DTPS doktor (b.27)', v: n ? Math.round(((D.dtps||{}).doktor||0)/n*100) : null, amb:50},
+    {n:'Lektor ke atas (b.28)', v: n ? Math.round(((jab.lektor||0)+(jab.lektor_kepala||0)+(jab.guru_besar||0))/n*100) : null, amb:70},
+  ];
+  const ta = (A.ta||[]).slice().sort((a,b)=>b.tahun_ts-a.tahun_ts)[0];
+  if(ta && ta.rerata_ipk > 0)
+    item.push({n:'RIPK lulusan (b.42)', v:+(ta.rerata_ipk/4*100).toFixed(0), amb:81,
+               teks:ta.rerata_ipk.toFixed(2)});
+  const rinci = (D.dtps||{}).karya_utama_rinci;
+  if(Array.isArray(rinci) && n){
+    const t = Math.max(...rinci.map(x=>x.tahun), 0);
+    const org = new Set(rinci.filter(x=>x.tahun>=t-2).map(x=>x.slug));
+    item.push({n:'Karya utama int. (b.35)', v:Math.round(org.size/n*100), amb:50});
+  }
+  const pakai = item.filter(x=>x.v!=null);
+  if(!pakai.length) return null;
+  // batang horizontal dengan penanda ambang
+  const tb = 40, tinggi = 14 + pakai.length*tb + 26, kiri = 158, kanan = W-46;
+  let g = '';
+  pakai.forEach((it,i)=>{
+    const y = 14 + i*tb;
+    const w = (Math.min(it.v,100)/100)*(kanan-kiri);
+    const xa = kiri + (it.amb/100)*(kanan-kiri);
+    const lolos = it.v >= it.amb;
+    g += `<text x="${kiri-10}" y="${y+16}" text-anchor="end" font-size="11.5"
+            fill="#14212E">${esc(it.n)}</text>
+          <rect x="${kiri}" y="${y}" width="${kanan-kiri}" height="22" fill="#EBEEEB" rx="1"/>
+          <rect x="${kiri}" y="${y}" width="${w}" height="22" rx="1"
+            fill="${lolos ? '#00954E' : '#5C86B0'}"/>
+          <line x1="${xa}" y1="${y-3}" x2="${xa}" y2="${y+25}" stroke="#C8102E"
+            stroke-width="2" stroke-dasharray="3 2"/>
+          <text x="${kanan+6}" y="${y+16}" font-size="11" fill="#5D6B78">${
+            it.teks || it.v+'%'}</text>`;
+  });
+  g += `<g transform="translate(${kiri}, ${tinggi-8})">
+      <line x1="0" y1="-4" x2="0" y2="4" stroke="#C8102E" stroke-width="2"/>
+      <text x="8" y="0" font-size="11" fill="#14212E">garis merah = ambang skor 4</text></g>`;
+  return {svg:`<svg viewBox="0 0 ${W} ${tinggi}" xmlns="http://www.w3.org/2000/svg">
+      <rect width="${W}" height="${tinggi}" fill="#ffffff"/>${g}</svg>`,
+    kaki:'Capaian terkini dibanding ambang skor 4 tiap butir. RIPK '
+       + 'ditampilkan sebagai persentase dari 4,00.'};
+}
+
 // ---------------------------------------------------------------------
 //  Rangka halaman
 // ---------------------------------------------------------------------
@@ -431,6 +607,23 @@ function render(){
      ket:'Mendukung narasi butir 23, 25, dan 46.', f:()=>grafikMahasiswaKarya(th)},
     {id:'tracer', judul:'Waktu tunggu dan kesesuaian bidang kerja',
      ket:'Mendukung narasi butir 49 dan 50, kriteria Luaran.', f:grafikTracer},
+    {id:'luaran', judul:'Luaran penelitian dan PkM per jenis',
+     ket:'Mendukung narasi butir 34 dan 47.', f:()=>grafikLuaran(th)},
+    {id:'karya-utama', judul:'DTPS dengan karya utama internasional',
+     ket:'Mendukung narasi butir 35 dan syarat perlu peringkat.', f:()=>grafikKaryaUtama(th)},
+    {id:'rekognisi', judul:'Rekognisi DTPS per tingkat',
+     ket:'Mendukung narasi butir 37.', f:()=>grafikRekognisi(th)},
+    {id:'integrasi', judul:'Integrasi penelitian/PkM ke mata kuliah',
+     ket:'Mendukung narasi butir 17 dan kriteria Pendidikan.', f:()=>grafikIntegrasi(th)},
+    {id:'mahasiswa-ta', judul:'Rasio mahasiswa dan IPK lulusan',
+     ket:'Mendukung narasi butir 40 dan 42.', f:grafikMahasiswaTA},
+    {id:'kohort', judul:'Masa studi dan kelulusan tepat waktu',
+     ket:'Mendukung narasi butir 44 dan 45.', f:grafikKohort},
+    {id:'tempat-kerja', judul:'Tingkat tempat kerja lulusan',
+     ket:'Mendukung narasi butir 51.', f:grafikTempatKerja},
+    {id:'cakupan', judul:'Capaian terhadap ambang skor 4',
+     ket:'Ringkas beberapa butir kunci — berguna untuk bagian evaluasi capaian kinerja.',
+     f:grafikCakupan},
   ];
 
   const kartu = daftar.map(g => {
