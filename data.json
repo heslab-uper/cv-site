@@ -474,6 +474,42 @@
  ],
  "kegiatan": [
   {
+   "judul": "Integrasi Data Satelit, Pemodelan Hidrologi, dan Machine Learning untuk Peringatan Dini Banjir JABODETABEK",
+   "tahun": 2026,
+   "tahun_ts": 2026,
+   "kategori": "penelitian",
+   "tingkat": "nasional",
+   "skema": "Penelitian Fundamental",
+   "kelompok": "Kemendiktisaintek / DPPM",
+   "mitra": [
+    {
+     "nama": "Kementerian Pekerjaan Umum",
+     "tingkat": "nasional",
+     "negara": ""
+    },
+    {
+     "nama": "Universitas Trisakti",
+     "tingkat": "nasional",
+     "negara": ""
+    }
+   ],
+   "mahasiswa": 2,
+   "penulis": [
+    {
+     "nama": "Arlyn Aristo",
+     "slug": "arlyn-aristo",
+     "peran": "anggota",
+     "korespondensi": false
+    },
+    {
+     "nama": "Nurul Fajar Januriyadi",
+     "slug": "nurul-fajar-januriyadi",
+     "peran": "ketua",
+     "korespondensi": false
+    }
+   ]
+  },
+  {
    "judul": "Integrated Community Based Water Harvesting System: Teknologi Tepat Guna untuk Transformasi Kemandirian Air Bersih Barengkok Maju",
    "tahun": 2026,
    "tahun_ts": 2026,
@@ -675,8 +711,8 @@
    "tahun": 2026,
    "tahun_ts": 2026,
    "kategori": "penelitian",
-   "keterlibatan": 4,
-   "mahasiswa_unik": 4
+   "keterlibatan": 6,
+   "mahasiswa_unik": 6
   },
   {
    "tahun": 2026,
@@ -827,7 +863,7 @@
    {
     "tahun": 2026,
     "internasional": 0,
-    "nasional": 6,
+    "nasional": 8,
     "wilayah": 1,
     "tanpa_tingkat": 0,
     "pendidikan": 0
@@ -861,8 +897,8 @@
    {
     "tahun": 2026,
     "kategori": "penelitian",
-    "total": 1,
-    "dengan_mahasiswa": 1
+    "total": 2,
+    "dengan_mahasiswa": 2
    },
    {
     "tahun": 2026,
@@ -894,7 +930,7 @@
     "tahun": 2026,
     "kategori": "penelitian",
     "luar_negeri": 0,
-    "dalam_negeri": 0,
+    "dalam_negeri": 1,
     "pt_mandiri": 1,
     "tanpa_sumber": 0
    },
