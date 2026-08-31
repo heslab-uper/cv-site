@@ -97,6 +97,44 @@
    ]
   },
   {
+   "judul": "Utilization of realtime GSMaP satellite data for flood early warning in Bekasi watershed using UPerRRM",
+   "tahun": 2026,
+   "tahun_ts": 2026,
+   "jenis": "jurnal",
+   "terbitan": "International Journal of Disaster Management",
+   "tingkat": "nasional",
+   "indeksasi": "sinta_1_2",
+   "doi": "10.24815/ijdm.v9.i1.377",
+   "url": "https://publications.usk.ac.id/index.php/IJDM/article/view/377",
+   "mitra": [
+    {
+     "nama": "Kementerian PU",
+     "tingkat": "nasional",
+     "negara": ""
+    },
+    {
+     "nama": "Universitas Trisakti",
+     "tingkat": "nasional",
+     "negara": ""
+    }
+   ],
+   "mahasiswa": 0,
+   "penulis": [
+    {
+     "nama": "Arlyn Aristo",
+     "slug": "arlyn-aristo",
+     "peran": "anggota",
+     "korespondensi": false
+    },
+    {
+     "nama": "Nurul Fajar Januriyadi",
+     "slug": "nurul-fajar-januriyadi",
+     "peran": "penulis_pertama",
+     "korespondensi": true
+    }
+   ]
+  },
+  {
    "judul": "Accessibility and Land Use Effect of Residential Area with Different TOD Typology to Value Creation",
    "tahun": 2024,
    "tahun_ts": 2024,
@@ -390,7 +428,7 @@
    {
     "tahun": 2026,
     "internasional": 0,
-    "nasional": 0,
+    "nasional": 2,
     "wilayah": 1,
     "tanpa_tingkat": 0,
     "pendidikan": 0
@@ -449,7 +487,7 @@
    {
     "tahun": 2026,
     "na1": 0,
-    "na2": 0,
+    "na2": 1,
     "na3": 0,
     "na4": 0,
     "nb1": 0,
