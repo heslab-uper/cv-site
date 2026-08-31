@@ -76,6 +76,38 @@
  ],
  "publikasi": [
   {
+   "judul": "Damage Detection in Concrete Beams through Cement-based Piezoelectric Composites Polarized under Low Electric Fields",
+   "tahun": 2026,
+   "tahun_ts": 2026,
+   "jenis": "jurnal",
+   "terbitan": "Civil and Environmental Engineering",
+   "tingkat": "internasional",
+   "indeksasi": "scopus_q3",
+   "doi": "10.2478/cee-2026-0064",
+   "url": "https://reference-global.com/article/10.2478/cee-2026-0064",
+   "mitra": [
+    {
+     "nama": "Institut Teknologi Sepuluh Nopember Surabaya",
+     "tingkat": "nasional",
+     "negara": "Indonesia"
+    },
+    {
+     "nama": "Politeknik Perkapalan Negeri Surabaya",
+     "tingkat": "nasional",
+     "negara": "Indonesia"
+    }
+   ],
+   "mahasiswa": 0,
+   "penulis": [
+    {
+     "nama": "Gati Annisa Hayu",
+     "slug": "gati-annisa-hayu",
+     "peran": "penulis_pertama",
+     "korespondensi": true
+    }
+   ]
+  },
+  {
    "judul": "Inhibiting Factors of Engineering Consultant",
    "tahun": 2026,
    "tahun_ts": 2026,
@@ -93,6 +125,38 @@
      "slug": "vani-arliani",
      "peran": "penulis_pertama",
      "korespondensi": true
+    }
+   ]
+  },
+  {
+   "judul": "Monitoring Compressive Strength Development of Mortar Using Cement-Based Piezoelectric Composite Under Low Electric Field Polarization",
+   "tahun": 2026,
+   "tahun_ts": 2026,
+   "jenis": "jurnal",
+   "terbitan": "Civil Engineering Journal",
+   "tingkat": "internasional",
+   "indeksasi": "scopus_q1",
+   "doi": "10.28991/CEJ-2026-012-05-08",
+   "url": "https://civilejournal.org/index.php/cej/article/view/6067",
+   "mitra": [
+    {
+     "nama": "Institut Teknologi Sepuluh Nopember Surabaya",
+     "tingkat": "nasional",
+     "negara": "Indonesia"
+    },
+    {
+     "nama": "Politeknik Perkapalan Negeri Surabaya",
+     "tingkat": "nasional",
+     "negara": "Indonesia"
+    }
+   ],
+   "mahasiswa": 0,
+   "penulis": [
+    {
+     "nama": "Gati Annisa Hayu",
+     "slug": "gati-annisa-hayu",
+     "peran": "penulis_pertama",
+     "korespondensi": false
     }
    ]
   },
@@ -158,6 +222,70 @@
      "slug": "vani-arliani",
      "peran": "penulis_pertama",
      "korespondensi": true
+    }
+   ]
+  },
+  {
+   "judul": "Bottom ash as a solid waste of the palm oil industry turned into a high-value cement replacement for sustainable cement-based materials",
+   "tahun": 2024,
+   "tahun_ts": 2025,
+   "jenis": "jurnal",
+   "terbitan": "Journal of Material Cycles and Waste Management",
+   "tingkat": "internasional",
+   "indeksasi": "scopus_q2",
+   "doi": "10.1007/s10163-024-02064-9",
+   "url": "https://link.springer.com/article/10.1007/s10163-024-02064-9",
+   "mitra": [
+    {
+     "nama": "Institut Teknologi Sepuluh Nopember Surabaya",
+     "tingkat": "nasional",
+     "negara": "Indonesia"
+    },
+    {
+     "nama": "Politeknik Perkapalan Negeri Surabaya",
+     "tingkat": "nasional",
+     "negara": "Indonesia"
+    }
+   ],
+   "mahasiswa": 0,
+   "penulis": [
+    {
+     "nama": "Gati Annisa Hayu",
+     "slug": "gati-annisa-hayu",
+     "peran": "anggota",
+     "korespondensi": false
+    }
+   ]
+  },
+  {
+   "judul": "Effect of Low Electric Field Polarization Condition on Properties of Cement-based Piezoelectric Ceramic Composite",
+   "tahun": 2024,
+   "tahun_ts": 2025,
+   "jenis": "jurnal",
+   "terbitan": "Civil Engineering and Architecture",
+   "tingkat": "internasional",
+   "indeksasi": "scopus_q2",
+   "doi": "10.13189/cea.2024.120603",
+   "url": "https://www.hrpub.org/journals/article_info.php?aid=14515",
+   "mitra": [
+    {
+     "nama": "Institut Teknologi Sepuluh Nopember Surabaya",
+     "tingkat": "nasional",
+     "negara": "Indonesia"
+    },
+    {
+     "nama": "Politeknik Perkapalan Negeri Surabaya",
+     "tingkat": "nasional",
+     "negara": "Indonesia"
+    }
+   ],
+   "mahasiswa": 0,
+   "penulis": [
+    {
+     "nama": "Gati Annisa Hayu",
+     "slug": "gati-annisa-hayu",
+     "peran": "penulis_pertama",
+     "korespondensi": false
     }
    ]
   },
@@ -319,11 +447,19 @@
    "guru_besar": 1,
    "tanpa_jabatan": 2
   },
-  "karya_utama_internasional": 1,
+  "karya_utama_internasional": 2,
   "karya_utama_rinci": [
+   {
+    "slug": "gati-annisa-hayu",
+    "tahun": 2026
+   },
    {
     "slug": "vani-arliani",
     "tahun": 2026
+   },
+   {
+    "slug": "gati-annisa-hayu",
+    "tahun": 2025
    },
    {
     "slug": "vani-arliani",
@@ -428,8 +564,16 @@
    {
     "tahun": 2026,
     "internasional": 0,
-    "nasional": 2,
+    "nasional": 6,
     "wilayah": 1,
+    "tanpa_tingkat": 0,
+    "pendidikan": 0
+   },
+   {
+    "tahun": 2025,
+    "internasional": 0,
+    "nasional": 4,
+    "wilayah": 0,
     "tanpa_tingkat": 0,
     "pendidikan": 0
    },
@@ -489,10 +633,20 @@
     "na1": 0,
     "na2": 1,
     "na3": 0,
-    "na4": 0,
+    "na4": 2,
     "nb1": 0,
     "nb2": 0,
     "nb3": 1
+   },
+   {
+    "tahun": 2025,
+    "na1": 0,
+    "na2": 0,
+    "na3": 0,
+    "na4": 2,
+    "nb1": 0,
+    "nb2": 0,
+    "nb3": 0
    },
    {
     "tahun": 2024,
