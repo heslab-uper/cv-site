@@ -448,7 +448,9 @@ function tampilForm(key){
       ${F.mitra ? `
       <div class="fld full"><label>Institusi mitra</label>
         <div class="mhs-baris">
-          <input id="mtr_nama" type="text" placeholder="Nama institusi mitra">
+          <input id="mtr_nama" type="text" placeholder="Nama institusi mitra"
+                 list="mitra_dikenal" autocomplete="off">
+          <datalist id="mitra_dikenal"></datalist>
           <select id="mtr_tingkat">
             <option value="">Tingkat kerja sama…</option>
             ${TINGKAT.map(([v,l])=>`<option value="${v}">${l}</option>`).join('')}
@@ -598,6 +600,32 @@ function pasangMahasiswa(){
 
 // Mitra disusun di memori dulu, sama seperti mahasiswa, agar tidak ada
 // baris mitra yatim bila penyimpanan karyanya gagal.
+// Daftar mitra yang pernah dipakai, untuk saran ketik dan pencegahan
+// nama kembar. Dimuat sekali per sesi halaman.
+let mitraDikenal = null;
+async function muatMitraDikenal(){
+  if(mitraDikenal) return mitraDikenal;
+  const { data } = await sb.from('karya_mitra')
+    .select('institusi, tingkat, negara').limit(2000);
+  // Kunci normalisasi: huruf kecil, tanpa tanda baca, tanpa awalan badan
+  // usaha, spasi dirapatkan — supaya "PT. PP (Persero) Tbk" dan
+  // "PT PP Persero Tbk" dikenali sebagai satu institusi yang sama.
+  const peta = new Map();
+  (data || []).forEach(m=>{
+    const k = kunciMitra(m.institusi);
+    if(k && !peta.has(k)) peta.set(k, m);
+  });
+  mitraDikenal = peta;
+  return peta;
+}
+
+function kunciMitra(nama){
+  return String(nama || '').toLowerCase()
+    .replace(/[.,()\-—–"']/g, ' ')
+    .replace(/\b(pt|cv|ud|tbk|persero|the|universitas|university|univ)\b/g, ' ')
+    .replace(/\s+/g, ' ').trim();
+}
+
 function pasangMitra(){
   mitraSementara = [];
   const nama = document.getElementById('mtr_nama');
@@ -620,6 +648,16 @@ function pasangMitra(){
     });
   };
 
+  // Isi saran dari mitra yang pernah dipakai; gagal memuat tidak
+  // menghalangi input, hanya kehilangan sarannya.
+  muatMitraDikenal().then(peta=>{
+    const dl = document.getElementById('mitra_dikenal');
+    if(!dl) return;
+    dl.innerHTML = [...peta.values()]
+      .sort((a,b)=>a.institusi.localeCompare(b.institusi))
+      .map(m=>`<option value="${esc(m.institusi)}">`).join('');
+  }).catch(()=>{});
+
   const tambah = ()=>{
     const n = nama.value.trim();
     if(!n){ alert('Isi nama institusi mitra lebih dulu.'); return; }
@@ -627,10 +665,33 @@ function pasangMitra(){
     if(mitraSementara.some(x=>x.institusi.toLowerCase() === n.toLowerCase())){
       alert('Institusi ini sudah ada di daftar.'); return;
     }
+    // Ejaan berbeda untuk institusi yang sama membuat butir 6 menghitung
+    // dua mitra. Tawarkan ejaan baku yang sudah dipakai sebelumnya.
+    const sama = mitraDikenal && mitraDikenal.get(kunciMitra(n));
+    if(sama && sama.institusi !== n){
+      if(confirm(`Institusi ini sepertinya sudah pernah dicatat dengan ejaan:\n\n`
+                 + `    ${sama.institusi}\n\n`
+                 + `Pakai ejaan itu agar tidak terhitung sebagai dua mitra berbeda?`)){
+        nama.value = sama.institusi;
+        if(!tingkat.value && sama.tingkat) tingkat.value = sama.tingkat;
+        if(!negara.value && sama.negara) negara.value = sama.negara;
+        return;   // beri kesempatan memeriksa sebelum menambah
+      }
+    }
     mitraSementara.push({institusi:n, tingkat:tingkat.value,
                          negara: negara.value.trim() || null});
     nama.value=''; negara.value=''; tingkat.value=''; nama.focus(); gambar();
   };
+
+  // Memilih dari daftar saran ikut mengisi tingkat dan negara yang
+  // tercatat sebelumnya, sehingga satu institusi tidak berpindah-pindah
+  // tingkat antar-entri.
+  nama.addEventListener('change', ()=>{
+    const sama = mitraDikenal && mitraDikenal.get(kunciMitra(nama.value));
+    if(!sama) return;
+    if(!tingkat.value && sama.tingkat) tingkat.value = sama.tingkat;
+    if(!negara.value && sama.negara) negara.value = sama.negara;
+  });
 
   btn.onclick = tambah;
   [nama,negara].forEach(el=> el.onkeydown = e=>{

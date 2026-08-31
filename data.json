@@ -258,6 +258,38 @@
    ]
   },
   {
+   "judul": "Development of Cement-Based Piezoelectric Ceramic Composite as an Innovative Sensing Element and the Potential Use of Industrial Waste: a Review",
+   "tahun": 2024,
+   "tahun_ts": 2024,
+   "jenis": "jurnal",
+   "terbitan": "International Review of Civil Engineering (IRECE)",
+   "tingkat": "internasional",
+   "indeksasi": "scopus_q1",
+   "doi": "10.15866/irece.v15i4.24083",
+   "url": "https://www.praiseworthyprize.org/jsm/index.php?journal=irece&page=article&op=view&path[]=27831",
+   "mitra": [
+    {
+     "nama": "Institut Teknologi Sepuluh Nopember Surabaya",
+     "tingkat": "nasional",
+     "negara": "Indonesia"
+    },
+    {
+     "nama": "Politeknik Perkapalan Negeri Surabaya",
+     "tingkat": "nasional",
+     "negara": "Indonesia"
+    }
+   ],
+   "mahasiswa": 0,
+   "penulis": [
+    {
+     "nama": "Gati Annisa Hayu",
+     "slug": "gati-annisa-hayu",
+     "peran": "penulis_pertama",
+     "korespondensi": true
+    }
+   ]
+  },
+  {
    "judul": "Effect of Low Electric Field Polarization Condition on Properties of Cement-based Piezoelectric Ceramic Composite",
    "tahun": 2024,
    "tahun_ts": 2025,
@@ -317,6 +349,70 @@
    ]
   },
   {
+   "judul": "Compressive Strength Investigations Of Foamed Mortar Incorporating Sandblasting Waste As Supplementary Cementitious Materials",
+   "tahun": 2023,
+   "tahun_ts": 2024,
+   "jenis": "prosiding",
+   "terbitan": "IOP Conference Series: Earth and Environmental Science",
+   "tingkat": "internasional",
+   "indeksasi": "scopus_q3",
+   "doi": "10.1088/1755-1315/1265/1/012015",
+   "url": "https://iopscience.iop.org/article/10.1088/1755-1315/1265/1/012015",
+   "mitra": [
+    {
+     "nama": "Institut Teknologi Sepuluh Nopember Surabaya",
+     "tingkat": "nasional",
+     "negara": "Indonesia"
+    },
+    {
+     "nama": "Politeknik Perkapalan Negeri Surabaya",
+     "tingkat": "nasional",
+     "negara": "Indonesia"
+    }
+   ],
+   "mahasiswa": 0,
+   "penulis": [
+    {
+     "nama": "Gati Annisa Hayu",
+     "slug": "gati-annisa-hayu",
+     "peran": "anggota",
+     "korespondensi": false
+    }
+   ]
+  },
+  {
+   "judul": "ENCAPSULATION OF GROUND BOTTOM ASH AS SUPPLEMENTARY CEMENTITIOUS MATERIALS FOR CEMENT MORTAR",
+   "tahun": 2023,
+   "tahun_ts": 2023,
+   "jenis": "prosiding",
+   "terbitan": "Proceedings of International Structural Engineering and Construction",
+   "tingkat": "internasional",
+   "indeksasi": "scopus_q4",
+   "doi": "10.14455/isec.2023.10(1).sus-06",
+   "url": "https://www.isec-society.org/ISEC_PRESS/ISEC_12/xml/SUS-06.xml",
+   "mitra": [
+    {
+     "nama": "Institut Teknologi Sepuluh Nopember Surabaya",
+     "tingkat": "nasional",
+     "negara": "Indonesia"
+    },
+    {
+     "nama": "Politeknik Perkapalan Negeri Surabaya",
+     "tingkat": "nasional",
+     "negara": "Indonesia"
+    }
+   ],
+   "mahasiswa": 0,
+   "penulis": [
+    {
+     "nama": "Gati Annisa Hayu",
+     "slug": "gati-annisa-hayu",
+     "peran": "anggota",
+     "korespondensi": false
+    }
+   ]
+  },
+  {
    "judul": "Measuring TOD Index in Jakarta with Accessibility and Land Use Function – Case Study on Three Transit Nodes ",
    "tahun": 2023,
    "tahun_ts": 2023,
@@ -342,9 +438,66 @@
      "korespondensi": true
     }
    ]
+  },
+  {
+   "judul": "POTENTIAL USE OF GLASS WASTE POWDER AS A CEMENT REPLACEMENT IN CEMENT-BASED MORTAR",
+   "tahun": 2023,
+   "tahun_ts": 2023,
+   "jenis": "prosiding",
+   "terbitan": "Proceedings of International Structural Engineering and Construction",
+   "tingkat": "internasional",
+   "indeksasi": "scopus_q4",
+   "doi": "10.14455/isec.2023.10(1).sus-05",
+   "url": "https://www.isec-society.org/ISEC_PRESS/ISEC_12/xml/SUS-05.xml",
+   "mitra": [
+    {
+     "nama": "Institut Teknologi Sepuluh Nopember Surabaya",
+     "tingkat": "nasional",
+     "negara": "Indonesia"
+    },
+    {
+     "nama": "Politeknik Perkapalan Negeri Surabaya",
+     "tingkat": "nasional",
+     "negara": "Indonesia"
+    }
+   ],
+   "mahasiswa": 0,
+   "penulis": [
+    {
+     "nama": "Gati Annisa Hayu",
+     "slug": "gati-annisa-hayu",
+     "peran": "penulis_pertama",
+     "korespondensi": true
+    }
+   ]
   }
  ],
  "kegiatan": [
+  {
+   "judul": "Integrated Community Based Water Harvesting System: Teknologi Tepat Guna untuk Transformasi Kemandirian Air Bersih Barengkok Maju",
+   "tahun": 2026,
+   "tahun_ts": 2026,
+   "kategori": "pkm",
+   "tingkat": "wilayah_lokal",
+   "skema": "UPERAISAL — Pengabdian Masyarakat",
+   "kelompok": "Hibah internal perguruan tinggi",
+   "mitra": [],
+   "mahasiswa": 4,
+   "penulis": [
+    {
+     "nama": "Gati Annisa Hayu",
+     "slug": "gati-annisa-hayu",
+     "peran": "ketua",
+     "korespondensi": false
+    },
+    {
+     "nama": "Vani Arliani",
+     "slug": "vani-arliani",
+     "peran": "anggota",
+     "korespondensi": false
+    }
+   ]
+  },
   {
    "judul": "Pengaruh Kualitas Layanan Dan Aksesibilitas Terhadap Kepuasan Serta Perilaku Pengguna Transportasi Publik Di Jakarta: Dengan Pendekatan Structural Equation Modeling (SEM)",
    "tahun": 2026,
@@ -395,6 +548,101 @@
    ]
   },
   {
+   "judul": "Pengembangan Cement- based Piezoelectric Composite Sensor untuk Pemantauan Beban Struktural pada  Balok dalam Upaya Deteksi Dini dan Mitigasi Bencana",
+   "tahun": 2025,
+   "tahun_ts": 2025,
+   "kategori": "penelitian",
+   "tingkat": "nasional",
+   "skema": "PDD — Penelitian Disertasi Doktor",
+   "kelompok": "Kemendiktisaintek / DPPM",
+   "mitra": [],
+   "mahasiswa": 0,
+   "penulis": [
+    {
+     "nama": "Gati Annisa Hayu",
+     "slug": "gati-annisa-hayu",
+     "peran": "anggota",
+     "korespondensi": false
+    }
+   ]
+  },
+  {
+   "judul": "Studi Eksperimental Pengaruh Low Electric Field Polarization terhadap Sifat Cement-based Piezoelectric Ceramic Composite (CPC) dengan Penambahan Limbah Glass Powder",
+   "tahun": 2025,
+   "tahun_ts": 2025,
+   "kategori": "penelitian",
+   "tingkat": "wilayah_lokal",
+   "skema": "Hibah internal lainnya — sebutkan namanya",
+   "kelompok": "Hibah internal perguruan tinggi",
+   "mitra": [],
+   "mahasiswa": 0,
+   "penulis": [
+    {
+     "nama": "Gati Annisa Hayu",
+     "slug": "gati-annisa-hayu",
+     "peran": "anggota",
+     "korespondensi": false
+    }
+   ]
+  },
+  {
+   "judul": "(INVESTIGASI PENGARUH TIPE SENSOR DAN KONFIGURASI ELEKTRODE TERHADAP KEMAMPUAN SELF-SENSING MORTAR UNTUK MENUNJANG INFRASTRUKTUR CERDAS DAN  BERKELANJUTAN)",
+   "tahun": 2024,
+   "tahun_ts": 2024,
+   "kategori": "penelitian",
+   "tingkat": "wilayah_lokal",
+   "skema": "Hibah internal lainnya — sebutkan namanya",
+   "kelompok": "Hibah internal perguruan tinggi",
+   "mitra": [],
+   "mahasiswa": 0,
+   "penulis": [
+    {
+     "nama": "Gati Annisa Hayu",
+     "slug": "gati-annisa-hayu",
+     "peran": "ketua",
+     "korespondensi": false
+    }
+   ]
+  },
+  {
+   "judul": "PEMANFAATAN INDUSTRIAL WASTE MATERIALS UNTUK MENINGKATKAN KEMAMPUAN SELF-SENSING PADA MORTAR",
+   "tahun": 2023,
+   "tahun_ts": 2023,
+   "kategori": "penelitian",
+   "tingkat": "wilayah_lokal",
+   "skema": "Hibah internal lainnya — sebutkan namanya",
+   "kelompok": "Hibah internal perguruan tinggi",
+   "mitra": [],
+   "mahasiswa": 0,
+   "penulis": [
+    {
+     "nama": "Gati Annisa Hayu",
+     "slug": "gati-annisa-hayu",
+     "peran": "anggota",
+     "korespondensi": false
+    }
+   ]
+  },
+  {
+   "judul": "Pengaplikasian Material Piezokomposit Berbahan Dasar Semen dan Limbah Industri sebagai Elemen Sensor Alternatif yang Terintegrasi pada Struktur Beton",
+   "tahun": 2023,
+   "tahun_ts": 2023,
+   "kategori": "penelitian",
+   "tingkat": "nasional",
+   "skema": "PDD — Penelitian Disertasi Doktor",
+   "kelompok": "Kemendiktisaintek / DPPM",
+   "mitra": [],
+   "mahasiswa": 0,
+   "penulis": [
+    {
+     "nama": "Gati Annisa Hayu",
+     "slug": "gati-annisa-hayu",
+     "peran": "anggota",
+     "korespondensi": false
+    }
+   ]
+  },
+  {
    "judul": "STUDI KETAHANAN BETON TERHADAP ASAM",
    "tahun": 2023,
    "tahun_ts": 2023,
@@ -431,6 +679,13 @@
    "mahasiswa_unik": 4
   },
   {
+   "tahun": 2026,
+   "tahun_ts": 2026,
+   "kategori": "pkm",
+   "keterlibatan": 4,
+   "mahasiswa_unik": 4
+  },
+  {
    "tahun": 2023,
    "tahun_ts": 2023,
    "kategori": "penelitian",
@@ -462,8 +717,16 @@
     "tahun": 2025
    },
    {
+    "slug": "gati-annisa-hayu",
+    "tahun": 2024
+   },
+   {
     "slug": "vani-arliani",
     "tahun": 2024
+   },
+   {
+    "slug": "gati-annisa-hayu",
+    "tahun": 2023
    },
    {
     "slug": "vani-arliani",
@@ -580,7 +843,7 @@
    {
     "tahun": 2024,
     "internasional": 0,
-    "nasional": 2,
+    "nasional": 6,
     "wilayah": 0,
     "tanpa_tingkat": 0,
     "pendidikan": 0
@@ -588,7 +851,7 @@
    {
     "tahun": 2023,
     "internasional": 0,
-    "nasional": 1,
+    "nasional": 5,
     "wilayah": 0,
     "tanpa_tingkat": 0,
     "pendidikan": 0
@@ -602,9 +865,27 @@
     "dengan_mahasiswa": 1
    },
    {
-    "tahun": 2023,
+    "tahun": 2026,
+    "kategori": "pkm",
+    "total": 1,
+    "dengan_mahasiswa": 1
+   },
+   {
+    "tahun": 2025,
+    "kategori": "penelitian",
+    "total": 2,
+    "dengan_mahasiswa": 0
+   },
+   {
+    "tahun": 2024,
     "kategori": "penelitian",
     "total": 1,
+    "dengan_mahasiswa": 0
+   },
+   {
+    "tahun": 2023,
+    "kategori": "penelitian",
+    "total": 3,
     "dengan_mahasiswa": 1
    }
   ],
@@ -618,11 +899,35 @@
     "tanpa_sumber": 0
    },
    {
-    "tahun": 2023,
+    "tahun": 2026,
+    "kategori": "pkm",
+    "luar_negeri": 0,
+    "dalam_negeri": 0,
+    "pt_mandiri": 1,
+    "tanpa_sumber": 0
+   },
+   {
+    "tahun": 2025,
+    "kategori": "penelitian",
+    "luar_negeri": 0,
+    "dalam_negeri": 1,
+    "pt_mandiri": 1,
+    "tanpa_sumber": 0
+   },
+   {
+    "tahun": 2024,
     "kategori": "penelitian",
     "luar_negeri": 0,
     "dalam_negeri": 0,
     "pt_mandiri": 1,
+    "tanpa_sumber": 0
+   },
+   {
+    "tahun": 2023,
+    "kategori": "penelitian",
+    "luar_negeri": 0,
+    "dalam_negeri": 1,
+    "pt_mandiri": 2,
     "tanpa_sumber": 0
    }
   ],
@@ -653,10 +958,10 @@
     "na1": 0,
     "na2": 0,
     "na3": 0,
-    "na4": 1,
+    "na4": 2,
     "nb1": 0,
     "nb2": 0,
-    "nb3": 1
+    "nb3": 2
    },
    {
     "tahun": 2023,
@@ -666,7 +971,7 @@
     "na4": 0,
     "nb1": 0,
     "nb2": 0,
-    "nb3": 1
+    "nb3": 3
    }
   ],
   "publikasi_mhs": [],
