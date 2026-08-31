@@ -1,7 +1,7 @@
 {
  "prodi": "Teknik Sipil",
  "institusi": "Universitas Pertamina",
- "diperbarui": "31 August 2026",
+ "diperbarui": "01 September 2026",
  "dosen": [
   {
    "nama": "Adita Utami",
@@ -129,6 +129,27 @@
    ]
   },
   {
+   "judul": "Integrity Assessment of Offshore Pipeline Subjected to Anchor-Induced Dents Using Finite Element Analysis",
+   "tahun": 2026,
+   "tahun_ts": 2026,
+   "jenis": "prosiding",
+   "terbitan": "Applied Mechanics and Materials",
+   "tingkat": "internasional",
+   "indeksasi": "tidak_terindeks",
+   "doi": "doi:10.4028/p-yrw5zA",
+   "url": null,
+   "mitra": [],
+   "mahasiswa": 0,
+   "penulis": [
+    {
+     "nama": "Arianta",
+     "slug": "arianta",
+     "peran": "penulis_pertama",
+     "korespondensi": true
+    }
+   ]
+  },
+  {
    "judul": "Monitoring Compressive Strength Development of Mortar Using Cement-Based Piezoelectric Composite Under Low Electric Field Polarization",
    "tahun": 2026,
    "tahun_ts": 2026,
@@ -157,6 +178,27 @@
      "slug": "gati-annisa-hayu",
      "peran": "penulis_pertama",
      "korespondensi": false
+    }
+   ]
+  },
+  {
+   "judul": "Quantifying Corrosion Impact on Aging Offshore Platforms Using Nonlinear Pushover Analysis",
+   "tahun": 2026,
+   "tahun_ts": 2026,
+   "jenis": "prosiding",
+   "terbitan": null,
+   "tingkat": "internasional",
+   "indeksasi": "scopus_q4",
+   "doi": "https://doi.org/10.1007/978-3-032-18451-1_29",
+   "url": "https://link.springer.com/chapter/10.1007/978-3-032-18451-1_29",
+   "mitra": [],
+   "mahasiswa": 1,
+   "penulis": [
+    {
+     "nama": "Arianta",
+     "slug": "arianta",
+     "peran": "penulis_pertama",
+     "korespondensi": true
     }
    ]
   },
@@ -222,6 +264,33 @@
      "slug": "arianta",
      "peran": "penulis_pertama",
      "korespondensi": true
+    }
+   ]
+  },
+  {
+   "judul": "Stress Corrosion Cracking of Aluminum in Chloride-Containing Solution",
+   "tahun": 2025,
+   "tahun_ts": 2025,
+   "jenis": "prosiding",
+   "terbitan": "Materials Science Forum",
+   "tingkat": "internasional",
+   "indeksasi": "tidak_terindeks",
+   "doi": "https://doi.org/10.4028/p-iI3FNz",
+   "url": "https://www.scientific.net/MSF.1154.3",
+   "mitra": [],
+   "mahasiswa": 0,
+   "penulis": [
+    {
+     "nama": "Arianta",
+     "slug": "arianta",
+     "peran": "anggota",
+     "korespondensi": false
+    },
+    {
+     "nama": "Ranny Adriana",
+     "slug": "ranny-adriana",
+     "peran": "anggota",
+     "korespondensi": false
     }
    ]
   },
@@ -665,6 +734,49 @@
    ]
   },
   {
+   "judul": "Pemodelan Pengaruh Land Subsidence dan Sea Level Rise Terhadap Kondisi Hidrodinamika Pesisir Pantai Utara Jawa Tengah",
+   "tahun": 2025,
+   "tahun_ts": 2025,
+   "kategori": "penelitian",
+   "tingkat": "nasional",
+   "skema": "Hibah internal universitas",
+   "kelompok": "Hibah internal perguruan tinggi",
+   "mitra": [],
+   "mahasiswa": 4,
+   "penulis": [
+    {
+     "nama": "Arianta",
+     "slug": "arianta",
+     "peran": "anggota",
+     "korespondensi": false
+    },
+    {
+     "nama": "Fera Dwi Setyani",
+     "slug": "fera-dwi-setyani",
+     "peran": "anggota",
+     "korespondensi": false
+    },
+    {
+     "nama": "Nurul Fajar Januriyadi",
+     "slug": "nurul-fajar-januriyadi",
+     "peran": "anggota",
+     "korespondensi": false
+    },
+    {
+     "nama": "Ranny Adriana",
+     "slug": "ranny-adriana",
+     "peran": "anggota",
+     "korespondensi": false
+    },
+    {
+     "nama": "Teuku Mahlil",
+     "slug": "teuku-mahlil",
+     "peran": "ketua",
+     "korespondensi": false
+    }
+   ]
+  },
+  {
    "judul": "Pengembangan Cement- based Piezoelectric Composite Sensor untuk Pemantauan Beban Struktural pada  Balok dalam Upaya Deteksi Dini dan Mitigasi Bencana",
    "tahun": 2025,
    "tahun_ts": 2025,
@@ -716,6 +828,62 @@
     {
      "nama": "Gati Annisa Hayu",
      "slug": "gati-annisa-hayu",
+     "peran": "ketua",
+     "korespondensi": false
+    }
+   ]
+  },
+  {
+   "judul": "EDUKASI KERENTANAN PESISIR DAN MITIGASINYA MENURUT PANDANGAN TEKNIK SIPIL",
+   "tahun": 2024,
+   "tahun_ts": 2024,
+   "kategori": "pkm",
+   "tingkat": "wilayah_lokal",
+   "skema": "Mandiri / biaya sendiri",
+   "kelompok": "Mandiri / biaya sendiri",
+   "mitra": [
+    {
+     "nama": "SMA Negeri 45 Jakarta Utara",
+     "tingkat": "wilayah_lokal",
+     "negara": "Indonesia"
+    }
+   ],
+   "mahasiswa": 0,
+   "penulis": [
+    {
+     "nama": "Arianta",
+     "slug": "arianta",
+     "peran": "anggota",
+     "korespondensi": false
+    },
+    {
+     "nama": "Teuku Mahlil",
+     "slug": "teuku-mahlil",
+     "peran": "ketua",
+     "korespondensi": false
+    }
+   ]
+  },
+  {
+   "judul": "Light UP 2024: Inovasi Filter Air WATTER-B (Water Filter Barengkok) untuk perbaikan kualitas air Desa Barengkok",
+   "tahun": 2024,
+   "tahun_ts": 2025,
+   "kategori": "pkm",
+   "tingkat": "nasional",
+   "skema": "Hibah internal universitas",
+   "kelompok": "Hibah internal perguruan tinggi",
+   "mitra": [],
+   "mahasiswa": 0,
+   "penulis": [
+    {
+     "nama": "Arianta",
+     "slug": "arianta",
+     "peran": "anggota",
+     "korespondensi": false
+    },
+    {
+     "nama": "Teuku Mahlil",
+     "slug": "teuku-mahlil",
      "peran": "ketua",
      "korespondensi": false
     }
@@ -803,6 +971,20 @@
    "mahasiswa_unik": 4
   },
   {
+   "tahun": 2026,
+   "tahun_ts": 2026,
+   "kategori": "publikasi",
+   "keterlibatan": 1,
+   "mahasiswa_unik": 1
+  },
+  {
+   "tahun": 2025,
+   "tahun_ts": 2025,
+   "kategori": "penelitian",
+   "keterlibatan": 4,
+   "mahasiswa_unik": 4
+  },
+  {
    "tahun": 2025,
    "tahun_ts": 2025,
    "kategori": "publikasi",
@@ -828,6 +1010,10 @@
   },
   "karya_utama_internasional": 3,
   "karya_utama_rinci": [
+   {
+    "slug": "arianta",
+    "tahun": 2026
+   },
    {
     "slug": "gati-annisa-hayu",
     "tahun": 2026
@@ -972,7 +1158,7 @@
     "tahun": 2024,
     "internasional": 0,
     "nasional": 6,
-    "wilayah": 0,
+    "wilayah": 1,
     "tanpa_tingkat": 0,
     "pendidikan": 0
    },
@@ -1001,12 +1187,24 @@
    {
     "tahun": 2025,
     "kategori": "penelitian",
-    "total": 2,
+    "total": 3,
+    "dengan_mahasiswa": 1
+   },
+   {
+    "tahun": 2025,
+    "kategori": "pkm",
+    "total": 1,
     "dengan_mahasiswa": 0
    },
    {
     "tahun": 2024,
     "kategori": "penelitian",
+    "total": 1,
+    "dengan_mahasiswa": 0
+   },
+   {
+    "tahun": 2024,
+    "kategori": "pkm",
     "total": 1,
     "dengan_mahasiswa": 0
    },
@@ -1039,12 +1237,28 @@
     "kategori": "penelitian",
     "luar_negeri": 0,
     "dalam_negeri": 1,
+    "pt_mandiri": 2,
+    "tanpa_sumber": 0
+   },
+   {
+    "tahun": 2025,
+    "kategori": "pkm",
+    "luar_negeri": 0,
+    "dalam_negeri": 0,
     "pt_mandiri": 1,
     "tanpa_sumber": 0
    },
    {
     "tahun": 2024,
     "kategori": "penelitian",
+    "luar_negeri": 0,
+    "dalam_negeri": 0,
+    "pt_mandiri": 1,
+    "tanpa_sumber": 0
+   },
+   {
+    "tahun": 2024,
+    "kategori": "pkm",
     "luar_negeri": 0,
     "dalam_negeri": 0,
     "pt_mandiri": 1,
@@ -1068,8 +1282,8 @@
     "na3": 0,
     "na4": 2,
     "nb1": 0,
-    "nb2": 0,
-    "nb3": 1
+    "nb2": 1,
+    "nb3": 2
    },
    {
     "tahun": 2025,
@@ -1078,7 +1292,7 @@
     "na3": 0,
     "na4": 2,
     "nb1": 0,
-    "nb2": 0,
+    "nb2": 1,
     "nb3": 1
    },
    {
@@ -1103,6 +1317,16 @@
    }
   ],
   "publikasi_mhs": [
+   {
+    "tahun": 2026,
+    "na1": 0,
+    "na2": 0,
+    "na3": 0,
+    "na4": 0,
+    "nb1": 0,
+    "nb2": 0,
+    "nb3": 1
+   },
    {
     "tahun": 2025,
     "na1": 0,
