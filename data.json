@@ -295,6 +295,43 @@
    ]
   },
   {
+   "judul": "Toward Sustainable Flood Resilience: Assessing Efficacy of Paddy Field Dams to Reduce Floods in Jakarta",
+   "tahun": 2025,
+   "tahun_ts": 2025,
+   "jenis": "jurnal",
+   "terbitan": "Journal of Flood Risk Management",
+   "tingkat": "internasional",
+   "indeksasi": "scopus_q1",
+   "doi": "10.1111/jfr3.70020",
+   "url": "https://onlinelibrary.wiley.com/doi/full/10.1111/jfr3.70020",
+   "mitra": [
+    {
+     "nama": "Institut Teknologi Bandung",
+     "tingkat": "nasional",
+     "negara": "Indonesia"
+    },
+    {
+     "nama": "Toyama Prefectural University",
+     "tingkat": "internasional",
+     "negara": "Jepang"
+    },
+    {
+     "nama": "Universitas Sultan Ageng Tirtayasa",
+     "tingkat": "nasional",
+     "negara": ""
+    }
+   ],
+   "mahasiswa": 0,
+   "penulis": [
+    {
+     "nama": "Nurul Fajar Januriyadi",
+     "slug": "nurul-fajar-januriyadi",
+     "peran": "anggota",
+     "korespondensi": false
+    }
+   ]
+  },
+  {
    "judul": "Accessibility and Land Use Effect of Residential Area with Different TOD Typology to Value Creation",
    "tahun": 2024,
    "tahun_ts": 2024,
@@ -1050,7 +1087,16 @@
  },
  "tracer": [],
  "luaran_dosen": [],
- "rekognisi": [],
+ "rekognisi": [
+  {
+   "tahun": 2026,
+   "tahun_ts": 2026,
+   "dosen": "Nurul Fajar Januriyadi",
+   "bentuk": "invited_speaker",
+   "nama_kegiatan": " Invited speaker PPI ISHIKAWA SYMPOSIUM 2026",
+   "tingkat": "internasional"
+  }
+ ],
  "integrasi": [],
  "akreditasi": {
   "ta": [
@@ -1148,8 +1194,8 @@
    },
    {
     "tahun": 2025,
-    "internasional": 0,
-    "nasional": 5,
+    "internasional": 1,
+    "nasional": 7,
     "wilayah": 0,
     "tanpa_tingkat": 0,
     "pendidikan": 0
@@ -1273,7 +1319,12 @@
     "tanpa_sumber": 0
    }
   ],
-  "rekognisi_dtps": [],
+  "rekognisi_dtps": [
+   {
+    "slug": "nurul-fajar-januriyadi",
+    "tahun": 2026
+   }
+  ],
   "publikasi_dtps": [
    {
     "tahun": 2026,
@@ -1290,7 +1341,7 @@
     "na1": 0,
     "na2": 0,
     "na3": 0,
-    "na4": 2,
+    "na4": 3,
     "nb1": 0,
     "nb2": 1,
     "nb3": 1
