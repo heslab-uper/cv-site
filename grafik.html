@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Grafik untuk LED — Program Studi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --biru:#0C2A4D; --biru-2:#17436F; --biru-3:#5C86B0; --biru-4:#A9C3DA;
+    --merah:#C8102E; --hijau:#00954E; --emas:#B8860B; --ungu:#6B4E9B;
+    --bg:#F2F4F2; --panel:#fff; --ink:#14212E; --muted:#5D6B78;
+    --line:#D9DFDA; --line-soft:#EBEEEB;
+    --sans:'IBM Plex Sans',system-ui,sans-serif;
+    --mono:'IBM Plex Mono',ui-monospace,monospace;
+    --serif:'IBM Plex Serif',Georgia,serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);
+       font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 20px 90px}
+  a{color:var(--biru-2)}
+
+  .hero{position:relative;background:var(--biru);color:#fff;overflow:hidden;
+        border-bottom:4px solid var(--merah)}
+  .hero::before{content:'';position:absolute;inset:0;opacity:.13;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='70' viewBox='0 0 140 70'%3E%3Cg fill='none' stroke='%23ffffff' stroke-width='1'%3E%3Cpath d='M0 69.5H140M0 .5H140'/%3E%3Cpath d='M0 70L35 0L70 70L105 0L140 70'/%3E%3Cpath d='M35 0V70M105 0V70'/%3E%3C/g%3E%3C/svg%3E");
+    background-size:140px 70px}
+  .hero-in{position:relative;max-width:1180px;margin:0 auto;padding:28px 20px 26px}
+  .balik{display:inline-flex;gap:7px;align-items:center;text-decoration:none;
+         font-family:var(--mono);font-size:11px;letter-spacing:.1em;
+         text-transform:uppercase;color:#9FC2E0;margin-bottom:18px}
+  .balik:hover{color:#fff}
+  h1{font-family:var(--serif);font-size:clamp(24px,4vw,32px);font-weight:600;
+     letter-spacing:-.018em;margin:0;color:#fff}
+  .prodi{color:#B9CCDE;font-size:14.5px;margin-top:6px}
+  .kendali{display:flex;gap:9px;flex-wrap:wrap;margin-top:22px;align-items:center}
+  .kendali .lbl{font-family:var(--mono);font-size:10px;letter-spacing:.1em;
+    text-transform:uppercase;color:#9FC2E0;margin-right:4px}
+  .kendali button{font-family:var(--mono);font-size:11px;letter-spacing:.07em;
+    text-transform:uppercase;cursor:pointer;background:none;color:#B9CCDE;
+    border:1px solid rgba(255,255,255,.3);padding:7px 14px;border-radius:2px}
+  .kendali button:hover{color:#fff;border-color:rgba(255,255,255,.6)}
+  .kendali button[aria-pressed="true"]{background:#fff;color:var(--biru);
+    border-color:#fff;font-weight:500}
+
+  .catatan{background:#EEF3F8;border-left:3px solid var(--biru-3);
+    padding:12px 16px;font-size:13.5px;margin:22px 0 0;border-radius:2px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(430px,1fr));
+        gap:18px;margin-top:22px}
+  @media(max-width:900px){.grid{grid-template-columns:1fr}}
+  .kartu{background:var(--panel);border:1px solid var(--line);border-radius:2px;
+         border-top:3px solid var(--biru);padding:18px 20px 16px;
+         display:flex;flex-direction:column}
+  .kartu h2{font-family:var(--serif);font-size:17px;font-weight:600;
+            margin:0 0 2px;color:var(--biru)}
+  .kartu .ket{color:var(--muted);font-size:12.5px;margin:0 0 12px}
+  .kartu .kaki{color:var(--muted);font-size:11.5px;margin:10px 0 0;
+               padding-top:10px;border-top:1px solid var(--line-soft)}
+  .aksi{display:flex;gap:8px;margin-top:12px}
+  .aksi button{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;
+    text-transform:uppercase;cursor:pointer;background:none;color:var(--biru-2);
+    border:1px solid var(--line);padding:6px 12px;border-radius:2px}
+  .aksi button:hover{border-color:var(--biru-3);background:var(--bg)}
+  .kosong{color:var(--muted);font-size:13.5px;padding:26px 0;text-align:center}
+  svg{width:100%;height:auto;display:block}
+  svg text{font-family:'IBM Plex Sans',sans-serif}
+  footer{margin-top:44px;border-top:1px solid var(--line);padding-top:18px;
+         font-size:12.5px;color:var(--muted)}
+</style>
+</head>
+<body>
+
+<div class="hero"><div class="hero-in">
+  <a class="balik" href="monitoring.html">&#8592; Monitoring</a>
+  <h1>Grafik untuk LED</h1>
+  <div class="prodi" id="nama-prodi">Memuat&hellip;</div>
+  <div class="kendali" id="kendali"></div>
+</div></div>
+
+<main class="wrap" id="isi"><p class="kosong">Memuat data&hellip;</p></main>
+
+<script>
+'use strict';
+// =====================================================================
+//  Galeri grafik siap tempel untuk Laporan Evaluasi Diri.
+//
+//  Grafik digambar sebagai SVG murni (tanpa pustaka luar) lalu diekspor
+//  ke PNG lewat canvas. Alasan SVG: teksnya tetap tajam pada skala
+//  berapa pun, dan ekspor 2x membuat hasilnya layak cetak di Word.
+//
+//  Semua grafik memakai data agregat dari data.json — tidak ada nama
+//  atau NIM mahasiswa yang pernah masuk ke halaman ini.
+// =====================================================================
+let D = null, MODE = 'ts', SKALA = 2;
+
+const esc = s => String(s ?? '').replace(/[&<>"']/g,
+  c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const thn = x => MODE === 'ts' ? +(x.tahun_ts ?? x.tahun) : +x.tahun;
+const labelThn = t => MODE === 'ts' ? `${String(t-1).slice(2)}/${String(t).slice(2)}` : String(t);
+const WARNA = ['#0C2A4D', '#5C86B0', '#00954E', '#B8860B', '#C8102E', '#6B4E9B'];
+
+// Tiga periode terakhir yang ada datanya, ditambah satu tahun kosong di
+// tengah bila ada lompatan, supaya sumbu waktu tidak menipu.
+function tahunDeret(n){
+  const th = new Set();
+  (D.publikasi || []).forEach(p => th.add(thn(p)));
+  (D.kegiatan || []).forEach(k => th.add(thn(k)));
+  (D.prestasi_agregat || []).forEach(p => th.add(thn(p)));
+  const ada = [...th].filter(Boolean).sort((a, b) => a - b);
+  if (!ada.length) return [];
+  const ahir = ada[ada.length - 1];
+  return Array.from({length: n}, (_, i) => ahir - n + 1 + i);
+}
+
+// ---------------------------------------------------------------------
+//  Primitif gambar
+// ---------------------------------------------------------------------
+const P = {l: 52, r: 16, t: 16, b: 40};     // padding plot
+const W = 560, H = 320;
+
+function rangka(judul, isi, sumbuY){
+  return `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg">
+    <rect width="${W}" height="${H}" fill="#ffffff"/>
+    ${sumbuY || ''}${isi}</svg>`;
+}
+
+function skalaY(maks){
+  // Bulatkan batas atas ke angka "enak" supaya garis bantu bermakna.
+  if (maks <= 0) return {maks: 1, langkah: 1};
+  const kasar = maks / 4;
+  const pangkat = Math.pow(10, Math.floor(Math.log10(kasar)));
+  const langkah = [1, 2, 2.5, 5, 10].map(x => x * pangkat)
+    .find(x => x >= kasar) || pangkat * 10;
+  return {maks: Math.ceil(maks / langkah) * langkah, langkah};
+}
+
+function sumbu(maks, langkah, label){
+  const th = H - P.b, tinggi = th - P.t;
+  let g = '';
+  for (let v = 0; v <= maks + 1e-9; v += langkah){
+    const y = th - (v / maks) * tinggi;
+    g += `<line x1="${P.l}" y1="${y}" x2="${W - P.r}" y2="${y}"
+            stroke="${v === 0 ? '#D9DFDA' : '#EBEEEB'}" stroke-width="1"/>
+          <text x="${P.l - 8}" y="${y + 4}" text-anchor="end" font-size="11"
+            fill="#5D6B78">${Number.isInteger(v) ? v : v.toFixed(1)}</text>`;
+  }
+  if (label) g += `<text x="14" y="${P.t + tinggi / 2}" font-size="11" fill="#5D6B78"
+    text-anchor="middle" transform="rotate(-90 14 ${P.t + tinggi / 2})">${esc(label)}</text>`;
+  return g;
+}
+
+function labelX(kat){
+  const th = H - P.b, lebar = (W - P.l - P.r) / kat.length;
+  return kat.map((k, i) =>
+    `<text x="${P.l + lebar * (i + .5)}" y="${th + 20}" text-anchor="middle"
+       font-size="11.5" fill="#14212E">${esc(k)}</text>`).join('');
+}
+
+function legenda(seri){
+  return seri.map((s, i) =>
+    `<g transform="translate(${P.l + i * 132}, ${H - 8})">
+      <rect width="10" height="10" y="-9" fill="${s.warna || WARNA[i]}" rx="1"/>
+      <text x="15" y="0" font-size="11" fill="#14212E">${esc(s.nama)}</text>
+    </g>`).join('');
+}
+
+// Batang berkelompok
+function batang(kat, seri, satuan){
+  const semua = seri.flatMap(s => s.nilai);
+  const {maks, langkah} = skalaY(Math.max(...semua, 0));
+  const th = H - P.b, tinggi = th - P.t;
+  const lebarKat = (W - P.l - P.r) / kat.length;
+  const lebarBar = Math.min(38, (lebarKat * .68) / seri.length);
+  let g = '';
+  kat.forEach((_, i) => {
+    seri.forEach((s, j) => {
+      const v = s.nilai[i] || 0;
+      const h = (v / maks) * tinggi;
+      const x = P.l + lebarKat * (i + .5) - (lebarBar * seri.length) / 2 + lebarBar * j;
+      g += `<rect x="${x}" y="${th - h}" width="${lebarBar - 3}" height="${h}"
+              fill="${s.warna || WARNA[j]}" rx="1"/>`;
+      if (v > 0) g += `<text x="${x + (lebarBar - 3) / 2}" y="${th - h - 5}"
+        text-anchor="middle" font-size="10.5" fill="#5D6B78">${v}</text>`;
+    });
+  });
+  return rangka('', g + labelX(kat) + (seri.length > 1 ? legenda(seri) : ''),
+                sumbu(maks, langkah, satuan));
+}
+
+// Garis (untuk tren skor / rasio)
+function garis(kat, seri, satuan, maksTetap){
+  const semua = seri.flatMap(s => s.nilai.filter(v => v != null));
+  const {maks, langkah} = maksTetap
+    ? {maks: maksTetap, langkah: maksTetap / 4}
+    : skalaY(Math.max(...semua, 0));
+  const th = H - P.b, tinggi = th - P.t;
+  const lebar = (W - P.l - P.r) / kat.length;
+  const px = i => P.l + lebar * (i + .5);
+  const py = v => th - (v / maks) * tinggi;
+  let g = '';
+  seri.forEach((s, j) => {
+    const titik = s.nilai.map((v, i) => v == null ? null : [px(i), py(v)]).filter(Boolean);
+    if (titik.length > 1)
+      g += `<polyline fill="none" stroke="${s.warna || WARNA[j]}" stroke-width="2.5"
+              stroke-linejoin="round" points="${titik.map(p => p.join(',')).join(' ')}"/>`;
+    s.nilai.forEach((v, i) => {
+      if (v == null) return;
+      g += `<circle cx="${px(i)}" cy="${py(v)}" r="4" fill="#fff"
+              stroke="${s.warna || WARNA[j]}" stroke-width="2.5"/>
+            <text x="${px(i)}" y="${py(v) - 11}" text-anchor="middle" font-size="10.5"
+              fill="#5D6B78">${Number.isInteger(v) ? v : v.toFixed(2)}</text>`;
+    });
+  });
+  return rangka('', g + labelX(kat) + (seri.length > 1 ? legenda(seri) : ''),
+                sumbu(maks, langkah, satuan));
+}
+
+// Batang bertumpuk horizontal (komposisi)
+function tumpuk(baris, kunci, warna){
+  const tinggiBaris = 34, atas = 14;
+  const tinggi = atas + baris.length * tinggiBaris + 26;
+  const maks = Math.max(...baris.map(b => kunci.reduce((a, k) => a + (b[k.k] || 0), 0)), 1);
+  const kiri = 96, kanan = W - 16;
+  let g = '';
+  baris.forEach((b, i) => {
+    const y = atas + i * tinggiBaris;
+    let x = kiri;
+    g += `<text x="${kiri - 10}" y="${y + 17}" text-anchor="end" font-size="11.5"
+            fill="#14212E">${esc(b.label)}</text>`;
+    kunci.forEach((k, j) => {
+      const v = b[k.k] || 0;
+      if (!v) return;
+      const w = (v / maks) * (kanan - kiri);
+      g += `<rect x="${x}" y="${y}" width="${w}" height="22" fill="${warna[j]}" rx="1"/>`;
+      if (w > 22) g += `<text x="${x + w / 2}" y="${y + 15}" text-anchor="middle"
+        font-size="10.5" fill="#fff">${v}</text>`;
+      x += w;
+    });
+  });
+  g += kunci.map((k, j) =>
+    `<g transform="translate(${kiri + j * 126}, ${tinggi - 8})">
+      <rect width="10" height="10" y="-9" fill="${warna[j]}" rx="1"/>
+      <text x="15" y="0" font-size="11" fill="#14212E">${esc(k.n)}</text></g>`).join('');
+  return `<svg viewBox="0 0 ${W} ${tinggi}" xmlns="http://www.w3.org/2000/svg">
+    <rect width="${W}" height="${tinggi}" fill="#ffffff"/>${g}</svg>`;
+}
+
+// ---------------------------------------------------------------------
+//  Ekspor PNG — SVG dirender ke canvas pada skala pilihan.
+// ---------------------------------------------------------------------
+function unduhPNG(svgEl, namaBerkas){
+  const kode = new XMLSerializer().serializeToString(svgEl);
+  const vb = svgEl.viewBox.baseVal;
+  const img = new Image();
+  const blob = new Blob([kode], {type: 'image/svg+xml;charset=utf-8'});
+  const url = URL.createObjectURL(blob);
+  img.onload = () => {
+    const c = document.createElement('canvas');
+    c.width = vb.width * SKALA; c.height = vb.height * SKALA;
+    const ctx = c.getContext('2d');
+    ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, c.width, c.height);
+    ctx.drawImage(img, 0, 0, c.width, c.height);
+    URL.revokeObjectURL(url);
+    c.toBlob(b => {
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(b);
+      a.download = namaBerkas + '.png';
+      a.click();
+      setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+    }, 'image/png');
+  };
+  img.onerror = () => alert('Gagal menyiapkan gambar. Coba muat ulang halaman.');
+  img.src = url;
+}
+
+function salinPNG(svgEl, tombol){
+  const kode = new XMLSerializer().serializeToString(svgEl);
+  const vb = svgEl.viewBox.baseVal;
+  const img = new Image();
+  const url = URL.createObjectURL(new Blob([kode], {type: 'image/svg+xml;charset=utf-8'}));
+  img.onload = () => {
+    const c = document.createElement('canvas');
+    c.width = vb.width * SKALA; c.height = vb.height * SKALA;
+    const ctx = c.getContext('2d');
+    ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, c.width, c.height);
+    ctx.drawImage(img, 0, 0, c.width, c.height);
+    URL.revokeObjectURL(url);
+    c.toBlob(async b => {
+      try {
+        await navigator.clipboard.write([new ClipboardItem({'image/png': b})]);
+        const t = tombol.textContent; tombol.textContent = 'Tersalin';
+        setTimeout(() => tombol.textContent = t, 1600);
+      } catch {
+        alert('Peramban ini tidak mengizinkan salin gambar. Pakai tombol Unduh PNG.');
+      }
+    }, 'image/png');
+  };
+  img.src = url;
+}
+
+// ---------------------------------------------------------------------
+//  Definisi grafik
+// ---------------------------------------------------------------------
+function grafikPublikasi(th){
+  const kat = th.map(labelThn);
+  const jenis = [
+    {n: 'Internasional bereputasi', f: p => (p.indeksasi||'').match(/scopus|wos|bereputasi/i) || (p.tingkat||'').match(/bereputasi/i)},
+    {n: 'Internasional lain',       f: p => (p.tingkat||'').match(/internasional/i)},
+    {n: 'Nasional',                 f: p => true},
+  ];
+  const seri = jenis.map((j, idx) => ({nama: j.n, warna: WARNA[idx], nilai: th.map(t =>
+    (D.publikasi || []).filter(p => thn(p) === t).filter(p => {
+      for (let i = 0; i < jenis.length; i++)
+        if (jenis[i].f(p)) return i === idx;
+      return false;
+    }).length)}));
+  return {svg: batang(kat, seri, 'judul'),
+    kaki: 'Publikasi terverifikasi. Kategori mengikuti kolom tingkat dan indeksasi.'};
+}
+
+function grafikKegiatan(th){
+  const kat = th.map(labelThn);
+  const seri = [
+    {nama: 'Penelitian', warna: WARNA[0], nilai: th.map(t =>
+      (D.kegiatan || []).filter(k => thn(k) === t && k.kategori === 'penelitian').length)},
+    {nama: 'PkM', warna: WARNA[2], nilai: th.map(t =>
+      (D.kegiatan || []).filter(k => thn(k) === t && k.kategori === 'pkm').length)},
+  ];
+  return {svg: batang(kat, seri, 'judul'),
+    kaki: 'Kegiatan terverifikasi, dihitung per judul kegiatan.'};
+}
+
+function grafikDTPS(){
+  const T = D.dtps || {}, jab = T.jabatan || {};
+  const n = T.jumlah || 0;
+  if (!n) return null;
+  const baris = [
+    {label: 'Pendidikan', s3: T.doktor || 0, s2: n - (T.doktor || 0)},
+    {label: 'Jabatan', gb: (jab.guru_besar||0) + (jab.lektor_kepala||0) + (jab.lektor||0),
+     lain: n - ((jab.guru_besar||0) + (jab.lektor_kepala||0) + (jab.lektor||0))},
+  ];
+  const svg = tumpuk(
+    [{label: 'Pendidikan', a: baris[0].s3, b: baris[0].s2},
+     {label: 'Jabatan',    a: baris[1].gb, b: baris[1].lain}],
+    [{k: 'a', n: 'Doktor / Lektor ke atas'}, {k: 'b', n: 'Lainnya'}],
+    [WARNA[0], '#D9DFDA']);
+  return {svg, kaki: `Komposisi ${n} DTPS pada keadaan terkini. `
+    + `Butir 27 menuntut ≥ 50% doktor untuk skor 4; butir 28 menuntut ≥ 70% Lektor ke atas.`};
+}
+
+function grafikPrestasi(th){
+  const kat = th.map(labelThn);
+  const pres = D.prestasi_agregat || [];
+  const isAka = p => String(p.bidang||'').startsWith('akademik');
+  const jml = (t, f) => pres.filter(p => thn(p) === t && f(p))
+                            .reduce((a, b) => a + b.jumlah, 0);
+  const seri = [
+    {nama: 'Akademik', warna: WARNA[0], nilai: th.map(t => jml(t, isAka))},
+    {nama: 'Non-akademik', warna: WARNA[3], nilai: th.map(t => jml(t, p => !isAka(p)))},
+  ];
+  if (!seri.some(s => s.nilai.some(v => v > 0))) return null;
+  return {svg: batang(kat, seri, 'prestasi'),
+    kaki: 'Butir 43 menimbang prestasi akademik tiga kali lebih berat.'};
+}
+
+function grafikMahasiswaKarya(th){
+  const kat = th.map(labelThn);
+  const agg = D.mahasiswa_agregat || [];
+  const jml = (t, k) => agg.filter(x => thn(x) === t && x.kategori === k)
+                           .reduce((a, b) => a + b.keterlibatan, 0);
+  const seri = [
+    {nama: 'Publikasi', warna: WARNA[0], nilai: th.map(t => jml(t, 'publikasi'))},
+    {nama: 'Penelitian', warna: WARNA[1], nilai: th.map(t => jml(t, 'penelitian'))},
+    {nama: 'PkM', warna: WARNA[2], nilai: th.map(t => jml(t, 'pkm'))},
+  ];
+  if (!seri.some(s => s.nilai.some(v => v > 0))) return null;
+  return {svg: batang(kat, seri, 'keterlibatan'),
+    kaki: 'Jumlah keterlibatan mahasiswa pada karya dosen (butir 23, 25, 46).'};
+}
+
+function grafikTracer(){
+  const tr = (D.tracer || []).slice().sort((a, b) => a.tahun_lulus - b.tahun_lulus);
+  if (!tr.length) return null;
+  const kat = tr.map(t => String(t.tahun_lulus));
+  const seri = [
+    {nama: 'Waktu tunggu (bulan)', warna: WARNA[4],
+     nilai: tr.map(t => t.terlacak ? +(t.waktu_tunggu_bulan || 0).toFixed(1) : null)},
+    {nama: 'Sesuai bidang (%)', warna: WARNA[2],
+     nilai: tr.map(t => t.terlacak ? Math.round((t.sesuai_bidang / t.terlacak) * 100) : null)},
+  ];
+  return {svg: garis(kat, seri, ''),
+    kaki: 'Sumbu berbagi skala; perhatikan satuan tiap seri. '
+        + 'Butir 49 menuntut ≤ 3 bulan, butir 50 ≥ 60% untuk skor 4.'};
+}
+
+function grafikMitra(th){
+  const K = ((D.akreditasi || {}).kerjasama) || [];
+  const pilih = K.filter(k => th.includes(k.tahun));
+  if (!pilih.length) return null;
+  const baris = th.map(t => {
+    const r = K.find(x => x.tahun === t) || {};
+    return {label: labelThn(t), a: r.internasional || 0,
+            b: r.nasional || 0, c: r.wilayah || 0};
+  });
+  return {svg: tumpuk(baris,
+      [{k:'a',n:'Internasional'},{k:'b',n:'Nasional'},{k:'c',n:'Wilayah'}],
+      [WARNA[0], WARNA[1], WARNA[3]]),
+    kaki: 'Kerja sama aktif per periode (butir 6). Sumber: mitra pada karya + lembar kerjasama.'};
+}
+
+// ---------------------------------------------------------------------
+//  Rangka halaman
+// ---------------------------------------------------------------------
+function render(){
+  const th = tahunDeret(5);
+  const daftar = [
+    {id:'publikasi', judul:'Publikasi DTPS per kategori',
+     ket:'Mendukung narasi butir 33 dan kriteria Kinerja DTPS.', f:()=>grafikPublikasi(th)},
+    {id:'kegiatan', judul:'Penelitian dan PkM DTPS',
+     ket:'Mendukung narasi butir 31, 32, dan kriteria Penelitian/PkM.', f:()=>grafikKegiatan(th)},
+    {id:'dtps', judul:'Komposisi DTPS',
+     ket:'Mendukung narasi kriteria Sumber Daya Manusia (butir 27, 28).', f:grafikDTPS},
+    {id:'kerjasama', judul:'Kerja sama menurut tingkat',
+     ket:'Mendukung narasi butir 6 dan kriteria Kerja Sama.', f:()=>grafikMitra(th)},
+    {id:'prestasi', judul:'Prestasi mahasiswa',
+     ket:'Mendukung narasi butir 43 dan kriteria Mahasiswa.', f:()=>grafikPrestasi(th)},
+    {id:'mahasiswa-karya', judul:'Keterlibatan mahasiswa pada karya dosen',
+     ket:'Mendukung narasi butir 23, 25, dan 46.', f:()=>grafikMahasiswaKarya(th)},
+    {id:'tracer', judul:'Waktu tunggu dan kesesuaian bidang kerja',
+     ket:'Mendukung narasi butir 49 dan 50, kriteria Luaran.', f:grafikTracer},
+  ];
+
+  const kartu = daftar.map(g => {
+    const hasil = g.f();
+    const isi = hasil
+      ? `<div class="svg-wadah">${hasil.svg}</div>
+         <p class="kaki">${hasil.kaki}</p>
+         <div class="aksi">
+           <button data-unduh="${g.id}">Unduh PNG</button>
+           <button data-salin="${g.id}">Salin ke papan klip</button>
+         </div>`
+      : `<p class="kosong">Data belum tersedia. Grafik muncul otomatis
+         setelah sumbernya terisi.</p>`;
+    return `<section class="kartu" data-g="${g.id}">
+      <h2>${esc(g.judul)}</h2><p class="ket">${esc(g.ket)}</p>${isi}</section>`;
+  }).join('');
+
+  document.getElementById('isi').innerHTML = `
+    <div class="catatan"><b>Cara pakai untuk LED.</b> Klik <i>Unduh PNG</i> untuk
+    menyimpan berkas gambar, atau <i>Salin ke papan klip</i> lalu tempel langsung
+    ke Word. Skala 2&times; sudah memadai untuk cetak; pilih 3&times; bila gambar akan
+    dibesarkan satu halaman penuh. Semua grafik memakai angka agregat —
+    tidak memuat nama atau NIM mahasiswa.</div>
+    <div class="grid">${kartu}</div>
+    <footer>Diperbarui ${esc(D.diperbarui || '')} ·
+    Angka mengikuti mode ${MODE === 'ts' ? 'tahun akademik (TS)' : 'tahun kalender'}
+    yang dipilih di atas · Grafik ini alat bantu penulisan LED, bukan dokumen resmi.</footer>`;
+
+  document.querySelectorAll('[data-unduh]').forEach(b => b.onclick = () => {
+    const svg = b.closest('.kartu').querySelector('svg');
+    unduhPNG(svg, 'grafik-' + b.dataset.unduh + '-' + (MODE === 'ts' ? 'ts' : 'kal'));
+  });
+  document.querySelectorAll('[data-salin]').forEach(b => b.onclick = () =>
+    salinPNG(b.closest('.kartu').querySelector('svg'), b));
+}
+
+function pasangKendali(){
+  const w = document.getElementById('kendali');
+  w.innerHTML = `<span class="lbl">Periode</span>
+    <button data-m="kal" aria-pressed="${MODE==='kal'}">Tahun</button>
+    <button data-m="ts" aria-pressed="${MODE==='ts'}">TS</button>
+    <span class="lbl" style="margin-left:14px">Skala ekspor</span>
+    ${[1,2,3].map(s=>`<button data-s="${s}" aria-pressed="${SKALA===s}">${s}&times;</button>`).join('')}`;
+  w.querySelectorAll('[data-m]').forEach(b => b.onclick = () => {
+    MODE = b.dataset.m; pasangKendali(); render(); });
+  w.querySelectorAll('[data-s]').forEach(b => b.onclick = () => {
+    SKALA = +b.dataset.s; pasangKendali(); });
+}
+
+fetch('data.json?v=' + Date.now())
+  .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+  .then(d => {
+    D = d;
+    document.getElementById('nama-prodi').textContent =
+      [d.prodi, d.institusi].filter(Boolean).join(' — ');
+    pasangKendali(); render();
+  })
+  .catch(() => {
+    document.getElementById('isi').innerHTML =
+      `<p class="kosong">Gagal memuat <code>data.json</code>. Jalankan bangun.py
+       lalu unggah hasilnya ke folder yang sama dengan halaman ini.</p>`;
+  });
+</script>
+</body>
+</html>
