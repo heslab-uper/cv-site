@@ -1,7 +1,7 @@
 {
  "prodi": "Teknik Sipil",
  "institusi": "Universitas Pertamina",
- "diperbarui": "30 August 2026",
+ "diperbarui": "31 August 2026",
  "dosen": [
   {
    "nama": "Adita Utami",
@@ -74,11 +74,204 @@
    "orcid": "0000-0002-3831-107X"
   }
  ],
- "publikasi": [],
- "kegiatan": [],
+ "publikasi": [
+  {
+   "judul": "Inhibiting Factors of Engineering Consultant",
+   "tahun": 2026,
+   "tahun_ts": 2026,
+   "jenis": "prosiding",
+   "terbitan": "Springer Nature",
+   "tingkat": "internasional",
+   "indeksasi": "wos",
+   "doi": "https://link.springer.com/chapter/10.1007/978-3-032-18451-1_26",
+   "url": "https://link.springer.com/chapter/10.1007/978-3-032-18451-1_26",
+   "mitra": [],
+   "mahasiswa": 0,
+   "penulis": [
+    {
+     "nama": "Vani Arliani",
+     "slug": "vani-arliani",
+     "peran": "penulis_pertama",
+     "korespondensi": true
+    }
+   ]
+  },
+  {
+   "judul": "Accessibility and Land Use Effect of Residential Area with Different TOD Typology to Value Creation",
+   "tahun": 2024,
+   "tahun_ts": 2024,
+   "jenis": "prosiding",
+   "terbitan": "IOP Publishing-IOP Conf. Series: Earth and Environmental Science",
+   "tingkat": "internasional",
+   "indeksasi": "scopus_q3",
+   "doi": "10.1088/1755-1315/1294/1/012006",
+   "url": "https://iopscience.iop.org/article/10.1088/1755-1315/1294/1/012006",
+   "mitra": [
+    {
+     "nama": "ITB",
+     "tingkat": "nasional",
+     "negara": "Indonesia"
+    }
+   ],
+   "mahasiswa": 0,
+   "penulis": [
+    {
+     "nama": "Vani Arliani",
+     "slug": "vani-arliani",
+     "peran": "penulis_pertama",
+     "korespondensi": true
+    }
+   ]
+  },
+  {
+   "judul": "Impact of Internal Accessibility on Value Creation in TOD Area",
+   "tahun": 2024,
+   "tahun_ts": 2024,
+   "jenis": "jurnal",
+   "terbitan": "Transportation Research Interdisciplinary Perspective ",
+   "tingkat": "internasional",
+   "indeksasi": "scopus_q1",
+   "doi": "10.1016/j.trip.2024.101106",
+   "url": "https://www.sciencedirect.com/science/article/pii/S2590198224000927",
+   "mitra": [
+    {
+     "nama": "ITB",
+     "tingkat": "nasional",
+     "negara": "Indonesia"
+    }
+   ],
+   "mahasiswa": 0,
+   "penulis": [
+    {
+     "nama": "Vani Arliani",
+     "slug": "vani-arliani",
+     "peran": "penulis_pertama",
+     "korespondensi": true
+    }
+   ]
+  },
+  {
+   "judul": "Measuring TOD Index in Jakarta with Accessibility and Land Use Function – Case Study on Three Transit Nodes ",
+   "tahun": 2023,
+   "tahun_ts": 2023,
+   "jenis": "prosiding",
+   "terbitan": "eai conference proceeding",
+   "tingkat": "internasional",
+   "indeksasi": "wos",
+   "doi": "10.4108/eai.23-11-2022.2341568",
+   "url": "https://eudl.eu/doi/10.4108/eai.23-11-2022.2341568",
+   "mitra": [
+    {
+     "nama": "ITB",
+     "tingkat": "nasional",
+     "negara": "Indonesia"
+    }
+   ],
+   "mahasiswa": 0,
+   "penulis": [
+    {
+     "nama": "Vani Arliani",
+     "slug": "vani-arliani",
+     "peran": "penulis_pertama",
+     "korespondensi": true
+    }
+   ]
+  }
+ ],
+ "kegiatan": [
+  {
+   "judul": "Pengaruh Kualitas Layanan Dan Aksesibilitas Terhadap Kepuasan Serta Perilaku Pengguna Transportasi Publik Di Jakarta: Dengan Pendekatan Structural Equation Modeling (SEM)",
+   "tahun": 2026,
+   "tahun_ts": 2026,
+   "kategori": "penelitian",
+   "tingkat": "wilayah_lokal",
+   "skema": "UPERESEARCH — Hibah Selektif Tahunan",
+   "kelompok": "Hibah internal perguruan tinggi",
+   "mitra": [
+    {
+     "nama": "Universitas Pertamina",
+     "tingkat": "wilayah_lokal",
+     "negara": "Indonesia"
+    }
+   ],
+   "mahasiswa": 4,
+   "penulis": [
+    {
+     "nama": "Adita Utami",
+     "slug": "adita-utami",
+     "peran": "anggota",
+     "korespondensi": false
+    },
+    {
+     "nama": "Fera Dwi Setyani",
+     "slug": "fera-dwi-setyani",
+     "peran": "anggota",
+     "korespondensi": false
+    },
+    {
+     "nama": "Gati Annisa Hayu",
+     "slug": "gati-annisa-hayu",
+     "peran": "anggota",
+     "korespondensi": false
+    },
+    {
+     "nama": "Teuku Mahlil",
+     "slug": "teuku-mahlil",
+     "peran": "anggota",
+     "korespondensi": false
+    },
+    {
+     "nama": "Vani Arliani",
+     "slug": "vani-arliani",
+     "peran": "ketua",
+     "korespondensi": false
+    }
+   ]
+  },
+  {
+   "judul": "STUDI KETAHANAN BETON TERHADAP ASAM",
+   "tahun": 2023,
+   "tahun_ts": 2023,
+   "kategori": "penelitian",
+   "tingkat": "wilayah_lokal",
+   "skema": "Hibah internal universitas",
+   "kelompok": "Hibah internal perguruan tinggi",
+   "mitra": [],
+   "mahasiswa": 3,
+   "penulis": [
+    {
+     "nama": "Arianta",
+     "slug": "arianta",
+     "peran": "anggota",
+     "korespondensi": false
+    },
+    {
+     "nama": "Ranny Adriana",
+     "slug": "ranny-adriana",
+     "peran": "anggota",
+     "korespondensi": false
+    }
+   ]
+  }
+ ],
  "prestasi_agregat": [],
  "prestasi_pembimbing": [],
- "mahasiswa_agregat": [],
+ "mahasiswa_agregat": [
+  {
+   "tahun": 2026,
+   "tahun_ts": 2026,
+   "kategori": "penelitian",
+   "keterlibatan": 4,
+   "mahasiswa_unik": 4
+  },
+  {
+   "tahun": 2023,
+   "tahun_ts": 2023,
+   "kategori": "penelitian",
+   "keterlibatan": 3,
+   "mahasiswa_unik": 3
+  }
+ ],
  "dtps": {
   "jumlah": 10,
   "doktor": 7,
@@ -88,8 +281,21 @@
    "guru_besar": 1,
    "tanpa_jabatan": 2
   },
-  "karya_utama_internasional": 0,
-  "karya_utama_rinci": []
+  "karya_utama_internasional": 1,
+  "karya_utama_rinci": [
+   {
+    "slug": "vani-arliani",
+    "tahun": 2026
+   },
+   {
+    "slug": "vani-arliani",
+    "tahun": 2024
+   },
+   {
+    "slug": "vani-arliani",
+    "tahun": 2023
+   }
+  ]
  },
  "tracer": [],
  "luaran_dosen": [],
@@ -180,11 +386,97 @@
     "ms_tertimbang": 0.0
    }
   ],
-  "kerjasama": [],
-  "kegiatan_mhs": [],
-  "sumber_dana": [],
+  "kerjasama": [
+   {
+    "tahun": 2026,
+    "internasional": 0,
+    "nasional": 0,
+    "wilayah": 1,
+    "tanpa_tingkat": 0,
+    "pendidikan": 0
+   },
+   {
+    "tahun": 2024,
+    "internasional": 0,
+    "nasional": 2,
+    "wilayah": 0,
+    "tanpa_tingkat": 0,
+    "pendidikan": 0
+   },
+   {
+    "tahun": 2023,
+    "internasional": 0,
+    "nasional": 1,
+    "wilayah": 0,
+    "tanpa_tingkat": 0,
+    "pendidikan": 0
+   }
+  ],
+  "kegiatan_mhs": [
+   {
+    "tahun": 2026,
+    "kategori": "penelitian",
+    "total": 1,
+    "dengan_mahasiswa": 1
+   },
+   {
+    "tahun": 2023,
+    "kategori": "penelitian",
+    "total": 1,
+    "dengan_mahasiswa": 1
+   }
+  ],
+  "sumber_dana": [
+   {
+    "tahun": 2026,
+    "kategori": "penelitian",
+    "luar_negeri": 0,
+    "dalam_negeri": 0,
+    "pt_mandiri": 1,
+    "tanpa_sumber": 0
+   },
+   {
+    "tahun": 2023,
+    "kategori": "penelitian",
+    "luar_negeri": 0,
+    "dalam_negeri": 0,
+    "pt_mandiri": 1,
+    "tanpa_sumber": 0
+   }
+  ],
   "rekognisi_dtps": [],
-  "publikasi_dtps": [],
+  "publikasi_dtps": [
+   {
+    "tahun": 2026,
+    "na1": 0,
+    "na2": 0,
+    "na3": 0,
+    "na4": 0,
+    "nb1": 0,
+    "nb2": 0,
+    "nb3": 1
+   },
+   {
+    "tahun": 2024,
+    "na1": 0,
+    "na2": 0,
+    "na3": 0,
+    "na4": 1,
+    "nb1": 0,
+    "nb2": 0,
+    "nb3": 1
+   },
+   {
+    "tahun": 2023,
+    "na1": 0,
+    "na2": 0,
+    "na3": 0,
+    "na4": 0,
+    "nb1": 0,
+    "nb2": 0,
+    "nb3": 1
+   }
+  ],
   "publikasi_mhs": [],
   "luaran_dtps": [],
   "luaran_mhs": []
