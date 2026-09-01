@@ -179,6 +179,14 @@ const BULAN = [['1','Januari'],['2','Februari'],
   ['3','Maret'],['4','April'],['5','Mei'],['6','Juni'],['7','Juli'],
   ['8','Agustus'],['9','September'],['10','Oktober'],['11','November'],
   ['12','Desember']];
+// Dropdown "berasal dari kegiatan": diisi saat form dibuka dengan
+// kegiatan penelitian/PkM milik dosen ini yang sudah tersimpan.
+const F_INDUK = {n:'induk_id', l:'Berasal dari penelitian / PkM', t:'select',
+  o:[['', '— tidak ada / mandiri —']],
+  sub:'Pilih kegiatan yang menghasilkan karya ini. Hanya kegiatan Anda '
+    + 'sendiri yang tampil; kosongkan bila tidak berasal dari kegiatan '
+    + 'yang tercatat.'};
+
 const F_BULAN = {n:'bulan', l:'Bulan', t:'select', w:1, o:BULAN,
   sub:'Menentukan tahun akademik (TS): September ke atas masuk TS berikutnya'};
 const TINGKAT = [['internasional','Internasional'],['nasional','Nasional'],
@@ -207,6 +215,7 @@ const FORM = {
         ['haki_paten','HKI / paten'],['lainnya','Lainnya']]},
       {n:'tahun', l:'Tahun terbit', t:'select', w:1, o:TAHUN.map(y=>[y,y])},
       F_BULAN,
+      F_INDUK,
       {n:'nama_terbitan', l:'Nama jurnal / penerbit', t:'text'},
       {n:'tingkat', l:'Tingkat', t:'select', w:1, o:TINGKAT},
       {n:'indeksasi', l:'Indeksasi', t:'select', o:[['scopus_q1','Scopus Q1'],
@@ -251,6 +260,7 @@ const FORM = {
         ['buku_isbn','Buku ber-ISBN'],['book_chapter','Book chapter']]},
       {n:'tahun', l:'Tahun', t:'select', w:1, o:TAHUN.map(y=>[y,y])},
       F_BULAN,
+      F_INDUK,
       {n:'nama_terbitan', l:'Nomor pendaftaran / penerbit', t:'text',
         sub:'Nomor paten/hak cipta, atau nama penerbit untuk buku'},
       {n:'url', l:'Tautan', t:'url', full:1, ph:'https://'},
@@ -280,8 +290,9 @@ const FORM = {
     hint:'Penelitian atau PkM yang dimasukkan ke mata kuliah: sebagai bahan kajian, studi kasus, bab buku ajar, atau modul.',
     peran:[['ketua','Pengampu']],
     f:[
-      {n:'mata_kuliah', l:'Mata kuliah', t:'text', w:1,
-        sub:'Nama mata kuliah yang memuat integrasinya'},
+      {n:'mata_kuliah', l:'Mata kuliah', t:'select', w:1, o:[],
+       sub:'Diambil dari daftar mata kuliah prodi. Hubungi admin bila '
+         + 'mata kuliah Anda belum terdaftar.'},
       {n:'judul', l:'Judul penelitian / PkM', t:'text', w:1, full:1},
       {n:'sub_jenis', l:'Bentuk integrasi', t:'select', w:1, o:[
         ['bahan_kajian','Bahan kajian'],['studi_kasus','Studi kasus'],
@@ -408,7 +419,9 @@ function fieldHTML(f){
            <option value="">— pilih —</option>
            ${f.o.map(([v,l])=>`<option value="${v}">${l}</option>`).join('')}</select>`
       : `<input id="f_${f.n}" name="${f.n}" type="${f.t}" ${f.w?'required':''}
-                placeholder="${f.ph||''}">`}
+                placeholder="${f.ph||''}" autocomplete="off"
+                ${f.daftar?`list="dl_${f.daftar}"`:''}>
+         ${f.daftar?`<datalist id="dl_${f.daftar}"></datalist>`:''}`}
     ${f.sub?`<div class="sub">${f.sub}</div>`:''}
   </div>`;
 }
@@ -517,8 +530,80 @@ function tampilForm(key){
   pasangMahasiswa();
   pasangMitra();
   pasangRekan();
+  isiInduk();
+  isiDaftarIntegrasi();
+  isiMataKuliah();
   document.getElementById('frm').onsubmit = e=>{ e.preventDefault(); simpan(key); };
   muatKaryaSaya('daftar', 6);
+}
+
+// Dropdown "berasal dari kegiatan": kegiatan penelitian/PkM yang dosen
+// ini terlibat di dalamnya, terbaru dulu. Statusnya tidak disaring —
+// kegiatan yang masih menunggu verifikasi pun boleh jadi induk, karena
+// publikasinya sering diinput di sesi yang sama.
+async function isiInduk(){
+  const el = document.getElementById('f_induk_id');
+  if(!el) return;
+  const { data, error } = await sb.from('karya')
+    .select('id, judul, tahun, kategori, karya_penulis!inner(dosen_id)')
+    .in('kategori', ['penelitian','pkm'])
+    .eq('karya_penulis.dosen_id', saya.id)
+    .order('tahun', { ascending:false }).limit(200);
+  if(error || !data) return;
+  isiDaftarKegiatan(data);
+  el.innerHTML = `<option value="">— tidak ada / mandiri —</option>` +
+    data.map(k=>`<option value="${k.id}">${esc(
+      `${k.tahun} · ${k.kategori === 'pkm' ? 'PkM' : 'Penelitian'} · ` +
+      (k.judul.length > 70 ? k.judul.slice(0,70)+'…' : k.judul))}</option>`).join('');
+  if(!data.length){
+    const s = el.parentElement.querySelector('.sub');
+    if(s) s.innerHTML = 'Belum ada kegiatan penelitian/PkM atas nama Anda. '
+      + 'Input kegiatannya lebih dulu di tab <b>Penelitian &amp; PkM</b> bila '
+      + 'karya ini memang berasal dari sana.';
+  }
+}
+
+// Judul kegiatan pada form integrasi: saran ketik dari kegiatan dosen
+// yang sudah tersimpan, agar judulnya sama persis dengan entri aslinya.
+function isiDaftarKegiatan(data){
+  const dl = document.getElementById('dl_kegiatan_saya');
+  if(!dl || !data) return;
+  dl.innerHTML = data.map(k=>`<option value="${esc(k.judul)}">`).join('');
+}
+
+// Form integrasi tidak punya dropdown induk, jadi daftar kegiatannya
+// dimuat tersendiri.
+async function isiDaftarIntegrasi(){
+  if(!document.getElementById('dl_kegiatan_saya')) return;
+  const { data } = await sb.from('karya')
+    .select('judul, karya_penulis!inner(dosen_id)')
+    .in('kategori', ['penelitian','pkm'])
+    .eq('karya_penulis.dosen_id', saya.id)
+    .order('tahun', { ascending:false }).limit(200);
+  isiDaftarKegiatan(data);
+}
+
+// Daftar mata kuliah dari tabel acuan, supaya ejaan seragam.
+async function isiMataKuliah(){
+  const el = document.getElementById('f_mata_kuliah');
+  if(!el) return;
+  const { data, error } = await sb.from('ref_mata_kuliah')
+    .select('kode, nama, inti').eq('aktif', true).order('urutan');
+  if(error || !data || !data.length){
+    // Tabel acuan belum diisi: jangan mengunci dosen, kembalikan isian
+    // bebas agar input tetap bisa jalan.
+    const ganti = document.createElement('input');
+    ganti.type = 'text'; ganti.id = el.id; ganti.required = el.required;
+    ganti.placeholder = 'Nama mata kuliah';
+    el.replaceWith(ganti);
+    const sub = ganti.parentElement.querySelector('.sub');
+    if(sub) sub.textContent = 'Daftar mata kuliah belum diisi admin — '
+      + 'ketik namanya, gunakan penulisan yang konsisten.';
+    return;
+  }
+  el.innerHTML = `<option value="">— pilih —</option>` + data.map(m=>
+    `<option value="${esc(m.nama)}">${esc(m.kode ? m.kode+' — '+m.nama : m.nama)}${
+      m.inti ? ' (inti)' : ''}</option>`).join('');
 }
 
 // Kendali peran rekan hidup hanya saat rekannya dicentang, supaya jelas
