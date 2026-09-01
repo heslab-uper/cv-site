@@ -808,9 +808,18 @@ function butir44(){
       'tabel LKPS hanya memberi rentang, bukan nilai tunggal.');
   }
   const MS = reratTA('rerata_masa_studi');
-  if (MS == null)
-    return kartuButir(44, 'Masa studi (Tabel 6.d LKPS)', `<p class="kosong">Isi
-      <code>rerata_masa_studi_tahun</code> di lembar mahasiswa_ta.</p>`, null, '');
+  if (MS == null){
+    const adaKohort = (((D.akreditasi || {}).kohort) || []).length > 0;
+    return kartuButir(44, 'Masa studi (Tabel 6.d LKPS)', `<p class="kosong">${
+      adaKohort
+        ? `Lembar <code>kohort_lulusan</code> sudah terisi, tetapi belum ada
+           angkatan yang selesai — butir ini memakai angkatan dengan
+           tahun masuk + 8 &le; ${TS}, yaitu ${TS - 8} ke bawah.`
+        : `Isi lembar <code>kohort_lulusan</code>: jumlah masuk per angkatan
+           dan jumlah lulusan pada tiap pita masa studi. Sebagai cadangan,
+           <code>rerata_masa_studi_tahun</code> di lembar mahasiswa_ta juga
+           dibaca.`}</p>`, null, '');
+  }
   let skor = null, ket = '';
   if (MS > 3.5 && MS <= 4.5) skor = 4;
   else if (MS > 4.5 && MS <= 8) skor = (55 - 6 * MS) / 7;
@@ -840,9 +849,18 @@ function butir45(){
       'kohort_lulusan; penyebutnya jumlah mahasiswa masuk angkatan itu.');
   }
   const P = reratTA('persen_tepat_waktu');
-  if (P == null)
-    return kartuButir(45, 'Kelulusan tepat waktu (Tabel 6.d LKPS)', `<p class="kosong">Isi
-      <code>persen_lulus_tepat_waktu</code> di lembar mahasiswa_ta.</p>`, null, '');
+  if (P == null){
+    const adaKohort = (((D.akreditasi || {}).kohort) || []).length > 0;
+    return kartuButir(45, 'Kelulusan tepat waktu (Tabel 6.d LKPS)', `<p class="kosong">${
+      adaKohort
+        ? `Lembar <code>kohort_lulusan</code> sudah terisi, tetapi belum ada
+           angkatan yang selesai (tahun masuk + 8 &le; ${TS}).`
+        : `Isi lembar <code>kohort_lulusan</code>: kolom
+           <code>jumlah_masuk</code> dan <code>lulus_3_5_sd_4_5</code>
+           menentukan butir ini. Cadangannya
+           <code>persen_lulus_tepat_waktu</code> di lembar mahasiswa_ta.`}</p>`,
+      null, '');
+  }
   const fr = P / 100;
   const skor = fr >= 0.5 ? 4 : fr > 0 ? 1 + 6 * fr : 0;
   return kartuButir(45, 'Kelulusan tepat waktu (Tabel 6.d LKPS)',
