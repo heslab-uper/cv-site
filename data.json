@@ -1010,7 +1010,71 @@
    ]
   }
  ],
- "prestasi_agregat": [],
+ "prestasi_agregat": [
+  {
+   "tahun": 2026,
+   "tahun_ts": 2026,
+   "tingkat": "nasional",
+   "bidang": "akademik",
+   "jumlah": 1
+  },
+  {
+   "tahun": 2025,
+   "tahun_ts": 2026,
+   "tingkat": "nasional",
+   "bidang": "non_akademik",
+   "jumlah": 1
+  },
+  {
+   "tahun": 2025,
+   "tahun_ts": 2025,
+   "tingkat": "internasional",
+   "bidang": "non_akademik",
+   "jumlah": 1
+  },
+  {
+   "tahun": 2025,
+   "tahun_ts": 2025,
+   "tingkat": "nasional",
+   "bidang": "akademik",
+   "jumlah": 1
+  },
+  {
+   "tahun": 2025,
+   "tahun_ts": 2026,
+   "tingkat": "nasional",
+   "bidang": "akademik",
+   "jumlah": 5
+  },
+  {
+   "tahun": 2024,
+   "tahun_ts": 2024,
+   "tingkat": "nasional",
+   "bidang": "akademik",
+   "jumlah": 2
+  },
+  {
+   "tahun": 2024,
+   "tahun_ts": 2025,
+   "tingkat": "wilayah_lokal",
+   "bidang": "non_akademik",
+   "jumlah": 1
+  },
+  {
+   "tahun": 2024,
+   "tahun_ts": 2024,
+   "tingkat": "nasional",
+   "bidang": "non_akademik",
+   "jumlah": 1
+  },
+  {
+   "tahun": 2024,
+   "tahun_ts": 2025,
+   "tingkat": "nasional",
+   "bidang": "akademik",
+   "jumlah": 1
+  }
+ ],
  "prestasi_pembimbing": [],
  "mahasiswa_agregat": [
   {
@@ -1152,6 +1216,36 @@
    }
   ],
   "kohort": [
+   {
+    "tahun_masuk": 2026,
+    "masuk": 0,
+    "lulus": 0,
+    "lulus_3_5_sd_4_5": 0,
+    "lulus_4_5_sd_5_5": 0,
+    "lulus_5_5_sd_6_5": 0,
+    "lulus_6_5_sd_8": 0,
+    "ms_tertimbang": 0.0
+   },
+   {
+    "tahun_masuk": 2025,
+    "masuk": 0,
+    "lulus": 0,
+    "lulus_3_5_sd_4_5": 0,
+    "lulus_4_5_sd_5_5": 0,
+    "lulus_5_5_sd_6_5": 0,
+    "lulus_6_5_sd_8": 0,
+    "ms_tertimbang": 0.0
+   },
+   {
+    "tahun_masuk": 2024,
+    "masuk": 0,
+    "lulus": 0,
+    "lulus_3_5_sd_4_5": 0,
+    "lulus_4_5_sd_5_5": 0,
+    "lulus_5_5_sd_6_5": 0,
+    "lulus_6_5_sd_8": 0,
+    "ms_tertimbang": 0.0
+   },
    {
     "tahun_masuk": 2023,
     "masuk": 0,
