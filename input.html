@@ -293,7 +293,10 @@ const FORM = {
       {n:'mata_kuliah', l:'Mata kuliah', t:'select', w:1, o:[],
        sub:'Diambil dari daftar mata kuliah prodi. Hubungi admin bila '
          + 'mata kuliah Anda belum terdaftar.'},
-      {n:'judul', l:'Judul penelitian / PkM', t:'text', w:1, full:1},
+      {n:'induk_id', l:'Penelitian / PkM yang diintegrasikan', t:'select',
+       w:1, full:1, o:[],
+       sub:'Dipilih dari kegiatan Anda yang sudah tersimpan. Bila belum ada, '
+         + 'input kegiatannya lebih dulu di tab Penelitian &amp; PkM.'},
       {n:'sub_jenis', l:'Bentuk integrasi', t:'select', w:1, o:[
         ['bahan_kajian','Bahan kajian'],['studi_kasus','Studi kasus'],
         ['bab_buku_ajar','Bab buku ajar'],['modul_praktikum','Modul praktikum'],
@@ -541,9 +544,13 @@ function tampilForm(key){
 // ini terlibat di dalamnya, terbaru dulu. Statusnya tidak disaring —
 // kegiatan yang masih menunggu verifikasi pun boleh jadi induk, karena
 // publikasinya sering diinput di sesi yang sama.
+let JUDUL_INDUK = {};
 async function isiInduk(){
   const el = document.getElementById('f_induk_id');
   if(!el) return;
+  // Pada form integrasi kolom ini WAJIB, sehingga judul kegiatan diambil
+  // dari entri aslinya dan tidak ada judul kembar akibat ketik ulang.
+  const wajib = el.hasAttribute('required');
   const { data, error } = await sb.from('karya')
     .select('id, judul, tahun, kategori, karya_penulis!inner(dosen_id)')
     .in('kategori', ['penelitian','pkm'])
@@ -551,15 +558,17 @@ async function isiInduk(){
     .order('tahun', { ascending:false }).limit(200);
   if(error || !data) return;
   isiDaftarKegiatan(data);
-  el.innerHTML = `<option value="">— tidak ada / mandiri —</option>` +
+  JUDUL_INDUK = Object.fromEntries((data || []).map(k => [k.id, k.judul]));
+  el.innerHTML = `<option value="">${wajib ? '— pilih kegiatan —'
+                                          : '— tidak ada / mandiri —'}</option>` +
     data.map(k=>`<option value="${k.id}">${esc(
       `${k.tahun} · ${k.kategori === 'pkm' ? 'PkM' : 'Penelitian'} · ` +
       (k.judul.length > 70 ? k.judul.slice(0,70)+'…' : k.judul))}</option>`).join('');
   if(!data.length){
     const s = el.parentElement.querySelector('.sub');
     if(s) s.innerHTML = 'Belum ada kegiatan penelitian/PkM atas nama Anda. '
-      + 'Input kegiatannya lebih dulu di tab <b>Penelitian &amp; PkM</b> bila '
-      + 'karya ini memang berasal dari sana.';
+      + 'Input kegiatannya lebih dulu di tab <b>Penelitian &amp; PkM</b>'
+      + (wajib ? '.' : ' bila karya ini memang berasal dari sana.');
   }
 }
 
@@ -893,6 +902,18 @@ async function simpan(key){
   const isi = Object.fromEntries(new FormData(frm).entries());
   Object.keys(isi).forEach(k=>{ if(isi[k]==='') isi[k]=null; });
   if(key !== 'kegiatan') isi.kategori = key;
+
+  // Integrasi memilih kegiatan lewat dropdown; judulnya disalin dari entri
+  // aslinya supaya laporan dan data.json tetap terbaca apa adanya tanpa
+  // menelusuri relasi, dan tidak ada judul kembar akibat ketik ulang.
+  if(key === 'integrasi'){
+    if(!isi.induk_id){
+      fm.className='msg err';
+      fm.textContent='Pilih penelitian atau PkM yang diintegrasikan.';
+      return;
+    }
+    isi.judul = JUDUL_INDUK[isi.induk_id] || '';
+  }
 
   const peran  = document.getElementById('f_peran').value;
   const koresp = document.getElementById('f_koresponden')?.checked || false;
