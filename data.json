@@ -872,25 +872,6 @@
    ]
   },
   {
-   "judul": "(INVESTIGASI PENGARUH TIPE SENSOR DAN KONFIGURASI ELEKTRODE TERHADAP KEMAMPUAN SELF-SENSING MORTAR UNTUK MENUNJANG INFRASTRUKTUR CERDAS DAN  BERKELANJUTAN)",
-   "tahun": 2024,
-   "tahun_ts": 2024,
-   "kategori": "penelitian",
-   "tingkat": "wilayah_lokal",
-   "skema": "Hibah internal lainnya — sebutkan namanya",
-   "kelompok": "Hibah internal perguruan tinggi",
-   "mitra": [],
-   "mahasiswa": 0,
-   "penulis": [
-    {
-     "nama": "Gati Annisa Hayu",
-     "slug": "gati-annisa-hayu",
-     "peran": "ketua",
-     "korespondensi": false
-    }
-   ]
-  },
-  {
    "judul": "EDUKASI KERENTANAN PESISIR DAN MITIGASINYA MENURUT PANDANGAN TEKNIK SIPIL",
    "tahun": 2024,
    "tahun_ts": 2024,
@@ -916,6 +897,25 @@
     {
      "nama": "Teuku Mahlil",
      "slug": "teuku-mahlil",
+     "peran": "ketua",
+     "korespondensi": false
+    }
+   ]
+  },
+  {
+   "judul": "INVESTIGASI PENGARUH TIPE SENSOR DAN KONFIGURASI ELEKTRODE TERHADAP KEMAMPUAN SELF-SENSING MORTAR UNTUK MENUNJANG INFRASTRUKTUR CERDAS DAN  BERKELANJUTAN",
+   "tahun": 2024,
+   "tahun_ts": 2024,
+   "kategori": "penelitian",
+   "tingkat": "wilayah_lokal",
+   "skema": "Hibah internal lainnya — sebutkan namanya",
+   "kelompok": "Hibah internal perguruan tinggi",
+   "mitra": [],
+   "mahasiswa": 0,
+   "penulis": [
+    {
+     "nama": "Gati Annisa Hayu",
+     "slug": "gati-annisa-hayu",
      "peran": "ketua",
      "korespondensi": false
     }
