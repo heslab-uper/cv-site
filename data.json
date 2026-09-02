@@ -1,7 +1,7 @@
 {
  "prodi": "Teknik Sipil",
  "institusi": "Universitas Pertamina",
- "diperbarui": "01 September 2026",
+ "diperbarui": "03 September 2026",
  "dosen": [
   {
    "nama": "Adita Utami",
@@ -76,6 +76,78 @@
  ],
  "publikasi": [
   {
+   "judul": "Analisis Biaya Kemacetan Kendaraan Pribadi pada Ruas Jalan Raden Saleh Kota Tangerang: Melalui Pendekatan Nilai Waktu dan Biaya Operasional Kendaraan",
+   "tahun": 2026,
+   "tahun_ts": 2026,
+   "dari_kegiatan": null,
+   "jenis": "jurnal",
+   "terbitan": "Anggapa Journal-Building design and architecture management studies",
+   "tingkat": "nasional",
+   "indeksasi": "sinta_5_6",
+   "doi": "https://doi.org/10.61293/anggapa.v5i1.950",
+   "url": null,
+   "mitra": [
+    {
+     "nama": "Universitas Trisakti",
+     "tingkat": "nasional",
+     "negara": "Indonesia"
+    }
+   ],
+   "mahasiswa": 1,
+   "penulis": [
+    {
+     "nama": "Adita Utami",
+     "slug": "adita-utami",
+     "peran": "penulis_pertama",
+     "korespondensi": true
+    }
+   ]
+  },
+  {
+   "judul": "Analisis Biaya Kemacetan Pada Simpang Jalan Raya Pos Pengumben Kota Jakarta Barat",
+   "tahun": 2026,
+   "tahun_ts": 2026,
+   "dari_kegiatan": null,
+   "jenis": "jurnal",
+   "terbitan": "Ge-STRAM: Jurnal Perencanaan dan Rekayasa Sipil",
+   "tingkat": "nasional",
+   "indeksasi": "sinta_3_4",
+   "doi": null,
+   "url": "https://ejournal.unitomo.ac.id/index.php/gestram/article/view/9938",
+   "mitra": [],
+   "mahasiswa": 1,
+   "penulis": [
+    {
+     "nama": "Adita Utami",
+     "slug": "adita-utami",
+     "peran": "anggota",
+     "korespondensi": true
+    }
+   ]
+  },
+  {
+   "judul": "Analisis Geometrik Jalan sebagai Upaya Peningkatan Kinerja di Ruas Jalan Lingkar Selatan Kota Serang",
+   "tahun": 2026,
+   "tahun_ts": 2026,
+   "dari_kegiatan": null,
+   "jenis": "jurnal",
+   "terbitan": "Jurnal Teknik Sipil",
+   "tingkat": "nasional",
+   "indeksasi": "sinta_5_6",
+   "doi": "https://doi.org/10.31284/j.jts.2026.v7i1.8894",
+   "url": "https://ejurnal.itats.ac.id/jts/article/view/8894",
+   "mitra": [],
+   "mahasiswa": 1,
+   "penulis": [
+    {
+     "nama": "Adita Utami",
+     "slug": "adita-utami",
+     "peran": "anggota",
+     "korespondensi": true
+    }
+   ]
+  },
+  {
    "judul": "Damage Detection in Concrete Beams through Cement-based Piezoelectric Composites Polarized under Low Electric Fields",
    "tahun": 2026,
    "tahun_ts": 2026,
@@ -105,6 +177,80 @@
      "slug": "gati-annisa-hayu",
      "peran": "penulis_pertama",
      "korespondensi": true
+    }
+   ]
+  },
+  {
+   "judul": "Development and Validation of GIS-Based Multi-Vulnerability Mapping for Floods and Landslides in Parung Panjang",
+   "tahun": 2026,
+   "tahun_ts": 2026,
+   "dari_kegiatan": "Pengembangan Sistem Informasi Geografis (SIG) Untuk Pemetaan Wilayah Rawan Bencana dan Pengelolaan Tata Ruang yang Berkelanjutan di Kecamatan Parung Panjang, Kabupaten Bogor",
+   "jenis": "jurnal",
+   "terbitan": "Jurnal Sisfokom (Sistem Informasi dan Komputer)",
+   "tingkat": "nasional",
+   "indeksasi": "sinta_3_4",
+   "doi": "https://doi.org/10.32736/sisfokom.v15i02.2623",
+   "url": "https://jurnal.atmaluhur.ac.id/index.php/sisfokom/article/view/2623",
+   "mitra": [
+    {
+     "nama": "Universitas Pembangunan Nasional Veteran Jakarta",
+     "tingkat": "nasional",
+     "negara": "Indonesia"
+    }
+   ],
+   "mahasiswa": 0,
+   "penulis": [
+    {
+     "nama": "Adita Utami",
+     "slug": "adita-utami",
+     "peran": "anggota",
+     "korespondensi": false
+    }
+   ]
+  },
+  {
+   "judul": "Identifikasi potensi akuifer menggunakan geolistrik resistivitas sebagai dasar perencanaan penyediaan air bersih",
+   "tahun": 2026,
+   "tahun_ts": 2026,
+   "dari_kegiatan": "WATER FOR ALL! : Program Komunitas Lingkungan Cerdas Berbasis Water Treatment Process Sebagai Media untuk Menyediakan Air Bersih di SDN Barengkok II, Jasinga, Bogor",
+   "jenis": "jurnal",
+   "terbitan": "Jurnal Inovasi Hasil Pengabdian Masyarakat (JIPEMAS)",
+   "tingkat": "nasional",
+   "indeksasi": "sinta_3_4",
+   "doi": "https://doi.org/10.33474/jipemas.v9i2.24930",
+   "url": "https://riset.unisma.ac.id/index.php/jipemas/article/view/24930",
+   "mitra": [],
+   "mahasiswa": 0,
+   "penulis": [
+    {
+     "nama": "Adita Utami",
+     "slug": "adita-utami",
+     "peran": "penulis_pertama",
+     "korespondensi": true
+    },
+    {
+     "nama": "Arlyn Aristo",
+     "slug": "arlyn-aristo",
+     "peran": "anggota",
+     "korespondensi": false
+    },
+    {
+     "nama": "Nurul Fajar Januriyadi",
+     "slug": "nurul-fajar-januriyadi",
+     "peran": "anggota",
+     "korespondensi": false
+    },
+    {
+     "nama": "Teuku Mahlil",
+     "slug": "teuku-mahlil",
+     "peran": "anggota",
+     "korespondensi": false
+    },
+    {
+     "nama": "Vani Arliani",
+     "slug": "vani-arliani",
+     "peran": "anggota",
+     "korespondensi": false
     }
    ]
   },
@@ -147,6 +293,34 @@
     {
      "nama": "Arianta",
      "slug": "arianta",
+     "peran": "penulis_pertama",
+     "korespondensi": true
+    }
+   ]
+  },
+  {
+   "judul": "Mode Shift Analysis from Private Car to Public Transport in Reducing Car Use and Improving Traffic Performance for Sustainable Transportation",
+   "tahun": 2026,
+   "tahun_ts": 2026,
+   "dari_kegiatan": null,
+   "jenis": "jurnal",
+   "terbitan": "Interdisciplinary Graduate School of Engineering Sciences, Kyushu University, Japan",
+   "tingkat": "internasional",
+   "indeksasi": "scopus_q3",
+   "doi": "https://doi.org/10.5109/7405129  ",
+   "url": "https://catalog.lib.kyushu-u.ac.jp/opac_detail_md/?lang=1&amode=MD100000&bibid=7405129 ",
+   "mitra": [
+    {
+     "nama": "Badan Riset dan Inovasi Nasional",
+     "tingkat": "nasional",
+     "negara": "Indonesia"
+    }
+   ],
+   "mahasiswa": 0,
+   "penulis": [
+    {
+     "nama": "Adita Utami",
+     "slug": "adita-utami",
      "peran": "penulis_pertama",
      "korespondensi": true
     }
@@ -243,6 +417,34 @@
      "slug": "nurul-fajar-januriyadi",
      "peran": "penulis_pertama",
      "korespondensi": true
+    }
+   ]
+  },
+  {
+   "judul": "Youth Empowerment for Smart Village Using Solar Energy and IoT in Cibarengkok: Pemberdayaan Karang Taruna Cibarengkok melalui Panel Surya dan IoT untuk Pengembangan Smart Village",
+   "tahun": 2026,
+   "tahun_ts": 2026,
+   "dari_kegiatan": "Pemberdayaan Karang Taruna dalam Mewujudkan Smart Village melalui Implementasi Panel Surya dan IoT untuk Penerangan dan Pengelolaan Air Bersih di Desa Barengkok, Kabupaten Bogor",
+   "jenis": "jurnal",
+   "terbitan": "Dinamisia: Jurnal Pengabdian Kepada Masyarakat",
+   "tingkat": "nasional",
+   "indeksasi": "sinta_3_4",
+   "doi": "https://doi.org/10.31849/dinamisia.v10i1.29548",
+   "url": "https://journal.unilak.ac.id/index.php/dinamisia/article/view/29548/9042",
+   "mitra": [
+    {
+     "nama": "Universitas Pembangunan Nasional Veteran Jakarta",
+     "tingkat": "nasional",
+     "negara": "Indonesia"
+    }
+   ],
+   "mahasiswa": 0,
+   "penulis": [
+    {
+     "nama": "Adita Utami",
+     "slug": "adita-utami",
+     "peran": "anggota",
+     "korespondensi": false
     }
    ]
   },
@@ -791,6 +993,56 @@
    ]
   },
   {
+   "judul": "SMART-WASTE: Penerapan Teknologi Bank Sampah Digital dan Internet of Things untuk Peningkatan Kinerja Bank Sampah Lapak Lontar Kabupaten Bogor",
+   "tahun": 2026,
+   "tahun_ts": 2026,
+   "kategori": "pkm",
+   "tingkat": "nasional",
+   "skema": "Lainnya — sebutkan di keterangan",
+   "kelompok": "Kementerian / lembaga lain / pemda",
+   "mitra": [
+    {
+     "nama": "Universitas Pembangunan Nasional Veteran Jakarta",
+     "tingkat": "nasional",
+     "negara": "Indonesia"
+    }
+   ],
+   "mahasiswa": 0,
+   "penulis": [
+    {
+     "nama": "Adita Utami",
+     "slug": "adita-utami",
+     "peran": "anggota",
+     "korespondensi": false
+    }
+   ]
+  },
+  {
+   "judul": "Pemberdayaan Karang Taruna dalam Mewujudkan Smart Village melalui Implementasi Panel Surya dan IoT untuk Penerangan dan Pengelolaan Air Bersih di Desa Barengkok, Kabupaten Bogor",
+   "tahun": 2025,
+   "tahun_ts": 2025,
+   "kategori": "pkm",
+   "tingkat": "nasional",
+   "skema": "PBM: PKM — Pemberdayaan Kemitraan Masyarakat",
+   "kelompok": "Kemendiktisaintek / DPPM",
+   "mitra": [
+    {
+     "nama": "Universitas Pembangunan Nasional Veteran Jakarta",
+     "tingkat": "nasional",
+     "negara": "Indonesia"
+    }
+   ],
+   "mahasiswa": 0,
+   "penulis": [
+    {
+     "nama": "Adita Utami",
+     "slug": "adita-utami",
+     "peran": "anggota",
+     "korespondensi": false
+    }
+   ]
+  },
+  {
    "judul": "Pemodelan Pengaruh Land Subsidence dan Sea Level Rise Terhadap Kondisi Hidrodinamika Pesisir Pantai Utara Jawa Tengah",
    "tahun": 2025,
    "tahun_ts": 2025,
@@ -853,6 +1105,74 @@
    ]
   },
   {
+   "judul": "Pengembangan Sistem Informasi Geografis (SIG) Untuk Pemetaan Wilayah Rawan Bencana dan Pengelolaan Tata Ruang yang Berkelanjutan di Kecamatan Parung Panjang, Kabupaten Bogor",
+   "tahun": 2025,
+   "tahun_ts": 2025,
+   "kategori": "penelitian",
+   "tingkat": "nasional",
+   "skema": "Lainnya — sebutkan di keterangan",
+   "kelompok": "Kementerian / lembaga lain / pemda",
+   "mitra": [
+    {
+     "nama": "Universitas Pembangunan Nasional Veteran Jakarta",
+     "tingkat": "nasional",
+     "negara": "Indonesia"
+    }
+   ],
+   "mahasiswa": 0,
+   "penulis": [
+    {
+     "nama": "Adita Utami",
+     "slug": "adita-utami",
+     "peran": "anggota",
+     "korespondensi": false
+    },
+    {
+     "nama": "Nurul Fajar Januriyadi",
+     "slug": "nurul-fajar-januriyadi",
+     "peran": "anggota",
+     "korespondensi": false
+    }
+   ]
+  },
+  {
+   "judul": "Prediksi Panjang Antrian dan Tingkat Kecelakaan pada Perlintasan Sebidang berbasis Geographic Information System (GIS)",
+   "tahun": 2025,
+   "tahun_ts": 2025,
+   "kategori": "penelitian",
+   "tingkat": "nasional",
+   "skema": "Hibah internal universitas",
+   "kelompok": "Hibah internal perguruan tinggi",
+   "mitra": [
+    {
+     "nama": "Badan Riset dan Inovasi Nasional",
+     "tingkat": "nasional",
+     "negara": "Indonesia"
+    }
+   ],
+   "mahasiswa": 0,
+   "penulis": [
+    {
+     "nama": "Adita Utami",
+     "slug": "adita-utami",
+     "peran": "ketua",
+     "korespondensi": false
+    },
+    {
+     "nama": "M Fanshurullah Asa",
+     "slug": "m-fanshurullah-asa",
+     "peran": "anggota",
+     "korespondensi": false
+    },
+    {
+     "nama": "Vani Arliani",
+     "slug": "vani-arliani",
+     "peran": "anggota",
+     "korespondensi": false
+    }
+   ]
+  },
+  {
    "judul": "Studi Eksperimental Pengaruh Low Electric Field Polarization terhadap Sifat Cement-based Piezoelectric Ceramic Composite (CPC) dengan Penambahan Limbah Glass Powder",
    "tahun": 2025,
    "tahun_ts": 2025,
@@ -866,6 +1186,74 @@
     {
      "nama": "Gati Annisa Hayu",
      "slug": "gati-annisa-hayu",
+     "peran": "anggota",
+     "korespondensi": false
+    }
+   ]
+  },
+  {
+   "judul": "WATER FOR ALL! : Program Komunitas Lingkungan Cerdas Berbasis Water Treatment Process Sebagai Media untuk Menyediakan Air Bersih di SDN Barengkok II, Jasinga, Bogor",
+   "tahun": 2025,
+   "tahun_ts": 2025,
+   "kategori": "pkm",
+   "tingkat": "nasional",
+   "skema": "UPERAISAL — Pengabdian Masyarakat",
+   "kelompok": "Hibah internal perguruan tinggi",
+   "mitra": [],
+   "mahasiswa": 3,
+   "penulis": [
+    {
+     "nama": "Adita Utami",
+     "slug": "adita-utami",
+     "peran": "ketua",
+     "korespondensi": false
+    },
+    {
+     "nama": "Arlyn Aristo",
+     "slug": "arlyn-aristo",
+     "peran": "anggota",
+     "korespondensi": false
+    },
+    {
+     "nama": "Nurul Fajar Januriyadi",
+     "slug": "nurul-fajar-januriyadi",
+     "peran": "anggota",
+     "korespondensi": false
+    },
+    {
+     "nama": "Teuku Mahlil",
+     "slug": "teuku-mahlil",
+     "peran": "anggota",
+     "korespondensi": false
+    },
+    {
+     "nama": "Vani Arliani",
+     "slug": "vani-arliani",
+     "peran": "anggota",
+     "korespondensi": false
+    }
+   ]
+  },
+  {
+   "judul": "Barengkok Education: Program Peningkatan Kemampuan Literasi dan Keterampilan untuk Siswa SMP Satu Atap Negeri 1 Barengkok di Desa Barengkok, Jasinga, Bogor, Jawa Barat",
+   "tahun": 2024,
+   "tahun_ts": 2025,
+   "kategori": "pkm",
+   "tingkat": "nasional",
+   "skema": "Hibah internal lainnya — sebutkan namanya",
+   "kelompok": "Hibah internal perguruan tinggi",
+   "mitra": [],
+   "mahasiswa": 0,
+   "penulis": [
+    {
+     "nama": "Adita Utami",
+     "slug": "adita-utami",
+     "peran": "ketua",
+     "korespondensi": false
+    },
+    {
+     "nama": "Ranny Adriana",
+     "slug": "ranny-adriana",
      "peran": "anggota",
      "korespondensi": false
     }
@@ -941,6 +1329,125 @@
     {
      "nama": "Teuku Mahlil",
      "slug": "teuku-mahlil",
+     "peran": "ketua",
+     "korespondensi": false
+    }
+   ]
+  },
+  {
+   "judul": "Pemanfaatan Microsoft Excel dalam Pembuatan Laporan Keuangan untuk Meningkatkan Keterampilan Akuntansi di Kampung Wisata Kuliner Haur Pancuh II",
+   "tahun": 2024,
+   "tahun_ts": 2024,
+   "kategori": "pkm",
+   "tingkat": "nasional",
+   "skema": "Kementerian/lembaga/pemda lainnya — sebutkan namanya",
+   "kelompok": "Kementerian / lembaga lain / pemda",
+   "mitra": [
+    {
+     "nama": "Universitas Pembangunan Nasional Veteran Jakarta",
+     "tingkat": "nasional",
+     "negara": "Indonesia"
+    }
+   ],
+   "mahasiswa": 0,
+   "penulis": [
+    {
+     "nama": "Adita Utami",
+     "slug": "adita-utami",
+     "peran": "anggota",
+     "korespondensi": false
+    }
+   ]
+  },
+  {
+   "judul": "Surya Smart Village: Panel Surya Sebagai Solusi untuk Menyediakan Energi Penerangan Jalan Desa dengan Teknologi Alber (Alarm anti luber) pada penampungan air bersih di Desa Barengkok",
+   "tahun": 2024,
+   "tahun_ts": 2024,
+   "kategori": "pkm",
+   "tingkat": "nasional",
+   "skema": "Innovillage (pendanaan Telkom)",
+   "kelompok": "Kerja sama industri / swasta",
+   "mitra": [],
+   "mahasiswa": 3,
+   "penulis": [
+    {
+     "nama": "Adita Utami",
+     "slug": "adita-utami",
+     "peran": "ketua",
+     "korespondensi": false
+    }
+   ]
+  },
+  {
+   "judul": "\tPengaruh Penggantian Filler menggunakan Fly Ash dan Subtitusi Karet Alam Sebagai Aditif untuk Campuran Aspal Terhadap Karakteristik Campuran Laston Lapis Aus (AC - WC)",
+   "tahun": 2023,
+   "tahun_ts": 2023,
+   "kategori": "penelitian",
+   "tingkat": "nasional",
+   "skema": "UPERESEARCH — Hibah Selektif Tahunan",
+   "kelompok": "Hibah internal perguruan tinggi",
+   "mitra": [
+    {
+     "nama": "Kementerian Pekerjaan Umum",
+     "tingkat": "nasional",
+     "negara": "Indonesia"
+    }
+   ],
+   "mahasiswa": 2,
+   "penulis": [
+    {
+     "nama": "Adita Utami",
+     "slug": "adita-utami",
+     "peran": "ketua",
+     "korespondensi": false
+    }
+   ]
+  },
+  {
+   "judul": "Analysis of Soft Clay Settlement due to Traffic Loading and Road Embankment Using PLAXIS 3D",
+   "tahun": 2023,
+   "tahun_ts": 2023,
+   "kategori": "penelitian",
+   "tingkat": "internasional",
+   "skema": "Kolaborasi pendanaan bersama UPER-MMU / UPER-UTP / UPER-UNITEN",
+   "kelompok": "Pendanaan luar negeri",
+   "mitra": [
+    {
+     "nama": "Universiti Tenaga Nasional Malaysia",
+     "tingkat": "internasional",
+     "negara": "Malaysia"
+    }
+   ],
+   "mahasiswa": 2,
+   "penulis": [
+    {
+     "nama": "Adita Utami",
+     "slug": "adita-utami",
+     "peran": "ketua",
+     "korespondensi": false
+    },
+    {
+     "nama": "Arlyn Aristo",
+     "slug": "arlyn-aristo",
+     "peran": "anggota",
+     "korespondensi": false
+    }
+   ]
+  },
+  {
+   "judul": "COMMUNITY SERVICE COLLABORATION BETWEEN UPER, UTP, AND NUSANTARA REGAS FOR SUSTAINABILITY DI PULAU UNTUNG JAWA, KABUPATEN ADMINISTRATIF KEPULAUAN SERIBU",
+   "tahun": 2023,
+   "tahun_ts": 2023,
+   "kategori": "pkm",
+   "tingkat": "internasional",
+   "skema": "Kolaborasi pendanaan bersama UPER-MMU / UPER-UTP / UPER-UNITEN",
+   "kelompok": "Pendanaan luar negeri",
+   "mitra": [],
+   "mahasiswa": 3,
+   "penulis": [
+    {
+     "nama": "Adita Utami",
+     "slug": "adita-utami",
      "peran": "ketua",
      "korespondensi": false
     }
@@ -1095,8 +1602,8 @@
    "tahun": 2026,
    "tahun_ts": 2026,
    "kategori": "publikasi",
-   "keterlibatan": 1,
-   "mahasiswa_unik": 1
+   "keterlibatan": 4,
+   "mahasiswa_unik": 4
   },
   {
    "tahun": 2025,
@@ -1108,14 +1615,35 @@
   {
    "tahun": 2025,
    "tahun_ts": 2025,
+   "kategori": "pkm",
+   "keterlibatan": 3,
+   "mahasiswa_unik": 3
+  },
+  {
+   "tahun": 2025,
+   "tahun_ts": 2025,
    "kategori": "publikasi",
    "keterlibatan": 1,
    "mahasiswa_unik": 1
   },
   {
+   "tahun": 2024,
+   "tahun_ts": 2024,
+   "kategori": "pkm",
+   "keterlibatan": 3,
+   "mahasiswa_unik": 3
+  },
+  {
    "tahun": 2023,
    "tahun_ts": 2023,
    "kategori": "penelitian",
+   "keterlibatan": 7,
+   "mahasiswa_unik": 6
+  },
+  {
+   "tahun": 2023,
+   "tahun_ts": 2023,
+   "kategori": "pkm",
    "keterlibatan": 3,
    "mahasiswa_unik": 3
   }
@@ -1129,8 +1657,12 @@
    "guru_besar": 1,
    "tanpa_jabatan": 2
   },
-  "karya_utama_internasional": 3,
+  "karya_utama_internasional": 4,
   "karya_utama_rinci": [
+   {
+    "slug": "adita-utami",
+    "tahun": 2026
+   },
    {
     "slug": "arianta",
     "tahun": 2026
@@ -1170,7 +1702,20 @@
   ]
  },
  "tracer": [],
- "luaran_dosen": [],
+ "luaran_dosen": [
+  {
+   "tahun": 2026,
+   "tahun_ts": 2026,
+   "jenis": "buku_isbn",
+   "bagian": 4,
+   "nama_bagian": "Buku ber-ISBN & Book Chapter",
+   "judul": "Smart Lighting Energi Surya",
+   "dosen": [
+    "Adita Utami"
+   ],
+   "dari_kegiatan": "Pemberdayaan Karang Taruna dalam Mewujudkan Smart Village melalui Implementasi Panel Surya dan IoT untuk Penerangan dan Pengelolaan Air Bersih di Desa Barengkok, Kabupaten Bogor"
+  }
+ ],
  "rekognisi": [
   {
    "tahun": 2026,
@@ -1301,7 +1846,7 @@
    {
     "tahun": 2026,
     "internasional": 0,
-    "nasional": 8,
+    "nasional": 14,
     "wilayah": 1,
     "tanpa_tingkat": 0,
     "pendidikan": 0
@@ -1309,7 +1854,7 @@
    {
     "tahun": 2025,
     "internasional": 1,
-    "nasional": 7,
+    "nasional": 10,
     "wilayah": 0,
     "tanpa_tingkat": 0,
     "pendidikan": 0
@@ -1324,8 +1869,8 @@
    },
    {
     "tahun": 2023,
-    "internasional": 1,
-    "nasional": 6,
+    "internasional": 2,
+    "nasional": 7,
     "wilayah": 0,
     "tanpa_tingkat": 0,
     "pendidikan": 0
@@ -1341,20 +1886,20 @@
    {
     "tahun": 2026,
     "kategori": "pkm",
-    "total": 1,
+    "total": 2,
     "dengan_mahasiswa": 1
    },
    {
     "tahun": 2025,
     "kategori": "penelitian",
-    "total": 3,
+    "total": 5,
     "dengan_mahasiswa": 1
    },
    {
     "tahun": 2025,
     "kategori": "pkm",
-    "total": 1,
-    "dengan_mahasiswa": 0
+    "total": 4,
+    "dengan_mahasiswa": 1
    },
    {
     "tahun": 2024,
@@ -1365,13 +1910,19 @@
    {
     "tahun": 2024,
     "kategori": "pkm",
-    "total": 1,
-    "dengan_mahasiswa": 0
+    "total": 2,
+    "dengan_mahasiswa": 1
    },
    {
     "tahun": 2023,
     "kategori": "penelitian",
-    "total": 3,
+    "total": 5,
+    "dengan_mahasiswa": 3
+   },
+   {
+    "tahun": 2023,
+    "kategori": "pkm",
+    "total": 1,
     "dengan_mahasiswa": 1
    }
   ],
@@ -1388,24 +1939,24 @@
     "tahun": 2026,
     "kategori": "pkm",
     "luar_negeri": 0,
-    "dalam_negeri": 0,
+    "dalam_negeri": 1,
     "pt_mandiri": 1,
     "tanpa_sumber": 0
    },
    {
     "tahun": 2025,
     "kategori": "penelitian",
+    "luar_negeri": 0,
+    "dalam_negeri": 2,
+    "pt_mandiri": 3,
+    "tanpa_sumber": 0
+   },
+   {
+    "tahun": 2025,
+    "kategori": "pkm",
     "luar_negeri": 0,
     "dalam_negeri": 1,
-    "pt_mandiri": 2,
-    "tanpa_sumber": 0
-   },
-   {
-    "tahun": 2025,
-    "kategori": "pkm",
-    "luar_negeri": 0,
-    "dalam_negeri": 0,
-    "pt_mandiri": 1,
+    "pt_mandiri": 3,
     "tanpa_sumber": 0
    },
    {
@@ -1420,16 +1971,24 @@
     "tahun": 2024,
     "kategori": "pkm",
     "luar_negeri": 0,
-    "dalam_negeri": 0,
+    "dalam_negeri": 1,
     "pt_mandiri": 1,
     "tanpa_sumber": 0
    },
    {
     "tahun": 2023,
     "kategori": "penelitian",
-    "luar_negeri": 0,
+    "luar_negeri": 1,
     "dalam_negeri": 1,
-    "pt_mandiri": 2,
+    "pt_mandiri": 3,
+    "tanpa_sumber": 0
+   },
+   {
+    "tahun": 2023,
+    "kategori": "pkm",
+    "luar_negeri": 1,
+    "dalam_negeri": 0,
+    "pt_mandiri": 0,
     "tanpa_sumber": 0
    }
   ],
@@ -1443,9 +2002,9 @@
    {
     "tahun": 2026,
     "na1": 0,
-    "na2": 1,
+    "na2": 7,
     "na3": 0,
-    "na4": 2,
+    "na4": 3,
     "nb1": 0,
     "nb2": 1,
     "nb3": 2
@@ -1485,7 +2044,7 @@
    {
     "tahun": 2026,
     "na1": 0,
-    "na2": 0,
+    "na2": 3,
     "na3": 0,
     "na4": 0,
     "nb1": 0,
@@ -1503,7 +2062,16 @@
     "nb3": 1
    }
   ],
-  "luaran_dtps": [],
+  "luaran_dtps": [
+   {
+    "tahun": 2026,
+    "paten": 0,
+    "ttg": 0,
+    "bc": 1,
+    "hki": 0,
+    "lainnya": 0
+   }
+  ],
   "luaran_mhs": []
  },
  "mahasiswa_karya": {
