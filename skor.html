@@ -110,6 +110,10 @@
     border-top:3px solid var(--biru);margin-top:14px}
   .total > div{padding:16px 18px;border-right:1px solid var(--line-soft)}
   .total > div:last-child{border-right:0}
+  .total > div.utama{background:#F7F9F7;border-top:3px solid var(--biru);margin-top:-3px}
+  .total > div.utama b{color:var(--biru)}
+  .total b .dari{display:inline;font-size:14px;color:var(--muted);
+    font-family:var(--mono);letter-spacing:0;text-transform:none}
   .total b{display:block;font-family:var(--mono);font-size:26px;font-weight:400;line-height:1}
   .total span{font-family:var(--mono);font-size:10px;letter-spacing:.1em;
     text-transform:uppercase;color:var(--muted);display:block;margin-top:8px}
@@ -1307,8 +1311,17 @@ function render(){
       <b>${f2(ada ? n : 0)}</b><span>Butir ${x.no}${ada ? '' : ' \u00b7 kosong'}</span></div>`;
   }).join('');
   const rr = a => a.length ? a.reduce((p, q) => p + q, 0) / a.length : null;
-  const rerata = rr(semuaSkor);
-  const rerataNol = rr(semuaNol);
+  const jml = a => a.reduce((p, q) => p + q, 0);
+  const kosong = daftar.length - semuaSkor.length;
+  // Tiga skenario dari data yang sama. Batas bawah dan batas atas adalah
+  // fakta aritmetika; yang tengah adalah ANDAIAN bahwa butir belum dinilai
+  // akan bernilai serupa dengan yang sudah dinilai. Andaian itu bisa saja
+  // keliru, jadi ketiganya ditampilkan berdampingan, bukan satu angka saja.
+  const rerata     = rr(semuaSkor);                       // butir terisi saja
+  const rerataNol  = jml(semuaNol) / daftar.length;       // kosong = 0
+  const rerataAtas = (jml(semuaSkor) + kosong * 4) / daftar.length;
+  const totalPoin  = jml(semuaNol);
+  const persen     = (totalPoin / (daftar.length * 4)) * 100;
   const seksi = (id, judul, ket, nomor) =>
     seksiLipat(id, judul, ket, nomor.map(n => kartu[n]).join(''));
   // Nomor butir manual per seksi, diurutkan angka.
@@ -1336,18 +1349,25 @@ function render(){
       (ditampilkan 0,00).</p>
 
     <div class="total">
-      <div><b>${rerata == null ? '—' : f2(rerata)}</b>
-        <span>Rata-rata butir terisi</span>
-        <i>Hanya ${semuaSkor.length} butir yang sudah punya nilai. Ini gambaran
-        mutu pada bagian yang sudah dinilai, bukan perkiraan hasil.</i></div>
-      <div><b>${rerataNol == null ? '—' : f2(rerataNol)}</b>
-        <span>Perkiraan batas bawah</span>
-        <i>Seluruh ${daftar.length} butir, yang belum ada nilainya dihitung 0.
-        Angka ini hanya naik ketika butir kosong diisi.</i></div>
+      <div><b>${f2(rerataNol)}</b>
+        <span>Batas bawah</span>
+        <i>Butir kosong dihitung 0. Ini yang pasti sudah dicapai hari ini.</i></div>
+      <div class="utama"><b>${rerata == null ? '—' : f2(rerata)}</b>
+        <span>Perkiraan</span>
+        <i>Butir kosong diandaikan senilai rata-rata butir yang sudah terisi
+        (${f2(rerata || 0)}). Andaian, bukan hasil.</i></div>
+      <div><b>${f2(rerataAtas)}</b>
+        <span>Batas atas</span>
+        <i>Butir kosong diandaikan 4,00 — sempurna. Tidak akan tercapai,
+        hanya batas teoretis.</i></div>
+      <div><b>${f2(totalPoin)} <span class="dari">/ ${daftar.length * 4}</span></b>
+        <span>Poin terkumpul</span>
+        <i>Jumlah seluruh skor dari maksimum ${daftar.length} &times; 4.
+        ${f2(persen)}% dari nilai penuh.</i></div>
       <div><b>${daftar.length - semuaSkor.length}</b>
         <span>Butir belum dinilai</span>
-        <i>Isi lewat halaman <a href="input-butir.html">isian butir manual</a>
-        atau lengkapi lembar datanya.</i></div>
+        <i>${semuaSkor.length} dari ${daftar.length} sudah punya nilai. Isi
+        sisanya di <a href="input-butir.html">halaman butir manual</a>.</i></div>
     </div>
 
     <div class="ringkas">${ring}</div>
