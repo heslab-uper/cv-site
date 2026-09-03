@@ -105,7 +105,7 @@
   .skorbox .angka.tak{color:var(--muted);font-size:22px}
   .skorbox .angka.nol{color:#AAB4BD}
   .ringkas > div.kos b{color:#AAB4BD}
-  .total{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+  .total{display:grid;grid-template-columns:repeat(auto-fit,minmax(168px,1fr));
     background:var(--panel);border:1px solid var(--line);
     border-top:3px solid var(--biru);margin-top:14px}
   .total > div{padding:16px 18px;border-right:1px solid var(--line-soft)}
@@ -1313,6 +1313,14 @@ function render(){
   const rr = a => a.length ? a.reduce((p, q) => p + q, 0) / a.length : null;
   const jml = a => a.reduce((p, q) => p + q, 0);
   const kosong = daftar.length - semuaSkor.length;
+  // Butir kosong punya DUA sebab yang berbeda penanganannya:
+  //  - butir manual belum dinilai   -> isi di input-butir.html
+  //  - butir terhitung tanpa data   -> lengkapi lembar Excel / Supabase
+  // Menggabungkannya jadi satu angka membuat orang mencari di tempat salah.
+  const noManual = new Set(BUTIR_MANUAL.map(b => b.no));
+  const kosongNo = daftar.filter(x => !skorDari(kartu[x.no]).ada).map(x => x.no);
+  const kosongManual = kosongNo.filter(n => noManual.has(n));
+  const kosongData = kosongNo.filter(n => !noManual.has(n));
   // Tiga skenario dari data yang sama. Batas bawah dan batas atas adalah
   // fakta aritmetika; yang tengah adalah ANDAIAN bahwa butir belum dinilai
   // akan bernilai serupa dengan yang sudah dinilai. Andaian itu bisa saja
@@ -1364,10 +1372,16 @@ function render(){
         <span>Poin terkumpul</span>
         <i>Jumlah seluruh skor dari maksimum ${daftar.length} &times; 4.
         ${f2(persen)}% dari nilai penuh.</i></div>
-      <div><b>${daftar.length - semuaSkor.length}</b>
-        <span>Butir belum dinilai</span>
-        <i>${semuaSkor.length} dari ${daftar.length} sudah punya nilai. Isi
-        sisanya di <a href="input-butir.html">halaman butir manual</a>.</i></div>
+      <div><b>${kosongManual.length}</b>
+        <span>Manual belum diisi</span>
+        <i>Butir kualitatif tanpa nilai${kosongManual.length ?
+          ': ' + kosongManual.join(', ') : ''}. Isi di
+        <a href="input-butir.html">halaman butir manual</a>.</i></div>
+      <div><b>${kosongData.length}</b>
+        <span>Data belum lengkap</span>
+        <i>Butir berumus yang datanya belum ada${kosongData.length ?
+          ': ' + kosongData.join(', ') : ''}. Tidak bisa diisi lewat halaman
+        butir manual — lengkapi lembar datanya.</i></div>
     </div>
 
     <div class="ringkas">${ring}</div>
