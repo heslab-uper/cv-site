@@ -290,6 +290,10 @@ if (!SUPABASE_URL || !SUPABASE_ANON_KEY
 }
 const sb = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 'use strict';
+// Naikkan setiap kali skor.html / rincian.js / butir-manual.js / bobot.js
+// diubah. Ditampilkan di kaki halaman supaya ketahuan seketika kalau
+// peramban masih memakai salinan lama dari cache.
+const VERSI = '2026-09-03d';
 // =====================================================================
 //  Kalkulator skor butir APS-AV 2025 1.0 (Program Sarjana) yang dapat
 //  dihitung dari data.json: 33, 34, 35, 42, 43, 46, 47, ditambah
@@ -1421,9 +1425,11 @@ function render(){
             tsTren.map(taDari).join(' · '), bagianTren(daftar, tren, tsTren), true)}
 
     <footer>Diperbarui ${esc(D.diperbarui || '')} · Rumus mengikuti Matriks
-    Penilaian APS-AV 2025 1.0 Program Sarjana · Tidak ditampilkan: butir
-    kualitatif LED (1–5, 7, 8, 12–18, 20–22, 24, 29, 38, 39, 48, 52–60) dan
-    butir 30 (RBK dari data BKD, yang tidak pernah dipublikasikan).</footer>`;
+    Penilaian APS-AV 2025 1.0 Program Sarjana, bobot mengikuti lampiran
+    Bobot Penilaian Akreditasi Program Studi (jumlah bobot
+    ${f2(BOBOT_TOTAL)}) · Seluruh 60 butir ditampilkan; butir kualitatif
+    diisi tangan dan ditandai &ldquo;diisi manual&rdquo; ·
+    Versi halaman <code>${esc(VERSI)}</code></footer>`;
 }
 
 function pasangTS(){
