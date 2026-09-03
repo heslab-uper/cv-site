@@ -1330,19 +1330,18 @@ function render(){
     poinBobot += (ada ? n : 0) * bw(x.no);
     if (ada) bobotTerisi += bw(x.no);
   });
-  const nilaiBobot     = poinBobot / BOBOT_TOTAL;               // kosong = 0
-  const nilaiBobotIsi  = bobotTerisi ? poinBobot / bobotTerisi : null;
-  const nilaiBobotAtas = (poinBobot + (BOBOT_TOTAL - bobotTerisi) * 4) / BOBOT_TOTAL;
   const cakupan        = (bobotTerisi / BOBOT_TOTAL) * 100;
   const persen2        = (poinBobot / (BOBOT_TOTAL * 4)) * 100;
 
-  // Butir TERISI yang bernilai di bawah 2,00. Diurutkan menurut bobot yang
-  // masih bisa direbut — (4 − skor) × bobot — bukan menurut skornya, karena
-  // butir bernilai 1,46 berbobot 0,22 hampir tidak berpengaruh sementara
-  // butir 2,00 berbobot 5,32 sangat berpengaruh.
+  // Butir TERISI yang nilainya di bawah 2,50. Nilai yang ditampilkan adalah
+  // skor butir apa adanya (tanpa dikalikan bobot), karena itu yang sebanding
+  // dengan skala 0–4 di tiap kartu. Bobot tetap dipakai untuk MENGURUTKAN:
+  // sisa poin yang bisa direbut = (4 − skor) × bobot. Butir bernilai 1,46
+  // berbobot 0,22 hampir tak berpengaruh; butir 2,40 berbobot 5,32 sangat.
+  const AMBANG_LEMAH = 2.5;
   const lemah = daftar
     .map(x => ({ no: x.no, ...skorDari(kartu[x.no]), b: bw(x.no) }))
-    .filter(x => x.ada && x.n < 2)
+    .filter(x => x.ada && x.n < AMBANG_LEMAH)
     .map(x => ({ ...x, sisa: (4 - x.n) * x.b }))
     .sort((p, q) => q.sisa - p.sisa);
   const seksi = (id, judul, ket, nomor) =>
@@ -1372,33 +1371,31 @@ function render(){
       (ditampilkan 0,00).</p>
 
     <div class="total">
-      <div class="utama"><b>${f2(nilaiBobot)}
-        <span class="dari">/ 4,00</span></b>
-        <span>Total berbobot</span>
-        <i>&Sigma;(skor &times; bobot) &divide; ${f2(BOBOT_TOTAL)} &mdash;
-        ${f2(poinBobot)} dari ${f2(BOBOT_TOTAL * 4)} poin (${f2(persen2)}%).
-        Butir kosong dihitung 0, jadi angka ini hanya naik saat butir
-        kosong diisi.</i></div>
+      <div class="utama"><b>${f2(poinBobot)}
+        <span class="dari">/ ${f2(BOBOT_TOTAL * 4)}</span></b>
+        <span>Poin berbobot</span>
+        <i>&Sigma;(skor &times; bobot) &mdash; ${f2(persen2)}% dari nilai penuh.
+        Butir kosong dihitung 0, jadi angka ini hanya naik saat butir kosong
+        diisi.</i></div>
 
       <div><b>${semuaSkor.length} <span class="dari">/ ${daftar.length}</span></b>
         <span>Butir sudah diisi</span>
         <i>Mencakup ${f2(cakupan)}% dari total bobot. Persentase bobot lebih
-        penting daripada jumlah butir: bobot antar butir jauh berbeda.</i></div>
+        menentukan daripada jumlah butir: bobot antar butir jauh berbeda.</i></div>
 
       <div><b>${kosong}</b>
         <span>Butir belum diisi</span>
-        <i>${kosongManual.length} butir kualitatif &mdash; isi di
+        <i><b>${kosongManual.length} kualitatif</b> &mdash; isi di
         <a href="input-butir.html">halaman butir manual</a>.
-        ${kosongData.length} butir berumus menunggu data: ${
+        <b>${kosongData.length} berumus</b> menunggu data: ${
           kosongData.length ? kosongData.join(', ') : '—'}.</i></div>
 
       <div><b class="${lemah.length ? 'mer' : ''}">${lemah.length}</b>
-        <span>Butir di bawah 2,00</span>
+        <span>Butir di bawah 2,50</span>
         <i>${lemah.length
-          ? 'Terbesar andilnya lebih dulu: ' + lemah.slice(0, 8).map(x =>
-              `butir ${x.no} (${f2(x.n)}, bobot ${f2(x.b)})`).join('; ')
-            + (lemah.length > 8 ? `, dan ${lemah.length - 8} lainnya` : '') + '.'
-          : 'Tidak ada butir terisi yang bernilai di bawah 2,00.'}</i></div>
+          ? 'Nilai butir tanpa bobot, terbesar andilnya lebih dulu: ' +
+            lemah.map(x => `butir ${x.no} = ${f2(x.n)}`).join('; ') + '.'
+          : 'Tidak ada butir terisi yang bernilai di bawah 2,50.'}</i></div>
     </div>
 
     <div class="ringkas">${ring}</div>
