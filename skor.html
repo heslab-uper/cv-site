@@ -293,7 +293,7 @@ const sb = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 // Naikkan setiap kali skor.html / rincian.js / butir-manual.js / bobot.js
 // diubah. Ditampilkan di kaki halaman supaya ketahuan seketika kalau
 // peramban masih memakai salinan lama dari cache.
-const VERSI = '2026-09-03d';
+const VERSI = '2026-09-03e';
 // =====================================================================
 //  Kalkulator skor butir APS-AV 2025 1.0 (Program Sarjana) yang dapat
 //  dihitung dari data.json: 33, 34, 35, 42, 43, 46, 47, ditambah
@@ -453,19 +453,25 @@ function butirManual(b){
   const rumus = b.hitung ? b.hitung.rumus
               : b.rumus || 'Skor diisi langsung dari matriks penilaian (0–4).';
   const bukti = ISteks(kunciBuktiButir(b));
+  const konteks = b.konteks ? b.konteks(D, TS) : '';
   const isi = `
+    ${konteks ? `<p class="ctt" style="margin:0 0 10px">
+      <b>Data pendukung:</b> ${esc(konteks)}</p>` : ''}
     <div class="gulir"><table class="rin"><thead><tr>
       <th>Komponen</th><th>Nilai</th></tr></thead><tbody>${baris}</tbody></table></div>
     <div class="rumus">${esc(rumus)}</div>
     ${bukti ? `<a class="tbl-bukti" href="${esc(bukti)}"
         target="_blank" rel="noopener nofollow">&#128206;&nbsp; Bukti &#8599;</a>`
       : `<p class="isian" style="margin-top:10px">Bukti belum ditautkan — isi
-         <code>${esc(kunciBuktiButir(b))}</code> di lembar pengaturan.</p>`}`;
+         kolom <code>bukti</code> pada baris butir ${esc(b.no)} di lembar
+         <code>${b.hitung ? 'angka_butir' : 'nilai_kualitatif'}</code>,
+         atau lewat <a href="input-butir.html">halaman butir manual</a>.</p>`}`;
   const ket = [b.tabel, b.ket].filter(Boolean).join(' · ');
   return kartuButir(b.no, b.judul, isi, skor,
-    (lengkap ? '' : 'Belum lengkap — isi kunci di atas pada lembar ' +
-      '<code>pengaturan</code> data-prodi.xlsx lalu jalankan ' +
-      '<code>--sinkron-pengaturan</code>. ') +
+    (lengkap ? '' : 'Belum lengkap — isi di <a href="input-butir.html">halaman ' +
+      'butir manual</a>, atau pada lembar <code>' +
+      (b.hitung ? 'angka_butir' : 'nilai_kualitatif') + '</code> di ' +
+      'data-prodi.xlsx lalu jalankan <code>--sinkron-pengaturan</code>. ') +
     'Nilai ini penilaian sendiri, bukan penilaian asesor. ' + ket,
     '<span class="manual">diisi manual</span>');
 }

@@ -78,9 +78,24 @@ export const BUTIR_MANUAL = [
    gabung:(i,ii)=>(i+ii)/2, rumus:'Skor = (I + II) / 2'},
   {no:'17', judul:'Integrasi penelitian dan PkM dalam pembelajaran',
    tabel:'Tabel 3.a.3 LKPS', seksi:'pendidikan',
-   ket:'Hasil penelitian/PkM sebagai bahan ajar minimal 10% dari mata ' +
-       'kuliah inti, dinilai atas relevansi CPL, keunggulan kompetitif, ' +
-       'kebaruan ilmiah, dan dampak sosial.'},
+   ket:'Ambang 10% adalah SYARAT, bukan skalanya. Skor 0–4 ditentukan oleh ' +
+       'sifat bahan ajarnya: relevansi CPL, keunggulan kompetitif, kebaruan ' +
+       'ilmiah, dan dampak sosial — keempatnya tidak dapat dihitung dari ' +
+       'data, karena itu butir ini diisi tangan.',
+   // Data pendukung yang SUDAH ada di sistem. Tidak menentukan skornya,
+   // tapi menjadi dasar penilaian dan memperlihatkan apakah syarat 10%
+   // masuk akal untuk diklaim.
+   konteks: (D, TS) => {
+     const I = (D.integrasi || []).filter(r => r.tahun >= TS - 2 && r.tahun <= TS);
+     const mk = new Set(I.map(r => String(r.mata_kuliah || '').trim().toLowerCase())
+                         .filter(Boolean));
+     if (!I.length) return 'Belum ada kegiatan integrasi terverifikasi pada ' +
+       'jendela ini. Dosen mengisinya lewat tab Integrasi di input.html — ' +
+       'tanpa itu, syarat 10% tidak punya bukti di sistem.';
+     return `${I.length} kegiatan integrasi terverifikasi, mencakup ` +
+       `${mk.size} mata kuliah. Persentase terhadap mata kuliah inti belum ` +
+       `dapat dihitung: jumlah mata kuliah inti prodi tidak ada di data.json.`;
+   }},
   {no:'18', judul:'Pembelajaran penugasan, praktikum, dan praktik lapangan',
    tabel:'Tabel 3.a.1 LKPS', seksi:'pendidikan',
    hitung:{kunci:['jp_jam','jb_jam'],
