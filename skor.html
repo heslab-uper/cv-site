@@ -136,6 +136,32 @@
     text-transform:uppercase;color:var(--muted);text-decoration:none;cursor:pointer}
   .kontrol-seksi a:hover{color:var(--biru)}
 
+  /* ---------- rincian per butir ---------- */
+  details.rinci{margin-top:10px}
+  details.rinci > summary{list-style:none;cursor:pointer;user-select:none;
+    font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--biru-2);padding:6px 0}
+  details.rinci > summary::-webkit-details-marker{display:none}
+  details.rinci > summary::before{content:'\25B8\00a0'}
+  details.rinci[open] > summary::before{content:'\25BE\00a0'}
+  details.rinci > summary:hover{color:var(--biru)}
+  table.rinci-t{border-collapse:collapse;font-size:12.5px;width:100%;margin-top:4px}
+  table.rinci-t th{font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--muted);font-weight:400;text-align:left;
+    padding:6px 8px;border-bottom:1px solid var(--line);white-space:nowrap}
+  table.rinci-t td{padding:6px 8px;border-bottom:1px solid var(--line-soft);
+    vertical-align:top;line-height:1.4}
+  table.rinci-t td.th{font-family:var(--mono);color:var(--muted);width:42px}
+  table.rinci-t td.mhs{font-family:var(--mono);text-align:center;width:46px;
+    color:var(--muted)}
+  table.rinci-t td.mhs.ya{color:var(--hijau)}
+  table.rinci-t td.dana{font-family:var(--mono);font-size:11px;
+    color:var(--muted);white-space:nowrap}
+  table.rinci-t tbody tr:nth-child(even) td{background:rgba(12,42,77,.022)}
+  .rinci-cek{font-family:var(--mono);font-size:11px;color:var(--muted);
+    margin-top:8px;padding-top:7px;border-top:1px solid var(--line-soft)}
+  .rinci-cek.beda{color:var(--merah)}
+
   footer{margin-top:52px;border-top:1px solid var(--line);padding-top:18px;
          font-size:12.5px;color:var(--muted)}
 
@@ -307,6 +333,63 @@ function skorRasio(RI, RN, RW, a, b, c){
 }
 
 function kelasSkor(s){ return s == null ? 'tak' : (s >= 4 ? 'n4' : ''); }
+
+// ---------------------------------------------------------------------
+//  RINCIAN PER BUTIR — daftar karya yang membentuk angka pada kartu.
+//
+//  Penyaringnya sengaja dibuat sama persis dengan bangun.py: hanya karya
+//  terverifikasi yang relevan_visi, di dalam jendela n TS terakhir. Field
+//  relevan_visi dan ember_dana dibawa apa adanya dari data.json; keduanya
+//  tidak dihitung ulang di sini supaya tidak bisa menyimpang dari sumber.
+//
+//  Jumlah baris dibandingkan dengan penyebut pada kartu. Kalau berbeda,
+//  selisihnya DITAMPILKAN, tidak disembunyikan — daftar yang tidak cocok
+//  dengan skornya lebih berbahaya daripada tidak ada daftar sama sekali.
+// ---------------------------------------------------------------------
+const EMBER_LABEL = {
+  luar_negeri: 'Luar negeri', dalam_negeri: 'Dalam negeri',
+  pt_mandiri: 'PT / mandiri', tanpa_sumber: 'tidak tercatat',
+};
+
+function karyaButir(kategori, n){
+  const t0 = TS - n + 1;
+  return (D.kegiatan || [])
+    .filter(k => k.kategori === kategori
+              && k.relevan_visi !== false
+              && k.tahun_ts >= t0 && k.tahun_ts <= TS)
+    .sort((a, b) => (b.tahun_ts - a.tahun_ts)
+                    || String(a.judul).localeCompare(String(b.judul)));
+}
+
+function rincianKarya(daftar, penyebut, labelPenyebut){
+  if (!daftar.length) return '';
+  const baris = daftar.map(k => `<tr>
+      <td class="th">${esc(k.tahun)}</td>
+      <td>${esc(k.judul)}${k.bukti
+        ? ` <a href="${esc(k.bukti)}" rel="noopener nofollow" title="Bukti">&#8599;</a>`
+        : ''}</td>
+      <td class="mhs${k.mahasiswa ? ' ya' : ''}">${k.mahasiswa || '&ndash;'}</td>
+      <td class="dana">${esc(EMBER_LABEL[k.ember_dana] || '&mdash;')}</td>
+    </tr>`).join('');
+
+  let cek = '';
+  if (penyebut != null){
+    const cocok = daftar.length === penyebut;
+    cek = `<div class="rinci-cek${cocok ? '' : ' beda'}">` + (cocok
+      ? `${daftar.length} judul, sama dengan ${labelPenyebut} pada kartu.`
+      : `PERIKSA: daftar memuat ${daftar.length} judul, ${labelPenyebut} pada `
+        + `kartu ${penyebut}. Angka kartu dan daftar ini tidak berasal dari `
+        + `penyaring yang sama — jangan pakai keduanya sebelum ditelusuri.`)
+      + `</div>`;
+  }
+
+  return `<details class="rinci">
+    <summary>Rincian ${daftar.length} judul</summary>
+    <div class="gulir"><table class="rinci-t">
+      <thead><tr><th>Th</th><th>Judul</th><th>Mhs</th><th>Sumber dana</th></tr></thead>
+      <tbody>${baris}</tbody>
+    </table></div>${cek}</details>`;
+}
 
 function kartuButir(no, judul, isi, skor, catatan){
   const pct = skor == null ? 0 : (skor / 4) * 100;
@@ -635,7 +718,8 @@ function butirKegMhs(no, judul, kategori){
       <tr><td>Seluruh judul</td><td>${j.total}</td></tr>
       <tr><td><b>Persentase</b></td><td><b>${f2(P * 100)}%</b></td></tr>
     </tbody></table></div>
-    <div class="rumus">≥ 50% → 4 · di bawah itu → 1 + (6 × persentase) · skor terendah 1</div>`;
+    <div class="rumus">≥ 50% → 4 · di bawah itu → 1 + (6 × persentase) · skor terendah 1</div>
+    ${rincianKarya(karyaButir(kategori, 3), j.total, 'seluruh judul')}`;
   return kartuButir(no, judul, isi, skor,
     'Melibatkan = minimal satu mahasiswa tercatat pada karya. Jendela ' + taRange(3) + '.');
 }
@@ -701,7 +785,9 @@ function butirDanaSumber(no, judul, kategori){
       <tr><td>PT / mandiri (NW)</td><td>${j.pt_mandiri}</td></tr>
       ${j.tanpa_sumber ? `<tr><td>Tanpa sumber dana tercatat</td><td>${j.tanpa_sumber}</td></tr>` : ''}
     </tbody></table></div>
-    <div class="rumus">RI = NI/3/NDTPS · RN = NN/3/NDTPS · RW = NW/3/NDTPS · a=0,05 b=0,3 c=1 · NDTPS=${N}</div>`;
+    <div class="rumus">RI = NI/3/NDTPS · RN = NN/3/NDTPS · RW = NW/3/NDTPS · a=0,05 b=0,3 c=1 · NDTPS=${N}</div>
+    ${rincianKarya(karyaButir(kategori, 3), total + j.tanpa_sumber,
+                   'jumlah seluruh sumber dana')}`;
   return kartuButir(no, judul, isi, skor,
     'Pemetaan: kelompok skema luar negeri → NI; dalam negeri → NN; internal ' +
     'PT dan mandiri → NW. Jendela ' + taRange(3) +
