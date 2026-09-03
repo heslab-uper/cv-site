@@ -112,6 +112,7 @@
   .total > div:last-child{border-right:0}
   .total > div.utama{background:#F7F9F7;border-top:3px solid var(--biru);margin-top:-3px}
   .total > div.utama b{color:var(--biru)}
+  .total b.mer{color:var(--merah)}
   .total b .dari{display:inline;font-size:14px;color:var(--muted);
     font-family:var(--mono);letter-spacing:0;text-transform:none}
   .total b{display:block;font-family:var(--mono);font-size:26px;font-weight:400;line-height:1}
@@ -1302,17 +1303,13 @@ function render(){
   const TS_DATA = TS;
   TS = TS_PILIH;
   const semuaSkor = [];        // hanya butir yang benar-benar terhitung
-  const semuaNol = [];         // seluruh butir, yang kosong dihitung 0
   const ring = daftar.map(x => {
     const { n, ada } = skorDari(kartu[x.no]);
     if (ada) semuaSkor.push(n);
-    semuaNol.push(ada ? n : 0);
     const kls = !ada ? 'kos' : n >= 3.5 ? 'hij' : n >= 2 ? 'kun' : 'mer';
     return `<div class="${kls}" title="${ada ? '' : 'Belum ada nilai — dihitung 0'}">
       <b>${f2(ada ? n : 0)}</b><span>Butir ${x.no}${ada ? '' : ' \u00b7 kosong'}</span></div>`;
   }).join('');
-  const rr = a => a.length ? a.reduce((p, q) => p + q, 0) / a.length : null;
-  const jml = a => a.reduce((p, q) => p + q, 0);
   const kosong = daftar.length - semuaSkor.length;
   // Butir kosong punya DUA sebab yang berbeda penanganannya:
   //  - butir manual belum dinilai   -> isi di input-butir.html
@@ -1322,15 +1319,6 @@ function render(){
   const kosongNo = daftar.filter(x => !skorDari(kartu[x.no]).ada).map(x => x.no);
   const kosongManual = kosongNo.filter(n => noManual.has(n));
   const kosongData = kosongNo.filter(n => !noManual.has(n));
-  // Tiga skenario dari data yang sama. Batas bawah dan batas atas adalah
-  // fakta aritmetika; yang tengah adalah ANDAIAN bahwa butir belum dinilai
-  // akan bernilai serupa dengan yang sudah dinilai. Andaian itu bisa saja
-  // keliru, jadi ketiganya ditampilkan berdampingan, bukan satu angka saja.
-  const rerata     = rr(semuaSkor);                       // butir terisi saja
-  const rerataNol  = jml(semuaNol) / daftar.length;       // kosong = 0
-  const rerataAtas = (jml(semuaSkor) + kosong * 4) / daftar.length;
-  const totalPoin  = jml(semuaNol);
-  const persen     = (totalPoin / (daftar.length * 4)) * 100;
 
   // Nilai berbobot menurut lampiran bobot LAM Teknik. Bobot seluruh butir
   // berjumlah 100, jadi Σ(skor × bobot) langsung berskala 0–400 dan
@@ -1347,6 +1335,16 @@ function render(){
   const nilaiBobotAtas = (poinBobot + (BOBOT_TOTAL - bobotTerisi) * 4) / BOBOT_TOTAL;
   const cakupan        = (bobotTerisi / BOBOT_TOTAL) * 100;
   const persen2        = (poinBobot / (BOBOT_TOTAL * 4)) * 100;
+
+  // Butir TERISI yang bernilai di bawah 2,00. Diurutkan menurut bobot yang
+  // masih bisa direbut — (4 − skor) × bobot — bukan menurut skornya, karena
+  // butir bernilai 1,46 berbobot 0,22 hampir tidak berpengaruh sementara
+  // butir 2,00 berbobot 5,32 sangat berpengaruh.
+  const lemah = daftar
+    .map(x => ({ no: x.no, ...skorDari(kartu[x.no]), b: bw(x.no) }))
+    .filter(x => x.ada && x.n < 2)
+    .map(x => ({ ...x, sisa: (4 - x.n) * x.b }))
+    .sort((p, q) => q.sisa - p.sisa);
   const seksi = (id, judul, ket, nomor) =>
     seksiLipat(id, judul, ket, nomor.map(n => kartu[n]).join(''));
   // Nomor butir manual per seksi, diurutkan angka.
@@ -1374,35 +1372,33 @@ function render(){
       (ditampilkan 0,00).</p>
 
     <div class="total">
-      <div><b>${f2(nilaiBobot)}</b>
-        <span>Nilai berbobot</span>
-        <i>&Sigma;(skor &times; bobot) &divide; ${f2(BOBOT_TOTAL)}, butir kosong
-        dihitung 0. Skala 0–4. Ini yang pasti sudah dicapai.</i></div>
-      <div class="utama"><b>${nilaiBobotIsi == null ? '—' : f2(nilaiBobotIsi)}</b>
-        <span>Perkiraan berbobot</span>
-        <i>Butir kosong diandaikan senilai butir terisi. Andaian, bukan hasil
-        — makin kecil cakupan bobot, makin rapuh angka ini.</i></div>
-      <div><b>${f2(nilaiBobotAtas)}</b>
-        <span>Batas atas</span>
-        <i>Butir kosong diandaikan 4,00. Batas teoretis, bukan target.</i></div>
-      <div><b>${f2(poinBobot)} <span class="dari">/ ${f2(BOBOT_TOTAL * 4)}</span></b>
-        <span>Poin berbobot</span>
-        <i>${f2(persen2)}% dari nilai penuh. Cakupan bobot yang sudah dinilai
-        ${f2(cakupan)}%.</i></div>
-      <div><b>${f2(rerataNol)} <span class="dari">/ ${f2(rerata || 0)}</span></b>
-        <span>Tanpa bobot</span>
-        <i>Rata-rata polos 60 butir (kosong = 0) dan rata-rata butir terisi,
-        sebagai pembanding.</i></div>
-      <div><b>${kosongManual.length}</b>
-        <span>Manual belum diisi</span>
-        <i>Butir kualitatif tanpa nilai${kosongManual.length ?
-          ': ' + kosongManual.join(', ') : ''}. Isi di
-        <a href="input-butir.html">halaman butir manual</a>.</i></div>
-      <div><b>${kosongData.length}</b>
-        <span>Data belum lengkap</span>
-        <i>Butir berumus yang datanya belum ada${kosongData.length ?
-          ': ' + kosongData.join(', ') : ''}. Tidak bisa diisi lewat halaman
-        butir manual — lengkapi lembar datanya.</i></div>
+      <div class="utama"><b>${f2(nilaiBobot)}
+        <span class="dari">/ 4,00</span></b>
+        <span>Total berbobot</span>
+        <i>&Sigma;(skor &times; bobot) &divide; ${f2(BOBOT_TOTAL)} &mdash;
+        ${f2(poinBobot)} dari ${f2(BOBOT_TOTAL * 4)} poin (${f2(persen2)}%).
+        Butir kosong dihitung 0, jadi angka ini hanya naik saat butir
+        kosong diisi.</i></div>
+
+      <div><b>${semuaSkor.length} <span class="dari">/ ${daftar.length}</span></b>
+        <span>Butir sudah diisi</span>
+        <i>Mencakup ${f2(cakupan)}% dari total bobot. Persentase bobot lebih
+        penting daripada jumlah butir: bobot antar butir jauh berbeda.</i></div>
+
+      <div><b>${kosong}</b>
+        <span>Butir belum diisi</span>
+        <i>${kosongManual.length} butir kualitatif &mdash; isi di
+        <a href="input-butir.html">halaman butir manual</a>.
+        ${kosongData.length} butir berumus menunggu data: ${
+          kosongData.length ? kosongData.join(', ') : '—'}.</i></div>
+
+      <div><b class="${lemah.length ? 'mer' : ''}">${lemah.length}</b>
+        <span>Butir di bawah 2,00</span>
+        <i>${lemah.length
+          ? 'Terbesar andilnya lebih dulu: ' + lemah.slice(0, 8).map(x =>
+              `butir ${x.no} (${f2(x.n)}, bobot ${f2(x.b)})`).join('; ')
+            + (lemah.length > 8 ? `, dan ${lemah.length - 8} lainnya` : '') + '.'
+          : 'Tidak ada butir terisi yang bernilai di bawah 2,00.'}</i></div>
     </div>
 
     <div class="ringkas">${ring}</div>
