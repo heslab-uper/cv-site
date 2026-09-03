@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Rincian butir — Kinerja Program Studi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --biru:#0C2A4D; --biru-2:#17436F; --biru-3:#5C86B0;
+    --merah:#C8102E; --hijau:#00954E; --emas:#B8860B;
+    --bg:#F2F4F2; --panel:#fff; --ink:#14212E; --muted:#5D6B78;
+    --line:#D9DFDA; --line-soft:#EBEEEB;
+    --sans:'IBM Plex Sans',system-ui,sans-serif;
+    --mono:'IBM Plex Mono',ui-monospace,monospace;
+    --serif:'IBM Plex Serif',Georgia,serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);
+       font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1060px;margin:0 auto;padding:0 20px 90px}
+  a{color:var(--biru-2)}
+  .hero{background:var(--biru);color:#fff;border-bottom:4px solid var(--merah)}
+  .hero-in{max-width:1060px;margin:0 auto;padding:26px 20px 24px}
+  .balik{display:inline-flex;gap:7px;align-items:center;text-decoration:none;
+    font-family:var(--mono);font-size:11px;letter-spacing:.1em;
+    text-transform:uppercase;color:#9FC2E0;margin-bottom:16px}
+  .balik:hover{color:#fff}
+  h1{font-family:var(--serif);font-size:clamp(21px,3.4vw,28px);font-weight:600;
+     margin:0;color:#fff}
+  .sub{color:#B9CCDE;font-size:14px;margin-top:6px}
+  .no{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;
+      text-transform:uppercase;color:#7FA5C6;margin-bottom:5px}
+  .kartu{background:var(--panel);border:1px solid var(--line);border-radius:2px;
+         border-top:3px solid var(--biru);padding:20px 22px;margin-top:24px}
+  .cek{font-family:var(--mono);font-size:12px;color:var(--muted);
+       margin-top:12px;padding-top:10px;border-top:1px solid var(--line-soft)}
+  .cek.beda{color:var(--merah)}
+  .ctt{font-size:12.5px;color:var(--muted);margin-top:10px}
+  .kosong{color:var(--muted);font-size:13.5px;padding:18px 0}
+  .gulir{overflow-x:auto}
+  table.r{border-collapse:collapse;font-size:13px;width:100%}
+  table.r th{font-family:var(--mono);font-size:10px;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--muted);font-weight:400;text-align:left;
+    padding:8px 9px;border-bottom:1px solid var(--line);white-space:nowrap}
+  table.r td{padding:8px 9px;border-bottom:1px solid var(--line-soft);
+             vertical-align:top;line-height:1.4}
+  table.r td.th{font-family:var(--mono);color:var(--muted);width:46px}
+  table.r td.mhs{font-family:var(--mono);text-align:center;width:50px;color:var(--muted)}
+  table.r td.mhs.ya{color:var(--hijau)}
+  table.r td.dana{font-family:var(--mono);font-size:11.5px;color:var(--muted);
+                  white-space:nowrap}
+  table.r tbody tr:nth-child(even) td{background:rgba(12,42,77,.022)}
+  .tautan{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+  .tautan a{font-family:var(--mono);font-size:11px;letter-spacing:.06em;
+    text-transform:uppercase;text-decoration:none;color:var(--biru-2);
+    border:1px solid var(--line);background:var(--panel);
+    padding:6px 11px;border-radius:2px}
+  .tautan a[aria-current="true"]{background:var(--biru);color:#fff;border-color:var(--biru)}
+  .masuk{max-width:420px;margin:60px auto;background:var(--panel);
+         border:1px solid var(--line);border-top:3px solid var(--biru);padding:26px}
+  .masuk input{width:100%;padding:9px 11px;border:1px solid var(--line);
+               border-radius:2px;font-family:var(--mono);font-size:13px;margin-top:10px}
+  .masuk button{margin-top:12px;padding:9px 16px;border:0;background:var(--biru);
+                color:#fff;font-family:var(--mono);font-size:12px;
+                letter-spacing:.07em;text-transform:uppercase;cursor:pointer;border-radius:2px}
+  footer{margin-top:44px;border-top:1px solid var(--line);padding-top:16px;
+         font-size:12.5px;color:var(--muted)}
+  @media print{.hero{background:#fff;color:#000;border-bottom:2px solid #000}
+    h1,.sub,.no{color:#000}.balik,.tautan{display:none}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-in">
+    <a class="balik" href="skor.html">&larr; Kembali ke halaman skor</a>
+    <div class="no" id="hNo"></div>
+    <h1 id="hJudul">Memuat&hellip;</h1>
+    <div class="sub" id="hSub"></div>
+  </div>
+</header>
+
+<main class="wrap" id="isi"></main>
+
+<script src="config.js"></script>
+<script type="module">
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+import { BUTIR, isiPetaBukti, cariBukti } from './rincian.js';
+
+const esc = s => String(s ?? '').replace(/[&<>"']/g,
+  c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const q = new URLSearchParams(location.search);
+const NO = q.get('butir') || '';
+const $ = id => document.getElementById(id);
+
+const SB_URL = window.SB_URL || '';
+const SB_KEY = window.SB_KEY || '';
+if (!SB_URL || !SB_KEY || SB_URL.includes('xxxx')){
+  $('isi').innerHTML = `<div class="kartu"><p class="kosong"><b>config.js belum
+    diisi.</b> Halaman ini memakai <code>SB_URL</code> dan <code>SB_KEY</code>
+    yang sama dengan halaman skor.</p></div>`;
+  throw new Error('config.js belum diisi');
+}
+const sb = createClient(SB_URL, SB_KEY);
+
+let D = null, TS = null;
+
+// Gerbang yang sama dengan skor.html: harus login DAN terdaftar di tabel
+// `dosen`. Asesor masuk lewat baris dosen dengan peran 'asesor' dan
+// aktif=tidak, supaya tidak ikut terhitung sebagai DTPS.
+async function mulai(){
+  const { data: { session } } = await sb.auth.getSession();
+  if (!session) return layarMasuk();
+  const { data: saya } = await sb.from('dosen').select('id,nama,email,peran')
+    .ilike('email', session.user.email).maybeSingle();
+  if (!saya){
+    $('hJudul').textContent = 'Tidak terdaftar';
+    $('isi').innerHTML = `<div class="kartu"><p class="kosong">Email
+      <code>${esc(session.user.email)}</code> belum terdaftar. Hubungi
+      pengelola prodi.</p></div>`;
+    return;
+  }
+
+  const [jsonR, buktiR] = await Promise.all([
+    fetch('data.json?v=' + Date.now()),
+    sb.from('karya').select('tahun,kategori,judul,bukti_url')
+      .eq('status', 'terverifikasi'),
+  ]);
+  if (!jsonR.ok) throw new Error('data.json ' + jsonR.status);
+  D = await jsonR.json();
+  isiPetaBukti(buktiR.data || []);
+  if (buktiR.error)
+    console.warn('Bukti tidak terbaca:', buktiR.error.message);
+
+  // TS dari URL bila ada, jika tidak ambil TS terbesar yang punya data.
+  const tsUrl = +q.get('ts');
+  TS = Number.isFinite(tsUrl) && tsUrl > 0 ? tsUrl
+     : Math.max(...(D.kegiatan || []).map(k => k.tahun_ts || 0), 0);
+  render(saya);
+}
+
+function render(saya){
+  const def = BUTIR[NO];
+  $('hSub').textContent = [D.prodi, D.institusi].filter(Boolean).join(' — ')
+    + ` · masuk sebagai ${saya.nama}${saya.peran && saya.peran !== 'dosen'
+      ? ' (' + saya.peran + ')' : ''}`;
+
+  const nav = `<div class="tautan">${Object.keys(BUTIR).map(n =>
+    `<a href="rincian.html?butir=${esc(n)}&ts=${TS}"
+        aria-current="${n === NO}">Butir ${esc(n)}</a>`).join('')}</div>`;
+
+  if (!def){
+    $('hNo').textContent = 'RINCIAN BUTIR';
+    $('hJudul').textContent = 'Butir tidak dikenal';
+    $('isi').innerHTML = `<div class="kartu"><p class="kosong">Tidak ada
+      rincian untuk butir <code>${esc(NO)}</code>. Butir yang tersedia:
+      ${Object.keys(BUTIR).join(', ')}.</p>${nav}</div>`;
+    return;
+  }
+
+  $('hNo').textContent = `BUTIR ${NO} · APS-AV 2025 · TS ${TS}`;
+  $('hJudul').textContent = def.judul;
+
+  const daftar = def.baris(D, TS);
+  const n = def.penyebut(D, TS);
+  let cek = '';
+  if (n != null){
+    const cocok = daftar.length === n;
+    cek = `<div class="cek${cocok ? '' : ' beda'}">${cocok
+      ? `${daftar.length} baris, sama dengan ${def.labelPenyebut} pada kartu skor.`
+      : `PERIKSA: daftar ${daftar.length} baris, ${def.labelPenyebut} pada kartu
+         ${n}. Keduanya tidak berasal dari penyaring yang sama — jangan pakai
+         angka maupun daftar sebelum selisihnya ditelusuri.`}</div>`;
+  }
+
+  const sel = (r, c) => {
+    if (c.kunci === 'mhs')
+      return `<td class="mhs${r.mhs ? ' ya' : ''}">${r.mhs || '&ndash;'}</td>`;
+    let v = esc(r[c.kunci] ?? '\u2014');
+    if (c.kunci === 'judul'){
+      const u = cariBukti(r);
+      if (u) v += ` <a href="${esc(u)}" rel="noopener nofollow">bukti &#8599;</a>`;
+      if (r.doi) v += ` <a href="https://doi.org/${esc(r.doi)}" rel="noopener">DOI</a>`;
+    }
+    return `<td${c.kelas ? ` class="${c.kelas}"` : ''}>${v}</td>`;
+  };
+
+  $('isi').innerHTML = `${nav}
+    <div class="kartu">
+      ${daftar.length ? `<div class="gulir"><table class="r">
+        <thead><tr>${def.kolom.map(c => `<th>${c.th}</th>`).join('')}</tr></thead>
+        <tbody>${daftar.map(r =>
+          `<tr>${def.kolom.map(c => sel(r, c)).join('')}</tr>`).join('')}</tbody>
+      </table></div>` : `<p class="kosong">Tidak ada baris pada jendela TS ${TS}.</p>`}
+      ${cek}
+      ${def.catatan ? `<div class="ctt">${def.catatan}</div>` : ''}
+    </div>
+    <footer>Diperbarui ${esc(D.diperbarui)}. Daftar ini memakai penyaring yang
+    sama dengan kartu di halaman skor. Tautan bukti dibaca dari basis data di
+    balik RLS dan tidak pernah masuk berkas publik. Alat bantu internal, bukan
+    penilaian resmi.</footer>`;
+}
+
+function layarMasuk(){
+  $('hJudul').textContent = 'Perlu masuk';
+  $('isi').innerHTML = `<div class="masuk">
+    <p>Masukkan email kampus Anda — tautan masuk dikirim tanpa kata sandi.</p>
+    <input id="em" type="email" placeholder="nama@kampus.ac.id" autocomplete="email">
+    <button id="kirim">Kirim tautan masuk</button>
+    <p class="ctt" id="pesan"></p></div>`;
+  $('kirim').onclick = async () => {
+    const em = $('em').value.trim();
+    if (!em) return;
+    const { error } = await sb.auth.signInWithOtp({ email: em,
+      options: { emailRedirectTo: location.href } });
+    $('pesan').textContent = error ? 'Gagal: ' + error.message
+      : 'Tautan masuk sudah dikirim. Periksa kotak masuk email Anda.';
+  };
+}
+
+sb.auth.onAuthStateChange(ev => { if (ev === 'SIGNED_IN' && !D) mulai(); });
+mulai().catch(e => {
+  $('hJudul').textContent = 'Gagal memuat';
+  $('isi').innerHTML = `<div class="kartu"><p class="kosong">${esc(e.message)}</p></div>`;
+});
+</script>
+</body>
+</html>
