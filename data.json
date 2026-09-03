@@ -1145,6 +1145,8 @@
      "korespondensi": false
     }
    ],
+   "relevan_visi": true,
+   "ember_dana": "dalam_negeri",
    "bukti": ""
   },
   {
@@ -1171,6 +1173,8 @@
      "korespondensi": false
     }
    ],
+   "relevan_visi": true,
+   "ember_dana": "pt_mandiri",
    "bukti": ""
   },
   {
@@ -1221,6 +1225,8 @@
      "korespondensi": false
     }
    ],
+   "relevan_visi": true,
+   "ember_dana": "pt_mandiri",
    "bukti": ""
   },
   {
@@ -1247,6 +1253,8 @@
      "korespondensi": false
     }
    ],
+   "relevan_visi": true,
+   "ember_dana": "dalam_negeri",
    "bukti": ""
   },
   {
@@ -1273,6 +1281,8 @@
      "korespondensi": false
     }
    ],
+   "relevan_visi": true,
+   "ember_dana": "dalam_negeri",
    "bukti": ""
   },
   {
@@ -1317,6 +1327,8 @@
      "korespondensi": false
     }
    ],
+   "relevan_visi": true,
+   "ember_dana": "pt_mandiri",
    "bukti": ""
   },
   {
@@ -1337,6 +1349,8 @@
      "korespondensi": false
     }
    ],
+   "relevan_visi": true,
+   "ember_dana": "dalam_negeri",
    "bukti": ""
   },
   {
@@ -1369,6 +1383,8 @@
      "korespondensi": false
     }
    ],
+   "relevan_visi": true,
+   "ember_dana": "dalam_negeri",
    "bukti": ""
   },
   {
@@ -1407,6 +1423,8 @@
      "korespondensi": false
     }
    ],
+   "relevan_visi": true,
+   "ember_dana": "pt_mandiri",
    "bukti": ""
   },
   {
@@ -1427,6 +1445,8 @@
      "korespondensi": false
     }
    ],
+   "relevan_visi": true,
+   "ember_dana": "pt_mandiri",
    "bukti": ""
   },
   {
@@ -1471,6 +1491,8 @@
      "korespondensi": false
     }
    ],
+   "relevan_visi": true,
+   "ember_dana": "pt_mandiri",
    "bukti": ""
   },
   {
@@ -1497,6 +1519,8 @@
      "korespondensi": false
     }
    ],
+   "relevan_visi": true,
+   "ember_dana": "pt_mandiri",
    "bukti": ""
   },
   {
@@ -1529,6 +1553,8 @@
      "korespondensi": false
     }
    ],
+   "relevan_visi": true,
+   "ember_dana": "pt_mandiri",
    "bukti": ""
   },
   {
@@ -1549,6 +1575,8 @@
      "korespondensi": false
     }
    ],
+   "relevan_visi": true,
+   "ember_dana": "pt_mandiri",
    "bukti": ""
   },
   {
@@ -1575,6 +1603,8 @@
      "korespondensi": false
     }
    ],
+   "relevan_visi": true,
+   "ember_dana": "pt_mandiri",
    "bukti": ""
   },
   {
@@ -1601,6 +1631,8 @@
      "korespondensi": false
     }
    ],
+   "relevan_visi": false,
+   "ember_dana": "dalam_negeri",
    "bukti": ""
   },
   {
@@ -1621,6 +1653,8 @@
      "korespondensi": false
     }
    ],
+   "relevan_visi": true,
+   "ember_dana": "dalam_negeri",
    "bukti": ""
   },
   {
@@ -1647,6 +1681,8 @@
      "korespondensi": false
     }
    ],
+   "relevan_visi": true,
+   "ember_dana": "pt_mandiri",
    "bukti": ""
   },
   {
@@ -1679,6 +1715,8 @@
      "korespondensi": false
     }
    ],
+   "relevan_visi": true,
+   "ember_dana": "luar_negeri",
    "bukti": ""
   },
   {
@@ -1699,6 +1737,8 @@
      "korespondensi": false
     }
    ],
+   "relevan_visi": true,
+   "ember_dana": "luar_negeri",
    "bukti": ""
   },
   {
@@ -1719,6 +1759,8 @@
      "korespondensi": false
     }
    ],
+   "relevan_visi": true,
+   "ember_dana": "pt_mandiri",
    "bukti": ""
   },
   {
@@ -1739,6 +1781,8 @@
      "korespondensi": false
     }
    ],
+   "relevan_visi": true,
+   "ember_dana": "dalam_negeri",
    "bukti": ""
   },
   {
@@ -1765,6 +1809,8 @@
      "korespondensi": false
     }
    ],
+   "relevan_visi": true,
+   "ember_dana": "pt_mandiri",
    "bukti": ""
   }
  ],
