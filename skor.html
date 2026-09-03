@@ -268,6 +268,7 @@ import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js
 import { BUTIR, isiPetaBukti, cariBukti } from './rincian.js';
 import { BUTIR_MANUAL, SEKSI_MANUAL, kunciButir, kunciBuktiButir, skorManual }
   from './butir-manual.js';
+import { BOBOT_TOTAL, bobotButir } from './bobot.js';
 
 // config.js mendefinisikan window.SB_URL dan window.SB_KEY — pemetaan di
 // bawah ini WAJIB ada. skor.html versi sebelumnya melewatkannya dan mati
@@ -1330,6 +1331,22 @@ function render(){
   const rerataAtas = (jml(semuaSkor) + kosong * 4) / daftar.length;
   const totalPoin  = jml(semuaNol);
   const persen     = (totalPoin / (daftar.length * 4)) * 100;
+
+  // Nilai berbobot menurut lampiran bobot LAM Teknik. Bobot seluruh butir
+  // berjumlah 100, jadi Σ(skor × bobot) langsung berskala 0–400 dan
+  // dibagi 100 kembali ke skala 0–4 yang sama dengan tiap kartu.
+  const bw = no => bobotButir(no);
+  let poinBobot = 0, bobotTerisi = 0;
+  daftar.forEach(x => {
+    const { n, ada } = skorDari(kartu[x.no]);
+    poinBobot += (ada ? n : 0) * bw(x.no);
+    if (ada) bobotTerisi += bw(x.no);
+  });
+  const nilaiBobot     = poinBobot / BOBOT_TOTAL;               // kosong = 0
+  const nilaiBobotIsi  = bobotTerisi ? poinBobot / bobotTerisi : null;
+  const nilaiBobotAtas = (poinBobot + (BOBOT_TOTAL - bobotTerisi) * 4) / BOBOT_TOTAL;
+  const cakupan        = (bobotTerisi / BOBOT_TOTAL) * 100;
+  const persen2        = (poinBobot / (BOBOT_TOTAL * 4)) * 100;
   const seksi = (id, judul, ket, nomor) =>
     seksiLipat(id, judul, ket, nomor.map(n => kartu[n]).join(''));
   // Nomor butir manual per seksi, diurutkan angka.
@@ -1357,21 +1374,25 @@ function render(){
       (ditampilkan 0,00).</p>
 
     <div class="total">
-      <div><b>${f2(rerataNol)}</b>
-        <span>Batas bawah</span>
-        <i>Butir kosong dihitung 0. Ini yang pasti sudah dicapai hari ini.</i></div>
-      <div class="utama"><b>${rerata == null ? '—' : f2(rerata)}</b>
-        <span>Perkiraan</span>
-        <i>Butir kosong diandaikan senilai rata-rata butir yang sudah terisi
-        (${f2(rerata || 0)}). Andaian, bukan hasil.</i></div>
-      <div><b>${f2(rerataAtas)}</b>
+      <div><b>${f2(nilaiBobot)}</b>
+        <span>Nilai berbobot</span>
+        <i>&Sigma;(skor &times; bobot) &divide; ${f2(BOBOT_TOTAL)}, butir kosong
+        dihitung 0. Skala 0–4. Ini yang pasti sudah dicapai.</i></div>
+      <div class="utama"><b>${nilaiBobotIsi == null ? '—' : f2(nilaiBobotIsi)}</b>
+        <span>Perkiraan berbobot</span>
+        <i>Butir kosong diandaikan senilai butir terisi. Andaian, bukan hasil
+        — makin kecil cakupan bobot, makin rapuh angka ini.</i></div>
+      <div><b>${f2(nilaiBobotAtas)}</b>
         <span>Batas atas</span>
-        <i>Butir kosong diandaikan 4,00 — sempurna. Tidak akan tercapai,
-        hanya batas teoretis.</i></div>
-      <div><b>${f2(totalPoin)} <span class="dari">/ ${daftar.length * 4}</span></b>
-        <span>Poin terkumpul</span>
-        <i>Jumlah seluruh skor dari maksimum ${daftar.length} &times; 4.
-        ${f2(persen)}% dari nilai penuh.</i></div>
+        <i>Butir kosong diandaikan 4,00. Batas teoretis, bukan target.</i></div>
+      <div><b>${f2(poinBobot)} <span class="dari">/ ${f2(BOBOT_TOTAL * 4)}</span></b>
+        <span>Poin berbobot</span>
+        <i>${f2(persen2)}% dari nilai penuh. Cakupan bobot yang sudah dinilai
+        ${f2(cakupan)}%.</i></div>
+      <div><b>${f2(rerataNol)} <span class="dari">/ ${f2(rerata || 0)}</span></b>
+        <span>Tanpa bobot</span>
+        <i>Rata-rata polos 60 butir (kosong = 0) dan rata-rata butir terisi,
+        sebagai pembanding.</i></div>
       <div><b>${kosongManual.length}</b>
         <span>Manual belum diisi</span>
         <i>Butir kualitatif tanpa nilai${kosongManual.length ?
