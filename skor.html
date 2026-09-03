@@ -33,6 +33,12 @@
          font-family:var(--mono);font-size:11px;letter-spacing:.1em;
          text-transform:uppercase;color:#9FC2E0;margin-bottom:18px}
   .balik:hover{color:#fff}
+  .nav-atas{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+  .nav-atas a{font-family:var(--mono);font-size:11.5px;letter-spacing:.07em;
+    text-transform:uppercase;text-decoration:none;color:#fff;
+    background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.4);
+    padding:9px 15px;border-radius:2px}
+  .nav-atas a:hover{background:#fff;color:var(--biru);border-color:#fff}
   h1{font-family:var(--serif);font-size:clamp(24px,4vw,32px);font-weight:600;
      letter-spacing:-.018em;margin:0;color:#fff}
   .prodi{color:#B9CCDE;font-size:14.5px;margin-top:6px}
@@ -155,6 +161,19 @@
     background:var(--biru-2);border:1px solid var(--biru-2);
     padding:8px 14px;border-radius:2px}
   .tbl-rinci:hover{background:var(--biru);border-color:var(--biru)}
+  .tbl-bukti{display:inline-flex;align-items:center;margin-top:10px;
+    font-family:var(--mono);font-size:11px;letter-spacing:.07em;
+    text-transform:uppercase;text-decoration:none;color:var(--hijau);
+    background:#E6F3EC;border:1px solid #B7DEC8;padding:8px 14px;border-radius:2px}
+  .tbl-bukti:hover{background:var(--hijau);color:#fff;border-color:var(--hijau)}
+  .bukti-sel{display:inline-flex;align-items:center;gap:4px;
+    font-family:var(--mono);font-size:9.5px;letter-spacing:.06em;
+    text-transform:uppercase;text-decoration:none;color:var(--hijau);
+    background:#E6F3EC;border:1px solid #B7DEC8;padding:2px 7px;
+    border-radius:2px;white-space:nowrap;margin-left:6px}
+  .bukti-sel:hover{background:var(--hijau);color:#fff;border-color:var(--hijau)}
+  .bukti-kos{font-family:var(--mono);font-size:9.5px;letter-spacing:.06em;
+    text-transform:uppercase;color:#C0C8CE;margin-left:6px}
   .manual{font-family:var(--mono);font-size:9.5px;letter-spacing:.09em;
     text-transform:uppercase;background:#F3EEDF;color:var(--emas);
     padding:3px 8px;border-radius:2px;margin-left:8px;vertical-align:2px}
@@ -207,6 +226,10 @@
   <h1>Kalkulator Skor Akreditasi</h1>
   <div class="prodi" id="nama-prodi">Memuat&hellip;</div>
   <div class="periode" id="pilih-ts"></div>
+  <div class="nav-atas">
+    <a href="input-butir.html">&#9998;&nbsp; Isi butir manual</a>
+    <a href="rincian.html?butir=23">&#128203;&nbsp; Data per butir</a>
+  </div>
 </div></div>
 
 <main class="wrap" id="isi"><p class="kosong" style="margin-top:30px">Memuat data&hellip;</p></main>
@@ -372,8 +395,11 @@ function rincianButir(no){
     let v = esc(r[c.kunci] ?? '\u2014');
     if (c.kunci === 'judul'){
       const u = cariBukti(r);
-      if (u) v += ` <a href="${esc(u)}" rel="noopener nofollow" title="Bukti">&#8599;</a>`;
-      if (r.doi) v += ` <a href="https://doi.org/${esc(r.doi)}" rel="noopener">DOI</a>`;
+      v += u ? ` <a class="bukti-sel" href="${esc(u)}" target="_blank"
+             rel="noopener nofollow">&#128206; Bukti</a>`
+             : ` <span class="bukti-kos">tanpa bukti</span>`;
+      if (r.doi) v += ` <a class="bukti-sel" href="https://doi.org/${esc(r.doi)}"
+             target="_blank" rel="noopener">DOI</a>`;
     }
     if (c.kunci === 'mhs') return `<td class="mhs${r.mhs ? ' ya' : ''}">${r.mhs || '&ndash;'}</td>`;
     return `<td${c.kelas ? ` class="${c.kelas}"` : ''}>${v}</td>`;
@@ -421,8 +447,8 @@ function butirManual(b){
     <div class="gulir"><table class="rin"><thead><tr>
       <th>Komponen</th><th>Nilai</th></tr></thead><tbody>${baris}</tbody></table></div>
     <div class="rumus">${esc(rumus)}</div>
-    ${bukti ? `<a class="tbl-rinci" href="${esc(bukti)}" rel="noopener nofollow">
-        Buka bukti &#8599;</a>`
+    ${bukti ? `<a class="tbl-bukti" href="${esc(bukti)}"
+        target="_blank" rel="noopener nofollow">&#128206;&nbsp; Bukti &#8599;</a>`
       : `<p class="isian" style="margin-top:10px">Bukti belum ditautkan — isi
          <code>${esc(kunciBuktiButir(b))}</code> di lembar pengaturan.</p>`}`;
   const ket = [b.tabel, b.ket].filter(Boolean).join(' · ');
@@ -1301,10 +1327,6 @@ function render(){
 
     ${htmlKelengkapan}
 
-    <div class="kontrol-seksi" style="justify-content:flex-start;margin-bottom:-8px">
-      <a class="tbl-rinci" href="input-butir.html" rel="noopener"
-         style="color:#fff">Isi butir manual &#8599;</a>
-    </div>
 
     <h2>Ringkasan — TS ${esc(taDari(TS_PILIH))}</h2>
     <p class="ket">Jendela data berakhir di <b>TS ${esc(taDari(TS_DATA))}</b>${
