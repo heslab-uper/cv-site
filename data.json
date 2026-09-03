@@ -477,6 +477,140 @@
    ]
   },
   {
+   "judul": "Anomaly Detection of Road Ranking Shifts Due to Traffic Accidents Using Deep Learning on Time Series Data",
+   "tahun": 2025,
+   "tahun_ts": 2025,
+   "dari_kegiatan": null,
+   "jenis": "jurnal",
+   "terbitan": "Journal of Computing Innovations and Emerging Technologies",
+   "tingkat": "nasional",
+   "indeksasi": "tidak_terindeks",
+   "doi": "https://doi.org/10.64472/jciet.v1i1.5",
+   "url": "https://novamindpress.org/index.php/JCIET/article/view/5",
+   "mitra": [
+    {
+     "nama": "Universitas Pembangunan Nasional Veteran Jakarta",
+     "tingkat": "nasional",
+     "negara": "Indonesia"
+    }
+   ],
+   "mahasiswa": 0,
+   "penulis": [
+    {
+     "nama": "Adita Utami",
+     "slug": "adita-utami",
+     "peran": "penulis_pertama",
+     "korespondensi": true
+    }
+   ]
+  },
+  {
+   "judul": "Empowering Smart Village through Solar-Powered IoT Systems: A Case Study on Rural Electrification and Water Management in Indonesia",
+   "tahun": 2025,
+   "tahun_ts": 2026,
+   "dari_kegiatan": "WATER FOR ALL! : Program Komunitas Lingkungan Cerdas Berbasis Water Treatment Process Sebagai Media untuk Menyediakan Air Bersih di SDN Barengkok II, Jasinga, Bogor",
+   "jenis": "prosiding",
+   "terbitan": "IEEE",
+   "tingkat": "internasional",
+   "indeksasi": "scopus_q4",
+   "doi": "10.1109/ICIMCIS68501.2025.11327191",
+   "url": "https://ieeexplore.ieee.org/abstract/document/11327191",
+   "mitra": [
+    {
+     "nama": "Universitas Pembangunan Nasional Veteran Jakarta",
+     "tingkat": "nasional",
+     "negara": "Indonesia"
+    }
+   ],
+   "mahasiswa": 0,
+   "penulis": [
+    {
+     "nama": "Adita Utami",
+     "slug": "adita-utami",
+     "peran": "anggota",
+     "korespondensi": false
+    }
+   ]
+  },
+  {
+   "judul": "Evaluasi Beban Kendaraan Terhadap Derajat Kerusakan dan Umur Sisa Jalan (Studi Kasus: Jalan Pematang Raya-Siantar)",
+   "tahun": 2025,
+   "tahun_ts": 2025,
+   "dari_kegiatan": null,
+   "jenis": "jurnal",
+   "terbitan": "Jurnal Teknik Sipil",
+   "tingkat": "nasional",
+   "indeksasi": "sinta_5_6",
+   "doi": "https://doi.org/10.31284/j.jts.2024.v5i2.6448",
+   "url": "https://ejurnal.itats.ac.id/jts/article/view/6448",
+   "mitra": [],
+   "mahasiswa": 1,
+   "penulis": [
+    {
+     "nama": "Adita Utami",
+     "slug": "adita-utami",
+     "peran": "anggota",
+     "korespondensi": true
+    }
+   ]
+  },
+  {
+   "judul": "Model Bangkitan dan Tarikan Penumpang Kereta Api Commuter Line Serpong – Tanah Abang : Studi Kasus Stasiun Rawa Buntu dan Stasiun Sudimara",
+   "tahun": 2025,
+   "tahun_ts": 2025,
+   "dari_kegiatan": null,
+   "jenis": "jurnal",
+   "terbitan": "Jurnal Penelitian Transportasi Darat",
+   "tingkat": "nasional",
+   "indeksasi": "sinta_1_2",
+   "doi": null,
+   "url": "https://ojs.balitbanghub.dephub.go.id/index.php/jurnaldarat/article/view/2224",
+   "mitra": [
+    {
+     "nama": "Badan Riset dan Inovasi Nasional",
+     "tingkat": "nasional",
+     "negara": "Indonesia"
+    }
+   ],
+   "mahasiswa": 1,
+   "penulis": [
+    {
+     "nama": "Adita Utami",
+     "slug": "adita-utami",
+     "peran": "penulis_pertama",
+     "korespondensi": false
+    }
+   ]
+  },
+  {
+   "judul": "Pemanfaatan Kincir Angin Sebagai Sumber Listrik Pompa Fertilisasi Air Bersih dan Akses Penerangan di Desa Tanjung Seteko Kabupaten Ogan Ilir",
+   "tahun": 2025,
+   "tahun_ts": 2025,
+   "dari_kegiatan": null,
+   "jenis": "jurnal",
+   "terbitan": "Jurnal Pengabdian Kepada Masyarakat Bidang Ilmu Komputer (ABDIKOM)",
+   "tingkat": "nasional",
+   "indeksasi": "tidak_terindeks",
+   "doi": "https://doi.org/10.52958/abdikom.v3i1.10355",
+   "url": "https://ejournal.upnvj.ac.id/abdikom/article/view/10355",
+   "mitra": [
+    {
+     "nama": "Universitas Pembangunan Nasional Veteran Jakarta",
+     "tingkat": "nasional",
+     "negara": "Indonesia"
+    }
+   ],
+   "mahasiswa": 1,
+   "penulis": [
+    {
+     "nama": "Adita Utami",
+     "slug": "adita-utami",
+     "peran": "penulis_pertama",
+     "korespondensi": true
+    }
+   ]
+  },
+  {
    "judul": "Stress Corrosion Cracking of Aluminum in Chloride-Containing Solution",
    "tahun": 2025,
    "tahun_ts": 2025,
@@ -499,6 +633,34 @@
     {
      "nama": "Ranny Adriana",
      "slug": "ranny-adriana",
+     "peran": "anggota",
+     "korespondensi": false
+    }
+   ]
+  },
+  {
+   "judul": "The impact of congestion pricing on public transport utilization in jakarta, indonesia",
+   "tahun": 2025,
+   "tahun_ts": 2026,
+   "dari_kegiatan": null,
+   "jenis": "jurnal",
+   "terbitan": "Transdisciplinary Research and Education Center for Green Technologies, Kyushu University",
+   "tingkat": "internasional",
+   "indeksasi": "scopus_q3",
+   "doi": "https://doi.org/10.5109/7402637",
+   "url": "https://catalog.lib.kyushu-u.ac.jp/opac_detail_md/?lang=0&amode=MD100000&bibid=7402637",
+   "mitra": [
+    {
+     "nama": "Badan Riset dan Inovasi Nasional",
+     "tingkat": "nasional",
+     "negara": "Indonesia"
+    }
+   ],
+   "mahasiswa": 0,
+   "penulis": [
+    {
+     "nama": "Adita Utami",
+     "slug": "adita-utami",
      "peran": "anggota",
      "korespondensi": false
     }
@@ -543,6 +705,28 @@
    ]
   },
   {
+   "judul": "ANALISIS MANAJEMEN LALU LINTAS KINERJA SIMPANG BERSINYAL BERDASARKAN PKJI 2014 (STUDI KASUS JL. CIPUTAT RAYA, PONDON PINANG)",
+   "tahun": 2024,
+   "tahun_ts": 2024,
+   "dari_kegiatan": null,
+   "jenis": "jurnal",
+   "terbitan": "Jurnal Gradasi Teknik Sipil",
+   "tingkat": "nasional",
+   "indeksasi": "sinta_3_4",
+   "doi": "https://doi.org/10.31961/gradasi.v8i1.2338",
+   "url": "https://ejurnal.poliban.ac.id/index.php/Teknik_Sipil/article/view/2338",
+   "mitra": [],
+   "mahasiswa": 1,
+   "penulis": [
+    {
+     "nama": "Adita Utami",
+     "slug": "adita-utami",
+     "peran": "anggota",
+     "korespondensi": true
+    }
+   ]
+  },
+  {
    "judul": "Accessibility and Land Use Effect of Residential Area with Different TOD Typology to Value Creation",
    "tahun": 2024,
    "tahun_ts": 2024,
@@ -566,6 +750,50 @@
      "nama": "Vani Arliani",
      "slug": "vani-arliani",
      "peran": "penulis_pertama",
+     "korespondensi": true
+    }
+   ]
+  },
+  {
+   "judul": "Analisis Kinerja Lalu Lintas Dan Solusi Simpang Tak Bersinyal Perempatan Duren Tangerang Selatan Dengan Metode PKJI 2014",
+   "tahun": 2024,
+   "tahun_ts": 2024,
+   "dari_kegiatan": null,
+   "jenis": "jurnal",
+   "terbitan": "Ge-STRAM: Jurnal Perencanaan Dan Rekayasa Sipil",
+   "tingkat": "nasional",
+   "indeksasi": "sinta_3_4",
+   "doi": null,
+   "url": "https://ejournal.unitomo.ac.id",
+   "mitra": [],
+   "mahasiswa": 1,
+   "penulis": [
+    {
+     "nama": "Adita Utami",
+     "slug": "adita-utami",
+     "peran": "anggota",
+     "korespondensi": true
+    }
+   ]
+  },
+  {
+   "judul": "Analisis Kinerja Pada Simpang Bersinyal Jalan Buncit Raya-Warung Jati Barat Kota Jakarta Selatan Menggunakan PKJI 2014",
+   "tahun": 2024,
+   "tahun_ts": 2024,
+   "dari_kegiatan": null,
+   "jenis": "jurnal",
+   "terbitan": "Jurnal Teknik Sipil",
+   "tingkat": "nasional",
+   "indeksasi": "sinta_5_6",
+   "doi": "https://doi.org/10.31284/j.jts.2024.v5i1.5848",
+   "url": "https://ejurnal.itats.ac.id/jts/article/view/5848",
+   "mitra": [],
+   "mahasiswa": 2,
+   "penulis": [
+    {
+     "nama": "Adita Utami",
+     "slug": "adita-utami",
+     "peran": "anggota",
      "korespondensi": true
     }
    ]
@@ -916,7 +1144,8 @@
      "peran": "ketua",
      "korespondensi": false
     }
-   ]
+   ],
+   "bukti": ""
   },
   {
    "judul": "Integrated Community Based Water Harvesting System: Teknologi Tepat Guna untuk Transformasi Kemandirian Air Bersih Barengkok Maju",
@@ -941,7 +1170,8 @@
      "peran": "anggota",
      "korespondensi": false
     }
-   ]
+   ],
+   "bukti": ""
   },
   {
    "judul": "Pengaruh Kualitas Layanan Dan Aksesibilitas Terhadap Kepuasan Serta Perilaku Pengguna Transportasi Publik Di Jakarta: Dengan Pendekatan Structural Equation Modeling (SEM)",
@@ -990,7 +1220,8 @@
      "peran": "ketua",
      "korespondensi": false
     }
-   ]
+   ],
+   "bukti": ""
   },
   {
    "judul": "SMART-WASTE: Penerapan Teknologi Bank Sampah Digital dan Internet of Things untuk Peningkatan Kinerja Bank Sampah Lapak Lontar Kabupaten Bogor",
@@ -1015,7 +1246,8 @@
      "peran": "anggota",
      "korespondensi": false
     }
-   ]
+   ],
+   "bukti": ""
   },
   {
    "judul": "Pemberdayaan Karang Taruna dalam Mewujudkan Smart Village melalui Implementasi Panel Surya dan IoT untuk Penerangan dan Pengelolaan Air Bersih di Desa Barengkok, Kabupaten Bogor",
@@ -1040,7 +1272,8 @@
      "peran": "anggota",
      "korespondensi": false
     }
-   ]
+   ],
+   "bukti": ""
   },
   {
    "judul": "Pemodelan Pengaruh Land Subsidence dan Sea Level Rise Terhadap Kondisi Hidrodinamika Pesisir Pantai Utara Jawa Tengah",
@@ -1083,7 +1316,8 @@
      "peran": "ketua",
      "korespondensi": false
     }
-   ]
+   ],
+   "bukti": ""
   },
   {
    "judul": "Pengembangan Cement- based Piezoelectric Composite Sensor untuk Pemantauan Beban Struktural pada  Balok dalam Upaya Deteksi Dini dan Mitigasi Bencana",
@@ -1102,7 +1336,8 @@
      "peran": "anggota",
      "korespondensi": false
     }
-   ]
+   ],
+   "bukti": ""
   },
   {
    "judul": "Pengembangan Sistem Informasi Geografis (SIG) Untuk Pemetaan Wilayah Rawan Bencana dan Pengelolaan Tata Ruang yang Berkelanjutan di Kecamatan Parung Panjang, Kabupaten Bogor",
@@ -1133,7 +1368,8 @@
      "peran": "anggota",
      "korespondensi": false
     }
-   ]
+   ],
+   "bukti": ""
   },
   {
    "judul": "Prediksi Panjang Antrian dan Tingkat Kecelakaan pada Perlintasan Sebidang berbasis Geographic Information System (GIS)",
@@ -1170,7 +1406,8 @@
      "peran": "anggota",
      "korespondensi": false
     }
-   ]
+   ],
+   "bukti": ""
   },
   {
    "judul": "Studi Eksperimental Pengaruh Low Electric Field Polarization terhadap Sifat Cement-based Piezoelectric Ceramic Composite (CPC) dengan Penambahan Limbah Glass Powder",
@@ -1189,7 +1426,8 @@
      "peran": "anggota",
      "korespondensi": false
     }
-   ]
+   ],
+   "bukti": ""
   },
   {
    "judul": "WATER FOR ALL! : Program Komunitas Lingkungan Cerdas Berbasis Water Treatment Process Sebagai Media untuk Menyediakan Air Bersih di SDN Barengkok II, Jasinga, Bogor",
@@ -1232,7 +1470,8 @@
      "peran": "anggota",
      "korespondensi": false
     }
-   ]
+   ],
+   "bukti": ""
   },
   {
    "judul": "Barengkok Education: Program Peningkatan Kemampuan Literasi dan Keterampilan untuk Siswa SMP Satu Atap Negeri 1 Barengkok di Desa Barengkok, Jasinga, Bogor, Jawa Barat",
@@ -1257,7 +1496,8 @@
      "peran": "anggota",
      "korespondensi": false
     }
-   ]
+   ],
+   "bukti": ""
   },
   {
    "judul": "EDUKASI KERENTANAN PESISIR DAN MITIGASINYA MENURUT PANDANGAN TEKNIK SIPIL",
@@ -1288,7 +1528,8 @@
      "peran": "ketua",
      "korespondensi": false
     }
-   ]
+   ],
+   "bukti": ""
   },
   {
    "judul": "INVESTIGASI PENGARUH TIPE SENSOR DAN KONFIGURASI ELEKTRODE TERHADAP KEMAMPUAN SELF-SENSING MORTAR UNTUK MENUNJANG INFRASTRUKTUR CERDAS DAN  BERKELANJUTAN",
@@ -1307,7 +1548,8 @@
      "peran": "ketua",
      "korespondensi": false
     }
-   ]
+   ],
+   "bukti": ""
   },
   {
    "judul": "Light UP 2024: Inovasi Filter Air WATTER-B (Water Filter Barengkok) untuk perbaikan kualitas air Desa Barengkok",
@@ -1332,7 +1574,8 @@
      "peran": "ketua",
      "korespondensi": false
     }
-   ]
+   ],
+   "bukti": ""
   },
   {
    "judul": "Pemanfaatan Microsoft Excel dalam Pembuatan Laporan Keuangan untuk Meningkatkan Keterampilan Akuntansi di Kampung Wisata Kuliner Haur Pancuh II",
@@ -1357,7 +1600,8 @@
      "peran": "anggota",
      "korespondensi": false
     }
-   ]
+   ],
+   "bukti": ""
   },
   {
    "judul": "Surya Smart Village: Panel Surya Sebagai Solusi untuk Menyediakan Energi Penerangan Jalan Desa dengan Teknologi Alber (Alarm anti luber) pada penampungan air bersih di Desa Barengkok",
@@ -1376,7 +1620,8 @@
      "peran": "ketua",
      "korespondensi": false
     }
-   ]
+   ],
+   "bukti": ""
   },
   {
    "judul": "\tPengaruh Penggantian Filler menggunakan Fly Ash dan Subtitusi Karet Alam Sebagai Aditif untuk Campuran Aspal Terhadap Karakteristik Campuran Laston Lapis Aus (AC - WC)",
@@ -1401,7 +1646,8 @@
      "peran": "ketua",
      "korespondensi": false
     }
-   ]
+   ],
+   "bukti": ""
   },
   {
    "judul": "Analysis of Soft Clay Settlement due to Traffic Loading and Road Embankment Using PLAXIS 3D",
@@ -1432,7 +1678,8 @@
      "peran": "anggota",
      "korespondensi": false
     }
-   ]
+   ],
+   "bukti": ""
   },
   {
    "judul": "COMMUNITY SERVICE COLLABORATION BETWEEN UPER, UTP, AND NUSANTARA REGAS FOR SUSTAINABILITY DI PULAU UNTUNG JAWA, KABUPATEN ADMINISTRATIF KEPULAUAN SERIBU",
@@ -1451,7 +1698,8 @@
      "peran": "ketua",
      "korespondensi": false
     }
-   ]
+   ],
+   "bukti": ""
   },
   {
    "judul": "PEMANFAATAN INDUSTRIAL WASTE MATERIALS UNTUK MENINGKATKAN KEMAMPUAN SELF-SENSING PADA MORTAR",
@@ -1470,7 +1718,8 @@
      "peran": "anggota",
      "korespondensi": false
     }
-   ]
+   ],
+   "bukti": ""
   },
   {
    "judul": "Pengaplikasian Material Piezokomposit Berbahan Dasar Semen dan Limbah Industri sebagai Elemen Sensor Alternatif yang Terintegrasi pada Struktur Beton",
@@ -1489,7 +1738,8 @@
      "peran": "anggota",
      "korespondensi": false
     }
-   ]
+   ],
+   "bukti": ""
   },
   {
    "judul": "STUDI KETAHANAN BETON TERHADAP ASAM",
@@ -1514,7 +1764,8 @@
      "peran": "anggota",
      "korespondensi": false
     }
-   ]
+   ],
+   "bukti": ""
   }
  ],
  "prestasi_agregat": [
@@ -1623,8 +1874,8 @@
    "tahun": 2025,
    "tahun_ts": 2025,
    "kategori": "publikasi",
-   "keterlibatan": 1,
-   "mahasiswa_unik": 1
+   "keterlibatan": 4,
+   "mahasiswa_unik": 4
   },
   {
    "tahun": 2024,
@@ -1632,6 +1883,13 @@
    "kategori": "pkm",
    "keterlibatan": 3,
    "mahasiswa_unik": 3
+  },
+  {
+   "tahun": 2024,
+   "tahun_ts": 2024,
+   "kategori": "publikasi",
+   "keterlibatan": 4,
+   "mahasiswa_unik": 4
   },
   {
    "tahun": 2023,
@@ -1724,6 +1982,22 @@
    "bentuk": "invited_speaker",
    "nama_kegiatan": " Invited speaker PPI ISHIKAWA SYMPOSIUM 2026",
    "tingkat": "internasional"
+  },
+  {
+   "tahun": 2026,
+   "tahun_ts": 2027,
+   "dosen": "Adita Utami",
+   "bentuk": "invited_speaker",
+   "nama_kegiatan": "Kuliah Umum Bagi Mahasiswa PSDKU Politeknik Negeri Malang tentang Evaluasi Beban Kendaraan terhadap Derajat Kerusakan dan Umur Sisa Jalan",
+   "tingkat": "nasional"
+  },
+  {
+   "tahun": 2026,
+   "tahun_ts": 2026,
+   "dosen": "Adita Utami",
+   "bentuk": "narasumber",
+   "nama_kegiatan": "Narasumber pada acara Sharing Session Persiapan Beasiswa PDDI 2026 \"Panduan Strategis Meraih Beasiswa PDDI 2026\" untuk Dosen seluruh Indonesia Oleh Civil Work",
+   "tingkat": "nasional"
   }
  ],
  "integrasi": [],
@@ -1846,7 +2120,7 @@
    {
     "tahun": 2026,
     "internasional": 0,
-    "nasional": 14,
+    "nasional": 16,
     "wilayah": 1,
     "tanpa_tingkat": 0,
     "pendidikan": 0
@@ -1854,7 +2128,7 @@
    {
     "tahun": 2025,
     "internasional": 1,
-    "nasional": 10,
+    "nasional": 13,
     "wilayah": 0,
     "tanpa_tingkat": 0,
     "pendidikan": 0
@@ -1994,6 +2268,14 @@
   ],
   "rekognisi_dtps": [
    {
+    "slug": "adita-utami",
+    "tahun": 2027
+   },
+   {
+    "slug": "adita-utami",
+    "tahun": 2026
+   },
+   {
     "slug": "nurul-fajar-januriyadi",
     "tahun": 2026
    }
@@ -2004,15 +2286,15 @@
     "na1": 0,
     "na2": 7,
     "na3": 0,
-    "na4": 3,
+    "na4": 4,
     "nb1": 0,
     "nb2": 1,
-    "nb3": 2
+    "nb3": 3
    },
    {
     "tahun": 2025,
-    "na1": 0,
-    "na2": 0,
+    "na1": 2,
+    "na2": 2,
     "na3": 0,
     "na4": 3,
     "nb1": 0,
@@ -2022,7 +2304,7 @@
    {
     "tahun": 2024,
     "na1": 0,
-    "na2": 0,
+    "na2": 3,
     "na3": 0,
     "na4": 2,
     "nb1": 0,
@@ -2053,13 +2335,23 @@
    },
    {
     "tahun": 2025,
-    "na1": 0,
-    "na2": 0,
+    "na1": 1,
+    "na2": 2,
     "na3": 0,
     "na4": 0,
     "nb1": 0,
     "nb2": 0,
     "nb3": 1
+   },
+   {
+    "tahun": 2024,
+    "na1": 0,
+    "na2": 3,
+    "na3": 0,
+    "na4": 0,
+    "nb1": 0,
+    "nb2": 0,
+    "nb3": 0
    }
   ],
   "luaran_dtps": [
