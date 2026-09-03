@@ -136,6 +136,17 @@
     text-transform:uppercase;color:var(--muted);text-decoration:none;cursor:pointer}
   .kontrol-seksi a:hover{color:var(--biru)}
 
+  .tbl-rinci{display:inline-flex;align-items:center;gap:6px;margin-top:10px;
+    font-family:var(--mono);font-size:11px;letter-spacing:.07em;
+    text-transform:uppercase;text-decoration:none;color:#fff;
+    background:var(--biru-2);border:1px solid var(--biru-2);
+    padding:8px 14px;border-radius:2px}
+  .tbl-rinci:hover{background:var(--biru);border-color:var(--biru)}
+  .manual{font-family:var(--mono);font-size:9.5px;letter-spacing:.09em;
+    text-transform:uppercase;background:#F3EEDF;color:var(--emas);
+    padding:3px 8px;border-radius:2px;margin-left:8px;vertical-align:2px}
+  .isian{font-family:var(--mono);font-size:11.5px;color:var(--muted)}
+
   /* ---------- rincian per butir ---------- */
   details.rinci{margin-top:10px}
   details.rinci > summary{list-style:none;cursor:pointer;user-select:none;
@@ -215,6 +226,8 @@ setTimeout(function(){
 <script type="module">
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
 import { BUTIR, isiPetaBukti, cariBukti } from './rincian.js';
+import { BUTIR_MANUAL, SEKSI_MANUAL, kunciButir, kunciBuktiButir, skorManual }
+  from './butir-manual.js';
 
 // config.js mendefinisikan window.SB_URL dan window.SB_KEY — pemetaan di
 // bawah ini WAJIB ada. skor.html versi sebelumnya melewatkannya dan mati
@@ -368,16 +381,52 @@ function rincianButir(no){
       <tbody>${daftar.map(r => `<tr>${def.kolom.map(c => sel(r, c)).join('')}</tr>`).join('')}</tbody>
     </table></div>${cek}
     ${def.catatan ? `<div class="rinci-cek">${def.catatan}</div>` : ''}
-    <div class="rinci-cek"><a href="rincian.html?butir=${esc(no)}&ts=${TS}"
-      rel="noopener">Buka sebagai halaman tersendiri &#8599;</a></div></details>`;
+    </details>
+    <a class="tbl-rinci" href="rincian.html?butir=${esc(no)}&ts=${TS}" rel="noopener">
+      Lihat ${daftar.length} data yang dipakai &#8599;</a>`;
 }
 
-function kartuButir(no, judul, isi, skor, catatan){
+// ---------------------------------------------------------------------
+//  Butir manual — nilai diisi tangan di lembar `pengaturan`.
+//  Kartu selalu tampil meski belum diisi, supaya butir yang kosong
+//  terlihat sebagai pekerjaan yang tersisa, bukan hilang dari daftar.
+// ---------------------------------------------------------------------
+function butirManual(b){
+  const { skor, nilai, lengkap } = skorManual(b, IS);
+  const kunci = kunciButir(b);
+  const label = b.hitung ? b.hitung.label
+              : b.komponen ? ['I. ' + b.komponen[0], 'II. ' + b.komponen[1]]
+              : ['Skor hasil penilaian matriks (0–4)'];
+  const baris = kunci.map((k, i) => `<tr>
+      <td>${esc(label[i])}<br><span class="isian">kunci: ${esc(k)}</span></td>
+      <td>${nilai[i] == null ? '<span class="isian">belum diisi</span>'
+                             : esc(f2(nilai[i]))}</td></tr>`).join('');
+  const rumus = b.hitung ? b.hitung.rumus
+              : b.rumus || 'Skor diisi langsung dari matriks penilaian (0–4).';
+  const bukti = ISteks(kunciBuktiButir(b));
+  const isi = `
+    <div class="gulir"><table class="rin"><thead><tr>
+      <th>Komponen</th><th>Nilai</th></tr></thead><tbody>${baris}</tbody></table></div>
+    <div class="rumus">${esc(rumus)}</div>
+    ${bukti ? `<a class="tbl-rinci" href="${esc(bukti)}" rel="noopener nofollow">
+        Buka bukti &#8599;</a>`
+      : `<p class="isian" style="margin-top:10px">Bukti belum ditautkan — isi
+         <code>${esc(kunciBuktiButir(b))}</code> di lembar pengaturan.</p>`}`;
+  const ket = [b.tabel, b.ket].filter(Boolean).join(' · ');
+  return kartuButir(b.no, b.judul, isi, skor,
+    (lengkap ? '' : 'Belum lengkap — isi kunci di atas pada lembar ' +
+      '<code>pengaturan</code> data-prodi.xlsx lalu jalankan ' +
+      '<code>--sinkron-pengaturan</code>. ') +
+    'Nilai ini penilaian sendiri, bukan penilaian asesor. ' + ket,
+    '<span class="manual">diisi manual</span>');
+}
+
+function kartuButir(no, judul, isi, skor, catatan, lencana){
   const pct = skor == null ? 0 : (skor / 4) * 100;
   return `<div class="kartu"><div class="butir">
     <div>
       <div class="no">Butir ${no} · APS-AV 2025</div>
-      <h3>${esc(judul)}</h3>
+      <h3>${esc(judul)}${lencana || ''}</h3>
       ${isi}
       ${catatan ? `<div class="ctt">${catatan}</div>` : ''}
     </div>
@@ -593,7 +642,8 @@ function butir35(){
 // ---------------------------------------------------------------------
 //  Butir tambahan: kerja sama, keuangan, kegiatan, SDM, mahasiswa
 // ---------------------------------------------------------------------
-function IS(k){ return (PENG[k] == null ? null : +PENG[k]); }
+function IS(k){ return (PENG[k] == null || PENG[k] === '' ? null : +PENG[k]); }
+function ISteks(k){ return PENG[k] == null ? '' : String(PENG[k]).trim(); }
 function taRange(n){ return `TS ${taDari(TS - n + 1)} s.d. ${taDari(TS)}`; }
 function ndtps(){ return (D.dtps || {}).jumlah || 0; }
 
@@ -1164,7 +1214,9 @@ function render(){
     {no:'44', f: butir44}, {no:'45', f: butir45},
     {no:'46', f: butir46}, {no:'47', f: butir47},
     {no:'49', f: butir49}, {no:'50', f: butir50}, {no:'51', f: butir51},
-  ];
+    // 32 butir manual dari butir-manual.js — selalu tampil, meski kosong.
+    ...BUTIR_MANUAL.map(b => ({no: b.no, f: () => butirManual(b)})),
+  ].sort((a, b) => (+a.no) - (+b.no));
   const skorDari = h => { const m = h.match(/class="angka ?(n4)?">([\d.]+)</); return m ? +m[2] : null; };
 
   // Seluruh fungsi butir membaca TS global sebagai UJUNG jendela data.
@@ -1204,6 +1256,10 @@ function render(){
     ? semuaSkor.reduce((a, b) => a + b, 0) / semuaSkor.length : null;
   const seksi = (id, judul, ket, nomor) =>
     seksiLipat(id, judul, ket, nomor.map(n => kartu[n]).join(''));
+  // Nomor butir manual per seksi, diurutkan angka.
+  const man = sk => BUTIR_MANUAL.filter(b => b.seksi === sk).map(b => b.no);
+  const gab = (...xs) => [...new Set(xs.flat())].sort((a, b) => (+a) - (+b));
+  const rentang = ns => ns.length ? `Butir ${ns[0]}\u2013${ns[ns.length - 1]}` : '';
 
   document.getElementById('isi').innerHTML = `
     <div class="peringatan"><b>Skoring kuantitatif tingkat prodi — khusus
@@ -1225,13 +1281,18 @@ function render(){
     <div class="ringkas">${ring}</div>
     <div class="kontrol-seksi" id="seksi-semua"></div>
 
-    ${seksi('kerjasama', 'Kerja sama dan keuangan', 'Butir 6, 9–11', ['6','9','10','11'])}
-    ${seksi('pendidikan', 'Pendidikan, penelitian, dan PkM', 'Butir 19, 23, 25, 31, 32',
-            ['19','23','25','31','32'])}
-    ${seksi('dosen', 'Sumber daya manusia (DTPS)', 'Butir 26–28, 33–37',
-            ['26','27','28','33','34','35','36','37'])}
-    ${seksi('mahasiswa', 'Mahasiswa dan luaran', 'Butir 40–47, 49–51',
-            ['40','41','42','43','44','45','46','47','49','50','51'])}
+    ${seksi('vmts', 'Visi, misi, tujuan, dan sasaran', rentang(man('vmts')), man('vmts'))}
+    ${(() => { const n = gab(['6','9','10','11'], man('kerjasama'));
+       return seksi('kerjasama', 'Tata pamong, kerja sama, dan keuangan', rentang(n), n); })()}
+    ${(() => { const n = gab(['19','23','25','31','32'], man('pendidikan'));
+       return seksi('pendidikan', 'Pendidikan, penelitian, dan PkM', rentang(n), n); })()}
+    ${(() => { const n = gab(['26','27','28','33','34','35','36','37'], man('dosen'));
+       return seksi('dosen', 'Sumber daya manusia (DTPS)', rentang(n), n); })()}
+    ${seksi('sarana', 'Sarana, prasarana, dan K3L', rentang(man('sarana')), man('sarana'))}
+    ${(() => { const n = gab(['40','41','42','43','44','45','46','47','49','50','51'], man('mahasiswa'));
+       return seksi('mahasiswa', 'Mahasiswa dan luaran', rentang(n), n); })()}
+    ${seksi('mutu', 'Sistem penjaminan mutu', rentang(man('mutu')), man('mutu'))}
+    ${seksi('kembang', 'Program pengembangan berkelanjutan', rentang(man('kembang')), man('kembang'))}
     ${seksiLipat('integrasi', 'Integrasi penelitian/PkM dalam pembelajaran',
             'Tabel 3.a.3 LKPS', htmlIntegrasi)}
     ${seksiLipat('keterlibatan', 'Keterlibatan mahasiswa pada karya dosen', '',
