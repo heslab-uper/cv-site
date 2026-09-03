@@ -72,18 +72,25 @@ const KOLOM_KARYA = [
 // terlihat dan bisa ditimbang terhadap definisi Tabel 2.a LKPS.
 function mitraKerjasama(D, TS){
   const out = [];
-  const tambah = (x, asal) => (x.mitra || []).forEach(m => {
+  // Bukti melekat pada KARYA, bukan pada nama mitra. Tiap baris membawa
+  // identitas karya induknya di `sumber` supaya cariBukti() mencari dengan
+  // kunci yang benar; tanpa ini seluruh baris butir 6 tampil "tanpa bukti"
+  // padahal karyanya punya.
+  const tambah = (x, asal, kategori) => (x.mitra || []).forEach(m => {
     if (!(m.nama || '').trim()) return;
     out.push({
       tahun: x.tahun, judul: m.nama, asal,
       tingkat: rapi(m.tingkat || 'tanpa tingkat'),
       dari: x.judul,
+      sumber: { kategori, tahun: x.tahun, judul: x.judul },
+      doi: x.doi || '',
     });
   });
   (D.kegiatan || []).filter(x => dalamJendela(x, TS))
-    .forEach(x => tambah(x, x.kategori === 'pkm' ? 'PkM' : 'Penelitian'));
+    .forEach(x => tambah(x, x.kategori === 'pkm' ? 'PkM' : 'Penelitian',
+                         x.kategori));
   (D.publikasi || []).filter(x => dalamJendela(x, TS))
-    .forEach(x => tambah(x, 'Publikasi'));
+    .forEach(x => tambah(x, 'Publikasi', 'publikasi'));
   return out.sort((a, b) => (b.tahun - a.tahun)
                             || String(a.judul).localeCompare(String(b.judul)));
 }
@@ -96,7 +103,7 @@ export const BUTIR = {
       {th: 'Mitra', kunci: 'judul'},
       {th: 'Tingkat', kunci: 'tingkat', kelas: 'dana'},
       {th: 'Dari', kunci: 'asal', kelas: 'dana'},
-      {th: 'Karya', kunci: 'dari'},
+      {th: 'Karya', kunci: 'dari', bukti: true},
     ],
     baris: (D, TS) => mitraKerjasama(D, TS),
     penyebut: (D, TS) => {
@@ -230,7 +237,17 @@ export function isiPetaBukti(baris){
   });
 }
 export function cariBukti(baris){
+  // `sumber` dipakai bila baris ini bukan karyanya sendiri — misalnya baris
+  // mitra pada butir 6, yang buktinya melekat pada karya induknya.
+  const s = baris.sumber;
+  if (s) return BUKTI.get(kunciBukti(s.kategori, s.tahun, s.judul)) || '';
   if (!baris.kategori) return baris.bukti_cadangan || '';
   return BUKTI.get(kunciBukti(baris.kategori, baris.tahun, baris.judul))
          || baris.bukti_cadangan || '';
 }
+
+// Kolom mana yang membawa tombol bukti. Default kolom `judul`; butir 6
+// menandai kolom `dari` karena judul barisnya adalah nama mitra.
+export const kolomBukti = def =>
+  (def.kolom.find(c => c.bukti) || def.kolom.find(c => c.kunci === 'judul')
+   || {}).kunci;

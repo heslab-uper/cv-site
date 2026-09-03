@@ -101,7 +101,7 @@
 <script src="config.js"></script>
 <script type="module">
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
-import { BUTIR, isiPetaBukti, cariBukti } from './rincian.js';
+import { BUTIR, isiPetaBukti, cariBukti, kolomBukti } from './rincian.js';
 
 const esc = s => String(s ?? '').replace(/[&<>"']/g,
   c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -189,11 +189,12 @@ function render(saya){
          angka maupun daftar sebelum selisihnya ditelusuri.`}</div>`;
   }
 
+  const kb = kolomBukti(def);
   const sel = (r, c) => {
     if (c.kunci === 'mhs')
       return `<td class="mhs${r.mhs ? ' ya' : ''}">${r.mhs || '&ndash;'}</td>`;
     let v = esc(r[c.kunci] ?? '\u2014');
-    if (c.kunci === 'judul'){
+    if (c.kunci === kb){
       const u = cariBukti(r);
       v += u ? ` <a class="bukti" href="${esc(u)}" target="_blank"
              rel="noopener nofollow">&#128206; Bukti</a>`

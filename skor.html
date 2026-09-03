@@ -286,7 +286,7 @@ setTimeout(function(){
 <script src="config.js"></script>
 <script type="module">
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
-import { BUTIR, isiPetaBukti, cariBukti } from './rincian.js';
+import { BUTIR, isiPetaBukti, cariBukti, kolomBukti } from './rincian.js';
 import { BUTIR_MANUAL, SEKSI_MANUAL, kunciButir, kunciBuktiButir, skorManual }
   from './butir-manual.js';
 import { BOBOT_TOTAL, bobotButir } from './bobot.js';
@@ -315,7 +315,7 @@ const sb = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 // Naikkan setiap kali skor.html / rincian.js / butir-manual.js / bobot.js
 // diubah. Ditampilkan di kaki halaman supaya ketahuan seketika kalau
 // peramban masih memakai salinan lama dari cache.
-const VERSI = '2026-09-03e';
+const VERSI = '2026-09-03f';
 // =====================================================================
 //  Kalkulator skor butir APS-AV 2025 1.0 (Program Sarjana) yang dapat
 //  dihitung dari data.json: 33, 34, 35, 42, 43, 46, 47, ditambah
@@ -423,9 +423,10 @@ function rincianButir(no){
   if (!def) return '';
   const daftar = def.baris(D, TS);
   if (!daftar.length) return '';
+  const kb = kolomBukti(def);
   const sel = (r, c) => {
     let v = esc(r[c.kunci] ?? '\u2014');
-    if (c.kunci === 'judul'){
+    if (c.kunci === kb){
       const u = cariBukti(r);
       v += u ? ` <a class="bukti-sel" href="${esc(u)}" target="_blank"
              rel="noopener nofollow">&#128206; Bukti</a>`
