@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Isian butir manual — Kinerja Program Studi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --biru:#0C2A4D; --biru-2:#17436F; --biru-3:#5C86B0;
+    --merah:#C8102E; --hijau:#00954E; --emas:#B8860B;
+    --bg:#F2F4F2; --panel:#fff; --ink:#14212E; --muted:#5D6B78;
+    --line:#D9DFDA; --line-soft:#EBEEEB;
+    --sans:'IBM Plex Sans',system-ui,sans-serif;
+    --mono:'IBM Plex Mono',ui-monospace,monospace;
+    --serif:'IBM Plex Serif',Georgia,serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);
+       font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:960px;margin:0 auto;padding:0 20px 120px}
+  a{color:var(--biru-2)}
+  .hero{background:var(--biru);color:#fff;border-bottom:4px solid var(--merah)}
+  .hero-in{max-width:960px;margin:0 auto;padding:26px 20px 24px}
+  .balik{display:inline-flex;gap:7px;align-items:center;text-decoration:none;
+    font-family:var(--mono);font-size:11px;letter-spacing:.1em;
+    text-transform:uppercase;color:#9FC2E0;margin-bottom:16px}
+  .balik:hover{color:#fff}
+  h1{font-family:var(--serif);font-size:clamp(21px,3.4vw,28px);font-weight:600;
+     margin:0;color:#fff}
+  .sub{color:#B9CCDE;font-size:14px;margin-top:6px}
+  h2{font-family:var(--serif);font-size:18px;font-weight:600;color:var(--biru);
+     margin:32px 0 0;border-bottom:2px solid var(--biru);padding-bottom:8px}
+  .b{background:var(--panel);border:1px solid var(--line);border-radius:2px;
+     padding:16px 18px;margin-top:12px}
+  .b-kep{display:flex;gap:12px;align-items:baseline}
+  .b-no{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;
+        text-transform:uppercase;color:var(--muted);white-space:nowrap}
+  .b-jd{font-weight:600;flex:1;min-width:0;line-height:1.35}
+  .b-sk{font-family:var(--mono);font-size:20px;line-height:1;white-space:nowrap}
+  .b-sk.kos{color:var(--muted);font-size:13px}
+  .b-sk.n4{color:var(--hijau)}
+  .b-ket{font-size:12.5px;color:var(--muted);margin-top:8px}
+  .b-rm{font-family:var(--mono);font-size:11.5px;color:var(--muted);
+        background:var(--bg);border:1px solid var(--line-soft);
+        padding:7px 10px;border-radius:2px;margin-top:10px;overflow-x:auto}
+  .fld{margin-top:12px}
+  .fld label{display:block;font-size:13px;margin-bottom:4px}
+  .fld .kn{font-family:var(--mono);font-size:10.5px;color:var(--muted)}
+  input[type=number],input[type=url]{width:100%;padding:8px 10px;
+    border:1px solid var(--line);border-radius:2px;font-family:var(--mono);
+    font-size:13px;background:#fff}
+  input[type=number]{max-width:130px}
+  input.salah{border-color:var(--merah);background:#FDF3F4}
+  .bar{position:fixed;left:0;right:0;bottom:0;background:var(--panel);
+       border-top:1px solid var(--line);box-shadow:0 -2px 12px rgba(12,42,77,.07);
+       padding:12px 20px;display:flex;gap:14px;align-items:center;
+       justify-content:center;flex-wrap:wrap}
+  .bar button{padding:10px 20px;border:0;background:var(--biru);color:#fff;
+    font-family:var(--mono);font-size:12px;letter-spacing:.07em;
+    text-transform:uppercase;cursor:pointer;border-radius:2px}
+  .bar button:disabled{background:var(--line);color:var(--muted);cursor:default}
+  .bar .st{font-family:var(--mono);font-size:12px;color:var(--muted)}
+  .bar .st.baik{color:var(--hijau)} .bar .st.buruk{color:var(--merah)}
+  .kosong{color:var(--muted);font-size:13.5px}
+  .awas{background:#FDF3F4;border:1px solid #F0C8CE;border-left:3px solid var(--merah);
+        padding:12px 16px;border-radius:2px;margin-top:22px;font-size:13.5px}
+  .masuk{max-width:420px;margin:60px auto;background:var(--panel);
+         border:1px solid var(--line);border-top:3px solid var(--biru);padding:26px}
+  .masuk input{width:100%;padding:9px 11px;border:1px solid var(--line);
+               border-radius:2px;font-family:var(--mono);font-size:13px;margin-top:10px}
+  .masuk button{margin-top:12px;padding:9px 16px;border:0;background:var(--biru);
+                color:#fff;font-family:var(--mono);font-size:12px;
+                letter-spacing:.07em;text-transform:uppercase;cursor:pointer;border-radius:2px}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-in">
+    <a class="balik" href="skor.html">&larr; Kembali ke halaman skor</a>
+    <h1 id="hJudul">Isian butir manual</h1>
+    <div class="sub" id="hSub">Memuat&hellip;</div>
+  </div>
+</header>
+
+<main class="wrap" id="isi"></main>
+
+<script src="config.js"></script>
+<script type="module">
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+import { BUTIR_MANUAL, SEKSI_MANUAL, kunciButir, kunciBuktiButir, skorManual }
+  from './butir-manual.js';
+
+const esc = s => String(s ?? '').replace(/[&<>"']/g,
+  c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const f2 = n => Number(n).toLocaleString('id-ID',
+  {minimumFractionDigits: 2, maximumFractionDigits: 2});
+const $ = id => document.getElementById(id);
+
+const SB_URL = window.SB_URL || '', SB_KEY = window.SB_KEY || '';
+if (!SB_URL || !SB_KEY || SB_URL.includes('xxxx')){
+  $('isi').innerHTML = `<div class="b"><p class="kosong"><b>config.js belum
+    diisi.</b></p></div>`;
+  throw new Error('config.js belum diisi');
+}
+const sb = createClient(SB_URL, SB_KEY);
+
+const NILAI = {};   // kunci -> string, keadaan di Supabase saat dimuat
+let siap = false;
+
+const SEKSI_URUT = ['vmts', 'kerjasama', 'pendidikan', 'dosen',
+                    'sarana', 'mahasiswa', 'mutu', 'kembang'];
+const JUDUL_SEKSI = {
+  ...SEKSI_MANUAL,
+  kerjasama: 'Tata pamong, kerja sama, dan keuangan',
+  pendidikan: 'Pendidikan, penelitian, dan PkM',
+  dosen: 'Sumber daya manusia (DTPS)',
+  mahasiswa: 'Mahasiswa dan luaran',
+};
+
+async function mulai(){
+  const { data: { session } } = await sb.auth.getSession();
+  if (!session) return layarMasuk();
+
+  const { data: saya } = await sb.from('dosen').select('nama,email,peran')
+    .ilike('email', session.user.email).maybeSingle();
+  if (!saya){
+    $('hSub').textContent = 'Tidak terdaftar';
+    $('isi').innerHTML = `<div class="b"><p class="kosong">Email
+      <code>${esc(session.user.email)}</code> belum terdaftar.</p></div>`;
+    return;
+  }
+  // Halaman ini MENULIS nilai yang masuk dokumen akreditasi, jadi dibatasi
+  // ke admin. Pembatasan di sini hanya menyembunyikan formulir; yang
+  // benar-benar menahan penulisan adalah kebijakan RLS di Supabase.
+  if (saya.peran !== 'admin'){
+    $('hSub').textContent = `Masuk sebagai ${saya.nama} (${saya.peran || 'dosen'})`;
+    $('isi').innerHTML = `<div class="b"><p class="kosong">Hanya admin yang
+      dapat mengubah nilai butir. Anda tetap bisa melihat hasilnya di
+      <a href="skor.html">halaman skor</a>.</p></div>`;
+    return;
+  }
+
+  const { data, error } = await sb.from('pengaturan').select('kunci,nilai');
+  if (error){
+    $('isi').innerHTML = `<div class="b"><p class="kosong">Gagal membaca tabel
+      <code>pengaturan</code>: ${esc(error.message)}</p></div>`;
+    return;
+  }
+  (data || []).forEach(r => NILAI[r.kunci] = r.nilai == null ? '' : String(r.nilai));
+  $('hSub').textContent = `Masuk sebagai ${saya.nama} (admin) · `
+    + `${Object.keys(NILAI).length} kunci tersimpan`;
+  render();
+  siap = true;
+}
+
+const bacaAngka = k => {
+  const v = (NILAI[k] ?? '').trim();
+  if (!v) return null;
+  const n = +v.replace(',', '.');
+  return Number.isFinite(n) ? n : null;
+};
+
+function render(){
+  const bagian = SEKSI_URUT.map(sk => {
+    const isi = BUTIR_MANUAL.filter(b => b.seksi === sk);
+    if (!isi.length) return '';
+    return `<h2>${esc(JUDUL_SEKSI[sk] || sk)}</h2>`
+      + isi.map(kartu).join('');
+  }).join('');
+
+  $('isi').innerHTML = bagian + `
+    <div class="awas"><b>Nilai di halaman ini adalah penilaian sendiri.</b>
+    Ia masuk ke ringkasan skor bersama butir yang terhitung dari data, dan
+    ikut menjadi bahan dokumen akreditasi. Isi hanya butir yang sudah benar
+    dinilai terhadap matriks; biarkan kosong bila belum — kartu akan
+    menampilkan &ldquo;belum diisi&rdquo;, bukan angka nol yang tampak sah.</div>
+    <div class="bar">
+      <span class="st" id="st">Belum ada perubahan.</span>
+      <button id="simpan" disabled>Simpan perubahan</button>
+    </div>`;
+
+  $('isi').addEventListener('input', e => {
+    const el = e.target;
+    if (!el.dataset.kunci) return;
+    NILAI[el.dataset.kunci] = el.value;
+    periksaSatu(el);
+    perbaruiSkor(el.closest('.b'));
+    tandaiUbah();
+  });
+  $('simpan').onclick = simpan;
+  BUTIR_MANUAL.forEach(b => perbaruiSkor(document.getElementById('b-' + b.no)));
+}
+
+function kartu(b){
+  const kunci = kunciButir(b);
+  const label = b.hitung ? b.hitung.label
+              : b.komponen ? ['I. ' + b.komponen[0], 'II. ' + b.komponen[1]]
+              : ['Skor hasil penilaian matriks (0–4)'];
+  const rumus = b.hitung ? b.hitung.rumus
+              : b.rumus || 'Skor diisi langsung dari matriks penilaian (0–4).';
+  const kb = kunciBuktiButir(b);
+  const batas = b.hitung ? '' : ' min="0" max="4" step="0.01"';
+  return `<div class="b" id="b-${esc(b.no)}">
+    <div class="b-kep">
+      <span class="b-no">Butir ${esc(b.no)}</span>
+      <span class="b-jd">${esc(b.judul)}</span>
+      <span class="b-sk kos" data-sk="${esc(b.no)}">—</span>
+    </div>
+    ${b.ket ? `<div class="b-ket">${esc(b.ket)}</div>` : ''}
+    ${b.tabel ? `<div class="b-ket">${esc(b.tabel)}</div>` : ''}
+    <div class="b-rm">${esc(rumus)}</div>
+    ${kunci.map((k, i) => `<div class="fld">
+      <label for="i-${esc(k)}">${esc(label[i])}
+        <span class="kn">· ${esc(k)}</span></label>
+      <input type="number"${batas} id="i-${esc(k)}" data-kunci="${esc(k)}"
+             value="${esc(NILAI[k] ?? '')}" placeholder="kosongkan bila belum dinilai">
+    </div>`).join('')}
+    <div class="fld">
+      <label for="i-${esc(kb)}">Tautan bukti <span class="kn">· ${esc(kb)}</span></label>
+      <input type="url" id="i-${esc(kb)}" data-kunci="${esc(kb)}"
+             value="${esc(NILAI[kb] ?? '')}" placeholder="https://…">
+    </div>
+  </div>`;
+}
+
+function periksaSatu(el){
+  const v = el.value.trim();
+  let salah = false;
+  if (el.type === 'url')
+    salah = !!v && !/^https?:\/\//i.test(v);
+  else if (v !== ''){
+    const n = +v.replace(',', '.');
+    salah = !Number.isFinite(n)
+            || (!el.hasAttribute('max') ? false : n < 0 || n > 4);
+  }
+  el.classList.toggle('salah', salah);
+  return !salah;
+}
+
+function perbaruiSkor(kartuEl){
+  if (!kartuEl) return;
+  const no = kartuEl.id.slice(2);
+  const b = BUTIR_MANUAL.find(x => x.no === no);
+  const el = kartuEl.querySelector('[data-sk]');
+  const { skor } = skorManual(b, bacaAngka);
+  el.textContent = skor == null ? '—' : f2(skor);
+  el.className = 'b-sk' + (skor == null ? ' kos' : skor >= 4 ? ' n4' : '');
+}
+
+function tandaiUbah(){
+  const semuaSah = [...document.querySelectorAll('input[data-kunci]')]
+    .every(periksaSatu);
+  $('simpan').disabled = !semuaSah;
+  $('st').textContent = semuaSah
+    ? 'Ada perubahan yang belum disimpan.'
+    : 'Ada isian yang belum sah — perbaiki dulu.';
+  $('st').className = 'st' + (semuaSah ? '' : ' buruk');
+}
+
+async function simpan(){
+  const el = [...document.querySelectorAll('input[data-kunci]')];
+  if (!el.every(periksaSatu)) return;
+
+  // Kunci berisi nilai dikirim; kunci yang dikosongkan DIHAPUS, bukan
+  // ditulis sebagai string kosong — supaya kartu skor menampilkan
+  // "belum diisi", bukan nol.
+  const isi = [], hapus = [];
+  el.forEach(x => {
+    const v = x.value.trim();
+    if (v) isi.push({kunci: x.dataset.kunci, nilai: v});
+    else if ((NILAI[x.dataset.kunci] ?? '') !== '' || x.defaultValue)
+      hapus.push(x.dataset.kunci);
+  });
+
+  $('simpan').disabled = true;
+  $('st').textContent = 'Menyimpan…'; $('st').className = 'st';
+  try {
+    if (isi.length){
+      const { error } = await sb.from('pengaturan')
+        .upsert(isi, { onConflict: 'kunci' });
+      if (error) throw error;
+    }
+    if (hapus.length){
+      const { error } = await sb.from('pengaturan').delete().in('kunci', hapus);
+      if (error) throw error;
+    }
+    isi.forEach(r => NILAI[r.kunci] = r.nilai);
+    hapus.forEach(k => delete NILAI[k]);
+    el.forEach(x => x.defaultValue = x.value);
+    $('st').textContent = `Tersimpan — ${isi.length} kunci diisi, `
+      + `${hapus.length} dikosongkan.`;
+    $('st').className = 'st baik';
+  } catch (e) {
+    $('st').textContent = 'Gagal menyimpan: ' + (e.message || e);
+    $('st').className = 'st buruk';
+    $('simpan').disabled = false;
+  }
+}
+
+function layarMasuk(){
+  $('hSub').textContent = 'Perlu masuk';
+  $('isi').innerHTML = `<div class="masuk">
+    <p>Masukkan email kampus Anda — tautan masuk dikirim tanpa kata sandi.</p>
+    <input id="em" type="email" placeholder="nama@kampus.ac.id" autocomplete="email">
+    <button id="kirim">Kirim tautan masuk</button>
+    <p class="b-ket" id="pesan"></p></div>`;
+  $('kirim').onclick = async () => {
+    const em = $('em').value.trim();
+    if (!em) return;
+    const { error } = await sb.auth.signInWithOtp({ email: em,
+      options: { emailRedirectTo: location.href } });
+    $('pesan').textContent = error ? 'Gagal: ' + error.message
+      : 'Tautan masuk sudah dikirim. Periksa kotak masuk email Anda.';
+  };
+}
+
+addEventListener('beforeunload', e => {
+  if (!siap) return;
+  const ada = [...document.querySelectorAll('input[data-kunci]')]
+    .some(x => x.value !== x.defaultValue);
+  if (ada){ e.preventDefault(); e.returnValue = ''; }
+});
+
+sb.auth.onAuthStateChange(ev => { if (ev === 'SIGNED_IN' && !siap) mulai(); });
+mulai().catch(e => {
+  $('isi').innerHTML = `<div class="b"><p class="kosong">${esc(e.message)}</p></div>`;
+});
+</script>
+</body>
+</html>

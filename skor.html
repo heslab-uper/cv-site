@@ -97,6 +97,19 @@
   .skorbox .angka{font-family:var(--mono);font-size:34px;line-height:1}
   .skorbox .angka.n4{color:var(--hijau)}
   .skorbox .angka.tak{color:var(--muted);font-size:22px}
+  .skorbox .angka.nol{color:#AAB4BD}
+  .ringkas > div.kos b{color:#AAB4BD}
+  .total{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+    background:var(--panel);border:1px solid var(--line);
+    border-top:3px solid var(--biru);margin-top:14px}
+  .total > div{padding:16px 18px;border-right:1px solid var(--line-soft)}
+  .total > div:last-child{border-right:0}
+  .total b{display:block;font-family:var(--mono);font-size:26px;font-weight:400;line-height:1}
+  .total span{font-family:var(--mono);font-size:10px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--muted);display:block;margin-top:8px}
+  .total i{font-style:normal;font-size:11.5px;color:var(--muted);
+    display:block;margin-top:6px;font-family:var(--sans);letter-spacing:0;
+    text-transform:none;line-height:1.4}
   .skorbox .dari{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
                  text-transform:uppercase;color:var(--muted);margin-top:7px}
   .batang{height:6px;background:var(--line-soft);border-radius:1px;margin-top:12px}
@@ -431,9 +444,11 @@ function kartuButir(no, judul, isi, skor, catatan, lencana){
       ${catatan ? `<div class="ctt">${catatan}</div>` : ''}
     </div>
     <div class="skorbox">
-      <div class="angka ${kelasSkor(skor)}">${skor == null ? 'tak terhitung' : f2(skor)}</div>
-      ${skor == null ? '' : `<div class="dari">dari 4,00</div>
-      <div class="batang"><i class="${skor >= 4 ? 'n4' : ''}" style="width:${pct}%"></i></div>`}
+      <div class="angka ${skor == null ? 'nol' : kelasSkor(skor)}">${
+        skor == null ? '0,00' : f2(skor)}</div>
+      <div class="dari">${skor == null ? 'tidak terhitung' : 'dari 4,00'}</div>
+      <div class="batang"><i class="${skor != null && skor >= 4 ? 'n4' : ''}"
+        style="width:${skor == null ? 0 : pct}%"></i></div>
     </div>
   </div></div>`;
 }
@@ -1217,7 +1232,16 @@ function render(){
     // 32 butir manual dari butir-manual.js — selalu tampil, meski kosong.
     ...BUTIR_MANUAL.map(b => ({no: b.no, f: () => butirManual(b)})),
   ].sort((a, b) => (+a.no) - (+b.no));
-  const skorDari = h => { const m = h.match(/class="angka ?(n4)?">([\d.]+)</); return m ? +m[2] : null; };
+  // Mengembalikan {n, ada}: n selalu angka (0 bila butir tak terhitung),
+  // `ada` menandai apakah butir itu benar-benar punya nilai. Dua angka
+  // berbeda dilaporkan di ringkasan supaya perkiraan yang memasukkan nol
+  // tidak tertukar dengan rata-rata butir yang sungguh terhitung.
+  const skorDari = h => {
+    const m = h.match(/class="angka ([^"]*)">([\d.,]+)</);
+    if (!m) return { n: 0, ada: false };
+    if (/\bnol\b/.test(m[1])) return { n: 0, ada: false };
+    return { n: +String(m[2]).replace(',', '.'), ada: true };
+  };
 
   // Seluruh fungsi butir membaca TS global sebagai UJUNG jendela data.
   // TS digeser di sini sesuai sakelar, lalu dipulihkan setelah semua
@@ -1234,7 +1258,8 @@ function render(){
   const tren = {};
   tsTren.forEach(t => {
     TS = t;
-    daftar.forEach(x => { (tren[x.no] = tren[x.no] || {})[t] = skorDari(x.f()); });
+    daftar.forEach(x => { const r = skorDari(x.f());
+      (tren[x.no] = tren[x.no] || {})[t] = r.ada ? r.n : null; });
   });
   TS = tsAsli;
 
@@ -1245,15 +1270,19 @@ function render(){
   const htmlKeterlibatan = bagianKeterlibatan();
   const TS_DATA = TS;
   TS = TS_PILIH;
-  const semuaSkor = [];
+  const semuaSkor = [];        // hanya butir yang benar-benar terhitung
+  const semuaNol = [];         // seluruh butir, yang kosong dihitung 0
   const ring = daftar.map(x => {
-    const sN = skorDari(kartu[x.no]);
-    if (sN != null) semuaSkor.push(sN);
-    const kls = sN == null ? 'kos' : sN >= 3.5 ? 'hij' : sN >= 2 ? 'kun' : 'mer';
-    return `<div class="${kls}"><b>${sN == null ? '—' : f2(sN)}</b><span>Butir ${x.no}</span></div>`;
+    const { n, ada } = skorDari(kartu[x.no]);
+    if (ada) semuaSkor.push(n);
+    semuaNol.push(ada ? n : 0);
+    const kls = !ada ? 'kos' : n >= 3.5 ? 'hij' : n >= 2 ? 'kun' : 'mer';
+    return `<div class="${kls}" title="${ada ? '' : 'Belum ada nilai — dihitung 0'}">
+      <b>${f2(ada ? n : 0)}</b><span>Butir ${x.no}${ada ? '' : ' \u00b7 kosong'}</span></div>`;
   }).join('');
-  const rerata = semuaSkor.length
-    ? semuaSkor.reduce((a, b) => a + b, 0) / semuaSkor.length : null;
+  const rr = a => a.length ? a.reduce((p, q) => p + q, 0) / a.length : null;
+  const rerata = rr(semuaSkor);
+  const rerataNol = rr(semuaNol);
   const seksi = (id, judul, ket, nomor) =>
     seksiLipat(id, judul, ket, nomor.map(n => kartu[n]).join(''));
   // Nomor butir manual per seksi, diurutkan angka.
@@ -1272,12 +1301,33 @@ function render(){
 
     ${htmlKelengkapan}
 
+    <div class="kontrol-seksi" style="justify-content:flex-start;margin-bottom:-8px">
+      <a class="tbl-rinci" href="input-butir.html" rel="noopener"
+         style="color:#fff">Isi butir manual &#8599;</a>
+    </div>
+
     <h2>Ringkasan — TS ${esc(taDari(TS_PILIH))}</h2>
     <p class="ket">Jendela data berakhir di <b>TS ${esc(taDari(TS_DATA))}</b>${
       JENDELA_OFS ? ' (TS berjalan belum tutup buku, tidak ikut dihitung)' : ''} ·
-      ${semuaSkor.length} dari ${daftar.length} butir terhitung${
-      rerata == null ? '' : ` · rata-rata butir terhitung <b>${f2(rerata)}</b>`}.
-      Hijau ≥ 3,50 · kuning 2,00–3,49 · merah &lt; 2,00 · abu belum terhitung.</p>
+      ${semuaSkor.length} dari ${daftar.length} butir terhitung.
+      Hijau ≥ 3,50 · kuning 2,00–3,49 · merah &lt; 2,00 · abu belum ada nilainya
+      (ditampilkan 0,00).</p>
+
+    <div class="total">
+      <div><b>${rerata == null ? '—' : f2(rerata)}</b>
+        <span>Rata-rata butir terisi</span>
+        <i>Hanya ${semuaSkor.length} butir yang sudah punya nilai. Ini gambaran
+        mutu pada bagian yang sudah dinilai, bukan perkiraan hasil.</i></div>
+      <div><b>${rerataNol == null ? '—' : f2(rerataNol)}</b>
+        <span>Perkiraan batas bawah</span>
+        <i>Seluruh ${daftar.length} butir, yang belum ada nilainya dihitung 0.
+        Angka ini hanya naik ketika butir kosong diisi.</i></div>
+      <div><b>${daftar.length - semuaSkor.length}</b>
+        <span>Butir belum dinilai</span>
+        <i>Isi lewat halaman <a href="input-butir.html">isian butir manual</a>
+        atau lengkapi lembar datanya.</i></div>
+    </div>
+
     <div class="ringkas">${ring}</div>
     <div class="kontrol-seksi" id="seksi-semua"></div>
 
