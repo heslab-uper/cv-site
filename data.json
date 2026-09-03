@@ -2304,7 +2304,7 @@
     "na2": 2,
     "na3": 0,
     "na4": 0,
-    "nb1": 1,
+    "nb1": 0,
     "nb2": 0,
     "nb3": 1
    },
@@ -2329,36 +2329,10 @@
     "lainnya": 0
    }
   ],
-  "luaran_mhs": [
-   {
-    "tahun": 2025,
-    "paten": 0,
-    "ttg": 0,
-    "bc": 0,
-    "hki": 1,
-    "lainnya": 0
-   }
-  ]
+  "luaran_mhs": []
  },
  "mahasiswa_karya": {
-  "publikasi": [
-   {
-    "tahun": 2025,
-    "tahun_ts": 2025,
-    "judul": "Analisis Genangan Kampus dengan SIG",
-    "jenis": "prosiding",
-    "tingkat": "nasional"
-   }
-  ],
-  "luaran": [
-   {
-    "tahun": 2025,
-    "tahun_ts": 2025,
-    "jenis": "hak_cipta",
-    "bagian": 2,
-    "nama_bagian": "HKI: Hak Cipta, Desain, dll.",
-    "judul": "Peta interaktif titik banjir"
-   }
-  ]
+  "publikasi": [],
+  "luaran": []
  }
 }
