@@ -365,9 +365,7 @@ function rincianKarya(daftar, penyebut, labelPenyebut){
   if (!daftar.length) return '';
   const baris = daftar.map(k => `<tr>
       <td class="th">${esc(k.tahun)}</td>
-      <td>${esc(k.judul)}${k.bukti
-        ? ` <a href="${esc(k.bukti)}" rel="noopener nofollow" title="Bukti">&#8599;</a>`
-        : ''}</td>
+      <td>${esc(k.judul)}${tautanBukti(k.kategori, k.tahun, k.judul, k.bukti)}</td>
       <td class="mhs${k.mahasiswa ? ' ya' : ''}">${k.mahasiswa || '&ndash;'}</td>
       <td class="dana">${esc(EMBER_LABEL[k.ember_dana] || '&mdash;')}</td>
     </tr>`).join('');
@@ -387,6 +385,54 @@ function rincianKarya(daftar, penyebut, labelPenyebut){
     <summary>Rincian ${daftar.length} judul</summary>
     <div class="gulir"><table class="rinci-t">
       <thead><tr><th>Th</th><th>Judul</th><th>Mhs</th><th>Sumber dana</th></tr></thead>
+      <tbody>${baris}</tbody>
+    </table></div>${cek}</details>`;
+}
+
+// Bukti dari Supabase, terisi hanya setelah login dan lolos gerbang tabel
+// `dosen`. Kuncinya kategori|tahun|judul — judul di data.json dan di tabel
+// karya berasal dari kolom yang sama, jadi cocok persis. Kalau nanti ada dua
+// karya dengan judul, tahun, dan kategori identik, keduanya berbagi satu
+// entri; itu dilaporkan di konsol, bukan didiamkan.
+const BUKTI = new Map();
+function kunciBukti(kategori, tahun, judul){
+  return `${kategori}|${tahun}|${String(judul || '').trim().toLowerCase()}`;
+}
+function isiPetaBukti(baris){
+  BUKTI.clear();
+  (baris || []).forEach(r => {
+    const u = (r.bukti_url || '').trim();
+    if (!u) return;
+    const k = kunciBukti(r.kategori, r.tahun, r.judul);
+    if (BUKTI.has(k) && BUKTI.get(k) !== u)
+      console.warn('Dua karya berbagi kunci bukti yang sama:', k);
+    BUKTI.set(k, u);
+  });
+}
+function tautanBukti(kategori, tahun, judul, cadangan){
+  const u = BUKTI.get(kunciBukti(kategori, tahun, judul)) || cadangan || '';
+  return u ? ` <a href="${esc(u)}" rel="noopener nofollow" title="Bukti">&#8599;</a>` : '';
+}
+
+// Rincian sederhana untuk butir yang datanya berupa daftar baris apa adanya.
+// kolom = [{th, ambil}]; ambil(r) mengembalikan HTML sel.
+function rincianDaftar(judulBlok, daftar, kolom, penyebut, labelPenyebut){
+  if (!daftar.length) return '';
+  const baris = daftar.map(r => `<tr>${kolom
+    .map(c => `<td${c.kelas ? ` class="${c.kelas}"` : ''}>${c.ambil(r)}</td>`)
+    .join('')}</tr>`).join('');
+  let cek = '';
+  if (penyebut != null){
+    const cocok = daftar.length === penyebut;
+    cek = `<div class="rinci-cek${cocok ? '' : ' beda'}">` + (cocok
+      ? `${daftar.length} baris, sama dengan ${labelPenyebut} pada kartu.`
+      : `PERIKSA: daftar ${daftar.length} baris, ${labelPenyebut} pada kartu `
+        + `${penyebut}. Keduanya tidak berasal dari penyaring yang sama.`)
+      + `</div>`;
+  }
+  return `<details class="rinci"><summary>${esc(judulBlok)}</summary>
+    <div class="gulir"><table class="rinci-t">
+      <thead><tr>${kolom.map(c => `<th>${c.th}</th>`).join('')}</tr></thead>
       <tbody>${baris}</tbody>
     </table></div>${cek}</details>`;
 }
@@ -550,7 +596,17 @@ function butir33(){
                                  (j.na2 + j.na3 + j.nb2) / N,
                                  (j.na1 + j.nb1) / N, 0.5, 1, 2) : null;
   const isi = tabelNA(j) + `
-    <div class="rumus">RI=(NA4+NB3)/NDTPS &nbsp; RN=(NA2+NA3+NB2)/NDTPS &nbsp; RW=(NA1+NB1)/NDTPS &nbsp;·&nbsp; a=0,5 &nbsp;b=1 &nbsp;c=2 &nbsp;·&nbsp; NDTPS=${N}</div>`;
+    <div class="rumus">RI=(NA4+NB3)/NDTPS &nbsp; RN=(NA2+NA3+NB2)/NDTPS &nbsp; RW=(NA1+NB1)/NDTPS &nbsp;·&nbsp; a=0,5 &nbsp;b=1 &nbsp;c=2 &nbsp;·&nbsp; NDTPS=${N}</div>
+    ${rincianDaftar('Rincian publikasi',
+      (D.publikasi || []).filter(p => p.tahun_ts >= TS - 2 && p.tahun_ts <= TS)
+        .sort((a, b) => b.tahun_ts - a.tahun_ts),
+      [{th:'Th', kelas:'th', ambil: p => esc(p.tahun)},
+       {th:'Judul', ambil: p => esc(p.judul)
+          + tautanBukti('publikasi', p.tahun, p.judul)
+          + (p.doi ? ` <a href="https://doi.org/${esc(p.doi)}" rel="noopener">DOI</a>` : '')},
+       {th:'Jenis', kelas:'dana', ambil: p => esc(String(p.jenis || '').replace(/_/g,' '))},
+       {th:'Indeksasi', kelas:'dana', ambil: p => esc(String(p.indeksasi || p.tingkat || '&mdash;').replace(/_/g,' '))}],
+      j.na1+j.na2+j.na3+j.na4+j.nb1+j.nb2+j.nb3, 'jumlah seluruh kategori')}`;
   return kartuButir(33, 'Publikasi ilmiah DTPS', isi, skor,
     'Publikasi terverifikasi tahun ' + (TS - 2) + '–' + TS + '. NDTPS memakai ' +
     'jumlah dosen aktif; definisi instrumen ("pengampu mata kuliah sesuai ' +
@@ -575,7 +631,15 @@ function butir34(){
       <tr><td>NHKI — pencatatan ciptaan</td><td>${j.hki}</td><td>&times;1</td></tr>
       <tr><td><b>RLP</b></td><td colspan="2"><b>${RLP == null ? '—' : f2(RLP)}</b></td></tr>
     </tbody></table></div>
-    <div class="rumus">RLP = (3&times;NPaten + 2&times;(NTTG+NBC) + NHKI) / NDTPS &nbsp;·&nbsp; RLP &ge; 3 &rarr; 4 &nbsp;·&nbsp; NDTPS=${N}</div>`;
+    <div class="rumus">RLP = (3&times;NPaten + 2&times;(NTTG+NBC) + NHKI) / NDTPS &nbsp;·&nbsp; RLP &ge; 3 &rarr; 4 &nbsp;·&nbsp; NDTPS=${N}</div>
+    ${rincianDaftar('Rincian luaran',
+      (D.luaran_dosen || []).filter(x => x.tahun_ts >= TS - 2 && x.tahun_ts <= TS)
+        .sort((a, b) => b.tahun_ts - a.tahun_ts),
+      [{th:'Th', kelas:'th', ambil: x => esc(x.tahun)},
+       {th:'Judul', ambil: x => esc(x.judul)},
+       {th:'Jenis', kelas:'dana', ambil: x => esc(String(x.jenis || '').replace(/_/g,' '))},
+       {th:'Bagian', kelas:'dana', ambil: x => esc(x.nama_bagian || x.bagian || '&mdash;')}],
+      j.paten + j.ttg + j.bc + j.hki + j.lainnya, 'jumlah seluruh komponen')}`;
   return kartuButir(34, 'Luaran penelitian dan PkM DTPS', isi, skor,
     'Luaran terverifikasi tahun ' + (TS - 2) + '–' + TS + '. Baris "lainnya" (' +
     j.lainnya + ') tidak menyumbang skor.');
@@ -814,8 +878,19 @@ function butir37(){
   const P = org.size / N;
   const skor = P >= 0.5 ? 4 : 2 + 4 * P;
   return kartuButir(37, 'Rekognisi DTPS (Tabel 4.j LKPS)',
-    `<div class="rumus">PRDTPS = ${org.size}/${N} = ${f2(P * 100)}% · ≥ 50% → 4 · di bawah itu → 2 + (4 × PRDTPS) · skor terendah 2</div>`,
-    skor, 'Dosen dengan minimal satu rekognisi terverifikasi, jendela ' + taRange(3) + '.');
+    `<div class="rumus">PRDTPS = ${org.size}/${N} = ${f2(P * 100)}% · ≥ 50% → 4 · di bawah itu → 2 + (4 × PRDTPS) · skor terendah 2</div>
+     ${rincianDaftar('Rincian rekognisi',
+       (D.rekognisi || []).filter(x => x.tahun_ts >= TS - 2 && x.tahun_ts <= TS)
+         .sort((a, b) => b.tahun_ts - a.tahun_ts),
+       [{th:'Th', kelas:'th', ambil: x => esc(x.tahun)},
+        {th:'Kegiatan', ambil: x => esc(x.nama_kegiatan)
+           + tautanBukti('rekognisi', x.tahun, x.nama_kegiatan)},
+        {th:'Bentuk', kelas:'dana', ambil: x => esc(String(x.bentuk || '').replace(/_/g,' '))},
+        {th:'Tingkat', kelas:'dana', ambil: x => esc(String(x.tingkat || '').replace(/_/g,' '))}],
+       null, '')}`,
+    skor, 'Dosen dengan minimal satu rekognisi terverifikasi, jendela ' + taRange(3) +
+    '. Skor menghitung JUMLAH DOSEN (' + org.size + '), sedangkan daftar di bawah ' +
+    'memuat setiap rekognisi — satu dosen dengan dua rekognisi tetap dihitung sekali.');
 }
 
 // Butir 40 & 41 — rasio mahasiswa dan mahasiswa asing.
@@ -1289,15 +1364,21 @@ async function mulai(){
   if (!saya) return layarTidakTerdaftar(session.user.email);
 
   document.getElementById('nama-prodi').textContent = 'Memuat data\u2026';
-  const [jsonR, danaR, pengR] = await Promise.all([
+  const [jsonR, danaR, pengR, buktiR] = await Promise.all([
     fetch('data.json?v=' + Date.now()),
-    sb.from('karya').select('tahun,bulan,kategori,besaran_dana')
+    sb.from('karya').select('tahun,bulan,kategori,besaran_dana,judul,bukti_url')
       .eq('status', 'terverifikasi').in('kategori', ['penelitian', 'pkm']),
     sb.from('pengaturan').select('kunci,nilai'),
+    sb.from('karya').select('tahun,kategori,judul,bukti_url')
+      .eq('status', 'terverifikasi').in('kategori', ['publikasi', 'rekognisi']),
   ]);
   if (!jsonR.ok) throw new Error('data.json ' + jsonR.status);
   D = await jsonR.json();
   DANA = danaR.data || [];
+  // Bukti digabung dari dua query karya: penelitian/PkM (ikut query dana)
+  // dan publikasi/rekognisi. Keduanya lewat RLS, jadi hanya terbaca oleh
+  // pengguna yang sudah login dan terdaftar di tabel `dosen`.
+  isiPetaBukti([...(danaR.data || []), ...(buktiR.data || [])]);
   (pengR.data || []).forEach(r => PENG[r.kunci] = r.nilai);
   PENG_GAGAL = !!pengR.error;
 
