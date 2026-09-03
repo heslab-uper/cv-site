@@ -271,16 +271,44 @@ window.addEventListener('error', function(e){
     'dijalankan.</b> Pesan galat: <code>'+String(e.message).replace(/</g,'&lt;')+
     '</code>. Buka konsol peramban (F12) untuk rinciannya, lalu kirimkan ke pengelola.</p></div>';
 });
+// Kalau halaman tidak juga hidup, JANGAN menebak penyebabnya: periksa
+// dulu. Satu berkas modul yang belum diunggah menggagalkan seluruh skrip
+// dengan gejala yang persis sama dengan CDN terblokir, dan pesan yang
+// menebak salah mengirim orang mencari di tempat yang keliru.
+var MODUL = ['rincian.js', 'butir-manual.js', 'bobot.js', 'syarat-unggul.js'];
 setTimeout(function(){
   if (window.__skorHidup) return;
-  var sebab = (!window.SB_URL)
-    ? '<code>config.js</code> tidak termuat — pastikan berkasnya ada satu folder dengan halaman ini.'
-    : 'pustaka Supabase dari CDN (jsdelivr) tidak termuat — periksa koneksi internet '+
-      'atau pemblokir (adblock/firewall kampus), lalu muat ulang.';
   var isi = document.getElementById('isi');
-  if (isi) isi.innerHTML =
-    '<div class="kartu" style="margin-top:30px"><p class="kosong"><b>Halaman tidak '+
-    'kunjung siap.</b> Kemungkinan penyebab: '+sebab+'</p></div>';
+  if (!isi) return;
+  isi.innerHTML = '<div class="kartu" style="margin-top:30px">' +
+    '<p class="kosong">Halaman tidak kunjung siap — memeriksa penyebabnya…</p></div>';
+
+  Promise.all(MODUL.map(function(m){
+    return fetch(m + '?cek=' + Date.now())
+      .then(function(r){ return { m: m, ok: r.ok, kode: r.status }; })
+      .catch(function(){ return { m: m, ok: false, kode: 'gagal' }; });
+  })).then(function(hasil){
+    var hilang = hasil.filter(function(x){ return !x.ok; });
+    var sebab;
+    if (!window.SB_URL)
+      sebab = '<code>config.js</code> tidak termuat — pastikan berkasnya ada ' +
+              'satu folder dengan halaman ini.';
+    else if (hilang.length)
+      sebab = 'berkas modul belum ada di server: <code>' +
+              hilang.map(function(x){ return x.m + ' (' + x.kode + ')'; }).join('</code>, <code>') +
+              '</code>. Salin berkas itu ke folder yang sama dengan ' +
+              '<code>skor.html</code>, lalu commit dan push.';
+    else
+      sebab = 'seluruh berkas modul ada, jadi kemungkinan pustaka Supabase ' +
+              'dari CDN (jsdelivr) tidak termuat — periksa koneksi atau ' +
+              'pemblokir (adblock/firewall kampus). Bisa juga ada galat di ' +
+              'salah satu modul: buka konsol peramban (F12).';
+    isi.innerHTML = '<div class="kartu" style="margin-top:30px">' +
+      '<p class="kosong"><b>Halaman tidak kunjung siap.</b> ' + sebab +
+      '</p><p class="kosong" style="margin-top:8px;font-size:12px">Berkas ' +
+      'modul yang diperlukan: <code>' + MODUL.join('</code>, <code>') +
+      '</code>.</p></div>';
+  });
 }, 8000);
 </script>
 <script src="config.js"></script>
@@ -290,7 +318,6 @@ import { BUTIR, isiPetaBukti, cariBukti, kolomBukti } from './rincian.js';
 import { BUTIR_MANUAL, SEKSI_MANUAL, kunciButir, kunciBuktiButir, skorManual }
   from './butir-manual.js';
 import { BOBOT_TOTAL, bobotButir } from './bobot.js';
-import { syaratButir, SYARAT_RAGU } from './syarat.js';
 import { statusSyarat, syaratButir, SYARAT_UNGGUL } from './syarat-unggul.js';
 
 // config.js mendefinisikan window.SB_URL dan window.SB_KEY — pemetaan di
@@ -315,7 +342,7 @@ const sb = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 // Naikkan setiap kali skor.html / rincian.js / butir-manual.js / bobot.js
 // diubah. Ditampilkan di kaki halaman supaya ketahuan seketika kalau
 // peramban masih memakai salinan lama dari cache.
-const VERSI = '2026-09-03f';
+const VERSI = '2026-09-03h';
 // =====================================================================
 //  Kalkulator skor butir APS-AV 2025 1.0 (Program Sarjana) yang dapat
 //  dihitung dari data.json: 33, 34, 35, 42, 43, 46, 47, ditambah
@@ -518,26 +545,6 @@ function blokSyarat(no, skor){
     Unggul 5 tahun: ${s.arah === 'max' ? '≤' : '≥'} ${amb('u5')}
     (setara skor ${f2(s.skorMin.u5)}) &mdash; ${tanda(s.u5ok)}
     <span class="tur">${esc(s.turunan)}</span></div>`;
-}
-
-// Butir yang termasuk syarat perlu peringkat Unggul. Penandaan saja —
-// perhitungan lulus/tidaknya ada di monitoring.html dan sengaja TIDAK
-// disalin ke sini: dua salinan rumus yang sama adalah cara melahirkan
-// dua angka yang berbeda tanpa ada yang tahu mana yang benar.
-function tandaSyarat(no){
-  const y = syaratButir(no);
-  if (!y) return '';
-  return `<span class="syarat${y.pasti ? '' : ' ragu'}"
-    title="${esc(y.bunyi)}">&#9733; Syarat Unggul${y.pasti ? '' : ' ?'}</span>`;
-}
-function bunyiSyarat(no){
-  const y = syaratButir(no);
-  if (!y) return '';
-  return `<div class="syarat-bunyi${y.pasti ? '' : ' ragu'}">
-    <b>Syarat perlu peringkat Unggul</b> (butir ${y.syarat} dokumen syarat):
-    ${esc(y.bunyi)}. Capaian dan status lulusnya ada di
-    <a href="monitoring.html">halaman monitoring</a>.
-    ${y.ragu ? `<br><b>Belum dipastikan:</b> ${esc(y.ragu)}` : ''}</div>`;
 }
 
 function kartuButir(no, judul, isi, skor, catatan, lencana){
@@ -1416,13 +1423,6 @@ function render(){
   // dengan skala 0–4 di tiap kartu. Bobot tetap dipakai untuk MENGURUTKAN:
   // sisa poin yang bisa direbut = (4 − skor) × bobot. Butir bernilai 1,46
   // berbobot 0,22 hampir tak berpengaruh; butir 2,40 berbobot 5,32 sangat.
-  // Butir yang termasuk syarat perlu peringkat Unggul. Ditonjolkan karena
-  // sifatnya berbeda dari butir biasa: satu syarat gagal menggugurkan
-  // peringkat, sehingga nilainya tidak bisa ditukar dengan butir lain.
-  const syaratNo = daftar.map(x => x.no).filter(n => syaratButir(n));
-  const syaratKosong = syaratNo.filter(n => !skorDari(kartu[n]).ada);
-  const syaratTerisi = syaratNo.length - syaratKosong.length;
-
   const AMBANG_LEMAH = 2.5;
   const lemah = daftar
     .map(x => ({ no: x.no, ...skorDari(kartu[x.no]), b: bw(x.no) }))
@@ -1500,18 +1500,6 @@ function render(){
         ${syBelum.length ? `Butir ${syBelum.join(', ')} belum terhitung.` : ''}
         Syarat tata pamong, kurikulum, dan penjaminan mutu belum dipetakan —
         lihat <code>syarat-unggul.js</code>.</i></div>
-
-      <div><b class="${syaratKosong.length ? 'mer' : ''}">${
-        syaratTerisi}<span class="dari">/ ${syaratNo.length}</span></b>
-        <span>Syarat perlu Unggul</span>
-        <i>Butir yang menjadi syarat perlu peringkat: ${syaratNo.join(', ')}.
-        ${syaratKosong.length
-          ? 'Belum ada nilai: ' + syaratKosong.join(', ') + '. '
-          : 'Semuanya sudah punya nilai. '}Satu syarat gagal menggugurkan
-        peringkat, berapa pun nilai butir lain &mdash; status lulusnya di
-        <a href="monitoring.html">halaman monitoring</a>.
-        ${SYARAT_RAGU.length ? `Pemetaan butir ${SYARAT_RAGU.join(', ')}
-        belum dipastikan.` : ''}</i></div>
 
       <div><b class="${lemah.length ? 'mer' : ''}">${lemah.length}</b>
         <span>Butir di bawah 2,50</span>
