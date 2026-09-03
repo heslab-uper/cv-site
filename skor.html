@@ -179,6 +179,26 @@
   .bukti-sel:hover{background:var(--hijau);color:#fff;border-color:var(--hijau)}
   .bukti-kos{font-family:var(--mono);font-size:9.5px;letter-spacing:.06em;
     text-transform:uppercase;color:#C0C8CE;margin-left:6px}
+  .syarat{font-family:var(--mono);font-size:9.5px;letter-spacing:.09em;
+    text-transform:uppercase;background:var(--biru);color:#fff;
+    padding:3px 8px;border-radius:2px;margin-left:8px;vertical-align:2px}
+  .syarat-ket{font-size:12.5px;margin-top:10px;padding:9px 12px;border-radius:2px;
+    border-left:3px solid var(--biru);background:#F2F6FA}
+  .syarat-ket.gagal{border-left-color:var(--merah);background:#FDF3F4}
+  .syarat-ket.lolos{border-left-color:var(--hijau);background:#EFF7F2}
+  .syarat-ket b{font-family:var(--mono);font-size:11.5px;letter-spacing:.04em}
+  .syarat-ket .tur{display:block;color:var(--muted);font-size:11.5px;
+    font-family:var(--mono);margin-top:5px}
+  .kartu.syarat-gagal{border-left:3px solid var(--merah)}
+  .syarat{font-family:var(--mono);font-size:9.5px;letter-spacing:.09em;
+    text-transform:uppercase;background:#F7E4E7;color:var(--merah);
+    padding:3px 8px;border-radius:2px;margin-left:8px;vertical-align:2px;
+    white-space:nowrap}
+  .syarat.ragu{background:#F3EEDF;color:var(--emas)}
+  .syarat-bunyi{font-size:12.5px;color:var(--ink);background:#FDF3F4;
+    border-left:3px solid var(--merah);padding:9px 12px;border-radius:2px;
+    margin:8px 0 2px;line-height:1.45}
+  .syarat-bunyi.ragu{background:#FBF7EC;border-left-color:var(--emas)}
   .manual{font-family:var(--mono);font-size:9.5px;letter-spacing:.09em;
     text-transform:uppercase;background:#F3EEDF;color:var(--emas);
     padding:3px 8px;border-radius:2px;margin-left:8px;vertical-align:2px}
@@ -270,6 +290,8 @@ import { BUTIR, isiPetaBukti, cariBukti } from './rincian.js';
 import { BUTIR_MANUAL, SEKSI_MANUAL, kunciButir, kunciBuktiButir, skorManual }
   from './butir-manual.js';
 import { BOBOT_TOTAL, bobotButir } from './bobot.js';
+import { syaratButir, SYARAT_RAGU } from './syarat.js';
+import { statusSyarat, syaratButir, SYARAT_UNGGUL } from './syarat-unggul.js';
 
 // config.js mendefinisikan window.SB_URL dan window.SB_KEY — pemetaan di
 // bawah ini WAJIB ada. skor.html versi sebelumnya melewatkannya dan mati
@@ -476,13 +498,58 @@ function butirManual(b){
     '<span class="manual">diisi manual</span>');
 }
 
+// Tanda syarat perlu peringkat. Satu butir yang gagal menggugurkan sasaran
+// peringkat itu, berapa pun skor butir lain — jadi ditampilkan terpisah dari
+// skor dan tidak ikut dirata-ratakan.
+function blokSyarat(no, skor){
+  const s = statusSyarat(no, skor);
+  if (!s) return '';
+  const amb = t => `${f2(s[t])}${s.satuan === '%' ? '%' : ' ' + s.satuan}`;
+  const tanda = ok => ok == null ? '<span style="color:var(--muted)">belum terhitung</span>'
+    : ok ? '<span style="color:var(--hijau)">terpenuhi</span>'
+         : '<span style="color:var(--merah)">BELUM terpenuhi</span>';
+  const kls = !s.tahu ? '' : s.u5ok ? ' lolos' : ' gagal';
+  return `<div class="syarat-ket${kls}">
+    <b>Syarat perlu peringkat &mdash; butir ${esc(s.syarat)} instrumen syarat
+    perlu (${esc(s.label)})</b><br>
+    Unggul 3 tahun: ${s.arah === 'max' ? '≤' : '≥'} ${amb('u3')}
+    (setara skor ${f2(s.skorMin.u3)}) &mdash; ${tanda(s.u3ok)} ·
+    Unggul 5 tahun: ${s.arah === 'max' ? '≤' : '≥'} ${amb('u5')}
+    (setara skor ${f2(s.skorMin.u5)}) &mdash; ${tanda(s.u5ok)}
+    <span class="tur">${esc(s.turunan)}</span></div>`;
+}
+
+// Butir yang termasuk syarat perlu peringkat Unggul. Penandaan saja —
+// perhitungan lulus/tidaknya ada di monitoring.html dan sengaja TIDAK
+// disalin ke sini: dua salinan rumus yang sama adalah cara melahirkan
+// dua angka yang berbeda tanpa ada yang tahu mana yang benar.
+function tandaSyarat(no){
+  const y = syaratButir(no);
+  if (!y) return '';
+  return `<span class="syarat${y.pasti ? '' : ' ragu'}"
+    title="${esc(y.bunyi)}">&#9733; Syarat Unggul${y.pasti ? '' : ' ?'}</span>`;
+}
+function bunyiSyarat(no){
+  const y = syaratButir(no);
+  if (!y) return '';
+  return `<div class="syarat-bunyi${y.pasti ? '' : ' ragu'}">
+    <b>Syarat perlu peringkat Unggul</b> (butir ${y.syarat} dokumen syarat):
+    ${esc(y.bunyi)}. Capaian dan status lulusnya ada di
+    <a href="monitoring.html">halaman monitoring</a>.
+    ${y.ragu ? `<br><b>Belum dipastikan:</b> ${esc(y.ragu)}` : ''}</div>`;
+}
+
 function kartuButir(no, judul, isi, skor, catatan, lencana){
   const pct = skor == null ? 0 : (skor / 4) * 100;
-  return `<div class="kartu"><div class="butir">
+  const sy = statusSyarat(no, skor);
+  return `<div class="kartu${sy && sy.tahu && !sy.u5ok ? ' syarat-gagal' : ''}">
+    <div class="butir">
     <div>
       <div class="no">Butir ${no} · APS-AV 2025</div>
-      <h3>${esc(judul)}${lencana || ''}</h3>
+      <h3>${esc(judul)}${lencana || ''}${
+        syaratButir(no) ? '<span class="syarat">syarat perlu unggul</span>' : ''}</h3>
       ${isi}
+      ${blokSyarat(no, skor)}
       ${catatan ? `<div class="ctt">${catatan}</div>` : ''}
     </div>
     <div class="skorbox">
@@ -1348,12 +1415,31 @@ function render(){
   // dengan skala 0–4 di tiap kartu. Bobot tetap dipakai untuk MENGURUTKAN:
   // sisa poin yang bisa direbut = (4 − skor) × bobot. Butir bernilai 1,46
   // berbobot 0,22 hampir tak berpengaruh; butir 2,40 berbobot 5,32 sangat.
+  // Butir yang termasuk syarat perlu peringkat Unggul. Ditonjolkan karena
+  // sifatnya berbeda dari butir biasa: satu syarat gagal menggugurkan
+  // peringkat, sehingga nilainya tidak bisa ditukar dengan butir lain.
+  const syaratNo = daftar.map(x => x.no).filter(n => syaratButir(n));
+  const syaratKosong = syaratNo.filter(n => !skorDari(kartu[n]).ada);
+  const syaratTerisi = syaratNo.length - syaratKosong.length;
+
   const AMBANG_LEMAH = 2.5;
   const lemah = daftar
     .map(x => ({ no: x.no, ...skorDari(kartu[x.no]), b: bw(x.no) }))
     .filter(x => x.ada && x.n < AMBANG_LEMAH)
     .map(x => ({ ...x, sisa: (4 - x.n) * x.b }))
     .sort((p, q) => q.sisa - p.sisa);
+
+  // Syarat perlu peringkat diperiksa terhadap sasaran Unggul 5 tahun, sasaran
+  // yang ditandai `utama` di ambang.js. Tidak ikut dirata-ratakan: ia lulus
+  // atau tidak, dan satu butir gagal menggugurkan sasarannya secara mutlak.
+  const sySemua = Object.keys(SYARAT_UNGGUL).map(no => {
+    const { n, ada } = skorDari(kartu[no] || '');
+    const st = statusSyarat(no, ada ? n : null);
+    return { no, n, ada, ...st, min: st.skorMin.u5 };
+  });
+  const syTahu  = sySemua.filter(x => x.ada);
+  const syGagal = syTahu.filter(x => !x.u5ok);
+  const syBelum = sySemua.filter(x => !x.ada).map(x => x.no);
   const seksi = (id, judul, ket, nomor) =>
     seksiLipat(id, judul, ket, nomor.map(n => kartu[n]).join(''));
   // Nomor butir manual per seksi, diurutkan angka.
@@ -1399,6 +1485,32 @@ function render(){
         <a href="input-butir.html">halaman butir manual</a>.
         <b>${kosongData.length} berumus</b> menunggu data: ${
           kosongData.length ? kosongData.join(', ') : '—'}.</i></div>
+
+      <div><b class="${syGagal.length ? 'mer' : syTahu.length ? 'hij' : ''}"
+        >${syTahu.length - syGagal.length} <span class="dari">/ ${
+        Object.keys(SYARAT_UNGGUL).length}</span></b>
+        <span>Syarat perlu Unggul</span>
+        <i>${syGagal.length
+          ? '<b>BELUM terpenuhi:</b> ' + syGagal.map(x =>
+              `butir ${x.no} (${f2(x.n)}, perlu ${f2(x.min)})`).join('; ')
+            + '. Satu saja gagal menggugurkan sasaran Unggul 5 tahun.'
+          : syTahu.length ? 'Seluruh syarat yang terpetakan terpenuhi.'
+                          : 'Belum ada yang terhitung.'}
+        ${syBelum.length ? `Butir ${syBelum.join(', ')} belum terhitung.` : ''}
+        Syarat tata pamong, kurikulum, dan penjaminan mutu belum dipetakan —
+        lihat <code>syarat-unggul.js</code>.</i></div>
+
+      <div><b class="${syaratKosong.length ? 'mer' : ''}">${
+        syaratTerisi}<span class="dari">/ ${syaratNo.length}</span></b>
+        <span>Syarat perlu Unggul</span>
+        <i>Butir yang menjadi syarat perlu peringkat: ${syaratNo.join(', ')}.
+        ${syaratKosong.length
+          ? 'Belum ada nilai: ' + syaratKosong.join(', ') + '. '
+          : 'Semuanya sudah punya nilai. '}Satu syarat gagal menggugurkan
+        peringkat, berapa pun nilai butir lain &mdash; status lulusnya di
+        <a href="monitoring.html">halaman monitoring</a>.
+        ${SYARAT_RAGU.length ? `Pemetaan butir ${SYARAT_RAGU.join(', ')}
+        belum dipastikan.` : ''}</i></div>
 
       <div><b class="${lemah.length ? 'mer' : ''}">${lemah.length}</b>
         <span>Butir di bawah 2,50</span>
