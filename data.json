@@ -1,7 +1,7 @@
 {
  "prodi": "Teknik Sipil",
  "institusi": "Universitas Pertamina",
- "diperbarui": "03 September 2026",
+ "diperbarui": "05 September 2026",
  "dosen": [
   {
    "nama": "Adita Utami",
@@ -860,6 +860,34 @@
      "nama": "Gati Annisa Hayu",
      "slug": "gati-annisa-hayu",
      "peran": "penulis_pertama",
+     "korespondensi": true
+    }
+   ]
+  },
+  {
+   "judul": "Effect of Latex Rubber as Asphalt Additive to the Characteristics of AC-WC Mixture",
+   "tahun": 2024,
+   "tahun_ts": 2024,
+   "dari_kegiatan": "\tPengaruh Penggantian Filler menggunakan Fly Ash dan Subtitusi Karet Alam Sebagai Aditif untuk Campuran Aspal Terhadap Karakteristik Campuran Laston Lapis Aus (AC - WC)",
+   "jenis": "jurnal",
+   "terbitan": "Reka Buana: Jurnal Ilmiah Teknik Sipil dan Teknik Kimia",
+   "tingkat": "nasional",
+   "indeksasi": "sinta_3_4",
+   "doi": "https://doi.org/10.33366/rekabuana.v8i2.5143",
+   "url": "https://jurnal.unitri.ac.id/index.php/rekabuana/article/view/5143",
+   "mitra": [
+    {
+     "nama": "Kementerian Pekerjaan Umum",
+     "tingkat": "nasional",
+     "negara": "Indonesia"
+    }
+   ],
+   "mahasiswa": 3,
+   "penulis": [
+    {
+     "nama": "Adita Utami",
+     "slug": "adita-utami",
+     "peran": "anggota",
      "korespondensi": true
     }
    ]
@@ -1934,8 +1962,8 @@
    "tahun": 2024,
    "tahun_ts": 2024,
    "kategori": "publikasi",
-   "keterlibatan": 4,
-   "mahasiswa_unik": 4
+   "keterlibatan": 7,
+   "mahasiswa_unik": 6
   },
   {
    "tahun": 2023,
@@ -2101,7 +2129,7 @@
    {
     "tahun": 2024,
     "internasional": 0,
-    "nasional": 6,
+    "nasional": 7,
     "wilayah": 1,
     "tanpa_tingkat": 0,
     "pendidikan": 0
@@ -2269,7 +2297,7 @@
    {
     "tahun": 2024,
     "na1": 0,
-    "na2": 3,
+    "na2": 4,
     "na3": 0,
     "na4": 2,
     "nb1": 0,
@@ -2311,7 +2339,7 @@
    {
     "tahun": 2024,
     "na1": 0,
-    "na2": 3,
+    "na2": 4,
     "na3": 0,
     "na4": 0,
     "nb1": 0,
